@@ -12,7 +12,6 @@ import com.myrran.model.skills.templates.stat.TemplateStat
 import com.myrran.model.skills.templates.stat.TemplateStatFixed
 import com.myrran.model.skills.templates.stat.TemplateStatUpgradeable
 import com.myrran.model.spells.bdebuffs.BuffType
-import java.util.UUID
 
 class BuffSkillTemplate(
 
@@ -25,7 +24,7 @@ class BuffSkillTemplate(
     fun toBuffSkill(): BuffSkill =
 
         BuffSkill(
-            id = BuffSkillId(UUID.randomUUID()),
+            id = BuffSkillId.new(),
             type = type,
             name = name,
             stats = Stats( stats.map { toStat(it) } )

@@ -9,7 +9,14 @@ class SubSkillSlots {
 
     private val slots = HashMap<SubSkillSlotId, SubSkillSlot>()
 
-    fun getSlot(subSkillSlotId: SubSkillSlotId): SubSkill? =
+    // SUBSKILL:
+    //--------------------------------------------------------------------------------------------------------
+
+    fun getSubSkillSlots(): Collection<SubSkillSlot> =
+
+        slots.values
+
+    fun getSubSkill(subSkillSlotId: SubSkillSlotId): SubSkill? =
 
         slots[subSkillSlotId]?.content
 

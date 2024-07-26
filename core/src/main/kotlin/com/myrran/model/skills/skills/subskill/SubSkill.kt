@@ -1,6 +1,7 @@
 package com.myrran.model.skills.skills.subskill
 
 import com.myrran.model.skills.skills.bdebuff.BuffSkill
+import com.myrran.model.skills.skills.bdebuff.BuffSkillSlot
 import com.myrran.model.skills.skills.bdebuff.BuffSkillSlotId
 import com.myrran.model.skills.skills.bdebuff.BuffSkillSlots
 import com.myrran.model.skills.stat.Stat
@@ -29,9 +30,16 @@ data class SubSkill(
 
         stats.getStat(statId)!!
 
-    fun getSlots(): Collection<BuffSkill> =
+    // BDEBUFFSKILLS:
+    //--------------------------------------------------------------------------------------------------------
 
-        slots.getSlots()
+    fun getBuffSkillSlots(): Collection<BuffSkillSlot> =
+
+        slots.getBuffSkillSlots()
+
+    fun getBuffSkills(): Collection<BuffSkill> =
+
+        slots.getBuffSkills()
 
     // UPGRADES:
     //--------------------------------------------------------------------------------------------------------

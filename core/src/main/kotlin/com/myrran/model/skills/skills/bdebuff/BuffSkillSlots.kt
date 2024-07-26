@@ -8,7 +8,14 @@ class BuffSkillSlots {
 
     private val slots = HashMap<BuffSkillSlotId, BuffSkillSlot>()
 
-    fun getSlots(): Collection<BuffSkill> =
+    // BDEBUFFSKILL:
+    //--------------------------------------------------------------------------------------------------------
+
+    fun getBuffSkillSlots(): Collection<BuffSkillSlot> =
+
+        slots.values
+
+    fun getBuffSkills(): Collection<BuffSkill> =
 
         slots.values.mapNotNull { it.content }
 

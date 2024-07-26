@@ -16,7 +16,7 @@ class SpellBolt(
 
     fun onCollision() {
 
-        val impactSubSkill = skill.getSlot(SubSkillSlotId("IMPACT"))
+        val impactSubSkill = skill.getSubSkill(SubSkillSlotId("IMPACT"))
         val impactSpell = impactSubSkill?.createSpell()
 
     }
