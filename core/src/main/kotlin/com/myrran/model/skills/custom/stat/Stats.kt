@@ -7,7 +7,7 @@ class Stats(
     private val stats = stats.associateBy { it.id }
 
     fun getStats(): Collection<Stat> = stats.values
-    fun getStat(statId: StatId): Stat = stats[statId]!!
+    fun getStat(statId: StatId): Stat? = stats[statId]
 
 
     fun upgrade(statId: StatId, upgradeBy: Upgrades) =

@@ -13,11 +13,8 @@ class SubSkillSlots {
 
         slots[subSkillSlotId]?.content
 
-    fun totalCost(): UpgradeCost =
-
-        slots.values
-            .map { it.totalCost() }
-            .reduce { acc, next -> acc.sum(next) }
+    // UPGRADES:
+    //--------------------------------------------------------------------------------------------------------
 
     fun upgrade(slotId: SubSkillSlotId, statId: StatId, upgradeBy: Upgrades) =
 
@@ -26,5 +23,11 @@ class SubSkillSlots {
     fun upgrade(slotId: SubSkillSlotId, buffSlotId: BuffSkillSlotId, statId: StatId, upgradeBy: Upgrades) =
 
         slots[slotId]?.upgrade(buffSlotId, statId, upgradeBy)
+
+    fun totalCost(): UpgradeCost =
+
+        slots.values
+            .map { it.totalCost() }
+            .reduce { acc, next -> acc.sum(next) }
 }
 

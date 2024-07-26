@@ -15,14 +15,6 @@ class BuffSkillSlot(
     var content: BuffSkill?
 )
 {
-    fun totalCost(): UpgradeCost =
-
-        content?.totalCost() ?: UpgradeCost.ZERO
-
-    fun upgrade(statId: StatId, upgradeBy: Upgrades) =
-
-        content?.upgrade(statId, upgradeBy)
-
     fun openedBy(keys: Collection<LockTypes>): Boolean =
 
         lock.isOpenedBy(keys)
@@ -34,4 +26,16 @@ class BuffSkillSlot(
             true -> content = template.toBuffSkill()
             false -> Unit
         }
+
+    // UPGRADES:
+    //--------------------------------------------------------------------------------------------------------
+
+    fun upgrade(statId: StatId, upgradeBy: Upgrades) =
+
+        content?.upgrade(statId, upgradeBy)
+
+
+    fun totalCost(): UpgradeCost =
+
+        content?.totalCost() ?: UpgradeCost.ZERO
 }

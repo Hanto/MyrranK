@@ -20,9 +20,12 @@ data class BuffSkill(
 
         type.builder.invoke(this)
 
-    fun totalCost(): UpgradeCost = stats.totalCost()
+    // UPGRADES:
+    //--------------------------------------------------------------------------------------------------------
 
     fun upgrade(statId: StatId, upgradeBy: Upgrades) =
 
         stats.upgrade(statId, upgradeBy)
+
+    fun totalCost(): UpgradeCost = stats.totalCost()
 }

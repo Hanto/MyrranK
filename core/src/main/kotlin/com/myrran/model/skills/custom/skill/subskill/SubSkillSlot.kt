@@ -17,7 +17,12 @@ class SubSkillSlot(
 
 )
 {
-    fun totalCost(): UpgradeCost = content?.totalCost() ?: ZERO
+    fun openedBy(keys: Collection<LockTypes>): Boolean =
+
+        lock.isOpenedBy(keys)
+
+    // UPGRADES:
+    //--------------------------------------------------------------------------------------------------------
 
     fun upgrade(statId: StatId, upgradeBy: Upgrades) =
 
@@ -27,7 +32,5 @@ class SubSkillSlot(
 
         content?.upgrade(slotId, statId, upgradeBy)
 
-    fun openedBy(keys: Collection<LockTypes>): Boolean =
-
-        lock.isOpenedBy(keys)
+    fun totalCost(): UpgradeCost = content?.totalCost() ?: ZERO
 }

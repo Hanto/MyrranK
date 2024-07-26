@@ -27,7 +27,7 @@ data class SubSkill(
 
     fun getStat(statId: StatId): Stat =
 
-        stats.getStat(statId)
+        stats.getStat(statId)!!
 
     fun getSlots(): Collection<BuffSkill> =
 
@@ -35,6 +35,14 @@ data class SubSkill(
 
     // UPGRADES:
     //--------------------------------------------------------------------------------------------------------
+
+    fun upgrade(statId: StatId, upgradeBy: Upgrades) =
+
+        stats.upgrade(statId, upgradeBy)
+
+    fun upgrade(buffSkillSlotId: BuffSkillSlotId, statId: StatId, upgradeBy: Upgrades) =
+
+        slots.upgrade(buffSkillSlotId, statId, upgradeBy)
 
     fun baseCost(): UpgradeCost =
 
@@ -47,13 +55,4 @@ data class SubSkill(
 
         return baseCost.sum(slotCost)
     }
-
-    fun upgrade(statId: StatId, upgradeBy: Upgrades) =
-
-        stats.upgrade(statId, upgradeBy)
-
-    fun upgrade(buffSkillSlotId: BuffSkillSlotId, statId: StatId, upgradeBy: Upgrades) =
-
-        slots.upgrade(buffSkillSlotId, statId, upgradeBy)
-
 }

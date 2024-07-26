@@ -12,13 +12,17 @@ class BuffSkillSlots {
 
         slots.values.mapNotNull { it.content }
 
+    // UPGRADES:
+    //--------------------------------------------------------------------------------------------------------
+
+    fun upgrade(buffSkillSlotId: BuffSkillSlotId, statId: StatId, upgradeBy: Upgrades) =
+
+        slots[buffSkillSlotId]?.upgrade(statId, upgradeBy)
+
     fun totalCost(): UpgradeCost =
 
         slots.values
             .map { it.totalCost() }
             .reduce { acc, next -> acc.sum(next) }
 
-    fun upgrade(buffSkillSlotId: BuffSkillSlotId, statId: StatId, upgradeBy: Upgrades) =
-
-        slots[buffSkillSlotId]?.upgrade(statId, upgradeBy)
 }

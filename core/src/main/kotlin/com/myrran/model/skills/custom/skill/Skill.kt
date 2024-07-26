@@ -28,7 +28,7 @@ data class Skill(
 
     fun getStat(statId: StatId): Stat =
 
-        stats.getStat(statId)
+        stats.getStat(statId)!!
 
     fun getSlot(subSkillSlotId: SubSkillSlotId): SubSkill? =
 
@@ -36,18 +36,6 @@ data class Skill(
 
     // UPGRADES:
     //--------------------------------------------------------------------------------------------------------
-
-    fun baseCost(): UpgradeCost =
-
-        stats.totalCost()
-
-    fun totalCost(): UpgradeCost {
-
-        val baseCost = stats.totalCost()
-        val slotCost = slots.totalCost()
-
-        return baseCost.sum(slotCost)
-    }
 
     fun upgrade(statId: StatId, upgradeBy: Upgrades) =
 
@@ -60,4 +48,16 @@ data class Skill(
     fun upgrade(subSkillSlotId: SubSkillSlotId, buffSkillSlotId: BuffSkillSlotId, statId: StatId, upgradeBy: Upgrades) =
 
         slots.upgrade(subSkillSlotId, buffSkillSlotId, statId, upgradeBy)
+
+    fun baseCost(): UpgradeCost =
+
+        stats.totalCost()
+
+    fun totalCost(): UpgradeCost {
+
+        val baseCost = stats.totalCost()
+        val slotCost = slots.totalCost()
+
+        return baseCost.sum(slotCost)
+    }
 }
