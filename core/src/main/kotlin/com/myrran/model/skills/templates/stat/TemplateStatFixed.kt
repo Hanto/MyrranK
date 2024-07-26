@@ -4,10 +4,10 @@ import com.myrran.model.skills.stat.StatBonus
 import com.myrran.model.skills.stat.StatId
 import com.myrran.model.skills.stat.StatName
 
-sealed interface TemplateStat {
+class TemplateStatFixed(
 
-    val id: StatId
-    val name: StatName
-    val baseBonus: StatBonus
+    override val id: StatId,
+    override val name: StatName,
+    override val baseBonus: StatBonus,
 
-}
+    ): TemplateStat

@@ -1,8 +1,8 @@
 package com.myrran.model.spells.spell
 
-import com.myrran.model.skills.custom.skill.Skill
-import com.myrran.model.skills.custom.skill.subskill.SubSkillSlotId
-import com.myrran.model.skills.custom.stat.StatId
+import com.myrran.model.skills.skills.skill.Skill
+import com.myrran.model.skills.skills.subskill.SubSkillSlotId
+import com.myrran.model.skills.stat.StatId
 
 class SpellBolt(
 

@@ -1,14 +1,15 @@
 package com.myrran.model.skills.templates
 
-import com.myrran.model.skills.custom.skill.subskill.buff.BuffSkill
-import com.myrran.model.skills.custom.skill.subskill.buff.BuffSkillId
-import com.myrran.model.skills.custom.skill.subskill.buff.BuffSkillName
-import com.myrran.model.skills.custom.stat.Stat
-import com.myrran.model.skills.custom.stat.StatUpgradeable
-import com.myrran.model.skills.custom.stat.Stats
-import com.myrran.model.skills.custom.stat.Upgrades
-import com.myrran.model.skills.lock.LockTypes
+import com.myrran.model.skills.skills.bdebuff.BuffSkill
+import com.myrran.model.skills.skills.bdebuff.BuffSkillId
+import com.myrran.model.skills.skills.bdebuff.BuffSkillName
+import com.myrran.model.skills.stat.Stat
+import com.myrran.model.skills.stat.StatFixed
+import com.myrran.model.skills.stat.StatUpgradeable
+import com.myrran.model.skills.stat.Stats
+import com.myrran.model.skills.stat.Upgrades
 import com.myrran.model.skills.templates.stat.TemplateStat
+import com.myrran.model.skills.templates.stat.TemplateStatFixed
 import com.myrran.model.skills.templates.stat.TemplateStatUpgradeable
 import com.myrran.model.spells.bdebuffs.BuffType
 import java.util.UUID
@@ -42,6 +43,12 @@ class BuffSkillTemplate(
                 templateStat.maximum,
                 templateStat.upgradeCost,
                 templateStat.bonusPerUpgrade)
+
+            is TemplateStatFixed -> StatFixed(
+                templateStat.id,
+                templateStat.name,
+                templateStat.baseBonus
+            )
         }
 
 }

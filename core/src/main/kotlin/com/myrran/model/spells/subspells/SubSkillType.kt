@@ -1,6 +1,6 @@
 package com.myrran.model.spells.subspells
 
-import com.myrran.model.skills.custom.skill.subskill.SubSkill
+import com.myrran.model.skills.skills.subskill.SubSkill
 
 enum class SubSkillType(val builder: (subSkill: SubSkill) -> SubSpell) {
 

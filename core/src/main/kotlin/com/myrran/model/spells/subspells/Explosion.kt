@@ -1,7 +1,7 @@
 package com.myrran.model.spells.subspells
 
-import com.myrran.model.skills.custom.skill.subskill.SubSkill
-import com.myrran.model.skills.custom.stat.StatId
+import com.myrran.model.skills.skills.subskill.SubSkill
+import com.myrran.model.skills.stat.StatId
 
 class Explosion(
 

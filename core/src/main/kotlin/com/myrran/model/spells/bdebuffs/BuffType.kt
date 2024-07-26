@@ -1,6 +1,6 @@
 package com.myrran.model.spells.bdebuffs
 
-import com.myrran.model.skills.custom.skill.subskill.buff.BuffSkill
+import com.myrran.model.skills.skills.bdebuff.BuffSkill
 
 enum class BuffType(val builder: (buffSkill: BuffSkill) -> BDebuff)
 {
