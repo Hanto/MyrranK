@@ -1,9 +1,9 @@
 package com.myrran.infraestructure
 
-import com.myrran.model.skills.templates.LockTypes
-import com.myrran.model.spells.buffs.BuffType
-import com.myrran.model.spells.spell.SkillType
-import com.myrran.model.spells.subspells.SubSkillType
+import com.myrran.domain.skills.templates.LockTypes
+import com.myrran.domain.spells.buffspell.BuffType
+import com.myrran.domain.spells.spell.SkillType
+import com.myrran.domain.spells.subspell.SubSkillType
 
 data class SkillEntity(
     val id: String,
