@@ -1,8 +1,8 @@
 package com.myrran.model.skills.templates
 
-import com.myrran.model.skills.skills.bdebuff.BuffSkill
-import com.myrran.model.skills.skills.bdebuff.BuffSkillId
-import com.myrran.model.skills.skills.bdebuff.BuffSkillName
+import com.myrran.model.skills.skills.buffSkill.BuffSkill
+import com.myrran.model.skills.skills.buffSkill.BuffSkillId
+import com.myrran.model.skills.skills.buffSkill.BuffSkillName
 import com.myrran.model.skills.stat.Stat
 import com.myrran.model.skills.stat.StatFixed
 import com.myrran.model.skills.stat.StatUpgradeable
@@ -11,7 +11,7 @@ import com.myrran.model.skills.stat.Upgrades
 import com.myrran.model.skills.templates.stat.TemplateStat
 import com.myrran.model.skills.templates.stat.TemplateStatFixed
 import com.myrran.model.skills.templates.stat.TemplateStatUpgradeable
-import com.myrran.model.spells.bdebuffs.BuffType
+import com.myrran.model.spells.buffs.BuffType
 
 class BuffSkillTemplate(
 

@@ -1,4 +1,4 @@
-package com.myrran.model.skills.skills.bdebuff
+package com.myrran.model.skills.skills.buffSkill
 
 import java.util.UUID
 

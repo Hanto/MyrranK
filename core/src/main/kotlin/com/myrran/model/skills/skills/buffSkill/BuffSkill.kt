@@ -1,11 +1,11 @@
-package com.myrran.model.skills.skills.bdebuff
+package com.myrran.model.skills.skills.buffSkill
 
 import com.myrran.model.skills.stat.StatId
 import com.myrran.model.skills.stat.Stats
 import com.myrran.model.skills.stat.UpgradeCost
 import com.myrran.model.skills.stat.Upgrades
-import com.myrran.model.spells.bdebuffs.BDebuff
-import com.myrran.model.spells.bdebuffs.BuffType
+import com.myrran.model.spells.buffs.Buff
+import com.myrran.model.spells.buffs.BuffType
 
 data class BuffSkill(
 
@@ -16,7 +16,7 @@ data class BuffSkill(
 
 )
 {
-    fun createDebuff(): BDebuff =
+    fun createDebuff(): Buff =
 
         type.builder.invoke(this)
 

@@ -1,4 +1,4 @@
-package com.myrran.model.skills.skills.bdebuff
+package com.myrran.model.skills.skills.buffSkill
 
 import com.myrran.model.skills.stat.StatId
 import com.myrran.model.skills.stat.UpgradeCost

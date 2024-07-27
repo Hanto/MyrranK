@@ -1,9 +1,9 @@
 package com.myrran.model.skills.skills.subskill
 
-import com.myrran.model.skills.skills.bdebuff.BuffSkill
-import com.myrran.model.skills.skills.bdebuff.BuffSkillSlot
-import com.myrran.model.skills.skills.bdebuff.BuffSkillSlotId
-import com.myrran.model.skills.skills.bdebuff.BuffSkillSlots
+import com.myrran.model.skills.skills.buffSkill.BuffSkill
+import com.myrran.model.skills.skills.buffSkill.BuffSkillSlot
+import com.myrran.model.skills.skills.buffSkill.BuffSkillSlotId
+import com.myrran.model.skills.skills.buffSkill.BuffSkillSlots
 import com.myrran.model.skills.stat.Stat
 import com.myrran.model.skills.stat.StatId
 import com.myrran.model.skills.stat.Stats
