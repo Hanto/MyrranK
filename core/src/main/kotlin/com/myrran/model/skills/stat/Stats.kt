@@ -4,7 +4,7 @@ class Stats(
     stats: Collection<Stat>
 )
 {
-    private val stats = stats.associateBy { it.id }
+    private val stats: Map<StatId, Stat> = stats.associateBy { it.id }
 
     fun getStats(): Collection<Stat> = stats.values
     fun getStat(statId: StatId): Stat? = stats[statId]

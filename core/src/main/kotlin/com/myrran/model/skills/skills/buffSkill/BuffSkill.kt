@@ -14,7 +14,7 @@ data class BuffSkill(
     val name: BuffSkillName,
     val stats: Stats
 
-)
+): BuffSkillSlotContent
 {
     fun createDebuff(): Buff =
 

@@ -5,3 +5,10 @@ import java.util.UUID
 data class SubSkillId(
     val id: UUID
 )
+{
+    companion object {
+
+        @JvmStatic
+        fun new(): SubSkillId = SubSkillId(UUID.randomUUID())
+    }
+}

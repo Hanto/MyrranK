@@ -1,6 +1,7 @@
 package com.myrran.model.spells.spell
 
 import com.myrran.model.skills.skills.skill.Skill
+import com.myrran.model.skills.skills.subskill.SubSkill
 import com.myrran.model.skills.skills.subskill.SubSkillSlotId
 import com.myrran.model.skills.stat.StatId
 
@@ -17,8 +18,11 @@ class SpellBolt(
     fun onCollision() {
 
         val impactSubSkill = skill.getSubSkill(SubSkillSlotId("IMPACT"))
-        val impactSpell = impactSubSkill?.createSpell()
 
+        if (impactSubSkill is SubSkill)
+        {
+            impactSubSkill.createSpell()
+        }
     }
 
 }

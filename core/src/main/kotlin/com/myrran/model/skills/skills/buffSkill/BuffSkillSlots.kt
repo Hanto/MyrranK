@@ -4,9 +4,12 @@ import com.myrran.model.skills.stat.StatId
 import com.myrran.model.skills.stat.UpgradeCost
 import com.myrran.model.skills.stat.Upgrades
 
-class BuffSkillSlots {
+class BuffSkillSlots(
 
-    private val slots = HashMap<BuffSkillSlotId, BuffSkillSlot>()
+    slots: Collection<BuffSkillSlot>
+)
+{
+    private val slots: Map<BuffSkillSlotId, BuffSkillSlot> = slots.associateBy { it.id }
 
     // BDEBUFFSKILL:
     //--------------------------------------------------------------------------------------------------------
@@ -17,7 +20,7 @@ class BuffSkillSlots {
 
     fun getBuffSkills(): Collection<BuffSkill> =
 
-        slots.values.mapNotNull { it.content }
+        slots.values.map { it.content }.filterIsInstance<BuffSkill>()
 
     // UPGRADES:
     //--------------------------------------------------------------------------------------------------------
@@ -31,5 +34,4 @@ class BuffSkillSlots {
         slots.values
             .map { it.totalCost() }
             .reduce { acc, next -> acc.sum(next) }
-
 }

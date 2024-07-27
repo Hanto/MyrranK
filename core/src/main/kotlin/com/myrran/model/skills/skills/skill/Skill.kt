@@ -1,8 +1,8 @@
 package com.myrran.model.skills.skills.skill
 
 import com.myrran.model.skills.skills.buffSkill.BuffSkillSlotId
-import com.myrran.model.skills.skills.subskill.SubSkill
 import com.myrran.model.skills.skills.subskill.SubSkillSlot
+import com.myrran.model.skills.skills.subskill.SubSkillSlotContent
 import com.myrran.model.skills.skills.subskill.SubSkillSlotId
 import com.myrran.model.skills.skills.subskill.SubSkillSlots
 import com.myrran.model.skills.stat.Stat
@@ -38,7 +38,7 @@ data class Skill(
 
         slots.getSubSkillSlots()
 
-    fun getSubSkill(subSkillSlotId: SubSkillSlotId): SubSkill? =
+    fun getSubSkill(subSkillSlotId: SubSkillSlotId): SubSkillSlotContent =
 
         slots.getSubSkill(subSkillSlotId)
 

@@ -1,9 +1,11 @@
 package com.myrran.model.skills.templates.stat
 
 import com.myrran.model.skills.stat.BonusPerUpgrade
+import com.myrran.model.skills.stat.Stat
 import com.myrran.model.skills.stat.StatBonus
 import com.myrran.model.skills.stat.StatId
 import com.myrran.model.skills.stat.StatName
+import com.myrran.model.skills.stat.StatUpgradeable
 import com.myrran.model.skills.stat.UpgradeCost
 import com.myrran.model.skills.stat.Upgrades
 
@@ -17,3 +19,16 @@ data class TemplateStatUpgradeable(
     val bonusPerUpgrade: BonusPerUpgrade
 
 ): TemplateStat
+{
+    override fun toStat(): Stat =
+
+        StatUpgradeable(
+            id = id,
+            name = name,
+            baseBonus = baseBonus,
+            actual = Upgrades(0),
+            maximum = maximum,
+            upgradeCost = upgradeCost,
+            bonusPerUpgrade = bonusPerUpgrade)
+
+}

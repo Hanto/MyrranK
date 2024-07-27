@@ -20,7 +20,7 @@ data class SubSkill(
     val stats: Stats,
     val slots: BuffSkillSlots
 
-)
+): SubSkillSlotContent
 {
     fun createSpell(): SubSpell =
 

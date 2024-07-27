@@ -1,5 +1,6 @@
 package com.myrran.model.skills.skills.buffSkill
 
+import com.myrran.model.skills.skills.buffSkill.BuffSkillSlotContent.NoBuffSkill
 import com.myrran.model.skills.stat.StatId
 import com.myrran.model.skills.stat.UpgradeCost
 import com.myrran.model.skills.stat.Upgrades
@@ -12,9 +13,12 @@ class BuffSkillSlot(
     val id: BuffSkillSlotId,
     val name: BuffSkillSlotName,
     val lock: Lock,
-    var content: BuffSkill?
+    var content: BuffSkillSlotContent
 )
 {
+    // CONTENT:
+    //--------------------------------------------------------------------------------------------------------
+
     fun openedBy(keys: Collection<LockTypes>): Boolean =
 
         lock.isOpenedBy(keys)
@@ -32,10 +36,17 @@ class BuffSkillSlot(
 
     fun upgrade(statId: StatId, upgradeBy: Upgrades) =
 
-        content?.upgrade(statId, upgradeBy)
+        when (val buffSkill = content) {
 
+            is BuffSkill -> buffSkill.upgrade(statId, upgradeBy)
+            NoBuffSkill -> Unit
+        }
 
     fun totalCost(): UpgradeCost =
 
-        content?.totalCost() ?: UpgradeCost.ZERO
+        when (val buffSkill = content) {
+
+            is BuffSkill -> buffSkill.totalCost()
+            NoBuffSkill -> UpgradeCost.ZERO
+        }
 }

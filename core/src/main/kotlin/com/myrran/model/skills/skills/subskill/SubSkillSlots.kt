@@ -16,9 +16,9 @@ class SubSkillSlots {
 
         slots.values
 
-    fun getSubSkill(subSkillSlotId: SubSkillSlotId): SubSkill? =
+    fun getSubSkill(subSkillSlotId: SubSkillSlotId): SubSkillSlotContent =
 
-        slots[subSkillSlotId]?.content
+        slots[subSkillSlotId]?.content!!
 
     // UPGRADES:
     //--------------------------------------------------------------------------------------------------------
