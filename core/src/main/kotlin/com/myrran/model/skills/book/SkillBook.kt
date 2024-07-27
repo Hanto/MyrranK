@@ -25,7 +25,6 @@ data class SkillBook(
     private val learnedSkills = QuantityMap<SkillTemplateId>()
     private val learnedSubSkills = QuantityMap<SubSkillTemplateId>()
     private val learnedBuffSkills = QuantityMap<BuffSkillTemplateId>()
-
     private val createdSkills = mutableMapOf<SkillId, Skill>()
 
     constructor(

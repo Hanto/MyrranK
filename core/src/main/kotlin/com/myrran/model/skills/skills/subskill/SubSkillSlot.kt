@@ -49,7 +49,7 @@ data class SubSkillSlot(
 
         when (val subSkill = content) {
 
-            is SubSkill -> subSkill.getBuffSkill(buffSkillSlotId)
+            is SubSkill -> subSkill.removeBuffSkill(buffSkillSlotId)
             NoSubSkill -> NoBuffSkill
         }
 
