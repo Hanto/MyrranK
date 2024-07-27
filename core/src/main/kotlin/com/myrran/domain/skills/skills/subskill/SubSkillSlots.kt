@@ -1,11 +1,11 @@
 package com.myrran.domain.skills.skills.subskill
 
-import com.myrran.domain.skills.skills.buffskill.BuffSkill
-import com.myrran.domain.skills.skills.buffskill.BuffSkillSlotContent
-import com.myrran.domain.skills.skills.buffskill.BuffSkillSlotId
-import com.myrran.domain.skills.stat.StatId
-import com.myrran.domain.skills.stat.UpgradeCost
-import com.myrran.domain.skills.stat.Upgrades
+import com.myrran.domain.skills.skills.buff.BuffSkill
+import com.myrran.domain.skills.skills.buff.BuffSkillSlotContent
+import com.myrran.domain.skills.skills.buff.BuffSkillSlotId
+import com.myrran.domain.skills.skills.stat.StatId
+import com.myrran.domain.skills.skills.stat.UpgradeCost
+import com.myrran.domain.skills.skills.stat.Upgrades
 
 data class SubSkillSlots(
 

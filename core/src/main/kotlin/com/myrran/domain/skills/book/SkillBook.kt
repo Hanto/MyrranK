@@ -1,19 +1,19 @@
 package com.myrran.domain.skills.book
 
-import com.myrran.domain.skills.skills.buffskill.BuffSkill
-import com.myrran.domain.skills.skills.buffskill.BuffSkillSlotContent.NoBuffSkill
-import com.myrran.domain.skills.skills.buffskill.BuffSkillSlotId
+import com.myrran.domain.skills.skills.buff.BuffSkill
+import com.myrran.domain.skills.skills.buff.BuffSkillSlotContent.NoBuffSkill
+import com.myrran.domain.skills.skills.buff.BuffSkillSlotId
 import com.myrran.domain.skills.skills.skill.Skill
 import com.myrran.domain.skills.skills.skill.SkillId
 import com.myrran.domain.skills.skills.subskill.SubSkill
 import com.myrran.domain.skills.skills.subskill.SubSkillSlotContent.NoSubSkill
 import com.myrran.domain.skills.skills.subskill.SubSkillSlotId
-import com.myrran.domain.skills.templates.skills.BuffSkillTemplate
-import com.myrran.domain.skills.templates.skills.BuffSkillTemplateId
-import com.myrran.domain.skills.templates.skills.SkillTemplate
-import com.myrran.domain.skills.templates.skills.SkillTemplateId
-import com.myrran.domain.skills.templates.skills.SubSkillTemplate
-import com.myrran.domain.skills.templates.skills.SubSkillTemplateId
+import com.myrran.domain.skills.templates.buff.BuffSkillTemplate
+import com.myrran.domain.skills.templates.buff.BuffSkillTemplateId
+import com.myrran.domain.skills.templates.skill.SkillTemplate
+import com.myrran.domain.skills.templates.skill.SkillTemplateId
+import com.myrran.domain.skills.templates.subskill.SubSkillTemplate
+import com.myrran.domain.skills.templates.subskill.SubSkillTemplateId
 
 data class SkillBook(
 

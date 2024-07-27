@@ -1,7 +1,7 @@
 package com.myrran.infraestructure
 
 import com.myrran.domain.skills.templates.LockTypes
-import com.myrran.domain.spells.buffspell.BuffType
+import com.myrran.domain.spells.buff.BuffType
 import com.myrran.domain.spells.spell.SkillType
 import com.myrran.domain.spells.subspell.SubSkillType
 

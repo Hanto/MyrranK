@@ -1,9 +1,7 @@
-package com.myrran.zmain
+package com.myrran.domain.skills.templates.skill
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.module.kotlin.KotlinModule
-import com.myrran.domain.skills.book.QuantityMap
-import com.myrran.domain.skills.book.SkillBook
 import com.myrran.domain.skills.skills.buff.BuffSkillName
 import com.myrran.domain.skills.skills.buff.BuffSkillSlotId
 import com.myrran.domain.skills.skills.buff.BuffSkillSlotName
@@ -22,8 +20,6 @@ import com.myrran.domain.skills.templates.LockTypes
 import com.myrran.domain.skills.templates.buff.BuffSkillSlotTemplate
 import com.myrran.domain.skills.templates.buff.BuffSkillTemplate
 import com.myrran.domain.skills.templates.buff.BuffSkillTemplateId
-import com.myrran.domain.skills.templates.skill.SkillTemplate
-import com.myrran.domain.skills.templates.skill.SkillTemplateId
 import com.myrran.domain.skills.templates.stat.StatUpgradeableTemplate
 import com.myrran.domain.skills.templates.subskill.SubSkillSlotTemplate
 import com.myrran.domain.skills.templates.subskill.SubSkillTemplate
@@ -31,15 +27,17 @@ import com.myrran.domain.skills.templates.subskill.SubSkillTemplateId
 import com.myrran.domain.spells.buff.BuffType
 import com.myrran.domain.spells.spell.SkillType
 import com.myrran.domain.spells.subspell.SubSkillType
+import com.myrran.infraestructure.SkillAdapter
+import com.myrran.infraestructure.SkillEntity
+import org.assertj.core.api.Assertions.assertThat
+import org.junit.jupiter.api.Test
 
-class Pim {
+class SkillTemplateTest {
 
-    fun pam() {
+    @Test
+    fun pim() {
 
-        val objectMapper = ObjectMapper()
-            .registerModule(KotlinModule.Builder().build())
-
-        val fireBolt = SkillTemplate(
+        val skillTemplate = SkillTemplate(
             id = SkillTemplateId("FIREBOLT_1"),
             type = SkillType.BOLT,
             name = SkillName("Fire bolt"),
@@ -52,8 +50,9 @@ class Pim {
                     upgradeCost = UpgradeCost(2.0f),
                     bonusPerUpgrade = BonusPerUpgrade(1.0f)
                 ),
+
                 StatUpgradeableTemplate(
-                    id = StatId("COOLDOWN"),
+                    id = StatId("Cooldown"),
                     name = StatName("cooldown"),
                     baseBonus = StatBonus(10.0f),
                     maximum = Upgrades(20),
@@ -65,45 +64,46 @@ class Pim {
                 SubSkillSlotTemplate(
                     id = SubSkillSlotId("IMPACT"),
                     name = SubSkillSlotName("impact"),
-                    lock = Lock(listOf(
-                        LockTypes.ALPHA,
-                        LockTypes.BETA)
-                    )
+                    lock = Lock(listOf(LockTypes.ALPHA, LockTypes.BETA))
+                ),
+                SubSkillSlotTemplate(
+                    id = SubSkillSlotId("TRAIL"),
+                    name = SubSkillSlotName("trail"),
+                    lock = Lock(listOf(LockTypes.ALPHA, LockTypes.BETA))
                 )
             )
         )
 
-        val explosion = SubSkillTemplate(
+        val subSkillTemplate = SubSkillTemplate(
             id = SubSkillTemplateId("EXPLOSION_1"),
             type = SubSkillType.EXPLOSION,
             name = SubSkillName("Explosion"),
             stats = listOf(
                 StatUpgradeableTemplate(
-                    id = StatId("SPEED"),
-                    name = StatName("speed"),
+                    id = StatId("RADIUS"),
+                    name = StatName("radius"),
                     baseBonus = StatBonus(10.0f),
                     maximum = Upgrades(20),
                     upgradeCost = UpgradeCost(2.0f),
                     bonusPerUpgrade = BonusPerUpgrade(1.0f)
-                ),
+                )
             ),
             slots = listOf(
                 BuffSkillSlotTemplate(
-                    id = BuffSkillSlotId("DEBUF1"),
-                    name = BuffSkillSlotName("debuff 1"),
-                    lock = Lock(listOf(
-                        LockTypes.GAMMA,
-                        LockTypes.EPSILON)
-                    )
+                    id = BuffSkillSlotId("DEBUFF_1"),
+                    name = BuffSkillSlotName("Debuff 1"),
+                    lock = Lock(listOf(LockTypes.GAMMA, LockTypes.EPSILON)),
                 ),
+                BuffSkillSlotTemplate(
+                    id = BuffSkillSlotId("DEBUFF_2"),
+                    name = BuffSkillSlotName("Debuff 2"),
+                    lock = Lock(listOf(LockTypes.GAMMA, LockTypes.EPSILON)),
+                )
             ),
-            keys = listOf(
-                LockTypes.ALPHA,
-                LockTypes.BETA
-            )
+            keys = listOf(LockTypes.ALPHA)
         )
 
-        val fireDot = BuffSkillTemplate(
+        val buffSkillTemplate = BuffSkillTemplate(
             id = BuffSkillTemplateId("FIRE_1"),
             type = BuffType.FIRE,
             name = BuffSkillName("Fire"),
@@ -115,32 +115,50 @@ class Pim {
                     maximum = Upgrades(20),
                     upgradeCost = UpgradeCost(2.0f),
                     bonusPerUpgrade = BonusPerUpgrade(1.0f)
+                ),
+                StatUpgradeableTemplate(
+                    id = StatId("DURATION"),
+                    name = StatName("duration"),
+                    baseBonus = StatBonus(10.0f),
+                    maximum = Upgrades(20),
+                    upgradeCost = UpgradeCost(2.0f),
+                    bonusPerUpgrade = BonusPerUpgrade(1.0f)
                 )
             ),
             keys = listOf(LockTypes.GAMMA)
         )
 
-        val skillBook = SkillBook(
-            skillTemplates = listOf(fireBolt).associateBy { it.id },
-            subSkillTemplates = listOf(explosion).associateBy { it.id },
-            buffSkillTemplates = listOf(fireDot).associateBy { it.id },
-            QuantityMap(),
-            QuantityMap(),
-            QuantityMap(),
-            mutableMapOf()
-        )
+        val skill = skillTemplate.toSkill()
+        skill.setSubSkill(SubSkillSlotId("IMPACT"), subSkillTemplate.toSubSkill())
+        skill.setBuffSkill(SubSkillSlotId("IMPACT"), BuffSkillSlotId("DEBUFF_1"), buffSkillTemplate.toBuffSkill())
 
-        skillBook.learn(fireBolt.id)
-        skillBook.learn(fireDot.id)
-        skillBook.learn(explosion.id)
+        skill.upgrade(StatId("SPEED"), Upgrades(10))
+        skill.upgrade(SubSkillSlotId("IMPACT"), StatId("RADIUS"), Upgrades(10))
+        skill.upgrade(SubSkillSlotId("IMPACT"), BuffSkillSlotId("DEBUFF_1"), StatId("DAMAGE"), Upgrades(10))
 
-        skillBook.createSkill(fireBolt.id)
+        println(skill)
+        println("total cost: ${skill.totalCost()}")
 
+        val skillAdapter = SkillAdapter()
 
-        val json = objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(skillBook)
+        val objectMapper = ObjectMapper()
+            .registerModule(KotlinModule.Builder().build())
+
+        val skillEntity = skillAdapter.fromDomain(skill)
+
+        val json = objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(skillEntity)
 
         println(json)
 
-        val skillBookRead = objectMapper.readValue(json, SkillBook::class.java)
+        val jsonObject = objectMapper.readValue(json, SkillEntity::class.java)
+
+        val skillDomain = skillAdapter.toDomain(jsonObject)
+
+        println(skillDomain)
+
+        assertThat(skill).usingRecursiveComparison().isEqualTo(skillDomain)
+
+        assertThat(skill).usingRecursiveComparison().isEqualTo(skill.copy())
+
     }
 }

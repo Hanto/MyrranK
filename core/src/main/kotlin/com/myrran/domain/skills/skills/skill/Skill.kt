@@ -1,19 +1,19 @@
 package com.myrran.domain.skills.skills.skill
 
-import com.myrran.domain.skills.skills.buffskill.BuffSkill
-import com.myrran.domain.skills.skills.buffskill.BuffSkillSlotContent
-import com.myrran.domain.skills.skills.buffskill.BuffSkillSlotId
+import com.myrran.domain.skills.skills.buff.BuffSkill
+import com.myrran.domain.skills.skills.buff.BuffSkillSlotContent
+import com.myrran.domain.skills.skills.buff.BuffSkillSlotId
+import com.myrran.domain.skills.skills.stat.StatId
+import com.myrran.domain.skills.skills.stat.Stats
+import com.myrran.domain.skills.skills.stat.StatsI
+import com.myrran.domain.skills.skills.stat.UpgradeCost
+import com.myrran.domain.skills.skills.stat.Upgrades
 import com.myrran.domain.skills.skills.subskill.SubSkill
 import com.myrran.domain.skills.skills.subskill.SubSkillSlot
 import com.myrran.domain.skills.skills.subskill.SubSkillSlotContent
 import com.myrran.domain.skills.skills.subskill.SubSkillSlotId
 import com.myrran.domain.skills.skills.subskill.SubSkillSlots
-import com.myrran.domain.skills.stat.StatId
-import com.myrran.domain.skills.stat.Stats
-import com.myrran.domain.skills.stat.StatsI
-import com.myrran.domain.skills.stat.UpgradeCost
-import com.myrran.domain.skills.stat.Upgrades
-import com.myrran.domain.skills.templates.skills.SkillTemplateId
+import com.myrran.domain.skills.templates.skill.SkillTemplateId
 import com.myrran.domain.spells.spell.SkillType
 import com.myrran.domain.spells.spell.Spell
 
