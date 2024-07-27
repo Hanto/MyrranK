@@ -23,6 +23,7 @@ import com.myrran.model.skills.templates.stat.StatUpgradeableTemplate
 import com.myrran.model.spells.buffs.BuffType
 import com.myrran.model.spells.spell.SkillType
 import com.myrran.model.spells.subspells.SubSkillType
+import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
 class SkillTemplateTest {
@@ -56,6 +57,11 @@ class SkillTemplateTest {
                     id = SubSkillSlotId("IMPACT"),
                     name = SubSkillSlotName("impact"),
                     lock = Lock(listOf(LockTypes.ALPHA, LockTypes.BETA))
+                ),
+                SubSkillSlotTemplate(
+                    id = SubSkillSlotId("TRAIL"),
+                    name = SubSkillSlotName("trail"),
+                    lock = Lock(listOf(LockTypes.ALPHA, LockTypes.BETA))
                 )
             )
         )
@@ -78,6 +84,11 @@ class SkillTemplateTest {
                     id = BuffSkillSlotId("DEBUFF_1"),
                     name = BuffSkillSlotName("Debuff 1"),
                     lock = Lock(listOf(LockTypes.GAMMA, LockTypes.EPSILON)),
+                ),
+                BuffSkillSlotTemplate(
+                    id = BuffSkillSlotId("DEBUFF_2"),
+                    name = BuffSkillSlotName("Debuff 2"),
+                    lock = Lock(listOf(LockTypes.GAMMA, LockTypes.EPSILON)),
                 )
             ),
             keys = listOf(LockTypes.ALPHA)
@@ -91,6 +102,13 @@ class SkillTemplateTest {
                 StatUpgradeableTemplate(
                     id = StatId("DAMAGE"),
                     name = StatName("damage per second"),
+                    baseBonus = StatBonus(10.0f),
+                    maximum = Upgrades(20),
+                    upgradeCost = UpgradeCost(2.0f),
+                    bonusPerUpgrade = BonusPerUpgrade(1.0f)),
+                StatUpgradeableTemplate(
+                    id = StatId("DURATION"),
+                    name = StatName("duration"),
                     baseBonus = StatBonus(10.0f),
                     maximum = Upgrades(20),
                     upgradeCost = UpgradeCost(2.0f),
@@ -126,6 +144,8 @@ class SkillTemplateTest {
         val skillDomain = skillAdapter.toDomain(jsonObject)
 
         println(skillDomain)
+
+        assertThat(skill).usingRecursiveComparison().isEqualTo(skillDomain)
 
     }
 }
