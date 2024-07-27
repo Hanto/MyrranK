@@ -2,7 +2,7 @@ package com.myrran.model.skills.book
 
 class QuantityMap<T>
 {
-    private val map = mutableMapOf<T, Int>()
+    val map = mutableMapOf<T, Int>()
 
     fun isAvailable(key: T): Boolean =
 

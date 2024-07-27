@@ -124,9 +124,17 @@ class Pim {
             buffSkillTemplates = listOf(fireDot)
         )
 
+        skillBook.learn(fireBolt.id)
+        skillBook.learn(fireDot.id)
+        skillBook.learn(explosion.id)
+
+        skillBook.createSkill(fireBolt.id)
+
+
         val json = objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(skillBook)
-        val skillBookRead = objectMapper.readValue(json, SkillBook::class.java)
 
         println(json)
+
+        val skillBookRead = objectMapper.readValue(json, SkillBook::class.java)
     }
 }

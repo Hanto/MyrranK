@@ -10,7 +10,7 @@ import com.myrran.model.skills.stat.Stats
 import com.myrran.model.skills.stat.StatsI
 import com.myrran.model.skills.stat.UpgradeCost
 import com.myrran.model.skills.stat.Upgrades
-import com.myrran.model.skills.templates.skills.BuffSkillTemplate
+import com.myrran.model.skills.templates.LockTypes
 import com.myrran.model.skills.templates.skills.SubSkillTemplateId
 import com.myrran.model.spells.subspells.SubSkillType
 import com.myrran.model.spells.subspells.SubSpell
@@ -22,7 +22,8 @@ data class SubSkill(
     val type: SubSkillType,
     val name: SubSkillName,
     val stats: Stats,
-    val slots: BuffSkillSlots
+    val slots: BuffSkillSlots,
+    val keys: Collection<LockTypes>
 
 ): SubSkillSlotContent, StatsI by stats
 {
@@ -49,9 +50,9 @@ data class SubSkill(
 
         slots.removeBuffSkill(buffSkillSlotId)
 
-    fun setBuffSkill(buffSkillSlotId: BuffSkillSlotId, buffSkillTemplate: BuffSkillTemplate) =
+    fun setBuffSkill(buffSkillSlotId: BuffSkillSlotId, buffSkill: BuffSkill) =
 
-        slots.setBuffSkill(buffSkillSlotId, buffSkillTemplate)
+        slots.setBuffSkill(buffSkillSlotId, buffSkill)
 
     // UPGRADES:
     //--------------------------------------------------------------------------------------------------------

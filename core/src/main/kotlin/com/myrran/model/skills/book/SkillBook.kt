@@ -58,23 +58,23 @@ data class SkillBook(
     fun addSubSkill(skillId: SkillId, subSkillSlotId: SubSkillSlotId, templateId: SubSkillTemplateId) {
 
         val skill = createdSkills[skillId]!!
-        val subSkillTemplate = subSkillTemplates[templateId]!!
+        val subSkill = subSkillTemplates[templateId]!!.toSubSkill()
 
         removeSubSkill(skillId, subSkillSlotId)
         learnedSubSkills.borrow(templateId)
 
-        skill.setSubSkill(subSkillSlotId, subSkillTemplate)
+        skill.setSubSkill(subSkillSlotId, subSkill)
     }
 
     fun addBuffSKill(skillId: SkillId, subSkillSlotId: SubSkillSlotId, buffSkillSlotId: BuffSkillSlotId, templateId: BuffSkillTemplateId) {
 
         val skill = createdSkills[skillId]!!
-        val buffSKillTemplate = buffSkillTemplates[templateId]!!
+        val buffSkill = buffSkillTemplates[templateId]!!.toBuffSkill()
 
         removeBuffSkill(skillId, subSkillSlotId, buffSkillSlotId)
         learnedBuffSkills.borrow(templateId)
 
-        skill.setBuffSkill(subSkillSlotId, buffSkillSlotId, buffSKillTemplate)
+        skill.setBuffSkill(subSkillSlotId, buffSkillSlotId, buffSkill)
     }
 
     private fun removeSkill(skillId: SkillId) {

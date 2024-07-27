@@ -96,8 +96,8 @@ class SkillTemplateTest {
         )
 
         val skill = skillTemplate.toSkill()
-        skill.setSubSkill(SubSkillSlotId("IMPACT"), subSkillTemplate)
-        skill.setBuffSkill(SubSkillSlotId("IMPACT"), BuffSkillSlotId("DEBUFF_1"), buffSkillTemplate)
+        skill.setSubSkill(SubSkillSlotId("IMPACT"), subSkillTemplate.toSubSkill())
+        skill.setBuffSkill(SubSkillSlotId("IMPACT"), BuffSkillSlotId("DEBUFF_1"), buffSkillTemplate.toBuffSkill())
 
         skill.upgrade(StatId("SPEED"), Upgrades(10))
         skill.upgrade(SubSkillSlotId("IMPACT"), StatId("RADIUS"), Upgrades(10))

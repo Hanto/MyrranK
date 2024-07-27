@@ -3,7 +3,6 @@ package com.myrran.model.skills.skills.buffSkill
 import com.myrran.model.skills.stat.StatId
 import com.myrran.model.skills.stat.UpgradeCost
 import com.myrran.model.skills.stat.Upgrades
-import com.myrran.model.skills.templates.skills.BuffSkillTemplate
 
 data class BuffSkillSlots(
 
@@ -32,9 +31,9 @@ data class BuffSkillSlots(
 
         slotMap[buffSkillSlotId]?.removeBuffSkill()!!
 
-    fun setBuffSkill(buffSkillSlotId: BuffSkillSlotId, buffSkillTemplate: BuffSkillTemplate) =
+    fun setBuffSkill(buffSkillSlotId: BuffSkillSlotId, buffSkill: BuffSkill) =
 
-        slotMap[buffSkillSlotId]?.setBuffSkill(buffSkillTemplate)
+        slotMap[buffSkillSlotId]?.setBuffSkill(buffSkill)
 
     // UPGRADES:
     //--------------------------------------------------------------------------------------------------------

@@ -6,7 +6,6 @@ import com.myrran.model.skills.stat.UpgradeCost
 import com.myrran.model.skills.stat.Upgrades
 import com.myrran.model.skills.templates.Lock
 import com.myrran.model.skills.templates.LockI
-import com.myrran.model.skills.templates.skills.BuffSkillTemplate
 
 data class BuffSkillSlot(
 
@@ -24,11 +23,11 @@ data class BuffSkillSlot(
 
         content.also { content = NoBuffSkill }
 
-    fun setBuffSkill(template: BuffSkillTemplate) =
+    fun setBuffSkill(buffSkill: BuffSkill) =
 
-        when (lock.isOpenedBy(template.keys)) {
+        when (lock.isOpenedBy(buffSkill.keys)) {
 
-            true -> content = template.toBuffSkill()
+            true -> content = buffSkill
             false -> Unit
         }
 

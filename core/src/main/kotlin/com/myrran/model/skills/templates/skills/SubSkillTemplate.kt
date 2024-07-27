@@ -28,6 +28,7 @@ data class SubSkillTemplate(
             type = type,
             name = name,
             stats = Stats( stats.map { it.toStat() } ),
-            slots = BuffSkillSlots( slots.map { it.toBuffSkillSlot() } )
+            slots = BuffSkillSlots( slots.map { it.toBuffSkillSlot() } ),
+            keys =  keys
         )
 }

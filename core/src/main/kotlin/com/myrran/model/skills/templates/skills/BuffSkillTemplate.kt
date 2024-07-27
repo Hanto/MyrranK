@@ -24,6 +24,7 @@ data class BuffSkillTemplate(
             templateId = id,
             type = type,
             name = name,
-            stats = Stats( stats.map { it.toStat() } )
+            stats = Stats( stats.map { it.toStat() } ),
+            keys = keys
         )
 }

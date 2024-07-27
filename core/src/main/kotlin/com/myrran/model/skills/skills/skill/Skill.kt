@@ -1,7 +1,9 @@
 package com.myrran.model.skills.skills.skill
 
+import com.myrran.model.skills.skills.buffSkill.BuffSkill
 import com.myrran.model.skills.skills.buffSkill.BuffSkillSlotContent
 import com.myrran.model.skills.skills.buffSkill.BuffSkillSlotId
+import com.myrran.model.skills.skills.subskill.SubSkill
 import com.myrran.model.skills.skills.subskill.SubSkillSlot
 import com.myrran.model.skills.skills.subskill.SubSkillSlotContent
 import com.myrran.model.skills.skills.subskill.SubSkillSlotId
@@ -11,9 +13,7 @@ import com.myrran.model.skills.stat.Stats
 import com.myrran.model.skills.stat.StatsI
 import com.myrran.model.skills.stat.UpgradeCost
 import com.myrran.model.skills.stat.Upgrades
-import com.myrran.model.skills.templates.skills.BuffSkillTemplate
 import com.myrran.model.skills.templates.skills.SkillTemplateId
-import com.myrran.model.skills.templates.skills.SubSkillTemplate
 import com.myrran.model.spells.spell.SkillType
 import com.myrran.model.spells.spell.Spell
 
@@ -47,9 +47,9 @@ data class Skill(
 
         slots.removeSubSkill(subSkillSlotId)
 
-    fun setSubSkill(subSkillSlotId: SubSkillSlotId, subSkillTemplate: SubSkillTemplate) =
+    fun setSubSkill(subSkillSlotId: SubSkillSlotId, subSkill: SubSkill) =
 
-        slots.setSubSkill(subSkillSlotId, subSkillTemplate)
+        slots.setSubSkill(subSkillSlotId, subSkill)
 
     fun getBuffSkill(subSkillSlotId: SubSkillSlotId, buffSkillSlotId: BuffSkillSlotId): BuffSkillSlotContent =
 
@@ -59,9 +59,9 @@ data class Skill(
 
         slots.removeBuffSKill(subSkillSlotId, buffSkillSlotId)
 
-    fun setBuffSkill(subSkillSlotId: SubSkillSlotId, buffSkillSlotId: BuffSkillSlotId, template: BuffSkillTemplate) =
+    fun setBuffSkill(subSkillSlotId: SubSkillSlotId, buffSkillSlotId: BuffSkillSlotId, buffSkill: BuffSkill) =
 
-        slots.setBuffSkill(subSkillSlotId, buffSkillSlotId, template)
+        slots.setBuffSkill(subSkillSlotId, buffSkillSlotId, buffSkill)
 
     // UPGRADES:
     //--------------------------------------------------------------------------------------------------------
