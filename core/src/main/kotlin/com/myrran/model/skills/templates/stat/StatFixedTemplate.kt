@@ -6,13 +6,13 @@ import com.myrran.model.skills.stat.StatFixed
 import com.myrran.model.skills.stat.StatId
 import com.myrran.model.skills.stat.StatName
 
-class TemplateStatFixed(
+class StatFixedTemplate(
 
     override val id: StatId,
     override val name: StatName,
     override val baseBonus: StatBonus,
 
-): TemplateStat
+): StatTemplate
 {
     override fun toStat(): Stat =
 

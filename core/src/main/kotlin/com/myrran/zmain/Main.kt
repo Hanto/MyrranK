@@ -1,4 +1,4 @@
-package com.myrran
+package com.myrran.zmain
 
 import com.badlogic.gdx.graphics.Texture
 import com.badlogic.gdx.graphics.Texture.TextureFilter.Linear
@@ -18,6 +18,8 @@ class Main : KtxGame<KtxScreen>() {
         KtxAsync.initiate()
         addScreen(FirstScreen())
         setScreen<FirstScreen>()
+
+        Pim().pam()
     }
 }
 

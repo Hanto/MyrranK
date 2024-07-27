@@ -2,13 +2,14 @@ package com.myrran.model.skills.stat
 
 data class Stats(
 
-    private val values: Collection<Stat>
+    private val statMap: Map<StatId, Stat>
 
 ):StatsI
 {
-    private val statMap: Map<StatId, Stat> = values.associateBy { it.id }
+    constructor(stats: Collection<Stat>):
+        this (statMap = stats.associateBy { it.id } )
 
-    override fun getStats(): Collection<Stat> = values
+    override fun getStats(): Collection<Stat> = statMap.values
 
     override fun getStat(statId: StatId): Stat? = statMap[statId]
 

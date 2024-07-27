@@ -1,5 +1,6 @@
 package com.myrran.model.skills.skills.skill
 
+import com.myrran.model.skills.skills.buffSkill.BuffSkillSlotContent
 import com.myrran.model.skills.skills.buffSkill.BuffSkillSlotId
 import com.myrran.model.skills.skills.subskill.SubSkillSlot
 import com.myrran.model.skills.skills.subskill.SubSkillSlotContent
@@ -11,6 +12,7 @@ import com.myrran.model.skills.stat.StatsI
 import com.myrran.model.skills.stat.UpgradeCost
 import com.myrran.model.skills.stat.Upgrades
 import com.myrran.model.skills.templates.skills.BuffSkillTemplate
+import com.myrran.model.skills.templates.skills.SkillTemplateId
 import com.myrran.model.skills.templates.skills.SubSkillTemplate
 import com.myrran.model.spells.spell.SkillType
 import com.myrran.model.spells.spell.Spell
@@ -18,6 +20,7 @@ import com.myrran.model.spells.spell.Spell
 data class Skill(
 
     val id: SkillId,
+    val templateId: SkillTemplateId,
     val type: SkillType,
     val name: SkillName,
     private val stats: Stats,
@@ -44,9 +47,21 @@ data class Skill(
 
         slots.setSubSkill(subSkillSlotId, subSkillTemplate)
 
+    fun removeSubSkill(subSkillSlotId: SubSkillSlotId): SubSkillSlotContent =
+
+        slots.removeSubSkill(subSkillSlotId)
+
+    fun getBuffSkill(subSkillSlotId: SubSkillSlotId, buffSkillSlotId: BuffSkillSlotId): BuffSkillSlotContent =
+
+        slots.getBuffSkill(subSkillSlotId, buffSkillSlotId)
+
     fun setBuffSkill(subSkillSlotId: SubSkillSlotId, buffSkillSlotId: BuffSkillSlotId, template: BuffSkillTemplate) =
 
         slots.setBuffSkill(subSkillSlotId, buffSkillSlotId, template)
+
+    fun removeBuffSkill(subSkillSlotId: SubSkillSlotId, buffSkillSlotId: BuffSkillSlotId): BuffSkillSlotContent =
+
+        slots.removeBuffSKill(subSkillSlotId, buffSkillSlotId)
 
     // UPGRADES:
     //--------------------------------------------------------------------------------------------------------

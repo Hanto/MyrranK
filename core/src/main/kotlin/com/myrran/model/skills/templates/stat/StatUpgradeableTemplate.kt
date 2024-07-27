@@ -9,7 +9,7 @@ import com.myrran.model.skills.stat.StatUpgradeable
 import com.myrran.model.skills.stat.UpgradeCost
 import com.myrran.model.skills.stat.Upgrades
 
-data class TemplateStatUpgradeable(
+data class StatUpgradeableTemplate(
 
     override val id: StatId,
     override val name: StatName,
@@ -18,7 +18,7 @@ data class TemplateStatUpgradeable(
     val upgradeCost: UpgradeCost,
     val bonusPerUpgrade: BonusPerUpgrade
 
-): TemplateStat
+): StatTemplate
 {
     override fun toStat(): Stat =
 

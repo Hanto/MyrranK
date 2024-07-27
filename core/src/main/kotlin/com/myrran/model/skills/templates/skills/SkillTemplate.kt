@@ -5,14 +5,15 @@ import com.myrran.model.skills.skills.skill.SkillId
 import com.myrran.model.skills.skills.skill.SkillName
 import com.myrran.model.skills.skills.subskill.SubSkillSlots
 import com.myrran.model.skills.stat.Stats
-import com.myrran.model.skills.templates.stat.TemplateStat
+import com.myrran.model.skills.templates.stat.StatTemplate
 import com.myrran.model.spells.spell.SkillType
 
 data class SkillTemplate(
 
+    val id: SkillTemplateId,
     val type: SkillType,
     val name: SkillName,
-    val stats: Collection<TemplateStat>,
+    val stats: Collection<StatTemplate>,
     val slots: Collection<SubSkillSlotTemplate>
 )
 {
@@ -20,6 +21,7 @@ data class SkillTemplate(
 
         Skill(
             id = SkillId.new(),
+            templateId = id,
             type = type,
             name = name,
             stats = Stats ( stats.map { it.toStat() } ),

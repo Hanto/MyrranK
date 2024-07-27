@@ -7,10 +7,11 @@ import com.myrran.model.skills.templates.skills.BuffSkillTemplate
 
 data class BuffSkillSlots(
 
-    val slots: Collection<BuffSkillSlot>
+    private val slotMap: Map<BuffSkillSlotId, BuffSkillSlot>
 )
 {
-    private val slotMap: Map<BuffSkillSlotId, BuffSkillSlot> = slots.associateBy { it.id }
+    constructor(slots: Collection<BuffSkillSlot>):
+        this(slotMap = slots.associateBy { it.id } )
 
     // BDEBUFFSKILL:
     //--------------------------------------------------------------------------------------------------------
@@ -19,6 +20,10 @@ data class BuffSkillSlots(
 
         slotMap.values
 
+    fun getBuffSkill(buffSkillSlotId: BuffSkillSlotId): BuffSkillSlotContent =
+
+        slotMap[buffSkillSlotId]?.content!!
+
     fun getBuffSkills(): Collection<BuffSkill> =
 
         slotMap.values.map { it.content }.filterIsInstance<BuffSkill>()
@@ -26,6 +31,10 @@ data class BuffSkillSlots(
     fun setBuffSkill(buffSkillSlotId: BuffSkillSlotId, buffSkillTemplate: BuffSkillTemplate) =
 
         slotMap[buffSkillSlotId]?.setBuffSkill(buffSkillTemplate)
+
+    fun removeBuffSkill(buffSkillSlotId: BuffSkillSlotId): BuffSkillSlotContent =
+
+        slotMap[buffSkillSlotId]?.removeBuffSkill()!!
 
     // UPGRADES:
     //--------------------------------------------------------------------------------------------------------

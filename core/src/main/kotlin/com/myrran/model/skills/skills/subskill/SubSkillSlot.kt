@@ -1,5 +1,7 @@
 package com.myrran.model.skills.skills.subskill
 
+import com.myrran.model.skills.skills.buffSkill.BuffSkillSlotContent
+import com.myrran.model.skills.skills.buffSkill.BuffSkillSlotContent.NoBuffSkill
 import com.myrran.model.skills.skills.buffSkill.BuffSkillSlotId
 import com.myrran.model.skills.skills.subskill.SubSkillSlotContent.NoSubSkill
 import com.myrran.model.skills.stat.StatId
@@ -7,7 +9,7 @@ import com.myrran.model.skills.stat.UpgradeCost
 import com.myrran.model.skills.stat.UpgradeCost.Companion.ZERO
 import com.myrran.model.skills.stat.Upgrades
 import com.myrran.model.skills.templates.Lock
-import com.myrran.model.skills.templates.LockTypes
+import com.myrran.model.skills.templates.LockI
 import com.myrran.model.skills.templates.skills.BuffSkillTemplate
 import com.myrran.model.skills.templates.skills.SubSkillTemplate
 
@@ -18,14 +20,10 @@ data class SubSkillSlot(
     val lock: Lock,
     var content: SubSkillSlotContent
 
-)
+): LockI by lock
 {
     // CONTENT:
     //--------------------------------------------------------------------------------------------------------
-
-    fun openedBy(keys: Collection<LockTypes>): Boolean =
-
-        lock.isOpenedBy(keys)
 
     fun setSubSkill(template: SubSkillTemplate) =
 
@@ -41,6 +39,26 @@ data class SubSkillSlot(
 
             is SubSkill -> subSkill.setBuffSkill(buffSkillSlotId, template)
             NoSubSkill -> Unit
+        }
+
+    fun removeSubSkill(): SubSkillSlotContent =
+
+        content.also { content = NoSubSkill }
+
+    fun getBuffSkill(buffSkillSlotId: BuffSkillSlotId): BuffSkillSlotContent =
+
+        when (val subSkill = content) {
+
+            is SubSkill -> subSkill.getBuffSkill(buffSkillSlotId)
+            NoSubSkill -> NoBuffSkill
+        }
+
+    fun removeBuffSkill(buffSkillSlotId: BuffSkillSlotId): BuffSkillSlotContent =
+
+        when (val subSkill = content) {
+
+            is SubSkill -> subSkill.getBuffSkill(buffSkillSlotId)
+            NoSubSkill -> NoBuffSkill
         }
 
     // UPGRADES:

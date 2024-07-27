@@ -5,7 +5,7 @@ import com.myrran.model.skills.stat.StatId
 import com.myrran.model.skills.stat.UpgradeCost
 import com.myrran.model.skills.stat.Upgrades
 import com.myrran.model.skills.templates.Lock
-import com.myrran.model.skills.templates.LockTypes
+import com.myrran.model.skills.templates.LockI
 import com.myrran.model.skills.templates.skills.BuffSkillTemplate
 
 data class BuffSkillSlot(
@@ -14,14 +14,11 @@ data class BuffSkillSlot(
     val name: BuffSkillSlotName,
     val lock: Lock,
     var content: BuffSkillSlotContent
-)
+
+): LockI by lock
 {
     // CONTENT:
     //--------------------------------------------------------------------------------------------------------
-
-    fun openedBy(keys: Collection<LockTypes>): Boolean =
-
-        lock.isOpenedBy(keys)
 
     fun setBuffSkill(template: BuffSkillTemplate) =
 
@@ -30,6 +27,10 @@ data class BuffSkillSlot(
             true -> content = template.toBuffSkill()
             false -> Unit
         }
+
+    fun removeBuffSkill(): BuffSkillSlotContent =
+
+        content.also { content = NoBuffSkill }
 
     // UPGRADES:
     //--------------------------------------------------------------------------------------------------------

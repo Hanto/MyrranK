@@ -1,5 +1,11 @@
 package com.myrran.model.skills.stat
 
+import com.fasterxml.jackson.annotation.JsonTypeInfo
+
+@JsonTypeInfo(
+    use = JsonTypeInfo.Id.NAME,
+    include = JsonTypeInfo.As.PROPERTY,
+    property = "@type")
 sealed interface Stat
 {
     val id: StatId
