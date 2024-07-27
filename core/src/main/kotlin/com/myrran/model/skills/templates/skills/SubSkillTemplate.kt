@@ -1,10 +1,11 @@
-package com.myrran.model.skills.templates
+package com.myrran.model.skills.templates.skills
 
 import com.myrran.model.skills.skills.buffSkill.BuffSkillSlots
 import com.myrran.model.skills.skills.subskill.SubSkill
 import com.myrran.model.skills.skills.subskill.SubSkillId
 import com.myrran.model.skills.skills.subskill.SubSkillName
 import com.myrran.model.skills.stat.Stats
+import com.myrran.model.skills.templates.LockTypes
 import com.myrran.model.skills.templates.stat.TemplateStat
 import com.myrran.model.spells.subspells.SubSkillType
 

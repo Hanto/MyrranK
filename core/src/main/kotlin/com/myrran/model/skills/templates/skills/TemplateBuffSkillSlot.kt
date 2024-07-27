@@ -1,11 +1,12 @@
-package com.myrran.model.skills.templates
+package com.myrran.model.skills.templates.skills
 
 import com.myrran.model.skills.skills.buffSkill.BuffSkillSlot
 import com.myrran.model.skills.skills.buffSkill.BuffSkillSlotContent.NoBuffSkill
 import com.myrran.model.skills.skills.buffSkill.BuffSkillSlotId
 import com.myrran.model.skills.skills.buffSkill.BuffSkillSlotName
+import com.myrran.model.skills.templates.Lock
 
-class TemplateBuffSkillSlot(
+data class TemplateBuffSkillSlot(
 
     val id: BuffSkillSlotId,
     val name: BuffSkillSlotName,

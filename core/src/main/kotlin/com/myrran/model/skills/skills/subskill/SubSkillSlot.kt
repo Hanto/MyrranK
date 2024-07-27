@@ -8,7 +8,7 @@ import com.myrran.model.skills.stat.UpgradeCost.Companion.ZERO
 import com.myrran.model.skills.stat.Upgrades
 import com.myrran.model.skills.templates.Lock
 import com.myrran.model.skills.templates.LockTypes
-import com.myrran.model.skills.templates.SubSkillTemplate
+import com.myrran.model.skills.templates.skills.SubSkillTemplate
 
 class SubSkillSlot(
 

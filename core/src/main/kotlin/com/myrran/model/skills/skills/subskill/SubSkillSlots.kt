@@ -5,9 +5,12 @@ import com.myrran.model.skills.stat.StatId
 import com.myrran.model.skills.stat.UpgradeCost
 import com.myrran.model.skills.stat.Upgrades
 
-class SubSkillSlots {
+class SubSkillSlots(
 
-    private val slots = HashMap<SubSkillSlotId, SubSkillSlot>()
+    slots: Collection<SubSkillSlot>
+)
+{
+    private val slots: Map<SubSkillSlotId, SubSkillSlot> = slots.associateBy { it.id }
 
     // SUBSKILL:
     //--------------------------------------------------------------------------------------------------------

@@ -4,9 +4,9 @@ import com.myrran.model.skills.skills.buffSkill.BuffSkillSlotContent.NoBuffSkill
 import com.myrran.model.skills.stat.StatId
 import com.myrran.model.skills.stat.UpgradeCost
 import com.myrran.model.skills.stat.Upgrades
-import com.myrran.model.skills.templates.BuffSkillTemplate
 import com.myrran.model.skills.templates.Lock
 import com.myrran.model.skills.templates.LockTypes
+import com.myrran.model.skills.templates.skills.BuffSkillTemplate
 
 class BuffSkillSlot(
 
