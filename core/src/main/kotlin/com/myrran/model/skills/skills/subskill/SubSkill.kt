@@ -37,21 +37,21 @@ data class SubSkill(
 
         slots.getBuffSkillSlots()
 
-    fun getBuffSkill(buffSkillSlotId: BuffSkillSlotId): BuffSkillSlotContent =
-
-        slots.getBuffSkill(buffSkillSlotId)
-
     fun getBuffSkills(): Collection<BuffSkill> =
 
         slots.getBuffSkills()
 
-    fun setBuffSkill(buffSkillSlotId: BuffSkillSlotId, buffSkillTemplate: BuffSkillTemplate) =
+    fun getBuffSkill(buffSkillSlotId: BuffSkillSlotId): BuffSkillSlotContent =
 
-        slots.setBuffSkill(buffSkillSlotId, buffSkillTemplate)
+        slots.getBuffSkill(buffSkillSlotId)
 
     fun removeBuffSkill(buffSkillSlotId: BuffSkillSlotId): BuffSkillSlotContent =
 
         slots.removeBuffSkill(buffSkillSlotId)
+
+    fun setBuffSkill(buffSkillSlotId: BuffSkillSlotId, buffSkillTemplate: BuffSkillTemplate) =
+
+        slots.setBuffSkill(buffSkillSlotId, buffSkillTemplate)
 
     // UPGRADES:
     //--------------------------------------------------------------------------------------------------------

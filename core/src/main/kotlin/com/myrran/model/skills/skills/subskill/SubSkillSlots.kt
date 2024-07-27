@@ -27,17 +27,13 @@ data class SubSkillSlots(
 
         slotMap[subSkillSlotId]?.content!!
 
-    fun setSubSkill(subSkillSlotId: SubSkillSlotId, subSkillTemplate: SubSkillTemplate) =
-
-        slotMap[subSkillSlotId]?.setSubSkill(subSkillTemplate)
-
     fun removeSubSkill(subSkillSlotId: SubSkillSlotId): SubSkillSlotContent =
 
         slotMap[subSkillSlotId]?.removeSubSkill()!!
 
-    fun setBuffSkill(subSkillSlotId: SubSkillSlotId, buffSkillSlotId: BuffSkillSlotId, buffSkillTemplate: BuffSkillTemplate) =
+    fun setSubSkill(subSkillSlotId: SubSkillSlotId, subSkillTemplate: SubSkillTemplate) =
 
-        slotMap[subSkillSlotId]?.setBuffSkill(buffSkillSlotId, buffSkillTemplate)
+        slotMap[subSkillSlotId]?.setSubSkill(subSkillTemplate)
 
     fun getBuffSkill(subSkillSlotId: SubSkillSlotId, buffSkillSlotId: BuffSkillSlotId): BuffSkillSlotContent =
 
@@ -46,6 +42,10 @@ data class SubSkillSlots(
     fun removeBuffSKill(subSkillSlotId: SubSkillSlotId, buffSkillSlotId: BuffSkillSlotId): BuffSkillSlotContent =
 
         slotMap[subSkillSlotId]?.removeBuffSkill(buffSkillSlotId)!!
+
+    fun setBuffSkill(subSkillSlotId: SubSkillSlotId, buffSkillSlotId: BuffSkillSlotId, buffSkillTemplate: BuffSkillTemplate) =
+
+        slotMap[subSkillSlotId]?.setBuffSkill(buffSkillSlotId, buffSkillTemplate)
 
     // UPGRADES:
     //--------------------------------------------------------------------------------------------------------

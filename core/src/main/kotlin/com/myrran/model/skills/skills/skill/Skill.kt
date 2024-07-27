@@ -43,25 +43,25 @@ data class Skill(
 
         slots.getSubSkill(subSkillSlotId)
 
-    fun setSubSkill(subSkillSlotId: SubSkillSlotId, subSkillTemplate: SubSkillTemplate) =
-
-        slots.setSubSkill(subSkillSlotId, subSkillTemplate)
-
     fun removeSubSkill(subSkillSlotId: SubSkillSlotId): SubSkillSlotContent =
 
         slots.removeSubSkill(subSkillSlotId)
+
+    fun setSubSkill(subSkillSlotId: SubSkillSlotId, subSkillTemplate: SubSkillTemplate) =
+
+        slots.setSubSkill(subSkillSlotId, subSkillTemplate)
 
     fun getBuffSkill(subSkillSlotId: SubSkillSlotId, buffSkillSlotId: BuffSkillSlotId): BuffSkillSlotContent =
 
         slots.getBuffSkill(subSkillSlotId, buffSkillSlotId)
 
-    fun setBuffSkill(subSkillSlotId: SubSkillSlotId, buffSkillSlotId: BuffSkillSlotId, template: BuffSkillTemplate) =
-
-        slots.setBuffSkill(subSkillSlotId, buffSkillSlotId, template)
-
     fun removeBuffSkill(subSkillSlotId: SubSkillSlotId, buffSkillSlotId: BuffSkillSlotId): BuffSkillSlotContent =
 
         slots.removeBuffSKill(subSkillSlotId, buffSkillSlotId)
+
+    fun setBuffSkill(subSkillSlotId: SubSkillSlotId, buffSkillSlotId: BuffSkillSlotId, template: BuffSkillTemplate) =
+
+        slots.setBuffSkill(subSkillSlotId, buffSkillSlotId, template)
 
     // UPGRADES:
     //--------------------------------------------------------------------------------------------------------

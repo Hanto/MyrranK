@@ -20,6 +20,10 @@ data class BuffSkillSlot(
     // CONTENT:
     //--------------------------------------------------------------------------------------------------------
 
+    fun removeBuffSkill(): BuffSkillSlotContent =
+
+        content.also { content = NoBuffSkill }
+
     fun setBuffSkill(template: BuffSkillTemplate) =
 
         when (lock.isOpenedBy(template.keys)) {
@@ -27,10 +31,6 @@ data class BuffSkillSlot(
             true -> content = template.toBuffSkill()
             false -> Unit
         }
-
-    fun removeBuffSkill(): BuffSkillSlotContent =
-
-        content.also { content = NoBuffSkill }
 
     // UPGRADES:
     //--------------------------------------------------------------------------------------------------------

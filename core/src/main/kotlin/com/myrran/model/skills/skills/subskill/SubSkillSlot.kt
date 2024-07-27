@@ -25,6 +25,10 @@ data class SubSkillSlot(
     // CONTENT:
     //--------------------------------------------------------------------------------------------------------
 
+    fun removeSubSkill(): SubSkillSlotContent =
+
+        content.also { content = NoSubSkill }
+
     fun setSubSkill(template: SubSkillTemplate) =
 
         when (lock.isOpenedBy(template.keys)) {
@@ -32,18 +36,6 @@ data class SubSkillSlot(
             true -> content = template.toSubSkill()
             false -> Unit
         }
-
-    fun setBuffSkill(buffSkillSlotId: BuffSkillSlotId, template: BuffSkillTemplate) =
-
-        when (val subSkill = content) {
-
-            is SubSkill -> subSkill.setBuffSkill(buffSkillSlotId, template)
-            NoSubSkill -> Unit
-        }
-
-    fun removeSubSkill(): SubSkillSlotContent =
-
-        content.also { content = NoSubSkill }
 
     fun getBuffSkill(buffSkillSlotId: BuffSkillSlotId): BuffSkillSlotContent =
 
@@ -59,6 +51,14 @@ data class SubSkillSlot(
 
             is SubSkill -> subSkill.getBuffSkill(buffSkillSlotId)
             NoSubSkill -> NoBuffSkill
+        }
+
+    fun setBuffSkill(buffSkillSlotId: BuffSkillSlotId, template: BuffSkillTemplate) =
+
+        when (val subSkill = content) {
+
+            is SubSkill -> subSkill.setBuffSkill(buffSkillSlotId, template)
+            NoSubSkill -> Unit
         }
 
     // UPGRADES:
