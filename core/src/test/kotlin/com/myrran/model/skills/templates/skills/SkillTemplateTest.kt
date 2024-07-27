@@ -1,5 +1,9 @@
 package com.myrran.model.skills.templates.skills
 
+import com.fasterxml.jackson.databind.ObjectMapper
+import com.fasterxml.jackson.module.kotlin.KotlinModule
+import com.myrran.infraestructure.SkillAdapter
+import com.myrran.infraestructure.SkillEntity
 import com.myrran.model.skills.skills.buffSkill.BuffSkillName
 import com.myrran.model.skills.skills.buffSkill.BuffSkillSlotId
 import com.myrran.model.skills.skills.buffSkill.BuffSkillSlotName
@@ -105,5 +109,23 @@ class SkillTemplateTest {
 
         println(skill)
         println("total cost: ${skill.totalCost()}")
+
+        val skillAdapter = SkillAdapter()
+
+        val objectMapper = ObjectMapper()
+            .registerModule(KotlinModule.Builder().build())
+
+        val skillEntity = skillAdapter.fromDomain(skill)
+
+        val json = objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(skillEntity)
+
+        println(json)
+
+        val jsonObject = objectMapper.readValue(json, SkillEntity::class.java)
+
+        val skillDomain = skillAdapter.toDomain(jsonObject)
+
+        println(skillDomain)
+
     }
 }
