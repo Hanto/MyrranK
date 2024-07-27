@@ -21,7 +21,7 @@ data class SubSkillSlot(
 
 ): LockI by lock
 {
-    // CONTENT:
+    // SUBSKILLS:
     //--------------------------------------------------------------------------------------------------------
 
     fun removeSubSkill(): SubSkillSlotContent =
@@ -35,6 +35,9 @@ data class SubSkillSlot(
             true -> content = subSkill
             false -> Unit
         }
+
+    // BUFFKILLS:
+    //--------------------------------------------------------------------------------------------------------
 
     fun getBuffSkill(buffSkillSlotId: BuffSkillSlotId): BuffSkillSlotContent =
 

@@ -30,9 +30,9 @@ data class Skill(
 {
     fun createSpell(): Spell =
 
-        type.builder.invoke(this)
+        type.builder.invoke(this.copy())
 
-    // SUBSKILLS BUFFSKILLS:
+    // SUBSKILLS
     //--------------------------------------------------------------------------------------------------------
 
     fun getSubSkillSlots(): Collection<SubSkillSlot> =
@@ -50,6 +50,9 @@ data class Skill(
     fun setSubSkill(subSkillSlotId: SubSkillSlotId, subSkill: SubSkill) =
 
         slots.setSubSkill(subSkillSlotId, subSkill)
+
+    // BUFFSKILL
+    //--------------------------------------------------------------------------------------------------------
 
     fun getBuffSkill(subSkillSlotId: SubSkillSlotId, buffSkillSlotId: BuffSkillSlotId): BuffSkillSlotContent =
 

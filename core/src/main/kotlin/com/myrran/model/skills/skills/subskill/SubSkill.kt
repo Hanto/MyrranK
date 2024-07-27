@@ -29,9 +29,9 @@ data class SubSkill(
 {
     fun createSpell(): SubSpell =
 
-        type.builder.invoke(this)
+        type.builder.invoke(this.copy())
 
-    // BDEBUFFSKILLS:
+    // BUFFSKILLS:
     //--------------------------------------------------------------------------------------------------------
 
     fun getBuffSkillSlots(): Collection<BuffSkillSlot> =

@@ -8,7 +8,7 @@ class QuantityMap<T>
 
         map[key]?.let { it > 0 } ?: false
 
-    fun add(key: T) {
+    fun returnBack(key: T) {
 
         val actualQuantity = map.computeIfAbsent(key) { 0 }
         map[key] = actualQuantity + 1

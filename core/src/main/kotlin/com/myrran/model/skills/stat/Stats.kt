@@ -4,11 +4,8 @@ data class Stats(
 
     private val statMap: Map<StatId, Stat>
 
-):StatsI
+): StatsI
 {
-    constructor(stats: Collection<Stat>):
-        this (statMap = stats.associateBy { it.id } )
-
     override fun getStats(): Collection<Stat> = statMap.values
 
     override fun getStat(statId: StatId): Stat? = statMap[statId]

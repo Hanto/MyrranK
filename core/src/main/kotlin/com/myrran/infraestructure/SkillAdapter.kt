@@ -55,8 +55,8 @@ class SkillAdapter
             templateId = SkillTemplateId(entity.templateId),
             type = entity.type,
             name = SkillName(entity.name),
-            stats = Stats(entity.stats.map { toDomain(it) }),
-            slots = SubSkillSlots(entity.slots.map { toDomain(it) })
+            stats = Stats(entity.stats.map { toDomain(it) }.associateBy { it.id } ),
+            slots = SubSkillSlots(entity.slots.map { toDomain(it) }.associateBy { it.id } )
         )
 
     private fun fromDomain(domain: SubSkillSlot): SubSkillSlotEntity =
@@ -104,8 +104,8 @@ class SkillAdapter
             templateId = SubSkillTemplateId(entity.templateId),
             type = entity.type,
             name = SubSkillName(entity.name),
-            stats = Stats(entity.stats.map { toDomain(it) }),
-            slots = BuffSkillSlots(entity.slots.map { toDomain(it) }),
+            stats = Stats(entity.stats.map { toDomain(it) }.associateBy { it.id } ),
+            slots = BuffSkillSlots(entity.slots.map { toDomain(it) }.associateBy { it.id } ),
             keys = entity.keys
         )
 
@@ -153,7 +153,7 @@ class SkillAdapter
             templateId = BuffSkillTemplateId(entity.templateId),
             type = entity.type,
             name = BuffSkillName(entity.name),
-            stats = Stats(entity.stats.map { toDomain(it) }),
+            stats = Stats(entity.stats.map { toDomain(it) }.associateBy { it.id } ),
             keys = entity.keys
         )
 

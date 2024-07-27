@@ -9,9 +9,6 @@ data class BuffSkillSlots(
     private val slotMap: Map<BuffSkillSlotId, BuffSkillSlot>
 )
 {
-    constructor(slots: Collection<BuffSkillSlot>):
-        this(slotMap = slots.associateBy { it.id } )
-
     // BDEBUFFSKILL:
     //--------------------------------------------------------------------------------------------------------
 

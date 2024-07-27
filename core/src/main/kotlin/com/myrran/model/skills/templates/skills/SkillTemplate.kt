@@ -24,7 +24,7 @@ data class SkillTemplate(
             templateId = id,
             type = type,
             name = name,
-            stats = Stats ( stats.map { it.toStat() } ),
-            slots = SubSkillSlots( slots.map { it.toSubSkillSlot() })
+            stats = Stats ( stats.map { it.toStat() }.associateBy { it.id } ),
+            slots = SubSkillSlots( slots.map { it.toSubSkillSlot() }.associateBy { it.id } )
         )
 }

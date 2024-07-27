@@ -27,8 +27,8 @@ data class SubSkillTemplate(
             templateId = id,
             type = type,
             name = name,
-            stats = Stats( stats.map { it.toStat() } ),
-            slots = BuffSkillSlots( slots.map { it.toBuffSkillSlot() } ),
+            stats = Stats( stats.map { it.toStat() }.associateBy { it.id } ),
+            slots = BuffSkillSlots( slots.map { it.toBuffSkillSlot() }.associateBy { it.id } ),
             keys =  keys
         )
 }

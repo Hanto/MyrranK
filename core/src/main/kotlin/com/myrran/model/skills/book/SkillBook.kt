@@ -19,32 +19,19 @@ data class SkillBook(
 
     val skillTemplates: Map<SkillTemplateId, SkillTemplate>,
     val subSkillTemplates: Map<SubSkillTemplateId, SubSkillTemplate>,
-    val buffSkillTemplates: Map<BuffSkillTemplateId, BuffSkillTemplate>
+    val buffSkillTemplates: Map<BuffSkillTemplateId, BuffSkillTemplate>,
+    val learnedSkills: QuantityMap<SkillTemplateId>,
+    val learnedSubSkills: QuantityMap<SubSkillTemplateId>,
+    val learnedBuffSkills: QuantityMap<BuffSkillTemplateId>,
+    val createdSkills: MutableMap<SkillId, Skill>,
 )
 {
-    private val learnedSkills = QuantityMap<SkillTemplateId>()
-    private val learnedSubSkills = QuantityMap<SubSkillTemplateId>()
-    private val learnedBuffSkills = QuantityMap<BuffSkillTemplateId>()
-    private val createdSkills = mutableMapOf<SkillId, Skill>()
-
-    constructor(
-
-        skillTemplates: List<SkillTemplate>,
-        subSkillTemplates: List<SubSkillTemplate>,
-        buffSkillTemplates: List<BuffSkillTemplate>
-
-    ): this(
-        skillTemplates = skillTemplates.associateBy { it.id },
-        subSkillTemplates = subSkillTemplates.associateBy { it.id },
-        buffSkillTemplates = buffSkillTemplates.associateBy { it.id }
-    )
-
     // MAIN:
     //--------------------------------------------------------------------------------------------------------
 
-    fun learn(templateId: SkillTemplateId) = learnedSkills.add(templateId)
-    fun learn(templateId: SubSkillTemplateId) = learnedSubSkills.add(templateId)
-    fun learn(templateId: BuffSkillTemplateId) = learnedBuffSkills.add(templateId)
+    fun learn(templateId: SkillTemplateId) = learnedSkills.returnBack(templateId)
+    fun learn(templateId: SubSkillTemplateId) = learnedSubSkills.returnBack(templateId)
+    fun learn(templateId: BuffSkillTemplateId) = learnedBuffSkills.returnBack(templateId)
 
     fun createSkill(templateId: SkillTemplateId) {
 
@@ -55,7 +42,7 @@ data class SkillBook(
         createdSkills[skill.id] = skill
     }
 
-    fun addSubSkill(skillId: SkillId, subSkillSlotId: SubSkillSlotId, templateId: SubSkillTemplateId) {
+    fun addSubSkillTo(skillId: SkillId, subSkillSlotId: SubSkillSlotId, templateId: SubSkillTemplateId) {
 
         val skill = createdSkills[skillId]!!
         val subSkill = subSkillTemplates[templateId]!!.toSubSkill()
@@ -66,7 +53,7 @@ data class SkillBook(
         skill.setSubSkill(subSkillSlotId, subSkill)
     }
 
-    fun addBuffSKill(skillId: SkillId, subSkillSlotId: SubSkillSlotId, buffSkillSlotId: BuffSkillSlotId, templateId: BuffSkillTemplateId) {
+    fun addBuffSKillTo(skillId: SkillId, subSkillSlotId: SubSkillSlotId, buffSkillSlotId: BuffSkillSlotId, templateId: BuffSkillTemplateId) {
 
         val skill = createdSkills[skillId]!!
         val buffSkill = buffSkillTemplates[templateId]!!.toBuffSkill()
@@ -81,7 +68,7 @@ data class SkillBook(
 
         val skill = createdSkills.remove(skillId)
 
-        learnedSkills.add(skill!!.templateId)
+        learnedSkills.returnBack(skill!!.templateId)
     }
 
     private fun removeSubSkill(skillId: SkillId, subSkillSlotId: SubSkillSlotId) =
@@ -91,8 +78,8 @@ data class SkillBook(
             NoSubSkill -> Unit
             is SubSkill -> {
 
-                learnedSubSkills.add(subSkill.templateId)
-                subSkill.getBuffSkills().forEach { learnedBuffSkills.add(it.templateId) }
+                learnedSubSkills.returnBack(subSkill.templateId)
+                subSkill.getBuffSkills().forEach { learnedBuffSkills.returnBack(it.templateId) }
             }
         }
 
@@ -101,6 +88,6 @@ data class SkillBook(
         when (val buffSkill = createdSkills[skillId]!!.removeBuffSkill(subSkillSlotId, buffSkillSlotId)) {
 
             NoBuffSkill -> Unit
-            is BuffSkill -> learnedBuffSkills.add(buffSkill.templateId)
+            is BuffSkill -> learnedBuffSkills.returnBack(buffSkill.templateId)
         }
 }

@@ -12,10 +12,7 @@ data class SubSkillSlots(
     private val slotMap: Map<SubSkillSlotId, SubSkillSlot>
 )
 {
-    constructor(slots: Collection<SubSkillSlot>):
-        this(slotMap = slots.associateBy { it.id } )
-
-    // SUBSKILL BUFFSKILL:
+    // SUBSKILLS
     //--------------------------------------------------------------------------------------------------------
 
     fun getSubSkillSlots(): Collection<SubSkillSlot> =
@@ -33,6 +30,9 @@ data class SubSkillSlots(
     fun setSubSkill(subSkillSlotId: SubSkillSlotId, subSkill: SubSkill) =
 
         slotMap[subSkillSlotId]?.setSubSkill(subSkill)
+
+    // BUFFKILLS:
+    //--------------------------------------------------------------------------------------------------------
 
     fun getBuffSkill(subSkillSlotId: SubSkillSlotId, buffSkillSlotId: BuffSkillSlotId): BuffSkillSlotContent =
 

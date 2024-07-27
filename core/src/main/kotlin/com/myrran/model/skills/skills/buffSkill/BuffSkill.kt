@@ -20,5 +20,5 @@ data class BuffSkill(
 {
     fun createBuff(): Buff =
 
-        type.builder.invoke(this)
+        type.builder.invoke(this.copy())
 }
