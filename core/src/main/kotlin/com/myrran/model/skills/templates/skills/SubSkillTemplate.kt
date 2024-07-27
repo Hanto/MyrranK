@@ -14,7 +14,7 @@ data class SubSkillTemplate(
     val type: SubSkillType,
     val name: SubSkillName,
     val stats: Collection<TemplateStat>,
-    val slots: Collection<TemplateBuffSkillSlot>,
+    val slots: Collection<BuffSkillSlotTemplate>,
     val keys: Collection<LockTypes>
 
 )

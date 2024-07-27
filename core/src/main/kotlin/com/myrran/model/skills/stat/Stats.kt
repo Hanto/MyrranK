@@ -1,25 +1,27 @@
 package com.myrran.model.skills.stat
 
-class Stats(
-    stats: Collection<Stat>
-)
+data class Stats(
+
+    private val values: Collection<Stat>
+
+):StatsI
 {
-    private val stats: Map<StatId, Stat> = stats.associateBy { it.id }
+    private val statMap: Map<StatId, Stat> = values.associateBy { it.id }
 
-    fun getStats(): Collection<Stat> = stats.values
-    fun getStat(statId: StatId): Stat? = stats[statId]
+    override fun getStats(): Collection<Stat> = values
 
+    override fun getStat(statId: StatId): Stat? = statMap[statId]
 
-    fun upgrade(statId: StatId, upgradeBy: Upgrades) =
+    override fun upgrade(statId: StatId, upgradeBy: Upgrades) =
 
-        when (val stat = stats[statId]) {
+        when (val stat = statMap[statId]) {
             is StatUpgradeable -> stat.upgrade(upgradeBy)
             is StatFixed, null -> Unit
         }
 
-    fun totalCost(): UpgradeCost =
+    override fun totalCost(): UpgradeCost =
 
-        stats.values
+        statMap.values
             .map { it.totalCost() }
             .reduce { acc, next -> acc.sum(next) }
 }

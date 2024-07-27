@@ -8,9 +8,10 @@ import com.myrran.model.skills.stat.UpgradeCost.Companion.ZERO
 import com.myrran.model.skills.stat.Upgrades
 import com.myrran.model.skills.templates.Lock
 import com.myrran.model.skills.templates.LockTypes
+import com.myrran.model.skills.templates.skills.BuffSkillTemplate
 import com.myrran.model.skills.templates.skills.SubSkillTemplate
 
-class SubSkillSlot(
+data class SubSkillSlot(
 
     val id: SubSkillSlotId,
     val name: SubSkillSlotName,
@@ -26,12 +27,20 @@ class SubSkillSlot(
 
         lock.isOpenedBy(keys)
 
-    fun setBuffSkill(template: SubSkillTemplate) =
+    fun setSubSkill(template: SubSkillTemplate) =
 
         when (lock.isOpenedBy(template.keys)) {
 
             true -> content = template.toSubSkill()
             false -> Unit
+        }
+
+    fun setBuffSkill(buffSkillSlotId: BuffSkillSlotId, template: BuffSkillTemplate) =
+
+        when (val subSkill = content) {
+
+            is SubSkill -> subSkill.setBuffSkill(buffSkillSlotId, template)
+            NoSubSkill -> Unit
         }
 
     // UPGRADES:

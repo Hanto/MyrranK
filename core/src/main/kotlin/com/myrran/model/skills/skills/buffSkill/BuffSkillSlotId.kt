@@ -1,7 +1,5 @@
 package com.myrran.model.skills.skills.buffSkill
 
-import java.util.UUID
-
 data class BuffSkillSlotId(
-    val value: UUID
+    val value: String
 )

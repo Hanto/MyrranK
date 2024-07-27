@@ -13,7 +13,7 @@ data class SkillTemplate(
     val type: SkillType,
     val name: SkillName,
     val stats: Collection<TemplateStat>,
-    val slots: Collection<TemplateSubSkillSlot>
+    val slots: Collection<SubSkillSlotTemplate>
 )
 {
     fun toSkill(): Skill =

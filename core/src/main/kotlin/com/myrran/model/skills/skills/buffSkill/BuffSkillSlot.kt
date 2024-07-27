@@ -8,7 +8,7 @@ import com.myrran.model.skills.templates.Lock
 import com.myrran.model.skills.templates.LockTypes
 import com.myrran.model.skills.templates.skills.BuffSkillTemplate
 
-class BuffSkillSlot(
+data class BuffSkillSlot(
 
     val id: BuffSkillSlotId,
     val name: BuffSkillSlotName,

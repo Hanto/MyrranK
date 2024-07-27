@@ -6,7 +6,7 @@ import com.myrran.model.skills.skills.buffSkill.BuffSkillSlotId
 import com.myrran.model.skills.skills.buffSkill.BuffSkillSlotName
 import com.myrran.model.skills.templates.Lock
 
-data class TemplateBuffSkillSlot(
+data class BuffSkillSlotTemplate(
 
     val id: BuffSkillSlotId,
     val name: BuffSkillSlotName,

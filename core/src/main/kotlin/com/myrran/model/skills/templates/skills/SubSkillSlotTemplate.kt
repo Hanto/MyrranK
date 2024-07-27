@@ -6,7 +6,7 @@ import com.myrran.model.skills.skills.subskill.SubSkillSlotId
 import com.myrran.model.skills.skills.subskill.SubSkillSlotName
 import com.myrran.model.skills.templates.Lock
 
-data class TemplateSubSkillSlot(
+data class SubSkillSlotTemplate(
 
     val id: SubSkillSlotId,
     val name: SubSkillSlotName,

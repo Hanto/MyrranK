@@ -14,6 +14,6 @@ class Explosion(
 
     fun onCollision() {
 
-        val debuffs = subSkill.getBuffSkills().map { it.createDebuff() }
+        val debuffs = subSkill.getBuffSkills().map { it.createBuff() }
     }
 }
