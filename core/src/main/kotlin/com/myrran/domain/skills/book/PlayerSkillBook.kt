@@ -6,32 +6,24 @@ import com.myrran.domain.skills.skills.skill.Skill
 import com.myrran.domain.skills.skills.skill.SkillId
 import com.myrran.domain.skills.skills.subskill.SubSkill
 import com.myrran.domain.skills.skills.subskill.SubSkillSlotId
-import com.myrran.domain.skills.templates.buff.BuffSkillTemplate
 import com.myrran.domain.skills.templates.buff.BuffSkillTemplateId
-import com.myrran.domain.skills.templates.skill.SkillTemplate
 import com.myrran.domain.skills.templates.skill.SkillTemplateId
-import com.myrran.domain.skills.templates.subskill.SubSkillTemplate
 import com.myrran.domain.skills.templates.subskill.SubSkillTemplateId
 import com.myrran.utils.QuantityMap
 import kotlin.reflect.KClass
 
-data class SkillBook(
+data class PlayerSkillBook(
 
-    private val skillTemplates: Map<SkillTemplateId, SkillTemplate>,
-    private val subSkillTemplates: Map<SubSkillTemplateId, SubSkillTemplate>,
-    private val buffSkillTemplates: Map<BuffSkillTemplateId, BuffSkillTemplate>,
     private val learnedSkills: QuantityMap<SkillTemplateId>,
     private val learnedSubSkills: QuantityMap<SubSkillTemplateId>,
     private val learnedBuffSkills: QuantityMap<BuffSkillTemplateId>,
     private val createdSkills: MutableMap<SkillId, Skill>,
+
 )
 {
     // MAIN:
     //--------------------------------------------------------------------------------------------------------
 
-    fun skillTemplates(): Collection<SkillTemplate> = skillTemplates.values
-    fun subSkillTemplates(): Collection<SubSkillTemplate> = subSkillTemplates.values
-    fun buffSkillTemplates(): Collection<BuffSkillTemplate> = buffSkillTemplates.values
     fun learnedSkills() = learnedSkills.entries
     fun learnedSubSKills() = learnedSubSkills.entries
     fun learnedBuffSkills() = learnedBuffSkills.entries
@@ -41,37 +33,31 @@ data class SkillBook(
     fun learn(templateId: SubSkillTemplateId) = learnedSubSkills.add(templateId)
     fun learn(templateId: BuffSkillTemplateId) = learnedBuffSkills.add(templateId)
 
-    fun getSkill(skillId: SkillId): Skill = createdSkills[skillId]!!
+    fun getSkill(skillId: SkillId): Skill = createdSkills[skillId]!!.copy()
 
-    fun createSkill(templateId: SkillTemplateId): SkillId {
+    fun addSkill(skill: Skill) {
 
-        val skill = skillTemplates[templateId]!!.toSkill()
-
-        learnedSkills.borrow(templateId)
+        learnedSkills.borrow(skill.templateId)
 
         createdSkills[skill.id] = skill
-
-        return skill.id
     }
 
-    fun addSubSkillTo(skillId: SkillId, subSkillSlotId: SubSkillSlotId, templateId: SubSkillTemplateId) {
+    fun addSubSkillTo(skillId: SkillId, subSkillSlotId: SubSkillSlotId, subSkill: SubSkill) {
 
         val skill = createdSkills[skillId]!!
-        val subSkill = subSkillTemplates[templateId]!!.toSubSkill()
 
         removeSubSkill(skillId, subSkillSlotId)
-        learnedSubSkills.borrow(templateId)
+        learnedSubSkills.borrow(subSkill.templateId)
 
         skill.setSubSkill(subSkillSlotId, subSkill)
     }
 
-    fun addBuffSKillTo(skillId: SkillId, subSkillSlotId: SubSkillSlotId, buffSkillSlotId: BuffSkillSlotId, templateId: BuffSkillTemplateId) {
+    fun addBuffSKillTo(skillId: SkillId, subSkillSlotId: SubSkillSlotId, buffSkillSlotId: BuffSkillSlotId, buffSkill: BuffSkill) {
 
         val skill = createdSkills[skillId]!!
-        val buffSkill = buffSkillTemplates[templateId]!!.toBuffSkill()
 
         removeBuffSkill(skillId, subSkillSlotId, buffSkillSlotId)
-        learnedBuffSkills.borrow(templateId)
+        learnedBuffSkills.borrow(buffSkill.templateId)
 
         skill.setBuffSkill(subSkillSlotId, buffSkillSlotId, buffSkill)
     }

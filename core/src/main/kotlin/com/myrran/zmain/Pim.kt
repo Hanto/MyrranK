@@ -2,7 +2,7 @@ package com.myrran.zmain
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.module.kotlin.KotlinModule
-import com.myrran.domain.skills.book.SkillBook
+import com.myrran.domain.skills.book.PlayerSkillBook
 import com.myrran.domain.skills.skills.buff.BuffSkillName
 import com.myrran.domain.skills.skills.buff.BuffSkillSlotId
 import com.myrran.domain.skills.skills.buff.BuffSkillSlotName
@@ -120,10 +120,7 @@ class Pim {
             keys = listOf(LockTypes.GAMMA)
         )
 
-        val skillBook = SkillBook(
-            skillTemplates = listOf(fireBolt).associateBy { it.id },
-            subSkillTemplates = listOf(explosion).associateBy { it.id },
-            buffSkillTemplates = listOf(fireDot).associateBy { it.id },
+        val skillBook = PlayerSkillBook(
             QuantityMap(),
             QuantityMap(),
             QuantityMap(),
@@ -134,13 +131,13 @@ class Pim {
         skillBook.learn(fireDot.id)
         skillBook.learn(explosion.id)
 
-        skillBook.createSkill(fireBolt.id)
+        skillBook.addSkill(fireBolt.toSkill())
 
 
         val json = objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(skillBook)
 
         println(json)
 
-        val skillBookRead = objectMapper.readValue(json, SkillBook::class.java)
+        val skillBookRead = objectMapper.readValue(json, PlayerSkillBook::class.java)
     }
 }

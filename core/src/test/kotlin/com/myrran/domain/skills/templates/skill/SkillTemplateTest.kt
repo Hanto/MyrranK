@@ -2,7 +2,8 @@ package com.myrran.domain.skills.templates.skill
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.module.kotlin.KotlinModule
-import com.myrran.domain.skills.book.SkillBook
+import com.myrran.domain.skills.book.PlayerSkillBook
+import com.myrran.domain.skills.book.WorldSkillBook
 import com.myrran.domain.skills.skills.buff.BuffSkillName
 import com.myrran.domain.skills.skills.buff.BuffSkillSlotId
 import com.myrran.domain.skills.skills.buff.BuffSkillSlotName
@@ -28,9 +29,9 @@ import com.myrran.domain.skills.templates.subskill.SubSkillTemplateId
 import com.myrran.domain.spells.buff.BuffType
 import com.myrran.domain.spells.spell.SkillType
 import com.myrran.domain.spells.subspell.SubSkillType
+import com.myrran.infraestructure.PlayerSkillBookEntity
 import com.myrran.infraestructure.SkillAdapter
 import com.myrran.infraestructure.SkillBookAdapter
-import com.myrran.infraestructure.SkillBookEntity
 import com.myrran.infraestructure.SkillTemplateAdapter
 import com.myrran.utils.QuantityMap
 import org.assertj.core.api.Assertions.assertThat
@@ -55,7 +56,6 @@ class SkillTemplateTest {
                     upgradeCost = UpgradeCost(2.0f),
                     bonusPerUpgrade = BonusPerUpgrade(1.0f)
                 ),
-
                 StatUpgradeableTemplate(
                     id = StatId("Cooldown"),
                     name = StatName("cooldown"),
@@ -133,10 +133,13 @@ class SkillTemplateTest {
             keys = listOf(LockTypes.GAMMA)
         )
 
-        val skillBook = SkillBook(
+        val worldSkill = WorldSkillBook(
             listOf(bolt).associateBy { it.id },
             listOf(explosion).associateBy { it.id },
             listOf(fire).associateBy { it.id },
+        )
+
+        val skillBook = PlayerSkillBook(
             QuantityMap(),
             QuantityMap(),
             QuantityMap(),
@@ -150,14 +153,18 @@ class SkillTemplateTest {
         skillBook.learn(fire.id)
         skillBook.learn(fire.id)
 
-        val skillId = skillBook.createSkill(bolt.id)
-        skillBook.addSubSkillTo(skillId, SubSkillSlotId("IMPACT"), explosion.id)
-        skillBook.addBuffSKillTo(skillId, SubSkillSlotId("IMPACT") ,BuffSkillSlotId("DEBUFF_1"), fire.id)
-        val skill = skillBook.getSkill(skillId)
 
-        skill.upgrade(StatId("SPEED"), Upgrades(10))
-        skill.upgrade(SubSkillSlotId("IMPACT"), StatId("RADIUS"), Upgrades(10))
-        skill.upgrade(SubSkillSlotId("IMPACT"), BuffSkillSlotId("DEBUFF_1"), StatId("DAMAGE"), Upgrades(10))
+        val boltSkill = worldSkill.createSkill(SkillTemplateId("FIREBOLT_1"))
+        val explosionSkill = worldSkill.createSubSkill(SubSkillTemplateId("EXPLOSION_1"))
+        val fireSkill = worldSkill.createBuffSkill(BuffSkillTemplateId("FIRE_1"))
+
+        skillBook.addSkill(boltSkill)
+        skillBook.addSubSkillTo(boltSkill.id, SubSkillSlotId("IMPACT"), explosionSkill)
+        skillBook.addBuffSKillTo(boltSkill.id, SubSkillSlotId("IMPACT") ,BuffSkillSlotId("DEBUFF_1"), fireSkill)
+
+        boltSkill.upgrade(StatId("SPEED"), Upgrades(10))
+        boltSkill.upgrade(SubSkillSlotId("IMPACT"), StatId("RADIUS"), Upgrades(10))
+        boltSkill.upgrade(SubSkillSlotId("IMPACT"), BuffSkillSlotId("DEBUFF_1"), StatId("DAMAGE"), Upgrades(10))
 
         val skillAdapter = SkillAdapter()
         val skillTemplateAdapter = SkillTemplateAdapter()
@@ -171,11 +178,11 @@ class SkillTemplateTest {
 
         println(json)
 
-        val jsonObject = objectMapper.readValue(json, SkillBookEntity::class.java)
+        val jsonObject = objectMapper.readValue(json, PlayerSkillBookEntity::class.java)
         val domain = skillBookAdapter.toDomain(jsonObject)
 
         assertThat(domain).usingRecursiveComparison().isEqualTo(skillBook)
-        assertThat(skill.totalCost()).isEqualTo(UpgradeCost(60.0f))
+        assertThat(boltSkill.totalCost()).isEqualTo(UpgradeCost(60.0f))
         assertThat(domain).usingRecursiveComparison().isEqualTo(domain.copy())
     }
 }

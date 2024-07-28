@@ -5,7 +5,7 @@ import com.fasterxml.jackson.module.kotlin.KotlinModule
 import com.myrran.domain.skills.skills.skill.SkillId
 import org.junit.jupiter.api.Test
 
-class SkillBookTest
+class PlayerSkillBookTest
 {
 
     @Test

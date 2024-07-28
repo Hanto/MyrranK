@@ -1,14 +1,16 @@
 package com.myrran.infraestructure
 
-data class SkillBookEntity(
-
-    val skillTemplates: List<SkillTemplateEntity>,
-    val subSkillTemplates: List<SubSkillTemplateEntity>,
-    val buffSkillTemplates: List<BuffSKillTemplateEntity>,
+data class PlayerSkillBookEntity(
     val learnedSkills: List<LearnedEntity>,
     val learnedSubSKills: List<LearnedEntity>,
     val learnedBuffSkills: List<LearnedEntity>,
     val createdSkills: List<SkillEntity>
+)
+
+data class WorldSkillBookEntity(
+    val skillTemplates: List<SkillTemplateEntity>,
+    val subSkillTemplates: List<SubSkillTemplateEntity>,
+    val buffSkillTemplates: List<BuffSKillTemplateEntity>,
 )
 
 data class LearnedEntity(
