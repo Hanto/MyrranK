@@ -3,7 +3,6 @@ package com.myrran.view
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.graphics.g2d.BitmapFont
 import com.badlogic.gdx.utils.Disposable
-import com.myrran.infraestructure.AtlasConfiguration
 
 class Atlas(
 
