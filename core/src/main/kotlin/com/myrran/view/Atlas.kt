@@ -3,22 +3,30 @@ package com.myrran.view
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.graphics.g2d.BitmapFont
 import com.badlogic.gdx.utils.Disposable
+import com.myrran.infraestructure.AtlasConfiguration
 
-class Atlas : Disposable
+class Atlas(
+
+    atlastConfiguration: AtlasConfiguration
+
+) : Disposable
 {
-    val fonts: MutableMap<String, BitmapFont> = HashMap()
+    private val fonts: MutableMap<String, BitmapFont> = HashMap()
 
     init {
 
-        addFont("20")
-        addFont("14")
+        atlastConfiguration.fonts.forEach{ addFont(it) }
     }
 
     private fun addFont(name: String) {
 
-        val font = BitmapFont(Gdx.files.internal(String.format("fonts/%s.fnt", name)), false)
+        val font = BitmapFont(Gdx.files.internal("fonts/$name.fnt"), false)
         fonts[name] = font
     }
+
+    fun retrieveFont(name: String): BitmapFont =
+
+        fonts[name]!!
 
     override fun dispose() {
 

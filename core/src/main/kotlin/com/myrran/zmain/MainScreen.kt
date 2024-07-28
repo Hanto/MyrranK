@@ -7,19 +7,25 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import com.badlogic.gdx.scenes.scene2d.Stage
 import com.badlogic.gdx.scenes.scene2d.ui.Label
 import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle
+import com.myrran.infraestructure.AtlasConfiguration
+import com.myrran.utils.DeSerializer
 import com.myrran.view.Atlas
 import ktx.app.KtxScreen
 
 class MainScreen: KtxScreen
 {
+    private val deSerializer: DeSerializer = DeSerializer()
     private val batch: SpriteBatch = SpriteBatch()
     private val uiStage: Stage = Stage()
-    private val atlas: Atlas = Atlas()
+    private val atlas: Atlas
     private var fpsText: Label
 
     init {
 
-        val fpsStyle = LabelStyle(atlas.fonts["20"], Color.WHITE)
+        val atlasConfiguration = deSerializer.deserializeFile("AtlasConfiguration.json", AtlasConfiguration::class.java)
+        atlas = Atlas(atlasConfiguration)
+
+        val fpsStyle = LabelStyle(atlas.retrieveFont("20"), Color.WHITE)
         fpsText = Label("fps", fpsStyle)
         uiStage.addActor(fpsText)
     }
