@@ -32,19 +32,24 @@ data class SkillBook(
     fun skillTemplates(): Collection<SkillTemplate> = skillTemplates.values
     fun subSkillTemplates(): Collection<SubSkillTemplate> = subSkillTemplates.values
     fun buffSkillTemplates(): Collection<BuffSkillTemplate> = buffSkillTemplates.values
+    fun learnedSkills() = learnedSkills.entries
+    fun learnedSubSKills() = learnedSubSkills.entries
+    fun learnedBuffSkills() = learnedBuffSkills.entries
     fun createdSkills(): Collection<Skill> = createdSkills.values
 
     fun learn(templateId: SkillTemplateId) = learnedSkills.returnBack(templateId)
     fun learn(templateId: SubSkillTemplateId) = learnedSubSkills.returnBack(templateId)
     fun learn(templateId: BuffSkillTemplateId) = learnedBuffSkills.returnBack(templateId)
 
-    fun createSkill(templateId: SkillTemplateId) {
+    fun createSkill(templateId: SkillTemplateId): SkillId {
 
         val skill = skillTemplates[templateId]!!.toSkill()
 
         learnedSkills.borrow(templateId)
 
         createdSkills[skill.id] = skill
+
+        return skill.id
     }
 
     fun addSubSkillTo(skillId: SkillId, subSkillSlotId: SubSkillSlotId, templateId: SubSkillTemplateId) {

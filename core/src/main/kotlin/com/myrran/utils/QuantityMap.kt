@@ -1,9 +1,11 @@
 package com.myrran.utils
 
-class QuantityMap<T>
-{
-    val map = mutableMapOf<T, Int>()
+class QuantityMap<T>(
 
+    private val map: MutableMap<T, Int> = mutableMapOf()
+
+): MutableMap<T, Int> by map
+{
     fun isAvailable(key: T): Boolean =
 
         map[key]?.let { it > 0 } ?: false

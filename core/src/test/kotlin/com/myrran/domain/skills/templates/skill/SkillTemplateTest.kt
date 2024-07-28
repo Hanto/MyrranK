@@ -2,6 +2,7 @@ package com.myrran.domain.skills.templates.skill
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.module.kotlin.KotlinModule
+import com.myrran.domain.skills.book.SkillBook
 import com.myrran.domain.skills.skills.buff.BuffSkillName
 import com.myrran.domain.skills.skills.buff.BuffSkillSlotId
 import com.myrran.domain.skills.skills.buff.BuffSkillSlotName
@@ -28,16 +29,20 @@ import com.myrran.domain.spells.buff.BuffType
 import com.myrran.domain.spells.spell.SkillType
 import com.myrran.domain.spells.subspell.SubSkillType
 import com.myrran.infraestructure.SkillAdapter
-import com.myrran.infraestructure.SkillEntity
+import com.myrran.infraestructure.SkillBookAdapter
+import com.myrran.infraestructure.SkillBookEntity
+import com.myrran.infraestructure.SkillTemplateAdapter
+import com.myrran.utils.QuantityMap
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
 class SkillTemplateTest {
 
+
     @Test
     fun pim() {
 
-        val skillTemplate = SkillTemplate(
+        val bolt = SkillTemplate(
             id = SkillTemplateId("FIREBOLT_1"),
             type = SkillType.BOLT,
             name = SkillName("Fire bolt"),
@@ -74,7 +79,7 @@ class SkillTemplateTest {
             )
         )
 
-        val subSkillTemplate = SubSkillTemplate(
+        val explosion = SubSkillTemplate(
             id = SubSkillTemplateId("EXPLOSION_1"),
             type = SubSkillType.EXPLOSION,
             name = SubSkillName("Explosion"),
@@ -103,7 +108,7 @@ class SkillTemplateTest {
             keys = listOf(LockTypes.ALPHA)
         )
 
-        val buffSkillTemplate = BuffSkillTemplate(
+        val fire = BuffSkillTemplate(
             id = BuffSkillTemplateId("FIRE_1"),
             type = BuffType.FIRE,
             name = BuffSkillName("Fire"),
@@ -128,36 +133,38 @@ class SkillTemplateTest {
             keys = listOf(LockTypes.GAMMA)
         )
 
-        val skill = skillTemplate.toSkill()
-        skill.setSubSkill(SubSkillSlotId("IMPACT"), subSkillTemplate.toSubSkill())
-        skill.setBuffSkill(SubSkillSlotId("IMPACT"), BuffSkillSlotId("DEBUFF_1"), buffSkillTemplate.toBuffSkill())
+        val skillBook = SkillBook(
+            listOf(bolt).associateBy { it.id },
+            listOf(explosion).associateBy { it.id },
+            listOf(fire).associateBy { it.id },
+            QuantityMap(),
+            QuantityMap(),
+            QuantityMap(),
+            mutableMapOf()
+        )
 
-        skill.upgrade(StatId("SPEED"), Upgrades(10))
-        skill.upgrade(SubSkillSlotId("IMPACT"), StatId("RADIUS"), Upgrades(10))
-        skill.upgrade(SubSkillSlotId("IMPACT"), BuffSkillSlotId("DEBUFF_1"), StatId("DAMAGE"), Upgrades(10))
+        skillBook.learn(bolt.id)
+        skillBook.learn(explosion.id)
+        skillBook.learn(fire.id)
 
-        println(skill)
-        println("total cost: ${skill.totalCost()}")
+        val skillId = skillBook.createSkill(bolt.id)
+        skillBook.addSubSkillTo(skillId, SubSkillSlotId("IMPACT"), explosion.id)
+        skillBook.addBuffSKillTo(skillId, SubSkillSlotId("IMPACT") ,BuffSkillSlotId("DEBUFF_1"), fire.id)
 
         val skillAdapter = SkillAdapter()
+        val skillTemplateAdapter = SkillTemplateAdapter()
+        val skillBookAdapter = SkillBookAdapter(skillAdapter, skillTemplateAdapter)
 
         val objectMapper = ObjectMapper()
             .registerModule(KotlinModule.Builder().build())
 
-        val skillEntity = skillAdapter.fromDomain(skill)
-
-        val json = objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(skillEntity)
-
+        val entity = skillBookAdapter.fromDomain(skillBook)
+        val json = objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(entity)
         println(json)
+        val jsonObject = objectMapper.readValue(json, SkillBookEntity::class.java)
+        val domain = skillBookAdapter.toDomain(jsonObject)
 
-        val jsonObject = objectMapper.readValue(json, SkillEntity::class.java)
-
-        val skillDomain = skillAdapter.toDomain(jsonObject)
-
-        println(skillDomain)
-
-        assertThat(skill).usingRecursiveComparison().isEqualTo(skillDomain)
-
-        assertThat(skill).usingRecursiveComparison().isEqualTo(skill.copy())
+        assertThat(skillBook).usingRecursiveComparison().isEqualTo(domain)
+        assertThat(domain).usingRecursiveComparison().isEqualTo(domain.copy())
     }
 }
