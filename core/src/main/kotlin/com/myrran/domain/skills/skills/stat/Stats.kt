@@ -21,5 +21,5 @@ data class Stats(
 
         statMap.values
             .map { it.totalCost() }
-            .reduce { acc, next -> acc.sum(next) }
+            .reduce { acc, next -> acc + next }
 }

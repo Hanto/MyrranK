@@ -159,6 +159,5 @@ class SkillTemplateTest {
         assertThat(skill).usingRecursiveComparison().isEqualTo(skillDomain)
 
         assertThat(skill).usingRecursiveComparison().isEqualTo(skill.copy())
-
     }
 }

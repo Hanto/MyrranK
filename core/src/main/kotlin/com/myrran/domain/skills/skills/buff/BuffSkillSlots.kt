@@ -43,5 +43,5 @@ data class BuffSkillSlots(
 
         slotMap.values
             .map { it.totalCost() }
-            .reduce { acc, next -> acc.sum(next) }
+            .reduce { acc, next -> acc.plus(next) }
 }

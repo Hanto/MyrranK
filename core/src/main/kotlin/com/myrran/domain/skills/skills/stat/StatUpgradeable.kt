@@ -12,12 +12,17 @@ data class StatUpgradeable(
 
 ): Stat {
 
-    override fun totalBonus(): StatBonus = baseBonus.sum(actual.multiply(bonusPerUpgrade))
-    override fun totalCost(): UpgradeCost = actual.multiply(upgradeCost)
+    override fun totalBonus(): StatBonus =
+
+        baseBonus + (actual * bonusPerUpgrade)
+
+    override fun totalCost(): UpgradeCost =
+
+        actual * upgradeCost
 
     fun upgrade(upgradeBy: Upgrades) {
 
-        actual = actual.sum(upgradeBy)
+        actual += upgradeBy
             .atMin(Upgrades.ZERO)
             .atMax(maximum)
     }

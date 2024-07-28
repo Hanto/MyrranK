@@ -61,6 +61,6 @@ data class SubSkillSlots(
 
         slotMap.values
             .map { it.totalCost() }
-            .reduce { acc, next -> acc.sum(next) }
+            .reduce { acc, next -> acc.plus(next) }
 }
 
