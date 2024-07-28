@@ -16,8 +16,8 @@ fun main() {
     Lwjgl3Application(Main(), Lwjgl3ApplicationConfiguration().apply {
 
         setTitle("Myrran")
-        setWindowedMode(640, 480)
-        setWindowIcon(*(arrayOf(128, 64, 32, 16).map { "libgdx$it.png" }.toTypedArray()))
-
+        setWindowedMode(800, 600)
+        //setWindowIcon(*(arrayOf(128, 64, 32, 16).map { "libgdx$it.png" }.toTypedArray()))
+        setWindowIcon("myrran.png")
     })
 }

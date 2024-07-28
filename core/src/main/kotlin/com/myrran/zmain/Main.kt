@@ -16,10 +16,8 @@ class Main : KtxGame<KtxScreen>() {
     override fun create() {
 
         KtxAsync.initiate()
-        addScreen(FirstScreen())
-        setScreen<FirstScreen>()
-
-        Pim().pam()
+        addScreen(MainScreen())
+        setScreen<MainScreen>()
     }
 }
 
