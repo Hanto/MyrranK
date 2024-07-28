@@ -13,7 +13,7 @@ class QuadNode<V> (
 
 ) : QuadTree<V> {
 
-    override val frame: Rect = Rect(NW.frame.TL, SE.frame.BR)
+    override val frame: Rect = Rect(NW.frame.topLeft, SE.frame.bottomRight)
 
     constructor(frame: Rect) : this(
         NW = QuadNil<V>(Rect(frame.origin, frame.width / 2, frame.height / 2)),
@@ -98,8 +98,8 @@ data class Rect(
     val height = y2 - y1
     val origin = Point(x1, y1)
     val center = Point(origin.x + width / 2, origin.y + height / 2)
-    val TL = origin
-    val BR = Point(origin.x + width, origin.y + height)
+    val topLeft = origin
+    val bottomRight = Point(origin.x + width, origin.y + height)
 
     constructor(TL: Point, BR: Point) : this(TL, (BR.x - TL.x), (BR.y - TL.y))
 

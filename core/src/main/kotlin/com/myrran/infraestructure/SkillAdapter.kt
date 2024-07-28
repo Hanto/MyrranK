@@ -198,6 +198,4 @@ class SkillAdapter
                 bonusPerUpgrade = BonusPerUpgrade(entity.bonusPerUpgrade!!),
             )
         }
-
-
 }
