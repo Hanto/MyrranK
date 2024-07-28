@@ -20,7 +20,7 @@ class MainScreen: KtxScreen
 {
     private val batch: SpriteBatch = SpriteBatch()
     private val uiStage: Stage = Stage()
-    private val repository = Repository(SkillBookAdapter(SkillAdapter(), SkillTemplateAdapter()), DeSerializer())
+    private val repository: Repository = Repository(SkillBookAdapter(SkillAdapter(), SkillTemplateAdapter()), DeSerializer())
 
     private val worldSkillBook: WorldSkillBook = repository.loadSkillBook()
     private val atlas: Atlas = repository.loadAtlas()
