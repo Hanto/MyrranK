@@ -1,4 +1,4 @@
-package com.myrran.view
+package com.myrran.view.atlas
 
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.graphics.g2d.BitmapFont

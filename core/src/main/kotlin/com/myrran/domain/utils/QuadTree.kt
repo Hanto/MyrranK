@@ -1,4 +1,4 @@
-package com.myrran.utils
+package com.myrran.domain.utils
 
 import kotlin.math.abs
 import kotlin.math.pow

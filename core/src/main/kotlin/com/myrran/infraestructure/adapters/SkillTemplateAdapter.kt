@@ -1,4 +1,4 @@
-package com.myrran.infraestructure
+package com.myrran.infraestructure.adapters
 
 import com.myrran.domain.skills.skills.buff.BuffSkillName
 import com.myrran.domain.skills.skills.buff.BuffSkillSlotId
@@ -25,6 +25,11 @@ import com.myrran.domain.skills.templates.stat.StatUpgradeableTemplate
 import com.myrran.domain.skills.templates.subskill.SubSkillSlotTemplate
 import com.myrran.domain.skills.templates.subskill.SubSkillTemplate
 import com.myrran.domain.skills.templates.subskill.SubSkillTemplateId
+import com.myrran.infraestructure.entities.BuffSKillTemplateEntity
+import com.myrran.infraestructure.entities.SkillTemplateEntity
+import com.myrran.infraestructure.entities.SlotTemplateEntity
+import com.myrran.infraestructure.entities.StatTemplateEntity
+import com.myrran.infraestructure.entities.SubSkillTemplateEntity
 
 class SkillTemplateAdapter {
 

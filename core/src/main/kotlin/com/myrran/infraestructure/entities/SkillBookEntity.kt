@@ -1,4 +1,4 @@
-package com.myrran.infraestructure
+package com.myrran.infraestructure.entities
 
 data class PlayerSkillBookEntity(
     val learnedSkills: List<LearnedEntity>,

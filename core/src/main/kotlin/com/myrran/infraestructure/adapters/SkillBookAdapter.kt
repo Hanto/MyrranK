@@ -1,12 +1,15 @@
-package com.myrran.infraestructure
+package com.myrran.infraestructure.adapters
 
 import com.myrran.domain.skills.book.PlayerSkillBook
 import com.myrran.domain.skills.book.WorldSkillBook
 import com.myrran.domain.skills.templates.buff.BuffSkillTemplateId
 import com.myrran.domain.skills.templates.skill.SkillTemplateId
 import com.myrran.domain.skills.templates.subskill.SubSkillTemplateId
-import com.myrran.utils.Quantity
-import com.myrran.utils.QuantityMap
+import com.myrran.domain.utils.Quantity
+import com.myrran.domain.utils.QuantityMap
+import com.myrran.infraestructure.entities.LearnedEntity
+import com.myrran.infraestructure.entities.PlayerSkillBookEntity
+import com.myrran.infraestructure.entities.WorldSkillBookEntity
 
 class SkillBookAdapter(
 

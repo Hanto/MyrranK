@@ -9,7 +9,7 @@ import com.myrran.domain.skills.skills.subskill.SubSkillSlotId
 import com.myrran.domain.skills.templates.buff.BuffSkillTemplateId
 import com.myrran.domain.skills.templates.skill.SkillTemplateId
 import com.myrran.domain.skills.templates.subskill.SubSkillTemplateId
-import com.myrran.utils.QuantityMap
+import com.myrran.domain.utils.QuantityMap
 import kotlin.reflect.KClass
 
 data class PlayerSkillBook(

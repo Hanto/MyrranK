@@ -1,4 +1,4 @@
-package com.myrran.view
+package com.myrran.view.atlas
 
 class AtlasConfiguration(
     val fonts: List<String>

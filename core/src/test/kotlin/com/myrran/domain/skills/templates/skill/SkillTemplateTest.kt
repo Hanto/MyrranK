@@ -29,11 +29,11 @@ import com.myrran.domain.skills.templates.subskill.SubSkillTemplateId
 import com.myrran.domain.spells.buff.BuffType
 import com.myrran.domain.spells.spell.SkillType
 import com.myrran.domain.spells.subspell.SubSkillType
-import com.myrran.infraestructure.PlayerSkillBookEntity
-import com.myrran.infraestructure.SkillAdapter
-import com.myrran.infraestructure.SkillBookAdapter
-import com.myrran.infraestructure.SkillTemplateAdapter
-import com.myrran.utils.QuantityMap
+import com.myrran.domain.utils.QuantityMap
+import com.myrran.infraestructure.adapters.SkillAdapter
+import com.myrran.infraestructure.adapters.SkillBookAdapter
+import com.myrran.infraestructure.adapters.SkillTemplateAdapter
+import com.myrran.infraestructure.entities.PlayerSkillBookEntity
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
@@ -184,7 +184,5 @@ class SkillTemplateTest {
         assertThat(domain).usingRecursiveComparison().isEqualTo(skillBook)
         assertThat(boltSkill.totalCost()).isEqualTo(UpgradeCost(60.0f))
         assertThat(domain).usingRecursiveComparison().isEqualTo(domain.copy())
-
-        objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(skillBookAdapter.fromDomain(worldSkill)).also { println(it) }
     }
 }

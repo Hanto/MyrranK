@@ -1,4 +1,4 @@
-package com.myrran.zmain
+package com.myrran.view.main
 
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.graphics.Color
@@ -8,12 +8,12 @@ import com.badlogic.gdx.scenes.scene2d.Stage
 import com.badlogic.gdx.scenes.scene2d.ui.Label
 import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle
 import com.myrran.domain.skills.book.WorldSkillBook
+import com.myrran.domain.utils.DeSerializer
 import com.myrran.infraestructure.Repository
-import com.myrran.infraestructure.SkillAdapter
-import com.myrran.infraestructure.SkillBookAdapter
-import com.myrran.infraestructure.SkillTemplateAdapter
-import com.myrran.utils.DeSerializer
-import com.myrran.view.Atlas
+import com.myrran.infraestructure.adapters.SkillAdapter
+import com.myrran.infraestructure.adapters.SkillBookAdapter
+import com.myrran.infraestructure.adapters.SkillTemplateAdapter
+import com.myrran.view.atlas.Atlas
 import ktx.app.KtxScreen
 
 class MainScreen(
