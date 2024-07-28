@@ -8,6 +8,10 @@ import com.badlogic.gdx.scenes.scene2d.Stage
 import com.badlogic.gdx.scenes.scene2d.ui.Label
 import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle
 import com.myrran.infraestructure.AtlasConfiguration
+import com.myrran.infraestructure.SkillAdapter
+import com.myrran.infraestructure.SkillBookAdapter
+import com.myrran.infraestructure.SkillTemplateAdapter
+import com.myrran.infraestructure.WorldSkillBookEntity
 import com.myrran.utils.DeSerializer
 import com.myrran.view.Atlas
 import ktx.app.KtxScreen
@@ -18,12 +22,19 @@ class MainScreen: KtxScreen
     private val batch: SpriteBatch = SpriteBatch()
     private val uiStage: Stage = Stage()
     private val atlas: Atlas
+    private val skillAdapter = SkillAdapter()
+    private val skillTemplateAdapter = SkillTemplateAdapter()
+    private val skillBookAdapter = SkillBookAdapter(skillAdapter, skillTemplateAdapter)
+
     private var fpsText: Label
 
     init {
 
         val atlasConfiguration = deSerializer.deserializeFile("AtlasConfiguration.json", AtlasConfiguration::class.java)
         atlas = Atlas(atlasConfiguration)
+
+        val worldSkillBookEntity = deSerializer.deserializeFile("WorldSkillBook.json", WorldSkillBookEntity::class.java)
+        val worldSkillBook = skillBookAdapter.toDomain(worldSkillBookEntity)
 
         val fpsStyle = LabelStyle(atlas.retrieveFont("20"), Color.WHITE)
         fpsText = Label("fps", fpsStyle)

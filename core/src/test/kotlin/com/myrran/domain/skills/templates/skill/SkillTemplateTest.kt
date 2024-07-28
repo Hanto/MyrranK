@@ -184,5 +184,7 @@ class SkillTemplateTest {
         assertThat(domain).usingRecursiveComparison().isEqualTo(skillBook)
         assertThat(boltSkill.totalCost()).isEqualTo(UpgradeCost(60.0f))
         assertThat(domain).usingRecursiveComparison().isEqualTo(domain.copy())
+
+        objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(skillBookAdapter.fromDomain(worldSkill)).also { println(it) }
     }
 }

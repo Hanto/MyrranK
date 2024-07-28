@@ -32,7 +32,7 @@ class SkillBookAdapter(
             createdSkills = entity.createdSkills.map { skillAdapter.toDomain(it) }.associateBy { it.id }.toMutableMap()
         )
 
-    fun fromFomain(domain: WorldSkillBook): WorldSkillBookEntity =
+    fun fromDomain(domain: WorldSkillBook): WorldSkillBookEntity =
 
         WorldSkillBookEntity(
             skillTemplates = domain.skillTemplates().map { skillTemplateAdapter.fromDomain(it) },
