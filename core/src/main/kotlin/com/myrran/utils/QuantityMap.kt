@@ -1,4 +1,4 @@
-package com.myrran.domain.skills.book
+package com.myrran.utils
 
 class QuantityMap<T>
 {

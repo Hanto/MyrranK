@@ -14,6 +14,7 @@ import com.myrran.domain.skills.templates.skill.SkillTemplate
 import com.myrran.domain.skills.templates.skill.SkillTemplateId
 import com.myrran.domain.skills.templates.subskill.SubSkillTemplate
 import com.myrran.domain.skills.templates.subskill.SubSkillTemplateId
+import com.myrran.utils.QuantityMap
 
 data class SkillBook(
 

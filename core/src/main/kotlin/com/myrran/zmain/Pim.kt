@@ -2,7 +2,6 @@ package com.myrran.zmain
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.module.kotlin.KotlinModule
-import com.myrran.domain.skills.book.QuantityMap
 import com.myrran.domain.skills.book.SkillBook
 import com.myrran.domain.skills.skills.buff.BuffSkillName
 import com.myrran.domain.skills.skills.buff.BuffSkillSlotId
@@ -31,6 +30,7 @@ import com.myrran.domain.skills.templates.subskill.SubSkillTemplateId
 import com.myrran.domain.spells.buff.BuffType
 import com.myrran.domain.spells.spell.SkillType
 import com.myrran.domain.spells.subspell.SubSkillType
+import com.myrran.utils.QuantityMap
 
 class Pim {
 
