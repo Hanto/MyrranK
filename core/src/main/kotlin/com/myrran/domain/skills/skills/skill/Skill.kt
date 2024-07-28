@@ -77,7 +77,7 @@ data class Skill(
 
         slots.upgrade(subSkillSlotId, buffSkillSlotId, statId, upgradeBy)
 
-    fun baseCost(): UpgradeCost =
+    fun totalCost(): UpgradeCost =
 
-        stats.totalCost()
+        stats.statCost() + slots.totalCost()
 }

@@ -11,6 +11,7 @@ import com.myrran.domain.skills.skills.stat.Upgrades
 import com.myrran.domain.skills.skills.subskill.SubSkillSlotContent.NoSubSkill
 import com.myrran.domain.skills.templates.Lock
 import com.myrran.domain.skills.templates.LockI
+import kotlin.reflect.KClass
 
 data class SubSkillSlot(
 
@@ -41,52 +42,32 @@ data class SubSkillSlot(
 
     fun getBuffSkill(buffSkillSlotId: BuffSkillSlotId): BuffSkillSlotContent =
 
-        when (val subSkill = content) {
-
-            is SubSkill -> subSkill.getBuffSkill(buffSkillSlotId)
-            NoSubSkill -> NoBuffSkill
-        }
+        content.ifIs(SubSkill::class)?.getBuffSkill(buffSkillSlotId) ?: NoBuffSkill
 
     fun removeBuffSkill(buffSkillSlotId: BuffSkillSlotId): BuffSkillSlotContent =
 
-        when (val subSkill = content) {
-
-            is SubSkill -> subSkill.removeBuffSkill(buffSkillSlotId)
-            NoSubSkill -> NoBuffSkill
-        }
+        content.ifIs(SubSkill::class)?.removeBuffSkill(buffSkillSlotId) ?: NoBuffSkill
 
     fun setBuffSkill(buffSkillSlotId: BuffSkillSlotId, buffSkill: BuffSkill) =
 
-        when (val subSkill = content) {
-
-            is SubSkill -> subSkill.setBuffSkill(buffSkillSlotId, buffSkill)
-            NoSubSkill -> Unit
-        }
+        content.ifIs(SubSkill::class)?.setBuffSkill(buffSkillSlotId, buffSkill)
 
     // UPGRADES:
     //--------------------------------------------------------------------------------------------------------
 
     fun upgrade(statId: StatId, upgradeBy: Upgrades) =
 
-        when (val subSkill = content) {
-
-            is SubSkill -> subSkill.upgrade(statId, upgradeBy)
-            NoSubSkill -> Unit
-        }
+        content.ifIs(SubSkill::class)?.upgrade(statId, upgradeBy)
 
     fun upgrade(slotId: BuffSkillSlotId, statId: StatId, upgradeBy: Upgrades) =
 
-        when (val subSkill = content) {
-
-            is SubSkill -> subSkill.upgrade(slotId, statId, upgradeBy)
-            NoSubSkill -> Unit
-        }
+        content.ifIs(SubSkill::class)?.upgrade(slotId, statId, upgradeBy)
 
     fun totalCost(): UpgradeCost =
 
-        when (val subSkill = content) {
+        content.ifIs(SubSkill::class)?.totalCost() ?: ZERO
 
-            is SubSkill -> subSkill.totalCost()
-            NoSubSkill -> ZERO
-        }
+    private inline fun <reified T: Any> Any.ifIs(classz: KClass<T> ): T? =
+
+        if (this is T) this else null
 }

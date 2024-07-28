@@ -17,7 +17,7 @@ data class Stats(
             is StatFixed, null -> Unit
         }
 
-    override fun totalCost(): UpgradeCost =
+    override fun statCost(): UpgradeCost =
 
         statMap.values
             .map { it.totalCost() }
