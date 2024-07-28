@@ -1,12 +1,10 @@
 package com.myrran.domain.skills.book
 
 import com.myrran.domain.skills.skills.buff.BuffSkill
-import com.myrran.domain.skills.skills.buff.BuffSkillSlotContent.NoBuffSkill
 import com.myrran.domain.skills.skills.buff.BuffSkillSlotId
 import com.myrran.domain.skills.skills.skill.Skill
 import com.myrran.domain.skills.skills.skill.SkillId
 import com.myrran.domain.skills.skills.subskill.SubSkill
-import com.myrran.domain.skills.skills.subskill.SubSkillSlotContent.NoSubSkill
 import com.myrran.domain.skills.skills.subskill.SubSkillSlotId
 import com.myrran.domain.skills.templates.buff.BuffSkillTemplate
 import com.myrran.domain.skills.templates.buff.BuffSkillTemplateId
@@ -15,20 +13,26 @@ import com.myrran.domain.skills.templates.skill.SkillTemplateId
 import com.myrran.domain.skills.templates.subskill.SubSkillTemplate
 import com.myrran.domain.skills.templates.subskill.SubSkillTemplateId
 import com.myrran.utils.QuantityMap
+import kotlin.reflect.KClass
 
 data class SkillBook(
 
-    val skillTemplates: Map<SkillTemplateId, SkillTemplate>,
-    val subSkillTemplates: Map<SubSkillTemplateId, SubSkillTemplate>,
-    val buffSkillTemplates: Map<BuffSkillTemplateId, BuffSkillTemplate>,
-    val learnedSkills: QuantityMap<SkillTemplateId>,
-    val learnedSubSkills: QuantityMap<SubSkillTemplateId>,
-    val learnedBuffSkills: QuantityMap<BuffSkillTemplateId>,
-    val createdSkills: MutableMap<SkillId, Skill>,
+    private val skillTemplates: Map<SkillTemplateId, SkillTemplate>,
+    private val subSkillTemplates: Map<SubSkillTemplateId, SubSkillTemplate>,
+    private val buffSkillTemplates: Map<BuffSkillTemplateId, BuffSkillTemplate>,
+    private val learnedSkills: QuantityMap<SkillTemplateId>,
+    private val learnedSubSkills: QuantityMap<SubSkillTemplateId>,
+    private val learnedBuffSkills: QuantityMap<BuffSkillTemplateId>,
+    private val createdSkills: MutableMap<SkillId, Skill>,
 )
 {
     // MAIN:
     //--------------------------------------------------------------------------------------------------------
+
+    fun skillTemplates(): Collection<SkillTemplate> = skillTemplates.values
+    fun subSkillTemplates(): Collection<SubSkillTemplate> = subSkillTemplates.values
+    fun buffSkillTemplates(): Collection<BuffSkillTemplate> = buffSkillTemplates.values
+    fun createdSkills(): Collection<Skill> = createdSkills.values
 
     fun learn(templateId: SkillTemplateId) = learnedSkills.returnBack(templateId)
     fun learn(templateId: SubSkillTemplateId) = learnedSubSkills.returnBack(templateId)
@@ -72,23 +76,28 @@ data class SkillBook(
         learnedSkills.returnBack(skill!!.templateId)
     }
 
-    private fun removeSubSkill(skillId: SkillId, subSkillSlotId: SubSkillSlotId) =
+    private fun removeSubSkill(skillId: SkillId, subSkillSlotId: SubSkillSlotId) {
 
-        when (val subSkill = createdSkills[skillId]!!.removeSubSkill(subSkillSlotId)) {
+        val subSkill = createdSkills[skillId]!!.removeSubSkill(subSkillSlotId)
 
-            NoSubSkill -> Unit
-            is SubSkill -> {
+        subSkill.ifIs(SubSkill::class)?.also {
 
-                learnedSubSkills.returnBack(subSkill.templateId)
-                subSkill.getBuffSkills().forEach { learnedBuffSkills.returnBack(it.templateId) }
-            }
+            learnedSubSkills.returnBack(it.templateId)
+            it.getBuffSkills().forEach { buffSkill -> learnedBuffSkills.returnBack(buffSkill.templateId) }
         }
+    }
 
-    private fun removeBuffSkill(skillId: SkillId, subSkillSlotId: SubSkillSlotId, buffSkillSlotId: BuffSkillSlotId) =
+    private fun removeBuffSkill(skillId: SkillId, subSkillSlotId: SubSkillSlotId, buffSkillSlotId: BuffSkillSlotId) {
 
-        when (val buffSkill = createdSkills[skillId]!!.removeBuffSkill(subSkillSlotId, buffSkillSlotId)) {
+        val buffSkill = createdSkills[skillId]!!.removeBuffSkill(subSkillSlotId, buffSkillSlotId)
 
-            NoBuffSkill -> Unit
-            is BuffSkill -> learnedBuffSkills.returnBack(buffSkill.templateId)
+        buffSkill.ifIs(BuffSkill::class)?.also {
+
+            learnedBuffSkills.returnBack(it.templateId)
         }
+    }
+
+    private inline fun <reified T: Any> Any.ifIs(classz: KClass<T>): T? =
+
+        if (this is T) this else null
 }
