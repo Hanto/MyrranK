@@ -2,23 +2,29 @@ package com.myrran.utils
 
 class QuantityMap<T>(
 
-    private val map: MutableMap<T, Int> = mutableMapOf()
+    private val map: MutableMap<T, Quantity> = mutableMapOf()
 
-): MutableMap<T, Int> by map
+): MutableMap<T, Quantity> by map
 {
     fun isAvailable(key: T): Boolean =
 
-        map[key]?.let { it > 0 } ?: false
+        map[key]?.let { it.available > 0 } ?: false
+
+    fun add(key: T) {
+
+        val quantity = map.computeIfAbsent(key) { Quantity(0, 0) }
+        map[key] = Quantity(quantity.available + 1 , quantity.total + 1)
+    }
 
     fun returnBack(key: T) {
 
-        val actualQuantity = map.computeIfAbsent(key) { 0 }
-        map[key] = actualQuantity + 1
+        val quantity = map.computeIfAbsent(key) { Quantity(0,0) }
+        map[key] = Quantity(quantity.available + 1, quantity.total)
     }
 
     fun borrow(key: T) {
 
-        val actualQuantity = map.computeIfAbsent(key) { 0 }
-        map[key] = actualQuantity - 1
+        val quantity = map.computeIfAbsent(key) { Quantity(0, 0) }
+        map[key] = Quantity(quantity.available - 1, quantity.total)
     }
 }

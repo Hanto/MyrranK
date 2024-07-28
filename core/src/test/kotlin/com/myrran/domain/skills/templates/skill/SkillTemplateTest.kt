@@ -174,7 +174,7 @@ class SkillTemplateTest {
         val jsonObject = objectMapper.readValue(json, SkillBookEntity::class.java)
         val domain = skillBookAdapter.toDomain(jsonObject)
 
-        assertThat(skillBook).usingRecursiveComparison().isEqualTo(domain)
+        assertThat(domain).usingRecursiveComparison().isEqualTo(skillBook)
         assertThat(skill.totalCost()).isEqualTo(UpgradeCost(60.0f))
         assertThat(domain).usingRecursiveComparison().isEqualTo(domain.copy())
     }

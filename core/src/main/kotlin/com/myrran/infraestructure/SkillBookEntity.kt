@@ -13,5 +13,6 @@ data class SkillBookEntity(
 
 data class LearnedEntity(
     val id: String,
-    val quantity: Int
+    val avaiable: Int,
+    val total: Int
 )

@@ -37,9 +37,9 @@ data class SkillBook(
     fun learnedBuffSkills() = learnedBuffSkills.entries
     fun createdSkills(): Collection<Skill> = createdSkills.values
 
-    fun learn(templateId: SkillTemplateId) = learnedSkills.returnBack(templateId)
-    fun learn(templateId: SubSkillTemplateId) = learnedSubSkills.returnBack(templateId)
-    fun learn(templateId: BuffSkillTemplateId) = learnedBuffSkills.returnBack(templateId)
+    fun learn(templateId: SkillTemplateId) = learnedSkills.add(templateId)
+    fun learn(templateId: SubSkillTemplateId) = learnedSubSkills.add(templateId)
+    fun learn(templateId: BuffSkillTemplateId) = learnedBuffSkills.add(templateId)
 
     fun getSkill(skillId: SkillId): Skill = createdSkills[skillId]!!
 
