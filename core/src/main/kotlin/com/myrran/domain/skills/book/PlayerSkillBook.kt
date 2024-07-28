@@ -4,6 +4,8 @@ import com.myrran.domain.skills.skills.buff.BuffSkill
 import com.myrran.domain.skills.skills.buff.BuffSkillSlotId
 import com.myrran.domain.skills.skills.skill.Skill
 import com.myrran.domain.skills.skills.skill.SkillId
+import com.myrran.domain.skills.skills.stat.StatId
+import com.myrran.domain.skills.skills.stat.Upgrades
 import com.myrran.domain.skills.skills.subskill.SubSkill
 import com.myrran.domain.skills.skills.subskill.SubSkillSlotId
 import com.myrran.domain.skills.templates.buff.BuffSkillTemplateId
@@ -33,7 +35,8 @@ data class PlayerSkillBook(
     fun learn(templateId: SubSkillTemplateId) = learnedSubSkills.add(templateId)
     fun learn(templateId: BuffSkillTemplateId) = learnedBuffSkills.add(templateId)
 
-    fun getSkill(skillId: SkillId): Skill = createdSkills[skillId]!!.copy()
+    // ADD:
+    //--------------------------------------------------------------------------------------------------------
 
     fun addSkill(skill: Skill) {
 
@@ -62,6 +65,9 @@ data class PlayerSkillBook(
         skill.setBuffSkill(subSkillSlotId, buffSkillSlotId, buffSkill)
     }
 
+    // REMOVE:
+    //--------------------------------------------------------------------------------------------------------
+
     private fun removeSkill(skillId: SkillId) {
 
         val skill = createdSkills.remove(skillId)
@@ -89,6 +95,21 @@ data class PlayerSkillBook(
             learnedBuffSkills.returnBack(it.templateId)
         }
     }
+
+    // UPGRADE:
+    //--------------------------------------------------------------------------------------------------------
+
+    fun upgrade(skillId: SkillId, statId: StatId, upgradeBy: Upgrades) =
+
+        createdSkills[skillId]!!.upgrade(statId, upgradeBy)
+
+    fun upgrade(skillId: SkillId, subSkillSlotId: SubSkillSlotId, statId: StatId, upgradeBy: Upgrades) =
+
+        createdSkills[skillId]!!.upgrade(subSkillSlotId, statId, upgradeBy)
+
+    fun upgrade(skillId: SkillId, subSkillSlotId: SubSkillSlotId, buffSkillSlotId: BuffSkillSlotId, statId: StatId, upgradeBy: Upgrades) =
+
+        createdSkills[skillId]!!.upgrade(subSkillSlotId, buffSkillSlotId, statId, upgradeBy)
 
     private inline fun <reified T: Any> Any.ifIs(classz: KClass<T>): T? =
 

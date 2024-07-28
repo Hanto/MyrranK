@@ -37,11 +37,10 @@ import com.myrran.infraestructure.entities.PlayerSkillBookEntity
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
-class SkillTemplateTest {
-
+class PlayerSkillBookIT {
 
     @Test
-    fun pim() {
+    fun `playerSkillBook can be saved and loaded`() {
 
         val bolt = SkillTemplate(
             id = SkillTemplateId("FIREBOLT_1"),
@@ -153,36 +152,27 @@ class SkillTemplateTest {
         skillBook.learn(fire.id)
         skillBook.learn(fire.id)
 
-
         val boltSkill = worldSkill.createSkill(SkillTemplateId("FIREBOLT_1"))
         val explosionSkill = worldSkill.createSubSkill(SubSkillTemplateId("EXPLOSION_1"))
         val fireSkill = worldSkill.createBuffSkill(BuffSkillTemplateId("FIRE_1"))
 
         skillBook.addSkill(boltSkill)
         skillBook.addSubSkillTo(boltSkill.id, SubSkillSlotId("IMPACT"), explosionSkill)
-        skillBook.addBuffSKillTo(boltSkill.id, SubSkillSlotId("IMPACT") ,BuffSkillSlotId("DEBUFF_1"), fireSkill)
+        skillBook.addBuffSKillTo(boltSkill.id, SubSkillSlotId("IMPACT"), BuffSkillSlotId("DEBUFF_1"), fireSkill)
+        skillBook.upgrade(boltSkill.id, StatId("SPEED"), Upgrades(10))
+        skillBook.upgrade(boltSkill.id, SubSkillSlotId("IMPACT"), StatId("RADIUS"), Upgrades(10))
+        skillBook.upgrade(boltSkill.id, SubSkillSlotId("IMPACT"), BuffSkillSlotId("DEBUFF_1"), StatId("DAMAGE"), Upgrades(10))
 
-        boltSkill.upgrade(StatId("SPEED"), Upgrades(10))
-        boltSkill.upgrade(SubSkillSlotId("IMPACT"), StatId("RADIUS"), Upgrades(10))
-        boltSkill.upgrade(SubSkillSlotId("IMPACT"), BuffSkillSlotId("DEBUFF_1"), StatId("DAMAGE"), Upgrades(10))
+        val objectMapper = ObjectMapper().registerModule(KotlinModule.Builder().build())
+        val skillBookAdapter = SkillBookAdapter(SkillAdapter(), SkillTemplateAdapter())
 
-        val skillAdapter = SkillAdapter()
-        val skillTemplateAdapter = SkillTemplateAdapter()
-        val skillBookAdapter = SkillBookAdapter(skillAdapter, skillTemplateAdapter)
+        val originalEntity = skillBookAdapter.fromDomain(skillBook)
+        val json = objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(originalEntity)
+        val deserializedEntity = objectMapper.readValue(json, PlayerSkillBookEntity::class.java)
+        val deserializedDomain = skillBookAdapter.toDomain(deserializedEntity)
 
-        val objectMapper = ObjectMapper()
-            .registerModule(KotlinModule.Builder().build())
-
-        val entity = skillBookAdapter.fromDomain(skillBook)
-        val json = objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(entity)
-
-        println(json)
-
-        val jsonObject = objectMapper.readValue(json, PlayerSkillBookEntity::class.java)
-        val domain = skillBookAdapter.toDomain(jsonObject)
-
-        assertThat(domain).usingRecursiveComparison().isEqualTo(skillBook)
+        assertThat(deserializedDomain).usingRecursiveComparison().isEqualTo(skillBook)
+        assertThat(deserializedDomain).usingRecursiveComparison().isEqualTo(deserializedDomain.copy())
         assertThat(boltSkill.totalCost()).isEqualTo(UpgradeCost(60.0f))
-        assertThat(domain).usingRecursiveComparison().isEqualTo(domain.copy())
     }
 }
