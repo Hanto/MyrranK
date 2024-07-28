@@ -28,3 +28,8 @@ class QuantityMap<T>(
         map[key] = Quantity(quantity.available - 1, quantity.total)
     }
 }
+
+data class Quantity(
+    val available: Int,
+    val total: Int
+)
