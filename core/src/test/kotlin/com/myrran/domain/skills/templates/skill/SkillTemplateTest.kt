@@ -144,12 +144,20 @@ class SkillTemplateTest {
         )
 
         skillBook.learn(bolt.id)
+        skillBook.learn(bolt.id)
         skillBook.learn(explosion.id)
+        skillBook.learn(explosion.id)
+        skillBook.learn(fire.id)
         skillBook.learn(fire.id)
 
         val skillId = skillBook.createSkill(bolt.id)
         skillBook.addSubSkillTo(skillId, SubSkillSlotId("IMPACT"), explosion.id)
         skillBook.addBuffSKillTo(skillId, SubSkillSlotId("IMPACT") ,BuffSkillSlotId("DEBUFF_1"), fire.id)
+        val skill = skillBook.getSkill(skillId)
+
+        skill.upgrade(StatId("SPEED"), Upgrades(10))
+        skill.upgrade(SubSkillSlotId("IMPACT"), StatId("RADIUS"), Upgrades(10))
+        skill.upgrade(SubSkillSlotId("IMPACT"), BuffSkillSlotId("DEBUFF_1"), StatId("DAMAGE"), Upgrades(10))
 
         val skillAdapter = SkillAdapter()
         val skillTemplateAdapter = SkillTemplateAdapter()
@@ -160,11 +168,14 @@ class SkillTemplateTest {
 
         val entity = skillBookAdapter.fromDomain(skillBook)
         val json = objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(entity)
+
         println(json)
+
         val jsonObject = objectMapper.readValue(json, SkillBookEntity::class.java)
         val domain = skillBookAdapter.toDomain(jsonObject)
 
         assertThat(skillBook).usingRecursiveComparison().isEqualTo(domain)
+        assertThat(skill.totalCost()).isEqualTo(UpgradeCost(60.0f))
         assertThat(domain).usingRecursiveComparison().isEqualTo(domain.copy())
     }
 }

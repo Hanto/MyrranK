@@ -41,6 +41,8 @@ data class SkillBook(
     fun learn(templateId: SubSkillTemplateId) = learnedSubSkills.returnBack(templateId)
     fun learn(templateId: BuffSkillTemplateId) = learnedBuffSkills.returnBack(templateId)
 
+    fun getSkill(skillId: SkillId): Skill = createdSkills[skillId]!!
+
     fun createSkill(templateId: SkillTemplateId): SkillId {
 
         val skill = skillTemplates[templateId]!!.toSkill()
