@@ -16,14 +16,16 @@ import com.myrran.utils.DeSerializer
 import com.myrran.view.Atlas
 import ktx.app.KtxScreen
 
-class MainScreen: KtxScreen
-{
-    private val batch: SpriteBatch = SpriteBatch()
-    private val uiStage: Stage = Stage()
-    private val repository: Repository = Repository(SkillBookAdapter(SkillAdapter(), SkillTemplateAdapter()), DeSerializer())
+class MainScreen(
 
-    private val worldSkillBook: WorldSkillBook = repository.loadSkillBook()
-    private val atlas: Atlas = repository.loadAtlas()
+    private val batch: SpriteBatch = SpriteBatch(),
+    private val uiStage: Stage = Stage(),
+    private val repository: Repository = Repository(SkillBookAdapter(SkillAdapter(), SkillTemplateAdapter()), DeSerializer()),
+    private val atlas: Atlas = repository.loadAtlas(),
+    private val worldSkillBook: WorldSkillBook = repository.loadSkillBook(),
+
+): KtxScreen
+{
     private val fpsText: Label
 
     // INIT:
