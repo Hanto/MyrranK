@@ -9,19 +9,30 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label
 import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle
 import com.myrran.domain.skills.book.WorldSkillBook
 import com.myrran.domain.utils.DeSerializer
+import com.myrran.domain.utils.ElapsedTime
+import com.myrran.domain.utils.mapttl.MapTTL
 import com.myrran.infraestructure.Repository
 import com.myrran.infraestructure.adapters.SkillAdapter
 import com.myrran.infraestructure.adapters.SkillBookAdapter
 import com.myrran.infraestructure.adapters.SkillTemplateAdapter
 import com.myrran.view.atlas.Atlas
 import ktx.app.KtxScreen
+import java.util.concurrent.TimeUnit.MINUTES
 
 class MainScreen(
 
     private val batch: SpriteBatch = SpriteBatch(),
     private val uiStage: Stage = Stage(),
-    private val repository: Repository = Repository(SkillBookAdapter(SkillAdapter(), SkillTemplateAdapter()), DeSerializer()),
-    private val atlas: Atlas = repository.loadAtlas(),
+    private val repository: Repository = Repository(
+        skillBookAdapter = SkillBookAdapter(
+            skillAdapter = SkillAdapter(),
+            skillTemplateAdapter = SkillTemplateAdapter()),
+        deSerializer =  DeSerializer()),
+
+    private val atlas: Atlas = Atlas(
+        atlastConfiguration = repository.loadAtlasConfiguration(),
+        fonts = MapTTL(defaultTTL = ElapsedTime.of(units = 10, MINUTES))),
+
     private val worldSkillBook: WorldSkillBook = repository.loadSkillBook(),
 
 ): KtxScreen
