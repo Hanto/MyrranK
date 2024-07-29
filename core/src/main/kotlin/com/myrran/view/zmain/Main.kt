@@ -1,4 +1,4 @@
-package com.myrran.view.main
+package com.myrran.view.zmain
 
 import com.badlogic.gdx.graphics.Texture
 import com.badlogic.gdx.graphics.Texture.TextureFilter.Linear

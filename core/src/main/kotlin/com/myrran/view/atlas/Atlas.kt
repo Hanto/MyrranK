@@ -6,13 +6,13 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas
 import com.badlogic.gdx.graphics.g2d.TextureRegion
 import com.badlogic.gdx.utils.Disposable
 import com.myrran.domain.utils.ElapsedTime.Companion.of
-import com.myrran.domain.utils.MapOfMapTTL
+import com.myrran.domain.utils.mapttl.MapMapTTL
 import java.util.concurrent.TimeUnit.MINUTES
 
 class Atlas(
 
     private val assetManager: AssetManager,
-    private val textureRegions: MapOfMapTTL<String, String, TextureRegion> = MapOfMapTTL(defaultTTL = of(10, MINUTES))
+    private val textureRegions: MapMapTTL<String, String, TextureRegion> = MapMapTTL(defaultTTL = of(10, MINUTES))
 
 ) : Disposable
 {

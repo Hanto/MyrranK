@@ -1,4 +1,4 @@
-package com.myrran.view.main
+package com.myrran.view.zmain
 
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.assets.AssetManager
@@ -6,8 +6,6 @@ import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.graphics.GL20
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import com.badlogic.gdx.scenes.scene2d.Stage
-import com.badlogic.gdx.scenes.scene2d.ui.Label
-import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle
 import com.myrran.domain.skills.book.WorldSkillBook
 import com.myrran.domain.utils.DeSerializer
 import com.myrran.infraestructure.Repository
@@ -15,6 +13,7 @@ import com.myrran.infraestructure.adapters.SkillAdapter
 import com.myrran.infraestructure.adapters.SkillBookAdapter
 import com.myrran.infraestructure.adapters.SkillTemplateAdapter
 import com.myrran.view.atlas.Atlas
+import com.myrran.view.ui.WidgetText
 import ktx.app.KtxScreen
 
 class MainScreen(
@@ -34,7 +33,7 @@ class MainScreen(
 
 ): KtxScreen
 {
-    private val fpsText: Label
+    private val fpsText: WidgetText
 
     // INIT:
     //--------------------------------------------------------------------------------------------------------
@@ -47,8 +46,7 @@ class MainScreen(
 
         atlas.getTextureRegion("Atlas.atlas", "TexturasMisc/RebindOn")
 
-        val fpsStyle = LabelStyle(atlas.getFont("20.fnt"), Color.WHITE)
-        fpsText = Label("fps", fpsStyle)
+        fpsText = WidgetText("HOLA MUNDO", atlas.getFont("20.fnt"), Color.WHITE, Color.BLACK, 2)
         uiStage.addActor(fpsText)
     }
 
@@ -74,12 +72,12 @@ class MainScreen(
 
     private fun renderUI(delta: Float) {
 
-        fpsText.setText("fps: ${Gdx.graphics.framesPerSecond}")
+        fpsText.setText("Hola Mundo: ${Gdx.graphics.framesPerSecond}")
     }
 
     private fun clearScreen() {
 
-        Gdx.gl.glClearColor(0.05f, 0.05f, 0.05f, 1f)
+        Gdx.gl.glClearColor(0.55f, 0.05f, 0.05f, 1f)
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT)
     }
 

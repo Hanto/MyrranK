@@ -1,9 +1,9 @@
-package com.myrran.domain.utils
+package com.myrran.domain.utils.mapttl
 
-import com.myrran.domain.utils.mapttl.MapTTL
+import com.myrran.domain.utils.ElapsedTime
 import java.util.concurrent.TimeUnit
 
-class MapOfMapTTL<KEY1, KEY2, VALUE>(
+class MapMapTTL<KEY1, KEY2, VALUE>(
 
     private val defaultTTL: ElapsedTime = ElapsedTime.of(1, TimeUnit.MINUTES),
     rootMapCreator: () -> MutableMap<KEY1, MapTTL<KEY2, VALUE>> =  { mutableMapOf() },
