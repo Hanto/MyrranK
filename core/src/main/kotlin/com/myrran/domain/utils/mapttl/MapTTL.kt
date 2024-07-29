@@ -28,6 +28,7 @@ class MapTTL<KEY, VALUE>(
         delayQueue.removeExpired()
 
         val expiringKey = ExpiringKey(key = key, ttl = timeToLive)
+        internalMap[key]?.dispose()
         internalMap[key] = value
         expiringKeys[key] = expiringKey
         delayQueue.offer(expiringKey)
@@ -58,5 +59,13 @@ class MapTTL<KEY, VALUE>(
             expiringKeys.remove(delayedKey.key)
             delayedKey = this.poll()
         }
+    }
+
+    private fun VALUE.dispose(): VALUE  {
+
+        if (this is Disposable)
+            this.dispose()
+
+        return this
     }
 }

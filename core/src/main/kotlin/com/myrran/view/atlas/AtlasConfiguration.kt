@@ -1,6 +1,13 @@
 package com.myrran.view.atlas
 
-class AtlasConfiguration(
+data class AtlasConfiguration(
+
+    val atlas: List<String>,
     val fonts: List<String>,
-    val fontsDirectory: String,
+    val textureRegions: List<TextureRegionConfiguration>
+)
+
+data class TextureRegionConfiguration(
+    val atlas: String,
+    val texture: String
 )
