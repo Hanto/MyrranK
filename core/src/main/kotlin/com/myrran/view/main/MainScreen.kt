@@ -45,7 +45,9 @@ class MainScreen(
         atlas.load(initialAtlasConfig)
         atlas.finishLoading()
 
-        val fpsStyle = LabelStyle(atlas.getFont("20"), Color.WHITE)
+        atlas.getTextureRegion("Atlas.atlas", "TexturasMisc/RebindOn")
+
+        val fpsStyle = LabelStyle(atlas.getFont("20.fnt"), Color.WHITE)
         fpsText = Label("fps", fpsStyle)
         uiStage.addActor(fpsText)
     }
