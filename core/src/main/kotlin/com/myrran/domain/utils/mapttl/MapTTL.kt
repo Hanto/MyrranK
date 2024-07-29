@@ -1,6 +1,5 @@
 package com.myrran.domain.utils.mapttl
 
-import com.badlogic.gdx.utils.Disposable
 import com.myrran.domain.utils.ElapsedTime
 import java.util.concurrent.DelayQueue
 import java.util.concurrent.TimeUnit
@@ -9,8 +8,8 @@ class MapTTL<KEY, VALUE>(
 
     private val defaultTTL: ElapsedTime = ElapsedTime.of(1, TimeUnit.MINUTES)
 
-): Disposable {
-
+)
+{
     private val internalMap: MutableMap<KEY, VALUE> = mutableMapOf()
     private val expiringKeys: MutableMap<KEY, ExpiringKey<KEY>> = mutableMapOf()
     private val delayQueue = DelayQueue<ExpiringKey<KEY>>()
@@ -28,7 +27,6 @@ class MapTTL<KEY, VALUE>(
         delayQueue.removeExpired()
 
         val expiringKey = ExpiringKey(key = key, ttl = timeToLive)
-        internalMap[key]?.dispose()
         internalMap[key] = value
         expiringKeys[key] = expiringKey
         delayQueue.offer(expiringKey)
@@ -40,11 +38,6 @@ class MapTTL<KEY, VALUE>(
         expiringKeys[key]?.renew()
 
         return internalMap[key]
-    }
-
-    override fun dispose() {
-
-        internalMap.values.filterIsInstance<Disposable>().forEach{ it.dispose() }
     }
 
     // HELPER:
@@ -59,13 +52,5 @@ class MapTTL<KEY, VALUE>(
             expiringKeys.remove(delayedKey.key)
             delayedKey = this.poll()
         }
-    }
-
-    private fun VALUE.dispose(): VALUE  {
-
-        if (this is Disposable)
-            this.dispose()
-
-        return this
     }
 }

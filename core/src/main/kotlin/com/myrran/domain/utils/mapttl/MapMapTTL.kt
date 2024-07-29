@@ -6,8 +6,7 @@ import java.util.concurrent.TimeUnit
 class MapMapTTL<KEY1, KEY2, VALUE>(
 
     private val defaultTTL: ElapsedTime = ElapsedTime.of(1, TimeUnit.MINUTES),
-    rootMapCreator: () -> MutableMap<KEY1, MapTTL<KEY2, VALUE>> =  { mutableMapOf() },
-    private val rootMap: MutableMap<KEY1, MapTTL<KEY2, VALUE>> = rootMapCreator.invoke()
+    private val rootMap: MutableMap<KEY1, MapTTL<KEY2, VALUE>> = mutableMapOf()
 
 ): MutableMap<KEY1, MapTTL<KEY2, VALUE>> by rootMap
 {
