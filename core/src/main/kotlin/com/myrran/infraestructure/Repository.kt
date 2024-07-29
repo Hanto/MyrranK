@@ -16,14 +16,14 @@ class Repository(
 {
     fun loadSkillBook(): WorldSkillBook {
 
-        val json = Gdx.files.internal("WorldSkillBook.json").readString()
+        val json = Gdx.files.internal("config/WorldSkillBook.json").readString()
         val entity = deSerializer.deserialize(json, WorldSkillBookEntity::class.java)
         return skillBookAdapter.toDomain(entity)
     }
 
     fun loadAtlas(): Atlas {
 
-        val json = Gdx.files.internal("AtlasConfiguration.json").readString()
+        val json = Gdx.files.internal("config/AtlasConfiguration.json").readString()
         val atlasConfiguration = deSerializer.deserialize(json, AtlasConfiguration::class.java)
         return Atlas(atlasConfiguration)
     }
