@@ -21,7 +21,7 @@ class Atlas(
         const val FONTS_FOLDER = "fonts/"
     }
 
-    fun load(configuration: AtlasConfiguration) {
+    fun load(configuration: AssetsCollection) {
 
         configuration.atlas.forEach {
 
@@ -34,7 +34,7 @@ class Atlas(
         }
     }
 
-    fun unload(configuration: AtlasConfiguration) {
+    fun unload(configuration: AssetsCollection) {
 
         configuration.atlas.forEach {
 
@@ -48,16 +48,21 @@ class Atlas(
         }
     }
 
-    fun getFont(name: String): BitmapFont =
+    // FONTS:
+    //--------------------------------------------------------------------------------------------------------
 
-        assetManager.get("$FONTS_FOLDER$name", BitmapFont::class.java)
+    fun getFont(fontName: String): BitmapFont =
 
-    fun getTextureRegion(atlasName: String, textureName: String): TextureRegion {
+        assetManager.get("$FONTS_FOLDER$fontName", BitmapFont::class.java)
 
-        return textureRegions[atlasName, textureName] ?: addTextureRegion(atlasName, textureName)
-    }
+    fun getTextureRegion(atlasName: String, textureName: String): TextureRegion =
 
-    private fun addTextureRegion(atlasName: String, textureName: String): TextureRegion {
+        textureRegions[atlasName, textureName] ?: addAndReturnTextureRegion(atlasName, textureName)
+
+    // TEXTURE REGION
+    //--------------------------------------------------------------------------------------------------------
+
+    private fun addAndReturnTextureRegion(atlasName: String, textureName: String): TextureRegion {
 
         val textureAtlas = assetManager.get("$ATLAS_FOLDER$atlasName", TextureAtlas::class.java)
         val texture = textureAtlas.findRegion(textureName)
@@ -65,6 +70,9 @@ class Atlas(
         textureRegions[atlasName, textureName] = textureRegion
         return textureRegion
     }
+
+    // MISC:
+    //--------------------------------------------------------------------------------------------------------
 
     fun finishLoading() {
 

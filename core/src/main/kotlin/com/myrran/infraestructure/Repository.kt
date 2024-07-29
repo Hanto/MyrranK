@@ -5,7 +5,7 @@ import com.myrran.domain.skills.book.WorldSkillBook
 import com.myrran.domain.utils.DeSerializer
 import com.myrran.infraestructure.adapters.SkillBookAdapter
 import com.myrran.infraestructure.entities.WorldSkillBookEntity
-import com.myrran.view.atlas.AtlasConfiguration
+import com.myrran.view.atlas.AssetsCollection
 
 class Repository(
 
@@ -13,17 +13,21 @@ class Repository(
     private val deSerializer: DeSerializer
 )
 {
+    companion object {
+        const val CONFIG_FOLDER = "config/"
+    }
+
     fun loadSkillBook(): WorldSkillBook {
 
-        val json = Gdx.files.internal("config/WorldSkillBook.json").readString()
+        val json = Gdx.files.internal("${CONFIG_FOLDER}WorldSkillBook.json").readString()
         val entity = deSerializer.deserialize(json, WorldSkillBookEntity::class.java)
         return skillBookAdapter.toDomain(entity)
     }
 
-    fun loadAtlasConfiguration(): AtlasConfiguration {
+    fun loadAssetCollection(assetsName: String): AssetsCollection {
 
-        val json = Gdx.files.internal("config/AtlasConfiguration.json").readString()
-        return deSerializer.deserialize(json, AtlasConfiguration::class.java)
+        val json = Gdx.files.internal("$CONFIG_FOLDER$assetsName").readString()
+        return deSerializer.deserialize(json, AssetsCollection::class.java)
     }
 
     fun saveSkillBook(worldSkillBook: WorldSkillBook) {

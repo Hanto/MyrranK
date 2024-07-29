@@ -41,8 +41,8 @@ class MainScreen(
 
     init {
 
-        val initialAtlasConfig = repository.loadAtlasConfiguration()
-        atlas.load(initialAtlasConfig)
+        val initialAssets = repository.loadAssetCollection("InitialAssets.json")
+        atlas.load(initialAssets)
         atlas.finishLoading()
 
         atlas.getTextureRegion("Atlas.atlas", "TexturasMisc/RebindOn")
