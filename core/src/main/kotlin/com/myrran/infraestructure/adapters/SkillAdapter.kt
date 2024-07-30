@@ -12,6 +12,7 @@ import com.myrran.domain.skills.skills.skill.Skill
 import com.myrran.domain.skills.skills.skill.SkillId
 import com.myrran.domain.skills.skills.skill.SkillName
 import com.myrran.domain.skills.skills.stat.BonusPerUpgrade
+import com.myrran.domain.skills.skills.stat.NumUpgrades
 import com.myrran.domain.skills.skills.stat.Stat
 import com.myrran.domain.skills.skills.stat.StatBonus
 import com.myrran.domain.skills.skills.stat.StatFixed
@@ -177,8 +178,8 @@ class SkillAdapter
                 id = domain.id.value,
                 name = domain.name.value,
                 baseBonus = domain.baseBonus.value,
-                actual = domain.actual.value,
-                maximum = domain.maximum.value,
+                actual = domain.upgrades.actual.value,
+                maximum = domain.upgrades.maximum.value,
                 upgradeCost = domain.upgradeCost.value,
                 bonusPerUpgrade = domain.bonusPerUpgrade.value
             )
@@ -198,8 +199,9 @@ class SkillAdapter
                 id = StatId(entity.id),
                 name = StatName(entity.name),
                 baseBonus = StatBonus(entity.baseBonus),
-                actual = Upgrades(entity.actual),
-                maximum = Upgrades(entity.maximum!!),
+                upgrades = Upgrades(
+                    actual = NumUpgrades(entity.actual),
+                    maximum = NumUpgrades(entity.maximum!!)),
                 upgradeCost = UpgradeCost(entity.upgradeCost!!),
                 bonusPerUpgrade = BonusPerUpgrade(entity.bonusPerUpgrade!!),
             )

@@ -3,9 +3,9 @@ package com.myrran.domain.skills.skills.subskill
 import com.myrran.domain.skills.skills.buff.BuffSkill
 import com.myrran.domain.skills.skills.buff.BuffSkillSlotContent
 import com.myrran.domain.skills.skills.buff.BuffSkillSlotId
+import com.myrran.domain.skills.skills.stat.NumUpgrades
 import com.myrran.domain.skills.skills.stat.StatId
 import com.myrran.domain.skills.skills.stat.UpgradeCost
-import com.myrran.domain.skills.skills.stat.Upgrades
 
 data class SubSkillSlots(
 
@@ -49,11 +49,11 @@ data class SubSkillSlots(
     // UPGRADES:
     //--------------------------------------------------------------------------------------------------------
 
-    fun upgrade(slotId: SubSkillSlotId, statId: StatId, upgradeBy: Upgrades) =
+    fun upgrade(slotId: SubSkillSlotId, statId: StatId, upgradeBy: NumUpgrades) =
 
         slotMap[slotId]?.upgrade(statId, upgradeBy)
 
-    fun upgrade(slotId: SubSkillSlotId, buffSlotId: BuffSkillSlotId, statId: StatId, upgradeBy: Upgrades) =
+    fun upgrade(slotId: SubSkillSlotId, buffSlotId: BuffSkillSlotId, statId: StatId, upgradeBy: NumUpgrades) =
 
         slotMap[slotId]?.upgrade(buffSlotId, statId, upgradeBy)
 

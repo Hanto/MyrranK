@@ -3,11 +3,11 @@ package com.myrran.domain.skills.skills.skill
 import com.myrran.domain.skills.skills.buff.BuffSkill
 import com.myrran.domain.skills.skills.buff.BuffSkillSlotContent
 import com.myrran.domain.skills.skills.buff.BuffSkillSlotId
+import com.myrran.domain.skills.skills.stat.NumUpgrades
 import com.myrran.domain.skills.skills.stat.StatId
 import com.myrran.domain.skills.skills.stat.Stats
 import com.myrran.domain.skills.skills.stat.StatsI
 import com.myrran.domain.skills.skills.stat.UpgradeCost
-import com.myrran.domain.skills.skills.stat.Upgrades
 import com.myrran.domain.skills.skills.subskill.SubSkill
 import com.myrran.domain.skills.skills.subskill.SubSkillSlot
 import com.myrran.domain.skills.skills.subskill.SubSkillSlotContent
@@ -69,11 +69,11 @@ data class Skill(
     // UPGRADES:
     //--------------------------------------------------------------------------------------------------------
 
-    fun upgrade(subSkillSlotId: SubSkillSlotId, statId: StatId, upgradeBy: Upgrades) =
+    fun upgrade(subSkillSlotId: SubSkillSlotId, statId: StatId, upgradeBy: NumUpgrades) =
 
         slots.upgrade(subSkillSlotId, statId, upgradeBy)
 
-    fun upgrade(subSkillSlotId: SubSkillSlotId, buffSkillSlotId: BuffSkillSlotId, statId: StatId, upgradeBy: Upgrades) =
+    fun upgrade(subSkillSlotId: SubSkillSlotId, buffSkillSlotId: BuffSkillSlotId, statId: StatId, upgradeBy: NumUpgrades) =
 
         slots.upgrade(subSkillSlotId, buffSkillSlotId, statId, upgradeBy)
 

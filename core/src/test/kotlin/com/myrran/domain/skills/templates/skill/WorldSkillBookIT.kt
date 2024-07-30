@@ -8,11 +8,11 @@ import com.myrran.domain.skills.skills.buff.BuffSkillSlotId
 import com.myrran.domain.skills.skills.buff.BuffSkillSlotName
 import com.myrran.domain.skills.skills.skill.SkillName
 import com.myrran.domain.skills.skills.stat.BonusPerUpgrade
+import com.myrran.domain.skills.skills.stat.NumUpgrades
 import com.myrran.domain.skills.skills.stat.StatBonus
 import com.myrran.domain.skills.skills.stat.StatId
 import com.myrran.domain.skills.skills.stat.StatName
 import com.myrran.domain.skills.skills.stat.UpgradeCost
-import com.myrran.domain.skills.skills.stat.Upgrades
 import com.myrran.domain.skills.skills.subskill.SubSkillName
 import com.myrran.domain.skills.skills.subskill.SubSkillSlotId
 import com.myrran.domain.skills.skills.subskill.SubSkillSlotName
@@ -50,7 +50,7 @@ class WorldSkillBookIT {
                     id = StatId("SPEED"),
                     name = StatName("speed"),
                     baseBonus = StatBonus(10.0f),
-                    maximum = Upgrades(20),
+                    maximum = NumUpgrades(20),
                     upgradeCost = UpgradeCost(2.0f),
                     bonusPerUpgrade = BonusPerUpgrade(1.0f)
                 ),
@@ -58,7 +58,7 @@ class WorldSkillBookIT {
                     id = StatId("Cooldown"),
                     name = StatName("cooldown"),
                     baseBonus = StatBonus(10.0f),
-                    maximum = Upgrades(20),
+                    maximum = NumUpgrades(20),
                     upgradeCost = UpgradeCost(2.0f),
                     bonusPerUpgrade = BonusPerUpgrade(1.0f)
                 )
@@ -86,7 +86,7 @@ class WorldSkillBookIT {
                     id = StatId("RADIUS"),
                     name = StatName("radius"),
                     baseBonus = StatBonus(10.0f),
-                    maximum = Upgrades(20),
+                    maximum = NumUpgrades(20),
                     upgradeCost = UpgradeCost(2.0f),
                     bonusPerUpgrade = BonusPerUpgrade(1.0f)
                 )
@@ -115,7 +115,7 @@ class WorldSkillBookIT {
                     id = StatId("DAMAGE"),
                     name = StatName("damage per second"),
                     baseBonus = StatBonus(10.0f),
-                    maximum = Upgrades(20),
+                    maximum = NumUpgrades(20),
                     upgradeCost = UpgradeCost(2.0f),
                     bonusPerUpgrade = BonusPerUpgrade(1.0f)
                 ),
@@ -123,7 +123,7 @@ class WorldSkillBookIT {
                     id = StatId("DURATION"),
                     name = StatName("duration"),
                     baseBonus = StatBonus(10.0f),
-                    maximum = Upgrades(20),
+                    maximum = NumUpgrades(20),
                     upgradeCost = UpgradeCost(2.0f),
                     bonusPerUpgrade = BonusPerUpgrade(1.0f)
                 )

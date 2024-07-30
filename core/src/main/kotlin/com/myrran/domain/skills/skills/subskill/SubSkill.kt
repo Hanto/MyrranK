@@ -5,11 +5,11 @@ import com.myrran.domain.skills.skills.buff.BuffSkillSlot
 import com.myrran.domain.skills.skills.buff.BuffSkillSlotContent
 import com.myrran.domain.skills.skills.buff.BuffSkillSlotId
 import com.myrran.domain.skills.skills.buff.BuffSkillSlots
+import com.myrran.domain.skills.skills.stat.NumUpgrades
 import com.myrran.domain.skills.skills.stat.StatId
 import com.myrran.domain.skills.skills.stat.Stats
 import com.myrran.domain.skills.skills.stat.StatsI
 import com.myrran.domain.skills.skills.stat.UpgradeCost
-import com.myrran.domain.skills.skills.stat.Upgrades
 import com.myrran.domain.skills.templates.LockTypes
 import com.myrran.domain.skills.templates.subskill.SubSkillTemplateId
 import com.myrran.domain.spells.subspell.SubSkillType
@@ -57,7 +57,7 @@ data class SubSkill(
     // UPGRADES:
     //--------------------------------------------------------------------------------------------------------
 
-    fun upgrade(buffSkillSlotId: BuffSkillSlotId, statId: StatId, upgradeBy: Upgrades) =
+    fun upgrade(buffSkillSlotId: BuffSkillSlotId, statId: StatId, upgradeBy: NumUpgrades) =
 
         slots.upgrade(buffSkillSlotId, statId, upgradeBy)
 

@@ -9,11 +9,11 @@ import com.myrran.domain.skills.skills.buff.BuffSkillSlotId
 import com.myrran.domain.skills.skills.buff.BuffSkillSlotName
 import com.myrran.domain.skills.skills.skill.SkillName
 import com.myrran.domain.skills.skills.stat.BonusPerUpgrade
+import com.myrran.domain.skills.skills.stat.NumUpgrades
 import com.myrran.domain.skills.skills.stat.StatBonus
 import com.myrran.domain.skills.skills.stat.StatId
 import com.myrran.domain.skills.skills.stat.StatName
 import com.myrran.domain.skills.skills.stat.UpgradeCost
-import com.myrran.domain.skills.skills.stat.Upgrades
 import com.myrran.domain.skills.skills.subskill.SubSkillName
 import com.myrran.domain.skills.skills.subskill.SubSkillSlotId
 import com.myrran.domain.skills.skills.subskill.SubSkillSlotName
@@ -51,7 +51,7 @@ class PlayerSkillBookIT {
                     id = StatId("SPEED"),
                     name = StatName("speed"),
                     baseBonus = StatBonus(10.0f),
-                    maximum = Upgrades(20),
+                    maximum = NumUpgrades(20),
                     upgradeCost = UpgradeCost(2.0f),
                     bonusPerUpgrade = BonusPerUpgrade(1.0f)
                 ),
@@ -59,7 +59,7 @@ class PlayerSkillBookIT {
                     id = StatId("Cooldown"),
                     name = StatName("cooldown"),
                     baseBonus = StatBonus(10.0f),
-                    maximum = Upgrades(20),
+                    maximum = NumUpgrades(20),
                     upgradeCost = UpgradeCost(2.0f),
                     bonusPerUpgrade = BonusPerUpgrade(1.0f)
                 )
@@ -87,7 +87,7 @@ class PlayerSkillBookIT {
                     id = StatId("RADIUS"),
                     name = StatName("radius"),
                     baseBonus = StatBonus(10.0f),
-                    maximum = Upgrades(20),
+                    maximum = NumUpgrades(20),
                     upgradeCost = UpgradeCost(2.0f),
                     bonusPerUpgrade = BonusPerUpgrade(1.0f)
                 )
@@ -116,7 +116,7 @@ class PlayerSkillBookIT {
                     id = StatId("DAMAGE"),
                     name = StatName("damage per second"),
                     baseBonus = StatBonus(10.0f),
-                    maximum = Upgrades(20),
+                    maximum = NumUpgrades(20),
                     upgradeCost = UpgradeCost(2.0f),
                     bonusPerUpgrade = BonusPerUpgrade(1.0f)
                 ),
@@ -124,7 +124,7 @@ class PlayerSkillBookIT {
                     id = StatId("DURATION"),
                     name = StatName("duration"),
                     baseBonus = StatBonus(10.0f),
-                    maximum = Upgrades(20),
+                    maximum = NumUpgrades(20),
                     upgradeCost = UpgradeCost(2.0f),
                     bonusPerUpgrade = BonusPerUpgrade(1.0f)
                 )
@@ -159,9 +159,9 @@ class PlayerSkillBookIT {
         skillBook.addSkill(boltSkill)
         skillBook.addSubSkillTo(boltSkill.id, SubSkillSlotId("IMPACT"), explosionSkill)
         skillBook.addBuffSKillTo(boltSkill.id, SubSkillSlotId("IMPACT"), BuffSkillSlotId("DEBUFF_1"), fireSkill)
-        skillBook.upgrade(boltSkill.id, StatId("SPEED"), Upgrades(10))
-        skillBook.upgrade(boltSkill.id, SubSkillSlotId("IMPACT"), StatId("RADIUS"), Upgrades(10))
-        skillBook.upgrade(boltSkill.id, SubSkillSlotId("IMPACT"), BuffSkillSlotId("DEBUFF_1"), StatId("DAMAGE"), Upgrades(10))
+        skillBook.upgrade(boltSkill.id, StatId("SPEED"), NumUpgrades(10))
+        skillBook.upgrade(boltSkill.id, SubSkillSlotId("IMPACT"), StatId("RADIUS"), NumUpgrades(10))
+        skillBook.upgrade(boltSkill.id, SubSkillSlotId("IMPACT"), BuffSkillSlotId("DEBUFF_1"), StatId("DAMAGE"), NumUpgrades(10))
 
         val objectMapper = ObjectMapper().registerModule(KotlinModule.Builder().build())
         val skillBookAdapter = SkillBookAdapter(SkillAdapter(), SkillTemplateAdapter())

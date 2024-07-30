@@ -10,10 +10,10 @@ data class Stats(
 
     override fun getStat(statId: StatId): Stat? = statMap[statId]
 
-    override fun upgrade(statId: StatId, upgradeBy: Upgrades) =
+    override fun upgrade(statId: StatId, upgradeBy: NumUpgrades) =
 
         when (val stat = statMap[statId]) {
-            is StatUpgradeable -> stat.upgrade(upgradeBy)
+            is StatUpgradeable -> stat.upgradeBy(upgradeBy)
             is StatFixed, null -> Unit
         }
 

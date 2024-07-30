@@ -5,8 +5,7 @@ data class StatUpgradeable(
     override val id: StatId,
     override val name: StatName,
     override val baseBonus: StatBonus,
-    var actual: Upgrades,
-    val maximum: Upgrades,
+    val upgrades: Upgrades,
     val upgradeCost: UpgradeCost,
     val bonusPerUpgrade: BonusPerUpgrade
 
@@ -14,16 +13,13 @@ data class StatUpgradeable(
 
     override fun totalBonus(): StatBonus =
 
-        baseBonus + (actual * bonusPerUpgrade)
+        baseBonus + (upgrades.actual * bonusPerUpgrade)
 
     override fun totalCost(): UpgradeCost =
 
-        actual * upgradeCost
+        upgrades.actual * upgradeCost
 
-    fun upgrade(upgradeBy: Upgrades) {
+    fun upgradeBy(numUpgrades: NumUpgrades) =
 
-        actual += upgradeBy
-            .atMin(Upgrades.ZERO)
-            .atMax(maximum)
-    }
+        upgrades.upgradeBy(numUpgrades)
 }

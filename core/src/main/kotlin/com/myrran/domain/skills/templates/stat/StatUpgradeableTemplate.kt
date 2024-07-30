@@ -1,6 +1,7 @@
 package com.myrran.domain.skills.templates.stat
 
 import com.myrran.domain.skills.skills.stat.BonusPerUpgrade
+import com.myrran.domain.skills.skills.stat.NumUpgrades
 import com.myrran.domain.skills.skills.stat.Stat
 import com.myrran.domain.skills.skills.stat.StatBonus
 import com.myrran.domain.skills.skills.stat.StatId
@@ -14,7 +15,7 @@ data class StatUpgradeableTemplate(
     override val id: StatId,
     override val name: StatName,
     override val baseBonus: StatBonus,
-    val maximum: Upgrades,
+    val maximum: NumUpgrades,
     val upgradeCost: UpgradeCost,
     val bonusPerUpgrade: BonusPerUpgrade
 
@@ -26,9 +27,9 @@ data class StatUpgradeableTemplate(
             id = id,
             name = name,
             baseBonus = baseBonus,
-            actual = Upgrades(0),
-            maximum = maximum,
+            upgrades = Upgrades(
+                actual = NumUpgrades(0),
+                maximum = maximum),
             upgradeCost = upgradeCost,
             bonusPerUpgrade = bonusPerUpgrade)
-
 }

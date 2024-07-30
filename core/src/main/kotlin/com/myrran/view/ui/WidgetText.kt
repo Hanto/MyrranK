@@ -5,27 +5,41 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont
 import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle
 import com.badlogic.gdx.scenes.scene2d.ui.WidgetGroup
 
-class WidgetText(
+class WidgetText<T>(
 
-    text: CharSequence,
+    text: T,
     font: BitmapFont,
-    textColor: Color,
-    shadowColor: Color,
-    shadowTickness: Int
+    textColor: Color = Color.WHITE,
+    shadowColor: Color = Color.BLACK,
+    shadowTickness: Float = 1f,
+    private val formater: (T) -> String =  { it.toString() }
 
 ): WidgetGroup()
 {
-    private val textLabel = WidgetLabel(text, LabelStyle(font, textColor))
-    private val shadowLabel = WidgetLabel(text, LabelStyle(font, shadowColor))
+    private val textLabel: WidgetLabel
+    private val shadowLabel: WidgetLabel
 
     init {
 
+        val textString = formater.invoke(text)
+        textLabel = WidgetLabel(textString, LabelStyle(font, textColor))
+        shadowLabel = WidgetLabel(textString, LabelStyle(font, shadowColor))
         shadowLabel.setPosition(x + shadowTickness, y - shadowTickness )
-        this.addActor(shadowLabel)
-        this.addActor(textLabel)
+        addActor(shadowLabel)
+        addActor(textLabel)
     }
 
-    fun setText(newText: String) {
+    fun setText(text: T) {
+
+        val newText = formater.invoke(text)
+
+        textLabel.setText(newText)
+        shadowLabel.setText(newText)
+    }
+
+    fun setText(text: T, formater: (T) -> String) {
+
+        val newText = formater.invoke(text)
 
         textLabel.setText(newText)
         shadowLabel.setText(newText)

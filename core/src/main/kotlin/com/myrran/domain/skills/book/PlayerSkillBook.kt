@@ -4,8 +4,8 @@ import com.myrran.domain.skills.skills.buff.BuffSkill
 import com.myrran.domain.skills.skills.buff.BuffSkillSlotId
 import com.myrran.domain.skills.skills.skill.Skill
 import com.myrran.domain.skills.skills.skill.SkillId
+import com.myrran.domain.skills.skills.stat.NumUpgrades
 import com.myrran.domain.skills.skills.stat.StatId
-import com.myrran.domain.skills.skills.stat.Upgrades
 import com.myrran.domain.skills.skills.subskill.SubSkill
 import com.myrran.domain.skills.skills.subskill.SubSkillSlotId
 import com.myrran.domain.skills.templates.buff.BuffSkillTemplateId
@@ -99,15 +99,15 @@ data class PlayerSkillBook(
     // UPGRADE:
     //--------------------------------------------------------------------------------------------------------
 
-    fun upgrade(skillId: SkillId, statId: StatId, upgradeBy: Upgrades) =
+    fun upgrade(skillId: SkillId, statId: StatId, upgradeBy: NumUpgrades) =
 
         createdSkills[skillId]!!.upgrade(statId, upgradeBy)
 
-    fun upgrade(skillId: SkillId, subSkillSlotId: SubSkillSlotId, statId: StatId, upgradeBy: Upgrades) =
+    fun upgrade(skillId: SkillId, subSkillSlotId: SubSkillSlotId, statId: StatId, upgradeBy: NumUpgrades) =
 
         createdSkills[skillId]!!.upgrade(subSkillSlotId, statId, upgradeBy)
 
-    fun upgrade(skillId: SkillId, subSkillSlotId: SubSkillSlotId, buffSkillSlotId: BuffSkillSlotId, statId: StatId, upgradeBy: Upgrades) =
+    fun upgrade(skillId: SkillId, subSkillSlotId: SubSkillSlotId, buffSkillSlotId: BuffSkillSlotId, statId: StatId, upgradeBy: NumUpgrades) =
 
         createdSkills[skillId]!!.upgrade(subSkillSlotId, buffSkillSlotId, statId, upgradeBy)
 

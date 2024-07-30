@@ -5,11 +5,11 @@ import com.myrran.domain.skills.skills.buff.BuffSkillSlotId
 import com.myrran.domain.skills.skills.buff.BuffSkillSlotName
 import com.myrran.domain.skills.skills.skill.SkillName
 import com.myrran.domain.skills.skills.stat.BonusPerUpgrade
+import com.myrran.domain.skills.skills.stat.NumUpgrades
 import com.myrran.domain.skills.skills.stat.StatBonus
 import com.myrran.domain.skills.skills.stat.StatId
 import com.myrran.domain.skills.skills.stat.StatName
 import com.myrran.domain.skills.skills.stat.UpgradeCost
-import com.myrran.domain.skills.skills.stat.Upgrades
 import com.myrran.domain.skills.skills.subskill.SubSkillName
 import com.myrran.domain.skills.skills.subskill.SubSkillSlotId
 import com.myrran.domain.skills.skills.subskill.SubSkillSlotName
@@ -161,7 +161,7 @@ class SkillTemplateAdapter {
                 id = StatId(entity.id),
                 name = StatName(entity.name),
                 baseBonus = StatBonus(entity.baseBonus),
-                maximum = Upgrades(entity.maximum),
+                maximum = NumUpgrades(entity.maximum),
                 upgradeCost = UpgradeCost(entity.upgradeCost!!),
                 bonusPerUpgrade = BonusPerUpgrade(entity.bonusPerUpgrade!!)
             )
