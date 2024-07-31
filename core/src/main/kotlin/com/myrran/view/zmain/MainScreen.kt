@@ -216,7 +216,7 @@ class MainScreen(
         skillView.debug()
         skillView.setDebug(true, true)
 
-        boltSkill.observable.addObserver(skillView)
+        boltSkill.addObserver(skillView)
 
         val container = Container<Table>()
         container.actor = skillView

@@ -1,6 +1,7 @@
 package com.myrran.domain.skills.skills.skill
 
 import com.myrran.domain.Observable
+import com.myrran.domain.ObservableI
 import com.myrran.domain.skills.skills.buff.BuffSkill
 import com.myrran.domain.skills.skills.buff.BuffSkillSlotContent
 import com.myrran.domain.skills.skills.buff.BuffSkillSlotId
@@ -16,7 +17,6 @@ import com.myrran.domain.skills.skills.subskill.SubSkillSlotId
 import com.myrran.domain.skills.skills.subskill.SubSkillSlots
 import com.myrran.domain.skills.templates.skill.SkillTemplateId
 import com.myrran.domain.spells.spell.SkillType
-import com.myrran.domain.spells.spell.Spell
 
 data class Skill(
 
@@ -26,15 +26,10 @@ data class Skill(
     val name: SkillName,
     private val stats: Stats,
     private val slots: SubSkillSlots,
+    private val observable: ObservableI = Observable()
 
-): StatsI by stats
+): StatsI by stats, ObservableI by observable
 {
-    val observable = Observable(this)
-
-    fun createSpell(): Spell =
-
-        type.builder.invoke(this.copy())
-
     // SUBSKILLS
     //--------------------------------------------------------------------------------------------------------
 
@@ -74,15 +69,18 @@ data class Skill(
 
     fun upgrade(subSkillSlotId: SubSkillSlotId, statId: StatId, upgradeBy: NumUpgrades) =
 
-        slots.upgrade(subSkillSlotId, statId, upgradeBy).also { observable.notify(propertyName = "$statId", null, null) }
+        slots.upgrade(subSkillSlotId, statId, upgradeBy)
+            .also { notify("$statId") }
 
     fun upgrade(subSkillSlotId: SubSkillSlotId, buffSkillSlotId: BuffSkillSlotId, statId: StatId, upgradeBy: NumUpgrades) =
 
-        slots.upgrade(subSkillSlotId, buffSkillSlotId, statId, upgradeBy).also { observable.notify(propertyName = "$statId", null, null) }
+        slots.upgrade(subSkillSlotId, buffSkillSlotId, statId, upgradeBy)
+            .also { notify("$statId") }
 
     override fun upgrade(statId: StatId, upgradeBy: NumUpgrades) =
 
-        stats.upgrade(statId, upgradeBy).also { observable.notify(propertyName = "$statId", null, null) }
+        stats.upgrade(statId, upgradeBy)
+            .also { notify("$statId") }
 
     fun totalCost(): UpgradeCost =
 

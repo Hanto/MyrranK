@@ -1,4 +1,4 @@
-package com.myrran.view.ui.skill.stats
+package com.myrran.view.ui.skill
 
 import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.graphics.g2d.Batch

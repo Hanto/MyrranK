@@ -9,7 +9,6 @@ import com.myrran.domain.skills.skills.stat.StatUpgradeable
 import com.myrran.view.ui.WidgetText
 import com.myrran.view.ui.skill.assets.SkillAssets
 import com.myrran.view.ui.skill.controller.StatController
-import com.myrran.view.ui.skill.stats.UpgradeView
 import java.util.Locale.US
 
 class StatView(
