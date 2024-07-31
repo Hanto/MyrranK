@@ -2,6 +2,10 @@ package com.myrran.view.ui.skill
 
 import com.badlogic.gdx.scenes.scene2d.ui.Table
 import com.myrran.domain.skills.skills.skill.Skill
+import com.myrran.view.ui.skill.assets.SkillAssets
+import com.myrran.view.ui.skill.controller.SkillController
+import java.beans.PropertyChangeEvent
+import java.beans.PropertyChangeListener
 
 class SkillView(
 
@@ -9,9 +13,9 @@ class SkillView(
     assets: SkillAssets,
     controller: SkillController,
 
-): Table()
+): Table(), PropertyChangeListener
 {
-    private val statsView = StatsView(skill.getStats(), assets, controller.skillUpgrade.invoke(skill.id))
+    private val statsView = StatsView(skill.getStats(), assets, controller.toStatController(skill))
 
     init {
 
@@ -29,5 +33,9 @@ class SkillView(
     fun update() {
 
         statsView.update()
+    }
+
+    override fun propertyChange(evt: PropertyChangeEvent?) {
+        update()
     }
 }

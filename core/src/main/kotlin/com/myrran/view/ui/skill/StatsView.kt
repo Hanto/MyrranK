@@ -1,16 +1,17 @@
 package com.myrran.view.ui.skill
 
 import com.badlogic.gdx.scenes.scene2d.ui.Table
-import com.myrran.domain.skills.skills.stat.NumUpgrades
 import com.myrran.domain.skills.skills.stat.Stat
 import com.myrran.domain.skills.skills.stat.StatId
 import com.myrran.domain.skills.skills.stat.StatUpgradeable
+import com.myrran.view.ui.skill.assets.SkillAssets
+import com.myrran.view.ui.skill.controller.StatController
 
 class StatsView(
 
     stats: Collection<Stat>,
     assets: SkillAssets,
-    controller: ( StatId, NumUpgrades) -> Unit,
+    controller: StatController,
 
 ): Table()
 {
@@ -19,8 +20,7 @@ class StatsView(
 
     init {
 
-        top().left().padTop(7f)
-        setBackground(assets.background)
+        top().left().padLeft(3f).padRight(3f).padTop(2f).padBottom(2f)
 
         statMap.values
             .sortedBy { it.stat.id.value }

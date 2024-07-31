@@ -1,5 +1,6 @@
 package com.myrran.domain.skills.skills.skill
 
+import com.myrran.domain.Observable
 import com.myrran.domain.skills.skills.buff.BuffSkill
 import com.myrran.domain.skills.skills.buff.BuffSkillSlotContent
 import com.myrran.domain.skills.skills.buff.BuffSkillSlotId
@@ -24,10 +25,12 @@ data class Skill(
     val type: SkillType,
     val name: SkillName,
     private val stats: Stats,
-    private val slots: SubSkillSlots
+    private val slots: SubSkillSlots,
 
 ): StatsI by stats
 {
+    val observable = Observable(this)
+
     fun createSpell(): Spell =
 
         type.builder.invoke(this.copy())
@@ -71,11 +74,15 @@ data class Skill(
 
     fun upgrade(subSkillSlotId: SubSkillSlotId, statId: StatId, upgradeBy: NumUpgrades) =
 
-        slots.upgrade(subSkillSlotId, statId, upgradeBy)
+        slots.upgrade(subSkillSlotId, statId, upgradeBy).also { observable.notify(propertyName = "$statId", null, null) }
 
     fun upgrade(subSkillSlotId: SubSkillSlotId, buffSkillSlotId: BuffSkillSlotId, statId: StatId, upgradeBy: NumUpgrades) =
 
-        slots.upgrade(subSkillSlotId, buffSkillSlotId, statId, upgradeBy)
+        slots.upgrade(subSkillSlotId, buffSkillSlotId, statId, upgradeBy).also { observable.notify(propertyName = "$statId", null, null) }
+
+    override fun upgrade(statId: StatId, upgradeBy: NumUpgrades) =
+
+        stats.upgrade(statId, upgradeBy).also { observable.notify(propertyName = "$statId", null, null) }
 
     fun totalCost(): UpgradeCost =
 

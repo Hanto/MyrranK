@@ -2,6 +2,7 @@ package com.myrran.view.ui.skill
 
 import com.myrran.domain.skills.skills.subskill.SubSkill
 import com.myrran.domain.skills.skills.subskill.SubSkillSlot
+import com.myrran.view.ui.skill.controller.SubSkillController
 import kotlin.reflect.KClass
 
 class SubSkillSlotView(

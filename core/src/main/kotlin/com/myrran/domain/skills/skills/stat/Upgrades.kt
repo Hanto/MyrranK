@@ -1,5 +1,7 @@
 package com.myrran.domain.skills.skills.stat
 
+import com.myrran.domain.skills.skills.stat.NumUpgrades.Companion.ZERO
+
 data class Upgrades(
 
     var actual: NumUpgrades,
@@ -8,8 +10,8 @@ data class Upgrades(
 
     fun upgradeBy(numUpgrades: NumUpgrades) {
 
-        actual += numUpgrades
-            .atMin(NumUpgrades.ZERO)
+        actual = (numUpgrades + actual)
+            .atMin(ZERO)
             .atMax(maximum)
     }
 }

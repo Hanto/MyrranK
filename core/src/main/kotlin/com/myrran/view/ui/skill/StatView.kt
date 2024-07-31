@@ -4,17 +4,19 @@ import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.graphics.Color.ORANGE
 import com.badlogic.gdx.graphics.Color.WHITE
 import com.badlogic.gdx.scenes.scene2d.ui.Table
-import com.myrran.domain.skills.skills.stat.NumUpgrades
-import com.myrran.domain.skills.skills.stat.StatId
+import com.badlogic.gdx.utils.Align
 import com.myrran.domain.skills.skills.stat.StatUpgradeable
 import com.myrran.view.ui.WidgetText
+import com.myrran.view.ui.skill.assets.SkillAssets
+import com.myrran.view.ui.skill.controller.StatController
+import com.myrran.view.ui.skill.stats.UpgradeView
 import java.util.Locale.US
 
 class StatView(
 
     val stat: StatUpgradeable,
     assets: SkillAssets,
-    val controller: (StatId, NumUpgrades) -> Unit,
+    controller: StatController,
 
 ): Table()
 {
@@ -30,24 +32,32 @@ class StatView(
     private val upgrades =  WidgetText(stat.upgrades, assets.font10, PURPLE_L) { "${it.actual.value}-${it.maximum.value}"}
     private val upgradeCost = WidgetText(stat.upgradeCost, assets.font10, PURPLE_L) { it.value.format(0) }
     private val bonusPerUpgrade = WidgetText(stat.bonusPerUpgrade, assets.font10, PURPLE_L) { it.value.format(1) }
+    private val upgradeBar = UpgradeView(stat, assets, controller)
 
     init {
 
-        top().left()
+        baseBonus.setAlignment(Align.right)
+        totalBonus.setAlignment(Align.right)
+        upgrades.setAlignment(Align.right)
+        upgradeCost.setAlignment(Align.right or Align.bottom)
+        bonusPerUpgrade.setAlignment(Align.right or Align.bottom)
 
-        add(name).bottom().left().minWidth(90f)
-        add(baseBonus).bottom().right().minWidth(35f)
-        add(totalBonus).bottom().right().minWidth(35f)
-        add(upgrades).bottom().right().minWidth(30f)
-        add(upgradeCost).bottom().right().minWidth(20f)
-        add(bonusPerUpgrade).bottom().right().minWidth(20f)
-            .minHeight(12f).row()
+        top().left().padTop(-4f).padBottom(-4f)
+
+        add(name).minWidth(90f)
+        add(baseBonus).minWidth(35f)
+        add(upgradeBar).center().padTop(2f)
+        add(totalBonus).minWidth(35f)
+        add(upgrades).minWidth(30f)
+        add(upgradeCost).minWidth(20f)
+        add(bonusPerUpgrade).minWidth(20f).row()
     }
 
     fun update() {
 
         upgrades.setText(stat.upgrades)
         totalBonus.setText(stat.totalBonus())
+        upgradeBar.update()
     }
 
     private fun Float.format(decimals: Int) =

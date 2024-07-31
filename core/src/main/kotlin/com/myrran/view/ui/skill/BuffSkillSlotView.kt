@@ -4,6 +4,7 @@ import com.myrran.domain.skills.skills.buff.BuffSkill
 import com.myrran.domain.skills.skills.buff.BuffSkillSlot
 import com.myrran.domain.skills.skills.stat.NumUpgrades
 import com.myrran.domain.skills.skills.stat.StatId
+import com.myrran.view.ui.skill.controller.BuffSKillController
 import kotlin.reflect.KClass
 
 class BuffSkillSlotView(

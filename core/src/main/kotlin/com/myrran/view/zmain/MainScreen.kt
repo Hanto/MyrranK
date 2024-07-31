@@ -1,6 +1,7 @@
 package com.myrran.view.zmain
 
 import com.badlogic.gdx.Gdx
+import com.badlogic.gdx.InputMultiplexer
 import com.badlogic.gdx.assets.AssetManager
 import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.graphics.GL20
@@ -46,13 +47,14 @@ import com.myrran.infraestructure.adapters.SkillBookAdapter
 import com.myrran.infraestructure.adapters.SkillTemplateAdapter
 import com.myrran.view.atlas.Atlas
 import com.myrran.view.ui.WidgetText
-import com.myrran.view.ui.skill.SkillAssets
-import com.myrran.view.ui.skill.SkillController
 import com.myrran.view.ui.skill.SkillView
+import com.myrran.view.ui.skill.assets.SkillAssets
+import com.myrran.view.ui.skill.controller.SkillController
 import ktx.app.KtxScreen
 
 class MainScreen(
 
+    private val inputMultiplexer: InputMultiplexer = InputMultiplexer(),
     private val batch: SpriteBatch = SpriteBatch(),
     private val uiStage: Stage = Stage(),
     private val atlas: Atlas = Atlas(
@@ -76,9 +78,14 @@ class MainScreen(
 
     init {
 
+        inputMultiplexer.addProcessor(uiStage)
+        Gdx.input.inputProcessor = inputMultiplexer
+
         val initialAssets = repository.loadAssetCollection("InitialAssets.json")
         atlas.load(initialAssets)
         atlas.finishLoading()
+
+
 
         fpsText = WidgetText("FPS: ?", atlas.getFont("20.fnt"), shadowTickness = 2f, formater = {it.toString()})
         uiStage.addActor(fpsText)
@@ -89,23 +96,23 @@ class MainScreen(
             name = SkillName("Fire bolt"),
             stats = listOf(
                 StatUpgradeableTemplate(
-                    id = StatId("SPEED"),
+                    id = StatId("1:SPEED"),
                     name = StatName("Speed"),
-                    baseBonus = StatBonus(10.0f),
-                    maximum = NumUpgrades(20),
+                    baseBonus = StatBonus(100.0f),
+                    maximum = NumUpgrades(50),
                     upgradeCost = UpgradeCost(2.0f),
                     bonusPerUpgrade = BonusPerUpgrade(1.0f)
                 ),
                 StatUpgradeableTemplate(
-                    id = StatId("COOLDOWN"),
+                    id = StatId("2:COOLDOWN"),
                     name = StatName("Cooldown"),
                     baseBonus = StatBonus(20.0f),
-                    maximum = NumUpgrades(20),
+                    maximum = NumUpgrades(25),
                     upgradeCost = UpgradeCost(1.0f),
                     bonusPerUpgrade = BonusPerUpgrade(1.5f)
                 ),
                 StatUpgradeableTemplate(
-                    id = StatId("DAMAGE"),
+                    id = StatId("3:DAMAGE"),
                     name = StatName("Damage"),
                     baseBonus = StatBonus(30.0f),
                     maximum = NumUpgrades(20),
@@ -185,12 +192,6 @@ class MainScreen(
         val explosionSkill = explosion.toSubSkill()
         val fireBuff = fire.toBuffSkill();
 
-        val font20 = atlas.getFont("20.fnt")
-        val font14 = atlas.getFont("14.fnt")
-        val font12 = atlas.getFont("Calibri12.fnt")
-        val font10 = atlas.getFont("Arial10.fnt")
-        val background = atlas.getNinePatchDrawable("Atlas.atlas","TexturasIconos/IconoVacioNine2", Color.WHITE, 0.90f)
-
         val playerSkillBook = PlayerSkillBook(QuantityMap(), QuantityMap(), QuantityMap(), mutableMapOf())
         playerSkillBook.learn(bolt.id)
         playerSkillBook.addSkill(boltSkill)
@@ -198,19 +199,29 @@ class MainScreen(
         playerSkillBook.addSubSkillTo(boltSkill.id, SubSkillSlotId("IMPACT"), explosionSkill)
         playerSkillBook.learn(fire.id)
         playerSkillBook.addBuffSKillTo(boltSkill.id, SubSkillSlotId("IMPACT"), BuffSkillSlotId("DEBUFF_1"), fireBuff)
+        playerSkillBook.upgrade(boltSkill.id, StatId("1:SPEED"), NumUpgrades(15))
 
         val controller = SkillController(playerSkillBook)
 
-        val assets = SkillAssets(background, font14, font12, font10)
-        val statView = SkillView(boltSkill, assets, controller)
-        statView.debug()
-        statView.setDebug(true, true)
+        val assets = SkillAssets(
+            background = atlas.getNinePatchDrawable("Atlas.atlas","TexturasIconos/IconoVacioNine2", Color.WHITE, 0.90f),
+            font14 = atlas.getFont("14.fnt"),
+            font12 = atlas.getFont("Calibri12.fnt"),
+            font10 =  atlas.getFont("Arial10.fnt"),
+            statBarBack = atlas.getTextureRegion("Atlas.atlas", "TexturasMisc/CasillaTalentoFondo"),
+            statBarFront = atlas.getTextureRegion("Atlas.atlas", "TexturasMisc/CasillaTalento"),
+        )
+
+        val skillView = SkillView(boltSkill, assets, controller)
+        skillView.debug()
+        skillView.setDebug(true, true)
+
+        boltSkill.observable.addObserver(skillView)
 
         val container = Container<Table>()
-        container.actor = statView
+        container.actor = skillView
 
-
-        println(statView.minHeight)
+        println(skillView.minHeight)
 
         uiStage.addActor(container)
         container.setPosition(200f, 100f)

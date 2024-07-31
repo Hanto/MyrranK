@@ -13,6 +13,10 @@ data class NumUpgrades(
 
         NumUpgrades((value + upgradeBy.value))
 
+    operator fun minus(upgradeBy: NumUpgrades): NumUpgrades =
+
+        NumUpgrades(value - upgradeBy.value)
+
     operator fun times(bonusPerUpgrade: BonusPerUpgrade): StatBonus =
 
         StatBonus(value * bonusPerUpgrade.value)
