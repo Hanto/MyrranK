@@ -30,12 +30,10 @@ class SkillView(
         }
     }
 
-    fun update() {
+    fun update() =
 
         statsView.update()
-    }
 
-    override fun propertyChange(evt: PropertyChangeEvent?) {
+    override fun propertyChange(evt: PropertyChangeEvent) =
         update()
-    }
 }

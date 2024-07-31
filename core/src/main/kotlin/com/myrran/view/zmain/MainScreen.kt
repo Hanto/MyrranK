@@ -258,7 +258,7 @@ class MainScreen(
 
     private fun clearScreen() {
 
-        Gdx.gl.glClearColor(0.55f, 0.05f, 0.05f, 1f)
+        Gdx.gl.glClearColor(0.45f, 0.45f, 0.45f, 1f)
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT)
     }
 

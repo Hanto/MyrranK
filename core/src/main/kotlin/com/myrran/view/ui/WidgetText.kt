@@ -27,6 +27,9 @@ class WidgetText<T>(
         super.setText(newText)
     }
 
+    fun align(alignment: Int): WidgetText<T> =
+        super.setAlignment(alignment).let { this }
+
     override fun draw(batch: Batch, parentAlpha: Float) {
 
         color = Color.BLACK

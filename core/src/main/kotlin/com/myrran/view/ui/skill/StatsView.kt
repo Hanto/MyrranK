@@ -22,6 +22,8 @@ class StatsView(
 
         top().left().padLeft(3f).padRight(3f).padTop(2f).padBottom(2f)
 
+        add(StatHeaderView(assets)).row()
+
         statMap.values
             .sortedBy { it.stat.id.value }
             .forEach { add(it).left().bottom().row() }

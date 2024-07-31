@@ -35,21 +35,15 @@ class StatView(
 
     init {
 
-        baseBonus.setAlignment(Align.right)
-        totalBonus.setAlignment(Align.right)
-        upgrades.setAlignment(Align.right)
-        upgradeCost.setAlignment(Align.right or Align.bottom)
-        bonusPerUpgrade.setAlignment(Align.right or Align.bottom)
-
         top().left().padTop(-4f).padBottom(-4f)
 
-        add(name).minWidth(90f)
-        add(baseBonus).minWidth(35f)
-        add(upgradeBar).center().padTop(2f)
-        add(totalBonus).minWidth(35f)
-        add(upgrades).minWidth(30f)
-        add(upgradeCost).minWidth(20f)
-        add(bonusPerUpgrade).minWidth(20f).row()
+        add(name.align(Align.left)).minWidth(90f)
+        add(baseBonus.align(Align.right)).minWidth(35f)
+        add(upgradeBar).center().padTop(2f).minWidth(80f)
+        add(totalBonus.align(Align.right)).minWidth(35f)
+        add(upgrades.align(Align.center)).minWidth(30f)
+        add(upgradeCost.align(Align.center or Align.bottom)).minWidth(20f)
+        add(bonusPerUpgrade.align(Align.center or Align.bottom)).minWidth(20f).row()
     }
 
     fun update() {
