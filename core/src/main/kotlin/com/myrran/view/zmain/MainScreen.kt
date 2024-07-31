@@ -2,26 +2,53 @@ package com.myrran.view.zmain
 
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.assets.AssetManager
+import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.graphics.GL20
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import com.badlogic.gdx.scenes.scene2d.Stage
+import com.badlogic.gdx.scenes.scene2d.ui.Container
+import com.badlogic.gdx.scenes.scene2d.ui.Table
+import com.myrran.domain.skills.book.PlayerSkillBook
 import com.myrran.domain.skills.book.WorldSkillBook
+import com.myrran.domain.skills.skills.buff.BuffSkillName
+import com.myrran.domain.skills.skills.buff.BuffSkillSlotId
+import com.myrran.domain.skills.skills.buff.BuffSkillSlotName
+import com.myrran.domain.skills.skills.skill.Skill
+import com.myrran.domain.skills.skills.skill.SkillName
 import com.myrran.domain.skills.skills.stat.BonusPerUpgrade
 import com.myrran.domain.skills.skills.stat.NumUpgrades
 import com.myrran.domain.skills.skills.stat.StatBonus
 import com.myrran.domain.skills.skills.stat.StatId
 import com.myrran.domain.skills.skills.stat.StatName
-import com.myrran.domain.skills.skills.stat.StatUpgradeable
 import com.myrran.domain.skills.skills.stat.UpgradeCost
-import com.myrran.domain.skills.skills.stat.Upgrades
+import com.myrran.domain.skills.skills.subskill.SubSkillName
+import com.myrran.domain.skills.skills.subskill.SubSkillSlotId
+import com.myrran.domain.skills.skills.subskill.SubSkillSlotName
+import com.myrran.domain.skills.templates.Lock
+import com.myrran.domain.skills.templates.LockTypes
+import com.myrran.domain.skills.templates.buff.BuffSkillSlotTemplate
+import com.myrran.domain.skills.templates.buff.BuffSkillTemplate
+import com.myrran.domain.skills.templates.buff.BuffSkillTemplateId
+import com.myrran.domain.skills.templates.skill.SkillTemplate
+import com.myrran.domain.skills.templates.skill.SkillTemplateId
+import com.myrran.domain.skills.templates.stat.StatUpgradeableTemplate
+import com.myrran.domain.skills.templates.subskill.SubSkillSlotTemplate
+import com.myrran.domain.skills.templates.subskill.SubSkillTemplate
+import com.myrran.domain.skills.templates.subskill.SubSkillTemplateId
+import com.myrran.domain.spells.buff.BuffType
+import com.myrran.domain.spells.spell.SkillType
+import com.myrran.domain.spells.subspell.SubSkillType
 import com.myrran.domain.utils.DeSerializer
+import com.myrran.domain.utils.QuantityMap
 import com.myrran.infraestructure.Repository
 import com.myrran.infraestructure.adapters.SkillAdapter
 import com.myrran.infraestructure.adapters.SkillBookAdapter
 import com.myrran.infraestructure.adapters.SkillTemplateAdapter
 import com.myrran.view.atlas.Atlas
 import com.myrran.view.ui.WidgetText
-import com.myrran.view.ui.skill.StatView
+import com.myrran.view.ui.skill.SkillAssets
+import com.myrran.view.ui.skill.SkillController
+import com.myrran.view.ui.skill.SkillView
 import ktx.app.KtxScreen
 
 class MainScreen(
@@ -42,6 +69,7 @@ class MainScreen(
 ): KtxScreen
 {
     private val fpsText: WidgetText<String>
+    private val boltSkill: Skill
 
     // INIT:
     //--------------------------------------------------------------------------------------------------------
@@ -55,25 +83,141 @@ class MainScreen(
         fpsText = WidgetText("FPS: ?", atlas.getFont("20.fnt"), shadowTickness = 2f, formater = {it.toString()})
         uiStage.addActor(fpsText)
 
-        val stat = StatUpgradeable(
-            id = StatId("SPEED"),
-            name = StatName("Speed"),
-            baseBonus = StatBonus(50.0f),
-            upgrades = Upgrades(
-                actual = NumUpgrades(10),
-                maximum = NumUpgrades(20)
+        val bolt = SkillTemplate(
+            id = SkillTemplateId("FIREBOLT_1"),
+            type = SkillType.BOLT,
+            name = SkillName("Fire bolt"),
+            stats = listOf(
+                StatUpgradeableTemplate(
+                    id = StatId("SPEED"),
+                    name = StatName("Speed"),
+                    baseBonus = StatBonus(10.0f),
+                    maximum = NumUpgrades(20),
+                    upgradeCost = UpgradeCost(2.0f),
+                    bonusPerUpgrade = BonusPerUpgrade(1.0f)
+                ),
+                StatUpgradeableTemplate(
+                    id = StatId("COOLDOWN"),
+                    name = StatName("Cooldown"),
+                    baseBonus = StatBonus(20.0f),
+                    maximum = NumUpgrades(20),
+                    upgradeCost = UpgradeCost(1.0f),
+                    bonusPerUpgrade = BonusPerUpgrade(1.5f)
+                ),
+                StatUpgradeableTemplate(
+                    id = StatId("DAMAGE"),
+                    name = StatName("Damage"),
+                    baseBonus = StatBonus(30.0f),
+                    maximum = NumUpgrades(20),
+                    upgradeCost = UpgradeCost(3.0f),
+                    bonusPerUpgrade = BonusPerUpgrade(2.5f)
+                )
             ),
-            upgradeCost = UpgradeCost(2.0f),
-            bonusPerUpgrade = BonusPerUpgrade(2.0f)
+            slots = listOf(
+                SubSkillSlotTemplate(
+                    id = SubSkillSlotId("IMPACT"),
+                    name = SubSkillSlotName("impact"),
+                    lock = Lock(listOf(LockTypes.ALPHA, LockTypes.BETA))
+                ),
+                SubSkillSlotTemplate(
+                    id = SubSkillSlotId("TRAIL"),
+                    name = SubSkillSlotName("trail"),
+                    lock = Lock(listOf(LockTypes.ALPHA, LockTypes.BETA))
+                )
+            )
         )
 
+        val explosion = SubSkillTemplate(
+            id = SubSkillTemplateId("EXPLOSION_1"),
+            type = SubSkillType.EXPLOSION,
+            name = SubSkillName("Explosion"),
+            stats = listOf(
+                StatUpgradeableTemplate(
+                    id = StatId("RADIUS"),
+                    name = StatName("radius"),
+                    baseBonus = StatBonus(10.0f),
+                    maximum = NumUpgrades(20),
+                    upgradeCost = UpgradeCost(2.0f),
+                    bonusPerUpgrade = BonusPerUpgrade(1.0f)
+                )
+            ),
+            slots = listOf(
+                BuffSkillSlotTemplate(
+                    id = BuffSkillSlotId("DEBUFF_1"),
+                    name = BuffSkillSlotName("Debuff 1"),
+                    lock = Lock(listOf(LockTypes.GAMMA, LockTypes.EPSILON)),
+                ),
+                BuffSkillSlotTemplate(
+                    id = BuffSkillSlotId("DEBUFF_2"),
+                    name = BuffSkillSlotName("Debuff 2"),
+                    lock = Lock(listOf(LockTypes.GAMMA, LockTypes.EPSILON)),
+                )
+            ),
+            keys = listOf(LockTypes.ALPHA)
+        )
+
+        val fire = BuffSkillTemplate(
+            id = BuffSkillTemplateId("FIRE_1"),
+            type = BuffType.FIRE,
+            name = BuffSkillName("Fire"),
+            stats = listOf(
+                StatUpgradeableTemplate(
+                    id = StatId("DAMAGE"),
+                    name = StatName("damage per second"),
+                    baseBonus = StatBonus(10.0f),
+                    maximum = NumUpgrades(20),
+                    upgradeCost = UpgradeCost(2.0f),
+                    bonusPerUpgrade = BonusPerUpgrade(1.0f)
+                ),
+                StatUpgradeableTemplate(
+                    id = StatId("DURATION"),
+                    name = StatName("duration"),
+                    baseBonus = StatBonus(10.0f),
+                    maximum = NumUpgrades(20),
+                    upgradeCost = UpgradeCost(2.0f),
+                    bonusPerUpgrade = BonusPerUpgrade(1.0f)
+                )
+            ),
+            keys = listOf(LockTypes.GAMMA)
+        )
+
+        boltSkill = bolt.toSkill()
+        val explosionSkill = explosion.toSubSkill()
+        val fireBuff = fire.toBuffSkill();
+
+        val font20 = atlas.getFont("20.fnt")
         val font14 = atlas.getFont("14.fnt")
         val font12 = atlas.getFont("Calibri12.fnt")
         val font10 = atlas.getFont("Arial10.fnt")
+        val background = atlas.getNinePatchDrawable("Atlas.atlas","TexturasIconos/IconoVacioNine2", Color.WHITE, 0.90f)
 
-        val statView = StatView(stat, font14, font12, font10)
-        uiStage.addActor(statView)
-        statView.setPosition(200f, 100f)
+        val playerSkillBook = PlayerSkillBook(QuantityMap(), QuantityMap(), QuantityMap(), mutableMapOf())
+        playerSkillBook.learn(bolt.id)
+        playerSkillBook.addSkill(boltSkill)
+        playerSkillBook.learn(explosion.id)
+        playerSkillBook.addSubSkillTo(boltSkill.id, SubSkillSlotId("IMPACT"), explosionSkill)
+        playerSkillBook.learn(fire.id)
+        playerSkillBook.addBuffSKillTo(boltSkill.id, SubSkillSlotId("IMPACT"), BuffSkillSlotId("DEBUFF_1"), fireBuff)
+
+        val controller = SkillController(playerSkillBook)
+
+        val assets = SkillAssets(background, font14, font12, font10)
+        val statView = SkillView(boltSkill, assets, controller)
+        statView.debug()
+        statView.setDebug(true, true)
+
+        val container = Container<Table>()
+        container.actor = statView
+
+
+        println(statView.minHeight)
+
+        uiStage.addActor(container)
+        container.setPosition(200f, 100f)
+
+        uiStage.setDebugUnderMouse(true)
+        uiStage.setDebugAll(true)
+
     }
 
     // RENDER:

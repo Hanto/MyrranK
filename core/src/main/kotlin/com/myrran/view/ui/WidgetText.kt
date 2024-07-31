@@ -16,8 +16,8 @@ class WidgetText<T>(
 
 ): WidgetGroup()
 {
-    private val textLabel: WidgetLabel
-    private val shadowLabel: WidgetLabel
+    val textLabel: WidgetLabel
+    val shadowLabel: WidgetLabel
 
     init {
 
@@ -25,6 +25,7 @@ class WidgetText<T>(
         textLabel = WidgetLabel(textString, LabelStyle(font, textColor))
         shadowLabel = WidgetLabel(textString, LabelStyle(font, shadowColor))
         shadowLabel.setPosition(x + shadowTickness, y - shadowTickness )
+
         addActor(shadowLabel)
         addActor(textLabel)
     }

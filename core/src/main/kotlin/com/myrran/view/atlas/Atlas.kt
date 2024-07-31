@@ -1,10 +1,12 @@
 package com.myrran.view.atlas
 
 import com.badlogic.gdx.assets.AssetManager
+import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.graphics.g2d.BitmapFont
 import com.badlogic.gdx.graphics.g2d.NinePatch
 import com.badlogic.gdx.graphics.g2d.TextureAtlas
 import com.badlogic.gdx.graphics.g2d.TextureRegion
+import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable
 import com.badlogic.gdx.utils.Disposable
 import com.myrran.domain.utils.ElapsedTime.Companion.of
 import com.myrran.domain.utils.mapttl.MapMapTTL
@@ -78,6 +80,11 @@ class Atlas(
     fun getNinePatch(atlasName: String, ninePatchName: String): NinePatch =
 
         ninePatches[atlasName, ninePatchName] ?: addAndReturnNinePatch(atlasName, ninePatchName)
+
+    fun getNinePatchDrawable(atlasName: String, ninePatchName: String, color: Color, alpha: Float): NinePatchDrawable =
+
+        getNinePatch(atlasName, ninePatchName)
+            .let { NinePatchDrawable(it).tint(Color(color.r, color.g, color.b, alpha)) }
 
     private fun addAndReturnNinePatch(atlasName: String, ninePatchName: String): NinePatch =
 

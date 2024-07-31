@@ -1,10 +1,10 @@
 package com.myrran.domain.skills.skills.buff
 
 import com.myrran.domain.skills.skills.buff.BuffSkillSlotContent.NoBuffSkill
+import com.myrran.domain.skills.skills.stat.NumUpgrades
 import com.myrran.domain.skills.skills.stat.StatId
 import com.myrran.domain.skills.skills.stat.UpgradeCost
 import com.myrran.domain.skills.skills.stat.UpgradeCost.Companion.ZERO
-import com.myrran.domain.skills.skills.stat.Upgrades
 import com.myrran.domain.skills.templates.Lock
 import com.myrran.domain.skills.templates.LockI
 import kotlin.reflect.KClass
@@ -36,7 +36,7 @@ data class BuffSkillSlot(
     // UPGRADES:
     //--------------------------------------------------------------------------------------------------------
 
-    fun upgrade(statId: StatId, upgradeBy: Upgrades) =
+    fun upgrade(statId: StatId, upgradeBy: NumUpgrades) =
 
         content.ifIs(BuffSkill::class)?.upgrade(statId, upgradeBy)
 

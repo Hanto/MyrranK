@@ -43,7 +43,7 @@ data class Skill(
 
         slots.getSubSkill(subSkillSlotId)
 
-    fun removeSubSkill(subSkillSlotId: SubSkillSlotId): SubSkillSlotContent =
+    fun removeSubSkill(subSkillSlotId: SubSkillSlotId): SubSkillSlotContent? =
 
         slots.removeSubSkill(subSkillSlotId)
 
@@ -58,7 +58,7 @@ data class Skill(
 
         slots.getBuffSkill(subSkillSlotId, buffSkillSlotId)
 
-    fun removeBuffSkill(subSkillSlotId: SubSkillSlotId, buffSkillSlotId: BuffSkillSlotId): BuffSkillSlotContent =
+    fun removeBuffSkill(subSkillSlotId: SubSkillSlotId, buffSkillSlotId: BuffSkillSlotId): BuffSkillSlotContent? =
 
         slots.removeBuffSKill(subSkillSlotId, buffSkillSlotId)
 

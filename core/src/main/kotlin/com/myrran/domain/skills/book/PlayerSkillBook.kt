@@ -79,7 +79,7 @@ data class PlayerSkillBook(
 
         val subSkill = createdSkills[skillId]!!.removeSubSkill(subSkillSlotId)
 
-        subSkill.ifIs(SubSkill::class)?.also {
+        subSkill?.ifIs(SubSkill::class)?.also {
 
             learnedSubSkills.returnBack(it.templateId)
             it.getBuffSkills().forEach { buffSkill -> learnedBuffSkills.returnBack(buffSkill.templateId) }
@@ -90,7 +90,7 @@ data class PlayerSkillBook(
 
         val buffSkill = createdSkills[skillId]!!.removeBuffSkill(subSkillSlotId, buffSkillSlotId)
 
-        buffSkill.ifIs(BuffSkill::class)?.also {
+        buffSkill?.ifIs(BuffSkill::class)?.also {
 
             learnedBuffSkills.returnBack(it.templateId)
         }

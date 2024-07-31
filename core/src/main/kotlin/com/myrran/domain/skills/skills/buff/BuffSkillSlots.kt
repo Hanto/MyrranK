@@ -1,8 +1,8 @@
 package com.myrran.domain.skills.skills.buff
 
+import com.myrran.domain.skills.skills.stat.NumUpgrades
 import com.myrran.domain.skills.skills.stat.StatId
 import com.myrran.domain.skills.skills.stat.UpgradeCost
-import com.myrran.domain.skills.skills.stat.Upgrades
 
 data class BuffSkillSlots(
 
@@ -35,7 +35,7 @@ data class BuffSkillSlots(
     // UPGRADES:
     //--------------------------------------------------------------------------------------------------------
 
-    fun upgrade(buffSkillSlotId: BuffSkillSlotId, statId: StatId, upgradeBy: Upgrades) =
+    fun upgrade(buffSkillSlotId: BuffSkillSlotId, statId: StatId, upgradeBy: NumUpgrades) =
 
         slotMap[buffSkillSlotId]?.upgrade(statId, upgradeBy)
 
