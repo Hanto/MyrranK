@@ -46,7 +46,7 @@ import com.myrran.infraestructure.adapters.SkillAdapter
 import com.myrran.infraestructure.adapters.SkillBookAdapter
 import com.myrran.infraestructure.adapters.SkillTemplateAdapter
 import com.myrran.view.atlas.Atlas
-import com.myrran.view.ui.WidgetText
+import com.myrran.view.ui.TextView
 import com.myrran.view.ui.skill.SkillView
 import com.myrran.view.ui.skill.assets.SkillAssets
 import com.myrran.view.ui.skill.controller.SkillController
@@ -70,7 +70,7 @@ class MainScreen(
 
 ): KtxScreen
 {
-    private val fpsText: WidgetText<String>
+    private val fpsText: TextView<String>
     private val boltSkill: Skill
 
     // INIT:
@@ -87,13 +87,13 @@ class MainScreen(
 
 
 
-        fpsText = WidgetText("FPS: ?", atlas.getFont("20.fnt"), shadowTickness = 2f, formater = {it.toString()})
+        fpsText = TextView("FPS: ?", atlas.getFont("20.fnt"), shadowTickness = 2f, formater = {it.toString()})
         uiStage.addActor(fpsText)
 
         val bolt = SkillTemplate(
             id = SkillTemplateId("FIREBOLT_1"),
             type = SkillType.BOLT,
-            name = SkillName("Fire bolt"),
+            name = SkillName("Fire Bolt"),
             stats = listOf(
                 StatUpgradeableTemplate(
                     id = StatId("1:SPEED"),
@@ -204,6 +204,7 @@ class MainScreen(
         val controller = SkillController(playerSkillBook)
 
         val assets = SkillAssets(
+            spellIconBackground = atlas.getNinePatchDrawable("Atlas.atlas", "TexturasIconos/FireBallNine", Color.WHITE, 1f),
             background = atlas.getNinePatchDrawable("Atlas.atlas","TexturasIconos/IconoVacioNine2", Color.WHITE, 0.90f),
             font14 = atlas.getFont("14.fnt"),
             font12 = atlas.getFont("Calibri12.fnt"),
@@ -213,8 +214,7 @@ class MainScreen(
         )
 
         val skillView = SkillView(boltSkill, assets, controller)
-        skillView.debug()
-        skillView.setDebug(true, true)
+        //skillView.setDebug(true, true)
 
         boltSkill.addObserver(skillView)
 
@@ -226,8 +226,10 @@ class MainScreen(
         uiStage.addActor(container)
         container.setPosition(200f, 100f)
 
-        uiStage.setDebugUnderMouse(true)
-        uiStage.setDebugAll(true)
+        container.pack()
+
+        //uiStage.setDebugUnderMouse(true)
+        //uiStage.setDebugAll(true)
 
     }
 

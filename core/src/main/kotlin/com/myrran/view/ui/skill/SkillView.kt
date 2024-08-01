@@ -16,12 +16,15 @@ class SkillView(
 ): Table(), PropertyChangeListener
 {
     private val statsView = StatsView(skill.getStats(), assets, controller.toStatController(skill))
+    private val icon = SkillIconView(skill, assets)
+
 
     init {
 
         top().left()
         setBackground(assets.background)
 
+        add(icon).top().left().row()
         add(statsView).top().left().row()
 
         skill.getSubSkillSlots()
@@ -31,9 +34,12 @@ class SkillView(
     // UPDATE:
     //--------------------------------------------------------------------------------------------------------
 
-    fun update() =
+    fun update() {
 
+        icon.update()
         statsView.update()
+    }
+
 
     override fun propertyChange(evt: PropertyChangeEvent) =
         update()

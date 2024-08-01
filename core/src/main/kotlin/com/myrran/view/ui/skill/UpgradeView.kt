@@ -1,12 +1,13 @@
 package com.myrran.view.ui.skill
 
+import com.badlogic.gdx.Input.Buttons
 import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.graphics.Color.WHITE
 import com.badlogic.gdx.graphics.g2d.Batch
 import com.badlogic.gdx.graphics.g2d.TextureRegion
 import com.badlogic.gdx.scenes.scene2d.Actor
 import com.badlogic.gdx.scenes.scene2d.InputEvent
-import com.badlogic.gdx.scenes.scene2d.InputListener
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener
 import com.myrran.domain.skills.skills.stat.NumUpgrades
 import com.myrran.domain.skills.skills.stat.StatUpgradeable
 import com.myrran.view.ui.skill.assets.SkillAssets
@@ -37,11 +38,13 @@ class UpgradeView(
         height = back.regionHeight.toFloat()
         update()
 
-        this.addListener(object: InputListener() {
+        this.addListener(object: ClickListener() {
 
             override fun touchDown(event: InputEvent, x: Float, y: Float, pointer: Int, button: Int): Boolean {
 
-                controller.upgrade.invoke(stat.id, NumUpgrades(1))
+                val numUpgrades = if (button == Buttons.RIGHT) 2 else 1
+
+                controller.upgrade.invoke(stat.id, NumUpgrades(numUpgrades))
                 return true
             }
         })

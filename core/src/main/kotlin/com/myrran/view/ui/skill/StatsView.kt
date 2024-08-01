@@ -23,7 +23,7 @@ class StatsView(
 
     init {
 
-        top().left().padLeft(3f).padRight(3f).padTop(2f).padBottom(2f)
+        top().left()
 
         add(StatHeaderView(assets)).row()
 

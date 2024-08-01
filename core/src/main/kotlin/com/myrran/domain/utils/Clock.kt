@@ -30,6 +30,10 @@ data class ElapsedTime(private val value: Long)
     operator fun plus(other: ElapsedTime): ElapsedTime =
 
         ElapsedTime(toMillis() + toMillis())
+
+    operator fun compareTo(other: ElapsedTime): Int =
+
+        value.compareTo(other.value)
 }
 
 data class Time(val value: Long = System.currentTimeMillis())

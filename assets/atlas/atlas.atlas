@@ -422,6 +422,14 @@ TexturasIconos/IconoVacio2
   orig: 64, 32
   offset: 0, 0
   index: -1
+TexturasIconos/FireBallNine
+  rotate: false
+  xy: 2, 70
+  size: 64, 32
+  split: 4, 4, 4, 6
+  orig: 64, 32
+  offset: 0, 0
+  index: -1
 TexturasIconos/IconoVacioNine
   rotate: false
   xy: 68, 70

@@ -5,7 +5,7 @@ import com.badlogic.gdx.graphics.g2d.Batch
 import com.badlogic.gdx.graphics.g2d.BitmapFont
 import com.badlogic.gdx.scenes.scene2d.ui.Label
 
-class WidgetText<T>(
+class TextView<T>(
 
     text: T,
     font: BitmapFont,
@@ -27,14 +27,17 @@ class WidgetText<T>(
         super.setText(newText)
     }
 
-    fun align(alignment: Int): WidgetText<T> =
+    fun align(alignment: Int): TextView<T> =
         super.setAlignment(alignment).let { this }
 
     override fun draw(batch: Batch, parentAlpha: Float) {
 
-        color = Color.BLACK
-        moveBy(shadowTickness, -shadowTickness)
-        super.draw(batch, parentAlpha)
+        if (shadowTickness != 0f) {
+
+            color = Color.BLACK
+            moveBy(shadowTickness, -shadowTickness)
+            super.draw(batch, parentAlpha)
+        }
 
         color = Color.WHITE
         moveBy(-shadowTickness, shadowTickness)
