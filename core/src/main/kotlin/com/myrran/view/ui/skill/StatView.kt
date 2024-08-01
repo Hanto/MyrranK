@@ -29,12 +29,12 @@ class StatView(
         private val PURPLE_H = Color(110/255f, 110/255f, 211/255f, 1f)
     }
 
-    private val name = TextView(stat.name, assets.font12, WHITE) { it.value }
-    private val baseBonus = TextView(stat.baseBonus, assets.font14, ORANGE ) { it.value.format(1) }
-    private val totalBonus = TextView(stat.totalBonus(), assets.font14, PURPLE_H) { it.value.format(1) }
-    private val upgrades =  TextView(stat.upgrades, assets.font10, PURPLE_L) { "${it.actual.value}-${it.maximum.value}"}
-    private val upgradeCost = TextView(stat.upgradeCost, assets.font10, PURPLE_L) { it.value.format(0) }
-    private val bonusPerUpgrade = TextView(stat.bonusPerUpgrade, assets.font10, PURPLE_L) { it.value.format(1) }
+    private val name = TextView(stat.name, assets.font12, WHITE, 1f) { it.value }
+    private val baseBonus = TextView(stat.baseBonus, assets.font14, ORANGE, 1f) { it.value.format(1) }
+    private val totalBonus = TextView(stat.totalBonus(), assets.font14, PURPLE_H, 1f) { it.value.format(1) }
+    private val upgrades =  TextView(stat.upgrades, assets.font10, PURPLE_L, 1f) { "${it.actual.value}-${it.maximum.value}"}
+    private val upgradeCost = TextView(stat.upgradeCost, assets.font10, PURPLE_L, 1f) { it.value.format(0) }
+    private val bonusPerUpgrade = TextView(stat.bonusPerUpgrade, assets.font10, PURPLE_L, 1f) { it.value.format(1) }
     private val upgradeBar = UpgradeView(stat, assets, controller)
 
     // LAYOUT:

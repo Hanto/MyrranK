@@ -9,6 +9,7 @@ data class SkillAssets(
     val spellIconBackground: NinePatchDrawable,
     val tableBackgroundDark: NinePatchDrawable,
     val tableBackgroundLight: NinePatchDrawable,
+    val font20: BitmapFont,
     val font14: BitmapFont,
     val font12: BitmapFont,
     val font10: BitmapFont,

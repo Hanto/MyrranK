@@ -10,7 +10,7 @@ class TextView<T>(
     text: T,
     font: BitmapFont,
     textColor: Color = Color.WHITE,
-    val shadowTickness: Float = 1f,
+    val shadowTickness: Float = 0f,
     private val formater: (T) -> String =  { it.toString() }
 
 ): Label(formater.invoke(text), LabelStyle(font, textColor))

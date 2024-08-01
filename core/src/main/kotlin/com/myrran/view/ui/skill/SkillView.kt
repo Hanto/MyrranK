@@ -15,20 +15,28 @@ class SkillView(
 
 ): Table(), PropertyChangeListener
 {
-    private val statsView = StatsView(skill.getStats(), assets, controller.toStatController(skill))
+    private val header = SkillHeader(skill, assets)
     private val icon = SkillIconView(skill, assets)
-
+    private val statsView = StatsView(skill.getStats(), assets, controller.toStatController(skill))
+    private val slotsView = skill.getSubSkillSlots()
+        .map { SubSkillSlotView(it, assets, controller.toSubSkillController(skill, it)) }
 
     init {
 
         top().left()
-        setBackground(assets.tableBackgroundDark)
 
-        add(icon).top().left().row()
-        add(statsView).top().left().row()
+        val outerTable = Table()
+        val innerTable = Table()
 
-        skill.getSubSkillSlots()
-            .map { SubSkillSlotView(it, controller.toSubSkillController(skill, it)) }
+        outerTable.setBackground(assets.tableBackgroundDark)
+
+        //innerTable.add(icon).top().left()
+        outerTable.add(innerTable).left().row()
+        outerTable.add(statsView).top().left().row()
+        slotsView.forEach{ outerTable.add(it).top().left().row() }
+
+        add(header).left().minWidth(132f).row()
+        add(outerTable)
     }
 
     // UPDATE:
@@ -38,6 +46,7 @@ class SkillView(
 
         icon.update()
         statsView.update()
+        slotsView.forEach{ it.update() }
     }
 
 

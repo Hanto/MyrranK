@@ -123,12 +123,12 @@ class MainScreen(
             slots = listOf(
                 SubSkillSlotTemplate(
                     id = SubSkillSlotId("IMPACT"),
-                    name = SubSkillSlotName("impact"),
-                    lock = Lock(listOf(LockTypes.ALPHA, LockTypes.BETA))
+                    name = SubSkillSlotName("Impact"),
+                    lock = Lock(listOf(LockTypes.ALPHA, LockTypes.BETA, LockTypes.GAMMA, LockTypes.EPSILON, LockTypes.OMEGA))
                 ),
                 SubSkillSlotTemplate(
                     id = SubSkillSlotId("TRAIL"),
-                    name = SubSkillSlotName("trail"),
+                    name = SubSkillSlotName("Trail"),
                     lock = Lock(listOf(LockTypes.ALPHA, LockTypes.BETA))
                 )
             )
@@ -160,7 +160,7 @@ class MainScreen(
                     lock = Lock(listOf(LockTypes.GAMMA, LockTypes.EPSILON)),
                 )
             ),
-            keys = listOf(LockTypes.ALPHA)
+            keys = listOf(LockTypes.BETA, LockTypes.GAMMA)
         )
 
         val fire = BuffSkillTemplate(
@@ -190,7 +190,7 @@ class MainScreen(
 
         boltSkill = bolt.toSkill()
         val explosionSkill = explosion.toSubSkill()
-        val fireBuff = fire.toBuffSkill();
+        val fireBuff = fire.toBuffSkill()
 
         val playerSkillBook = PlayerSkillBook(QuantityMap(), QuantityMap(), QuantityMap(), mutableMapOf())
         playerSkillBook.learn(bolt.id)
@@ -207,6 +207,7 @@ class MainScreen(
             spellIconBackground = atlas.getNinePatchDrawable("Atlas.atlas", "TexturasIconos/FireBallNine", Color.WHITE, 1f),
             tableBackgroundLight = atlas.getNinePatchDrawable("Atlas.atlas","TexturasIconos/NineLight", Color.WHITE, 0.90f),
             tableBackgroundDark = atlas.getNinePatchDrawable("Atlas.atlas","TexturasIconos/NineDark", Color.WHITE, 0.90f),
+            font20 = atlas.getFont("20.fnt"),
             font14 = atlas.getFont("14.fnt"),
             font12 = atlas.getFont("Calibri12.fnt"),
             font10 =  atlas.getFont("Arial10.fnt"),

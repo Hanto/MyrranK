@@ -1,22 +1,29 @@
 package com.myrran.view.ui.skill
 
-import com.myrran.domain.skills.skills.subskill.SubSkill
+import com.badlogic.gdx.scenes.scene2d.ui.Table
 import com.myrran.domain.skills.skills.subskill.SubSkillSlot
+import com.myrran.view.ui.skill.assets.SkillAssets
 import com.myrran.view.ui.skill.controller.SubSkillController
 import kotlin.reflect.KClass
 
 class SubSkillSlotView(
 
-    val subSkillSlot: SubSkillSlot,
-    val controller: SubSkillController
+    private val subSkillSlot: SubSkillSlot,
+    private val assets: SkillAssets,
+    private val controller: SubSkillController
 
-) {
+): Table()
+{
+    private val slotKeyView = SlotKeyView(subSkillSlot, assets)
+
     init {
 
-        subSkillSlot.content.ifIs(SubSkill::class)?.getBuffSkillSlots()?.map {
+        add(slotKeyView)
+    }
 
-            BuffSkillSlotView(it, controller.toBuffSkillController(it))
-        }
+    fun update() {
+
+        slotKeyView.update()
     }
 
     private inline fun <reified T: Any> Any.ifIs(classz: KClass<T>): T? =
