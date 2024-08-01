@@ -33,6 +33,9 @@ class StatView(
     private val bonusPerUpgrade = WidgetText(stat.bonusPerUpgrade, assets.font10, PURPLE_L) { it.value.format(1) }
     private val upgradeBar = UpgradeView(stat, assets, controller)
 
+    // LAYOUT:
+    //--------------------------------------------------------------------------------------------------------
+
     init {
 
         top().left().padTop(-4f).padBottom(-4f)
@@ -45,6 +48,9 @@ class StatView(
         add(upgradeCost.align(Align.center or Align.bottom)).minWidth(20f)
         add(bonusPerUpgrade.align(Align.center or Align.bottom)).minWidth(20f).row()
     }
+
+    // UPDATE:
+    //--------------------------------------------------------------------------------------------------------
 
     fun update() {
 

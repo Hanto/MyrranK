@@ -24,11 +24,12 @@ class SkillView(
 
         add(statsView).top().left().row()
 
-        skill.getSubSkillSlots().map {
-
-            SubSkillSlotView(it, controller.toSubSkillController(skill, it))
-        }
+        skill.getSubSkillSlots()
+            .map { SubSkillSlotView(it, controller.toSubSkillController(skill, it)) }
     }
+
+    // UPDATE:
+    //--------------------------------------------------------------------------------------------------------
 
     fun update() =
 

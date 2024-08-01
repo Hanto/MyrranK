@@ -19,6 +19,9 @@ class StatHeaderView(
     private val cost = WidgetText("cost", assets.font10, LIGHT_GRAY)
     private val bon = WidgetText("bon", assets.font10, LIGHT_GRAY)
 
+    // LAYOUT:
+    //--------------------------------------------------------------------------------------------------------
+
     init {
 
         top().left().padTop(-4f).padBottom(-4f)
@@ -26,7 +29,7 @@ class StatHeaderView(
         add(name.align(Align.left)).minWidth(90f)
         add(min.align(Align.right)).minWidth(35f)
         add().minWidth(80f)
-        add(max.align(Align.right)).minWidth(35f)
+        add(max.align(Align.center)).minWidth(35f)
         add(ranks.align(Align.center)).minWidth(30f)
         add(cost.align(Align.center)).minWidth(20f)
         add(bon.align(Align.center)).minWidth(20f)

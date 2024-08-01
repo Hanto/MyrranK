@@ -18,6 +18,9 @@ class StatsView(
     private val statMap: Map<StatId, StatView> =
         stats.associate { it.id to StatView(it as StatUpgradeable, assets, controller) }
 
+    // LAYOUT:
+    //--------------------------------------------------------------------------------------------------------
+
     init {
 
         top().left().padLeft(3f).padRight(3f).padTop(2f).padBottom(2f)
@@ -28,6 +31,9 @@ class StatsView(
             .sortedBy { it.stat.id.value }
             .forEach { add(it).left().bottom().row() }
     }
+
+    // UPDATE:
+    //--------------------------------------------------------------------------------------------------------
 
     fun update() {
 
