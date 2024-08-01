@@ -2,9 +2,8 @@ package com.myrran.view.ui.skill
 
 import com.badlogic.gdx.Input.Buttons
 import com.badlogic.gdx.graphics.Color
-import com.badlogic.gdx.graphics.Color.GRAY
+import com.badlogic.gdx.graphics.Color.WHITE
 import com.badlogic.gdx.graphics.g2d.Batch
-import com.badlogic.gdx.graphics.g2d.TextureRegion
 import com.badlogic.gdx.scenes.scene2d.Actor
 import com.badlogic.gdx.scenes.scene2d.InputEvent
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener
@@ -23,8 +22,6 @@ class UpgradeView(
 {
     private var barUpTo25 = 0f
     private var barUpTo50 = 0f
-    private val front: TextureRegion = assets.statBarFront
-    private val back: TextureRegion = assets.statBarBack
 
     companion object {
 
@@ -34,8 +31,8 @@ class UpgradeView(
 
     init {
 
-        width = back.regionWidth.toFloat()
-        height = back.regionHeight.toFloat()
+        width = assets.statBarBack.regionWidth.toFloat()
+        height = assets.statBarBack.regionHeight.toFloat()
         update()
 
         this.addListener(object: ClickListener() {
@@ -69,16 +66,16 @@ class UpgradeView(
 
     override fun draw(batch: Batch, parentAlpha: Float) {
 
-        batch.color = GRAY
-        batch.draw(back, x, y, originX, originY, width, height, scaleX, scaleY, rotation)
+        batch.color = WHITE
+        batch.draw(assets.statBarBack, x, y, originX, originY, width, height, scaleX, scaleY, rotation)
 
         batch.color = COLOR_0_25
-        batch.draw(front, x, y, originX, originY, barUpTo25, height, scaleX, scaleY, rotation)
+        batch.draw(assets.statBarFront, x, y, originX, originY, barUpTo25, height, scaleX, scaleY, rotation)
 
         if (stat.upgrades.actual.value > 25) {
 
             batch.color = COLOR_26_50
-            batch.draw(front, x, y, originX, originY, barUpTo50, height, scaleX, scaleY, rotation)
+            batch.draw(assets.statBarFront, x, y, originX, originY, barUpTo50, height, scaleX, scaleY, rotation)
         }
     }
 }

@@ -209,8 +209,8 @@ class MainScreen(
             tableBackgroundDark = atlas.getNinePatchDrawable("Atlas.atlas","TexturasIconos/NineDark", Color.WHITE, 0.90f),
             font20 = atlas.getFont("20.fnt"),
             font14 = atlas.getFont("14.fnt"),
-            font12 = atlas.getFont("Calibri12.fnt"),
-            font10 =  atlas.getFont("Arial10.fnt"),
+            font12 = atlas.getFont("14.fnt"),
+            font10 =  atlas.getFont("14.fnt"),
             statBarBack = atlas.getTextureRegion("Atlas.atlas", "TexturasMisc/CasillaTalentoFondo"),
             statBarFront = atlas.getTextureRegion("Atlas.atlas", "TexturasMisc/CasillaTalento"),
         )
@@ -262,7 +262,7 @@ class MainScreen(
 
     private fun clearScreen() {
 
-        Gdx.gl.glClearColor(0.45f, 0.45f, 0.45f, 1f)
+        Gdx.gl.glClearColor(0.1f, 0.1f, 0.10f, 1f)
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT)
     }
 

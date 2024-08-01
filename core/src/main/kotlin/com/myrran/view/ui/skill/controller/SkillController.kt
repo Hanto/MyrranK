@@ -15,7 +15,7 @@ class SkillController(
     book: PlayerSkillBook
 )
 {
-    val skillUpgrade: (SkillId) -> (StatId, NumUpgrades) -> Unit =
+    private val skillUpgrade: (SkillId) -> (StatId, NumUpgrades) -> Unit =
         { skillId -> {
             statId, numUpgrades ->
                 book.upgrade(skillId, statId, numUpgrades) } }

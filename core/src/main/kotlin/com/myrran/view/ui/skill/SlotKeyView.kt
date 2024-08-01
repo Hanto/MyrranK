@@ -20,7 +20,6 @@ class SlotKeyView(
 
 ): Table() {
 
-    private val runesRow = Table()
     private val runesLabel = TextView("${subSkillSlot.name.value}:", assets.font10, LIGHT_GRAY)
     private val keys = subSkillSlot.lock.openedBy
         .associateWith { TextView(it.value, assets.font10, getColor(it), 1f) }
@@ -28,17 +27,20 @@ class SlotKeyView(
     init {
 
         left()
+        val runesRow = Table()
 
         keys.forEach{ runesRow.add(it.value) }
-        add(runesLabel.align(Align.left)).left().padTop(-3f).row()
-        add(runesRow).left().padTop(-5f).padBottom(-3f)
+        add(runesLabel.align(Align.left)).padLeft(1f).left().padTop(-3f).row()
+        add(runesRow).left().padLeft(1f).padTop(-6f).padBottom(-1f)
 
         setBackground(assets.tableBackgroundLight)
     }
 
     fun update() {
 
-        keys.forEach{ it.value.setColor(getColor(it.key)) }
+        keys.entries
+            .sortedBy { it.key.order }
+            .forEach{ it.value.setColor(getColor(it.key)) }
     }
 
     // HELPER:

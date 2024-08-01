@@ -27,11 +27,13 @@ class StatHeaderView(
         top().left().padTop(-3f).padBottom(-3f)
 
         add(name.align(Align.left)).minWidth(90f)
-        add(min.align(Align.right)).minWidth(35f)
+
+        add(cost.align(Align.center)).minWidth(22f)
+        add(ranks.align(Align.center)).minWidth(40f)
+        add(bon.align(Align.center)).minWidth(22f)
+
+        add(min.align(Align.center)).minWidth(35f)
         add().minWidth(80f)
         add(max.align(Align.center)).minWidth(35f)
-        add(ranks.align(Align.center)).minWidth(30f)
-        add(cost.align(Align.center)).minWidth(22f)
-        add(bon.align(Align.center)).minWidth(20f)
     }
 }

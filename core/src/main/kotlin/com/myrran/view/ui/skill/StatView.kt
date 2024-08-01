@@ -30,8 +30,8 @@ class StatView(
     }
 
     private val name = TextView(stat.name, assets.font12, WHITE, 1f) { it.value }
-    private val baseBonus = TextView(stat.baseBonus, assets.font14, ORANGE, 1f) { it.value.format(1) }
-    private val totalBonus = TextView(stat.totalBonus(), assets.font14, PURPLE_H, 1f) { it.value.format(1) }
+    private val baseBonus = TextView(stat.baseBonus, assets.font14, PURPLE_H, 1f) { it.value.format(1) }
+    private val totalBonus = TextView(stat.totalBonus(), assets.font14, ORANGE, 1f) { it.value.format(1) }
     private val upgrades =  TextView(stat.upgrades, assets.font10, PURPLE_L, 1f) { "${it.actual.value}-${it.maximum.value}"}
     private val upgradeCost = TextView(stat.upgradeCost, assets.font10, PURPLE_L, 1f) { it.value.format(0) }
     private val bonusPerUpgrade = TextView(stat.bonusPerUpgrade, assets.font10, PURPLE_L, 1f) { it.value.format(1) }
@@ -45,12 +45,16 @@ class StatView(
         top().left().padTop(-3f).padBottom(-3f)
 
         add(name.align(Align.left)).minWidth(90f)
+
+        add(upgradeCost.align(Align.center or Align.bottom)).minWidth(22f)
+        add(upgrades.align(Align.center)).minWidth(40f)
+        add(bonusPerUpgrade.align(Align.center or Align.bottom)).minWidth(22f)
+
         add(baseBonus.align(Align.right)).minWidth(35f)
         add(upgradeBar).center().padTop(2f).minWidth(80f)
         add(totalBonus.align(Align.right)).minWidth(35f)
-        add(upgrades.align(Align.center)).minWidth(30f)
-        add(upgradeCost.align(Align.center or Align.bottom)).minWidth(22f)
-        add(bonusPerUpgrade.align(Align.center or Align.bottom)).minWidth(20f).row()
+
+        row()
 
         baseBonus.addListener(object: ClickListener() {
 
