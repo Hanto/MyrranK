@@ -13,7 +13,7 @@ import java.util.Locale
 class SkillIconView(
 
     val skill: Skill,
-    assets: SkillAssets
+    val assets: SkillAssets
 
 ): Table()
 {
@@ -22,27 +22,29 @@ class SkillIconView(
         val MAGENTA: Color = Color(170 / 255f, 70 / 255f, 255 / 255f, 1f)
     }
 
-    private val background = assets.spellIconBackground
-    private val name = TextView(skill.name, assets.font12, ORANGE, 0f) { it.value }
-    private val extra = TextView("Spell", assets.font12, WHITE, 0f)
-    private val cost = TextView(skill.statCost(), assets.font12, MAGENTA, 0f) { it.value.format(0) }
+    private val name = TextView(skill.name, assets.font14, ORANGE) { it.value }
+    private val costLabel = TextView("Cost:", assets.font14, WHITE)
+    private val cost = TextView(skill.statCost(), assets.font14, MAGENTA) { it.value.format(0) }
 
     init {
 
-        val tableRow = Table().bottom().left()
+        val iconTable = Table().center().left()
 
-        tableRow.add(extra.align(Align.left))
-        tableRow.add(cost.align(Align.right)).expand().right().padBottom(-7f).padRight(-2f)
+        iconTable.add(name.align(Align.left)).left().row()
+        iconTable.setBackground(assets.spellIconBackground)
+
+        val costTable = Table().center()
+
+        costTable.add(costLabel.align(Align.right)).right()
+        costTable.add(cost.align(Align.left)).left()
+        costTable.setBackground(assets.tableBackgroundLight)
 
         bottom().left()
-
-        add(name.align(Align.left)).left().row()
-        add(tableRow).left().expand().fillX().row()
-
-        setBackground(background)
+        add(iconTable).left()
+        add(costTable).left().row()
     }
 
-    public fun update() {
+    fun update() {
 
         cost.setText(skill.statCost())
     }

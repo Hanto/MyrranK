@@ -2,7 +2,7 @@ package com.myrran.view.ui.skill
 
 import com.badlogic.gdx.Input.Buttons
 import com.badlogic.gdx.graphics.Color
-import com.badlogic.gdx.graphics.Color.WHITE
+import com.badlogic.gdx.graphics.Color.GRAY
 import com.badlogic.gdx.graphics.g2d.Batch
 import com.badlogic.gdx.graphics.g2d.TextureRegion
 import com.badlogic.gdx.scenes.scene2d.Actor
@@ -69,7 +69,7 @@ class UpgradeView(
 
     override fun draw(batch: Batch, parentAlpha: Float) {
 
-        batch.color = WHITE
+        batch.color = GRAY
         batch.draw(back, x, y, originX, originY, width, height, scaleX, scaleY, rotation)
 
         batch.color = COLOR_0_25

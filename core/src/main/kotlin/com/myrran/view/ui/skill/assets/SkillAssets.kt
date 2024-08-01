@@ -7,7 +7,8 @@ import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable
 data class SkillAssets(
 
     val spellIconBackground: NinePatchDrawable,
-    val background: NinePatchDrawable,
+    val tableBackgroundDark: NinePatchDrawable,
+    val tableBackgroundLight: NinePatchDrawable,
     val font14: BitmapFont,
     val font12: BitmapFont,
     val font10: BitmapFont,

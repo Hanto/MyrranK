@@ -42,7 +42,7 @@ class StatView(
 
     init {
 
-        top().left()//.padTop(-4f).padBottom(-4f)
+        top().left().padTop(-3f).padBottom(-3f)
 
         add(name.align(Align.left)).minWidth(90f)
         add(baseBonus.align(Align.right)).minWidth(35f)

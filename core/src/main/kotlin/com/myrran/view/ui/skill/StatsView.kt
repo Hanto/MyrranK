@@ -23,13 +23,15 @@ class StatsView(
 
     init {
 
-        top().left()
+        top().left().padLeft(5f).padRight(5f).padBottom(7f)
 
         add(StatHeaderView(assets)).row()
 
         statMap.values
             .sortedBy { it.stat.id.value }
             .forEach { add(it).left().bottom().row() }
+
+        setBackground(assets.tableBackgroundLight)
     }
 
     // UPDATE:

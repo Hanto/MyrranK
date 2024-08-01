@@ -430,7 +430,15 @@ TexturasIconos/FireBallNine
   orig: 64, 32
   offset: 0, 0
   index: -1
-TexturasIconos/IconoVacioNine
+TexturasIconos/NineLight
+  rotate: false
+  xy: 2, 36
+  size: 64, 32
+  split: 4, 4, 4, 6
+  orig: 64, 32
+  offset: 0, 0
+  index: -1
+TexturasIconos/NineLightToDark
   rotate: false
   xy: 68, 70
   size: 64, 32
@@ -438,7 +446,7 @@ TexturasIconos/IconoVacioNine
   orig: 64, 32
   offset: 0, 0
   index: -1
-TexturasIconos/IconoVacioNine2
+TexturasIconos/NineDark
   rotate: false
   xy: 2, 2
   size: 64, 32

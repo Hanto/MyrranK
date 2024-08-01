@@ -22,7 +22,7 @@ class SkillView(
     init {
 
         top().left()
-        setBackground(assets.background)
+        setBackground(assets.tableBackgroundDark)
 
         add(icon).top().left().row()
         add(statsView).top().left().row()
