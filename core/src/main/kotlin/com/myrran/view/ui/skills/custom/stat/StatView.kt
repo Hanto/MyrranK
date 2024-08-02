@@ -38,17 +38,19 @@ class StatView(
 ): Table(), Observer
 {
     private val name = TextView(stat.name.value, assets.font12, WHITE, 1f)
-    private val baseBonus = if (stat is StatUpgradeable)
-        TextView(stat.baseBonus, assets.font14, PURPLE_DARK, 1f) { it.value.format(1) } else null
-    private val totalBonus = TextView(stat.totalBonus(), assets.font14, ORANGE, 1f) { it.value.format(1) }
-    private val upgrades = if (stat is StatUpgradeable)
-        TextView(stat.upgrades, assets.font10, PURPLE_LIGHT, 1f) { "${it.actual.value}-${it.maximum.value}"} else null
+
     private val upgradeCost = if (stat is StatUpgradeable)
         TextView(stat.upgradeCost, assets.font10, PURPLE_LIGHT, 1f) { it.value.format(0) } else null
     private val bonusPerUpgrade = if (stat is StatUpgradeable)
         TextView(stat.bonusPerUpgrade, assets.font10, PURPLE_LIGHT, 1f) { it.value.format(1) } else null
+    private val upgrades = if (stat is StatUpgradeable)
+        TextView(stat.upgrades, assets.font10, PURPLE_LIGHT, 1f) { "${it.actual.value}-${it.maximum.value}"} else null
+
+    private val baseBonus = if (stat is StatUpgradeable)
+        TextView(stat.baseBonus, assets.font14, PURPLE_DARK, 1f) { it.value.format(1) } else null
     private val upgradeBar = if (stat is StatUpgradeable)
         UpgradeView(stat, assets, controller)  else null
+    private val totalBonus = TextView(stat.totalBonus(), assets.font14, ORANGE, 1f) { it.value.format(1) }
 
     // LAYOUT:
     //--------------------------------------------------------------------------------------------------------
