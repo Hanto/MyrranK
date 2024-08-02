@@ -36,7 +36,7 @@ class StatTemplateView(
 
     private val baseBonus = if (stat is StatUpgradeableTemplate)
         TextView(stat.baseBonus, assets.font14, PURPLE_DARK, 1f) { it.value.format(1) } else null
-    private val totalBonus = if (stat is StatUpgradeableTemplate)
+    private val baseBonusWithUpgrades = if (stat is StatUpgradeableTemplate)
         TextView(stat, assets.font14, ORANGE, 1f) { (it.baseBonus + it.maximum * it.bonusPerUpgrade).value.format(1) } else
         TextView(stat, assets.font14, ORANGE, 1f) { it.baseBonus.value.format(1) }
 
@@ -46,10 +46,6 @@ class StatTemplateView(
     init {
 
         top().left().padTop(-3f).padBottom(-3f)
-        reBuildTable()
-    }
-
-    private fun reBuildTable() {
 
         add(name.align(Align.left)).minWidth(NAME_SIZE)
 
@@ -58,7 +54,7 @@ class StatTemplateView(
         add(maximum?.align(Align.center)).minWidth(UPGRADES_SIZE)
 
         add(baseBonus?.align(Align.right)).minWidth(BASE_BONUS_SIZE)
-        add(totalBonus.align(Align.right)).minWidth(TOTAL_BONUS_SIZE)
+        add(baseBonusWithUpgrades.align(Align.right)).minWidth(TOTAL_BONUS_SIZE)
 
         row()
     }

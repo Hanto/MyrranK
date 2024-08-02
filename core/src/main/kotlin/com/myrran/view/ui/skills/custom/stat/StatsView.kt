@@ -21,9 +21,6 @@ class StatsView(
 {
     private var statList = statsRetriever.invoke().map { StatView(observable, it, assets, controller) }
 
-    // LAYOUT:
-    //--------------------------------------------------------------------------------------------------------
-
     init {
 
         observable.addObserver(this)

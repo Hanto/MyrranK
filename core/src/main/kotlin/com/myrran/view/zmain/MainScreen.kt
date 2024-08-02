@@ -51,7 +51,7 @@ import com.myrran.view.ui.misc.TextView
 import com.myrran.view.ui.skills.assets.SkillViewAssets
 import com.myrran.view.ui.skills.controller.SkillController
 import com.myrran.view.ui.skills.custom.skill.SkillView
-import com.myrran.view.ui.skills.templates.StatTemplateView
+import com.myrran.view.ui.skills.templates.StatsTemplateView
 import ktx.app.KtxScreen
 
 class MainScreen(
@@ -242,7 +242,7 @@ class MainScreen(
         container.setPosition(200f, 100f)
 
 
-        val templateView = StatTemplateView(fire.stats.first(), assets)
+        val templateView = StatsTemplateView(fire.stats, assets)
         val containerTemplate = Container<Table>()
         containerTemplate.actor = templateView
         containerTemplate.pack()
