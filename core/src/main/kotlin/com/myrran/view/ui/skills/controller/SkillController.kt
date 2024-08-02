@@ -1,14 +1,14 @@
 package com.myrran.view.ui.skills.controller
 
 import com.myrran.domain.skills.book.PlayerSkillBook
-import com.myrran.domain.skills.skills.buff.BuffSkillSlot
-import com.myrran.domain.skills.skills.buff.BuffSkillSlotId
-import com.myrran.domain.skills.skills.skill.Skill
-import com.myrran.domain.skills.skills.skill.SkillId
-import com.myrran.domain.skills.skills.stat.NumUpgrades
-import com.myrran.domain.skills.skills.stat.StatId
-import com.myrran.domain.skills.skills.subskill.SubSkillSlot
-import com.myrran.domain.skills.skills.subskill.SubSkillSlotId
+import com.myrran.domain.skills.custom.buff.BuffSkillSlot
+import com.myrran.domain.skills.custom.buff.BuffSkillSlotId
+import com.myrran.domain.skills.custom.skill.Skill
+import com.myrran.domain.skills.custom.skill.SkillId
+import com.myrran.domain.skills.custom.stat.NumUpgrades
+import com.myrran.domain.skills.custom.stat.StatId
+import com.myrran.domain.skills.custom.subskill.SubSkillSlot
+import com.myrran.domain.skills.custom.subskill.SubSkillSlotId
 
 // SKILL:
 //------------------------------------------------------------------------------------------------------------

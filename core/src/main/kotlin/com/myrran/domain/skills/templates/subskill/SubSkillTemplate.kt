@@ -1,10 +1,10 @@
 package com.myrran.domain.skills.templates.subskill
 
-import com.myrran.domain.skills.skills.buff.BuffSkillSlots
-import com.myrran.domain.skills.skills.stat.Stats
-import com.myrran.domain.skills.skills.subskill.SubSkill
-import com.myrran.domain.skills.skills.subskill.SubSkillId
-import com.myrran.domain.skills.skills.subskill.SubSkillName
+import com.myrran.domain.skills.custom.buff.BuffSkillSlots
+import com.myrran.domain.skills.custom.stat.Stats
+import com.myrran.domain.skills.custom.subskill.SubSkill
+import com.myrran.domain.skills.custom.subskill.SubSkillId
+import com.myrran.domain.skills.custom.subskill.SubSkillName
 import com.myrran.domain.skills.templates.LockType
 import com.myrran.domain.skills.templates.buff.BuffSkillSlotTemplate
 import com.myrran.domain.skills.templates.stat.StatTemplate

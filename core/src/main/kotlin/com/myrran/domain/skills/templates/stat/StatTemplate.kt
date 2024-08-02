@@ -1,9 +1,9 @@
 package com.myrran.domain.skills.templates.stat
 
-import com.myrran.domain.skills.skills.stat.Stat
-import com.myrran.domain.skills.skills.stat.StatBonus
-import com.myrran.domain.skills.skills.stat.StatId
-import com.myrran.domain.skills.skills.stat.StatName
+import com.myrran.domain.skills.custom.stat.Stat
+import com.myrran.domain.skills.custom.stat.StatBonus
+import com.myrran.domain.skills.custom.stat.StatId
+import com.myrran.domain.skills.custom.stat.StatName
 
 sealed interface StatTemplate {
 

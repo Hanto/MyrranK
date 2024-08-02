@@ -1,10 +1,10 @@
 package com.myrran.domain.skills.templates.skill
 
-import com.myrran.domain.skills.skills.skill.Skill
-import com.myrran.domain.skills.skills.skill.SkillId
-import com.myrran.domain.skills.skills.skill.SkillName
-import com.myrran.domain.skills.skills.stat.Stats
-import com.myrran.domain.skills.skills.subskill.SubSkillSlots
+import com.myrran.domain.skills.custom.skill.Skill
+import com.myrran.domain.skills.custom.skill.SkillId
+import com.myrran.domain.skills.custom.skill.SkillName
+import com.myrran.domain.skills.custom.stat.Stats
+import com.myrran.domain.skills.custom.subskill.SubSkillSlots
 import com.myrran.domain.skills.templates.stat.StatTemplate
 import com.myrran.domain.skills.templates.subskill.SubSkillSlotTemplate
 import com.myrran.domain.spells.spell.SkillType

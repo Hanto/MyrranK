@@ -1,8 +1,8 @@
 package com.myrran.domain.skills.book
 
-import com.myrran.domain.skills.skills.buff.BuffSkill
-import com.myrran.domain.skills.skills.skill.Skill
-import com.myrran.domain.skills.skills.subskill.SubSkill
+import com.myrran.domain.skills.custom.buff.BuffSkill
+import com.myrran.domain.skills.custom.skill.Skill
+import com.myrran.domain.skills.custom.subskill.SubSkill
 import com.myrran.domain.skills.templates.buff.BuffSkillTemplate
 import com.myrran.domain.skills.templates.buff.BuffSkillTemplateId
 import com.myrran.domain.skills.templates.skill.SkillTemplate
