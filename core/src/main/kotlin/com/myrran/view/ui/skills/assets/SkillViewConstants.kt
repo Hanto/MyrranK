@@ -12,3 +12,4 @@ const val TOTAL_BONUS_SIZE = 35f
 
 val PURPLE_LIGHT = Color(163/255f, 170/255f, 255/255f, 1f)
 val PURPLE_DARK = Color(110/255f, 110/255f, 211/255f, 1f)
+val MAGENTA_EPIC = Color(170 / 255f, 70 / 255f, 255 / 255f, 1f)

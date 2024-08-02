@@ -16,9 +16,9 @@ class SkillView(
 
 ): Table(), Disposable
 {
-    private val header = SkillHeader(skill, assets)
-    private val statsView = StatsView( skill, { skill.getStats() }, assets, controller.toStatController(skill))
-    private val slotsView = skill.getSubSkillSlots()
+    private val skillHeader = SkillHeader(skill, skill, assets)
+    private val skillStats = StatsView( skill, { skill.getStats() }, assets, controller.toStatController(skill))
+    private val subSlots = skill.getSubSkillSlots()
         .map { SubSkillSlotView(skill, it, assets, controller.toSubSkillController(skill, it)) }
 
     // LAYOUT:
@@ -27,14 +27,15 @@ class SkillView(
     init {
 
         top().left()
+        val skillStatsTable = Table()
         val outerTable = Table()
-        val statsTable = Table()
 
-        add(header).right().padBottom(0f).minWidth(338f).padRight(4f).row()
+        skillStatsTable.add(skillStats)
+        outerTable.add(skillStatsTable).top().left().padBottom(0f).padLeft(4f).row()
+        subSlots.forEach { outerTable.add(it).top().right().expand().fillX().row() }
+
+        add(skillHeader).left().padBottom(0f).minWidth(338f).padLeft(4f).row()
         add(outerTable)
-        outerTable.add(statsTable).top().right().padBottom(0f).padRight(4f).row()
-        statsTable.add(statsView)
-        slotsView.forEach { outerTable.add(it).top().left().expand().fillX().row() }
     }
 
     override fun dispose() =

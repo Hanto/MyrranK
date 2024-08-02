@@ -29,7 +29,7 @@ class SubSkillSlotView(
 
     init {
 
-        top().left()
+        right()
         setBackground(assets.tableBackgroundDark)
         rebuildTable()
     }
@@ -37,13 +37,13 @@ class SubSkillSlotView(
     private fun rebuildTable() {
 
         val keyAndStatsTable = Table().left()
-        keyAndStatsTable.add(subSlotKeyView.left())
         if (subSkillSlot.content is SubSkill)
             keyAndStatsTable.add(stats).left()
+        keyAndStatsTable.add(subSlotKeyView.left())
         keyAndStatsTable.row()
 
         add(keyAndStatsTable).left().row()
-        buffSkillSlotViews.forEach{ add(it).left().row() }
+        buffSkillSlotViews.forEach{ add(it).right().row() }
     }
 
     // HELPER:

@@ -2,7 +2,6 @@ package com.myrran.view.ui.skills.view.subskill
 
 import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.graphics.Color.GRAY
-import com.badlogic.gdx.graphics.Color.LIGHT_GRAY
 import com.badlogic.gdx.graphics.Color.ORANGE
 import com.badlogic.gdx.scenes.scene2d.ui.Table
 import com.badlogic.gdx.utils.Align
@@ -15,6 +14,7 @@ import com.myrran.domain.skills.templates.LockType
 import com.myrran.domain.utils.observer.Observable
 import com.myrran.domain.utils.observer.Observer
 import com.myrran.view.ui.misc.TextView
+import com.myrran.view.ui.skills.assets.PURPLE_LIGHT
 import com.myrran.view.ui.skills.assets.SkillViewAssets
 
 class SubSlotKeyView(
@@ -76,7 +76,7 @@ class SubSlotKeyView(
         when (subSkillSlot.content) {
 
             is NoSubSkill -> GRAY
-            is SubSkill -> LIGHT_GRAY
+            is SubSkill -> ORANGE
         }
 
     private fun LockType.getColor(): Color =
@@ -85,7 +85,7 @@ class SubSlotKeyView(
 
             is NoSubSkill -> GRAY
             is SubSkill -> when (subSkill.keys.contains(this)) {
-                true -> ORANGE
+                true -> PURPLE_LIGHT
                 false -> GRAY
             }
         }

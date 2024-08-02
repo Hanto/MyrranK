@@ -1,10 +1,6 @@
 package com.myrran.view.ui.skills.view.buff
 
 import com.badlogic.gdx.scenes.scene2d.ui.Table
-import com.myrran.domain.events.BuffSkillChangedEvent
-import com.myrran.domain.events.SkillEvent
-import com.myrran.domain.events.StatUpgradedEvent
-import com.myrran.domain.events.SubSkillChangedEvent
 import com.myrran.domain.skills.skills.buff.BuffSkill
 import com.myrran.domain.skills.skills.buff.BuffSkillSlot
 import com.myrran.domain.skills.skills.buff.BuffSkillSlotContent.NoBuffSkill
@@ -31,30 +27,20 @@ class BuffSkillSlotView(
 
     init {
 
-        top().left()
+        right()
         rebuildTable()
     }
 
     private fun rebuildTable() {
 
-        add(buffSlotKeyView).expandY().fillY().left()
-        if (buffSkillSlot.content is BuffSkill) {
-            add(stats).left()
-        }
+        if (buffSkillSlot.content is BuffSkill)
+            add(stats).right()
+
+        add(buffSlotKeyView).expandY().fillY().right()
     }
 
     // HELPER:
     //--------------------------------------------------------------------------------------------------------
-
-    fun update(event: SkillEvent) {
-
-        when (event) {
-
-            is StatUpgradedEvent -> stats.propertyChange(event)
-            is BuffSkillChangedEvent -> Unit
-            is SubSkillChangedEvent -> Unit
-        }
-    }
 
     private fun getStats(): Collection<Stat> =
 

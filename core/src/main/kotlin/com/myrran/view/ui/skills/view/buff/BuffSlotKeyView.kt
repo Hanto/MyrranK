@@ -2,7 +2,6 @@ package com.myrran.view.ui.skills.view.buff
 
 import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.graphics.Color.GRAY
-import com.badlogic.gdx.graphics.Color.LIGHT_GRAY
 import com.badlogic.gdx.graphics.Color.ORANGE
 import com.badlogic.gdx.scenes.scene2d.ui.Table
 import com.badlogic.gdx.utils.Align
@@ -15,6 +14,7 @@ import com.myrran.domain.skills.templates.LockType
 import com.myrran.domain.utils.observer.Observable
 import com.myrran.domain.utils.observer.Observer
 import com.myrran.view.ui.misc.TextView
+import com.myrran.view.ui.skills.assets.PURPLE_LIGHT
 import com.myrran.view.ui.skills.assets.SkillViewAssets
 
 class BuffSlotKeyView(
@@ -35,7 +35,7 @@ class BuffSlotKeyView(
     init {
 
         observable.addObserver(this)
-        top().left()
+        left()
         setBackground(assets.tableBackgroundLight)
         rebuildTable()
     }
@@ -75,7 +75,7 @@ class BuffSlotKeyView(
         when (buffSkillSlot.content) {
 
             is NoBuffSkill -> GRAY
-            is BuffSkill -> LIGHT_GRAY
+            is BuffSkill -> ORANGE
         }
 
     private fun LockType.getColor(): Color =
@@ -84,7 +84,7 @@ class BuffSlotKeyView(
         {
             is NoBuffSkill -> GRAY
             is BuffSkill -> when (buffSkill.keys.contains(this)) {
-                true -> ORANGE
+                true -> PURPLE_LIGHT
                 false -> GRAY
             }
         }
