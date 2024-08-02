@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.Color.LIGHT_GRAY
 import com.badlogic.gdx.graphics.Color.ORANGE
 import com.badlogic.gdx.scenes.scene2d.ui.Table
 import com.badlogic.gdx.utils.Align
+import com.myrran.domain.events.SkillEvent
 import com.myrran.domain.skills.skills.skill.Skill
 import com.myrran.view.ui.TextView
 import com.myrran.view.ui.skill.assets.SkillAssets
@@ -44,7 +45,7 @@ class SkillIconView(
         add(costTable).left().row()
     }
 
-    fun update() {
+    fun update(event: SkillEvent) {
 
         cost.setText(skill.statCost())
     }

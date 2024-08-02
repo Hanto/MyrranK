@@ -10,6 +10,9 @@ import com.myrran.domain.skills.skills.stat.StatId
 import com.myrran.domain.skills.skills.subskill.SubSkillSlot
 import com.myrran.domain.skills.skills.subskill.SubSkillSlotId
 
+// SKILL:
+//------------------------------------------------------------------------------------------------------------
+
 class SkillController(
 
     book: PlayerSkillBook
@@ -44,13 +47,16 @@ class SkillController(
             buffSkillUpgrade = buffSkillUpgrade.invoke(skill.id).invoke(subSkillSlot.id))
 }
 
+// SUBSKILL:
+//------------------------------------------------------------------------------------------------------------
+
 class SubSkillController(
 
     val subSkillUpgrade: (StatId, NumUpgrades) -> Unit,
     private val buffSkillUpgrade: (BuffSkillSlotId) -> (StatId, NumUpgrades) -> Unit,
 )
 {
-    fun toStatController(buffSkillSlot: BuffSkillSlot) =
+    fun toStatController(): StatController =
 
         StatController(
             upgrade = subSkillUpgrade)
@@ -60,6 +66,9 @@ class SubSkillController(
         BuffSKillController(
             buffSkillUpgrade = buffSkillUpgrade.invoke(buffSkillSlot.id))
 }
+
+// BUFFSKILL:
+//------------------------------------------------------------------------------------------------------------
 
 class BuffSKillController(
 

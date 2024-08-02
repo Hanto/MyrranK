@@ -1,4 +1,4 @@
-package com.myrran.view.ui.skill
+package com.myrran.view.ui.skill.stats
 
 import com.badlogic.gdx.graphics.Color.LIGHT_GRAY
 import com.badlogic.gdx.scenes.scene2d.ui.Table
@@ -29,8 +29,8 @@ class StatHeaderView(
         add(name.align(Align.left)).minWidth(90f)
 
         add(cost.align(Align.center)).minWidth(22f)
-        add(ranks.align(Align.center)).minWidth(40f)
         add(bon.align(Align.center)).minWidth(22f)
+        add(ranks.align(Align.center)).minWidth(40f)
 
         add(min.align(Align.center)).minWidth(35f)
         add().minWidth(80f)

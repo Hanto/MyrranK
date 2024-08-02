@@ -10,7 +10,7 @@ import com.myrran.domain.skills.skills.stat.StatId
 import com.myrran.domain.skills.skills.stat.Stats
 import com.myrran.domain.skills.skills.stat.StatsI
 import com.myrran.domain.skills.skills.stat.UpgradeCost
-import com.myrran.domain.skills.templates.LockTypes
+import com.myrran.domain.skills.templates.LockType
 import com.myrran.domain.skills.templates.subskill.SubSkillTemplateId
 import com.myrran.domain.spells.subspell.SubSkillType
 import com.myrran.domain.spells.subspell.SubSpell
@@ -23,7 +23,7 @@ data class SubSkill(
     val name: SubSkillName,
     val stats: Stats,
     val slots: BuffSkillSlots,
-    val keys: Collection<LockTypes>
+    val keys: Collection<LockType>
 
 ): SubSkillSlotContent, StatsI by stats
 {

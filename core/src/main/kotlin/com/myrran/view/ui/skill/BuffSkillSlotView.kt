@@ -1,26 +1,62 @@
 package com.myrran.view.ui.skill
 
+import com.badlogic.gdx.scenes.scene2d.ui.Table
+import com.myrran.domain.events.BuffSkillChangedEvent
+import com.myrran.domain.events.SkillEvent
+import com.myrran.domain.events.StatUpgradedEvent
+import com.myrran.domain.events.SubSkillChangedEvent
 import com.myrran.domain.skills.skills.buff.BuffSkill
 import com.myrran.domain.skills.skills.buff.BuffSkillSlot
-import com.myrran.domain.skills.skills.stat.NumUpgrades
-import com.myrran.domain.skills.skills.stat.StatId
+import com.myrran.domain.skills.skills.buff.BuffSkillSlotContent.NoBuffSkill
+import com.myrran.domain.skills.skills.stat.Stat
+import com.myrran.view.ui.skill.assets.SkillAssets
 import com.myrran.view.ui.skill.controller.BuffSKillController
-import kotlin.reflect.KClass
+import com.myrran.view.ui.skill.stats.StatsView
 
 class BuffSkillSlotView(
 
     val buffSkillSlot: BuffSkillSlot,
+    val assets: SkillAssets,
     val controller: BuffSKillController
-) {
+
+): Table()
+{
+    private val buffSlotKeyView = BuffSlotKeyView(buffSkillSlot, assets)
+    private var stats = StatsView( { getStats() }, assets, controller.toStatController() )
 
     init {
 
-        buffSkillSlot.content.ifIs(BuffSkill::class)
-            ?.also { controller.buffSkillUpgrade(StatId("DAMAGE"), NumUpgrades(7)) }
+        top().left()
+
+        fillTable()
 
     }
 
-    private inline fun <reified T: Any> Any.ifIs(classz: KClass<T>): T? =
+    private fun fillTable() {
 
-        if (this is T) this else null
+        add(buffSlotKeyView).expandY().fillY().left()
+
+        if (buffSkillSlot.content is BuffSkill) {
+            add(stats).left()
+        }
+
+    }
+
+    fun update(event: SkillEvent) {
+
+        when (event) {
+
+            is StatUpgradedEvent -> stats.update(event)
+            is BuffSkillChangedEvent -> Unit
+            is SubSkillChangedEvent -> Unit
+        }
+    }
+
+    private fun getStats(): Collection<Stat> =
+
+        when (val buffSkill = buffSkillSlot.content) {
+
+            is NoBuffSkill -> emptyList()
+            is BuffSkill -> buffSkill.stats.getStats()
+        }
 }

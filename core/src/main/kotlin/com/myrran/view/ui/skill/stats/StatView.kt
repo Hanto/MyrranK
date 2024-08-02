@@ -1,4 +1,4 @@
-package com.myrran.view.ui.skill
+package com.myrran.view.ui.skill.stats
 
 import com.badlogic.gdx.Input.Buttons
 import com.badlogic.gdx.graphics.Color
@@ -19,7 +19,7 @@ class StatView(
 
     val stat: StatUpgradeable,
     assets: SkillAssets,
-    controller: StatController,
+    val controller: StatController,
 
 ): Table()
 {
@@ -47,25 +47,17 @@ class StatView(
         add(name.align(Align.left)).minWidth(90f)
 
         add(upgradeCost.align(Align.center or Align.bottom)).minWidth(22f)
-        add(upgrades.align(Align.center)).minWidth(40f)
         add(bonusPerUpgrade.align(Align.center or Align.bottom)).minWidth(22f)
+        add(upgrades.align(Align.center)).minWidth(40f)
 
         add(baseBonus.align(Align.right)).minWidth(35f)
-        add(upgradeBar).center().padTop(2f).minWidth(80f)
+        add(upgradeBar).center().padLeft(2f).padTop(2f).minWidth(80f)
         add(totalBonus.align(Align.right)).minWidth(35f)
 
         row()
 
-        baseBonus.addListener(object: ClickListener() {
-
-            override fun touchDown(event: InputEvent, x: Float, y: Float, pointer: Int, button: Int): Boolean {
-
-                val numUpgrades = if (button == Buttons.RIGHT) -2 else -1
-
-                controller.upgrade.invoke(stat.id, NumUpgrades(numUpgrades))
-                return true
-            }
-        })
+        baseBonus.addListener(createListener(amountToUpgrade = -1))
+        totalBonus.addListener(createListener(amountToUpgrade = +1))
     }
 
     // UPDATE:
@@ -76,6 +68,19 @@ class StatView(
         upgrades.setText(stat.upgrades)
         totalBonus.setText(stat.totalBonus())
         upgradeBar.update()
+    }
+
+    // LISTENER:
+    //--------------------------------------------------------------------------------------------------------
+
+    private fun createListener(amountToUpgrade: Int) = object : ClickListener() {
+
+        override fun touchDown(event: InputEvent, x: Float, y: Float, pointer: Int, button: Int): Boolean {
+
+            val numUpgrades = if (button == Buttons.RIGHT) amountToUpgrade*2 else amountToUpgrade
+            controller.upgrade.invoke(stat.id, NumUpgrades(numUpgrades))
+            return true
+        }
     }
 
     private fun Float.format(decimals: Int) =

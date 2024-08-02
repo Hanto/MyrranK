@@ -22,7 +22,6 @@ data class ElapsedTime(private val value: Long)
 
         fun of(units: Long, timeUnit: TimeUnit): ElapsedTime =
             ElapsedTime(timeUnit.toMillis(units))
-
     }
 
     fun toMillis(): Long = value

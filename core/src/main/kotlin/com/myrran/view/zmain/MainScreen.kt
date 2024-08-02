@@ -26,7 +26,7 @@ import com.myrran.domain.skills.skills.subskill.SubSkillName
 import com.myrran.domain.skills.skills.subskill.SubSkillSlotId
 import com.myrran.domain.skills.skills.subskill.SubSkillSlotName
 import com.myrran.domain.skills.templates.Lock
-import com.myrran.domain.skills.templates.LockTypes
+import com.myrran.domain.skills.templates.LockType
 import com.myrran.domain.skills.templates.buff.BuffSkillSlotTemplate
 import com.myrran.domain.skills.templates.buff.BuffSkillTemplate
 import com.myrran.domain.skills.templates.buff.BuffSkillTemplateId
@@ -124,12 +124,12 @@ class MainScreen(
                 SubSkillSlotTemplate(
                     id = SubSkillSlotId("IMPACT"),
                     name = SubSkillSlotName("Impact"),
-                    lock = Lock(listOf(LockTypes.ALPHA, LockTypes.BETA, LockTypes.GAMMA, LockTypes.EPSILON, LockTypes.OMEGA))
+                    lock = Lock(listOf(LockType.ALPHA, LockType.BETA, LockType.GAMMA, LockType.EPSILON, LockType.OMEGA))
                 ),
                 SubSkillSlotTemplate(
                     id = SubSkillSlotId("TRAIL"),
                     name = SubSkillSlotName("Trail"),
-                    lock = Lock(listOf(LockTypes.ALPHA, LockTypes.BETA))
+                    lock = Lock(listOf(LockType.ALPHA, LockType.BETA))
                 )
             )
         )
@@ -141,7 +141,7 @@ class MainScreen(
             stats = listOf(
                 StatUpgradeableTemplate(
                     id = StatId("RADIUS"),
-                    name = StatName("radius"),
+                    name = StatName("Radius"),
                     baseBonus = StatBonus(10.0f),
                     maximum = NumUpgrades(20),
                     upgradeCost = UpgradeCost(2.0f),
@@ -152,15 +152,15 @@ class MainScreen(
                 BuffSkillSlotTemplate(
                     id = BuffSkillSlotId("DEBUFF_1"),
                     name = BuffSkillSlotName("Debuff 1"),
-                    lock = Lock(listOf(LockTypes.GAMMA, LockTypes.EPSILON)),
+                    lock = Lock(listOf(LockType.GAMMA, LockType.EPSILON)),
                 ),
                 BuffSkillSlotTemplate(
                     id = BuffSkillSlotId("DEBUFF_2"),
                     name = BuffSkillSlotName("Debuff 2"),
-                    lock = Lock(listOf(LockTypes.GAMMA, LockTypes.EPSILON)),
+                    lock = Lock(listOf(LockType.GAMMA, LockType.EPSILON)),
                 )
             ),
-            keys = listOf(LockTypes.BETA, LockTypes.GAMMA)
+            keys = listOf(LockType.BETA, LockType.GAMMA)
         )
 
         val fire = BuffSkillTemplate(
@@ -170,7 +170,7 @@ class MainScreen(
             stats = listOf(
                 StatUpgradeableTemplate(
                     id = StatId("DAMAGE"),
-                    name = StatName("damage per second"),
+                    name = StatName("Damage per tick"),
                     baseBonus = StatBonus(10.0f),
                     maximum = NumUpgrades(20),
                     upgradeCost = UpgradeCost(2.0f),
@@ -178,14 +178,22 @@ class MainScreen(
                 ),
                 StatUpgradeableTemplate(
                     id = StatId("DURATION"),
-                    name = StatName("duration"),
+                    name = StatName("Duration"),
+                    baseBonus = StatBonus(10.0f),
+                    maximum = NumUpgrades(20),
+                    upgradeCost = UpgradeCost(2.0f),
+                    bonusPerUpgrade = BonusPerUpgrade(1.0f)
+                ),
+                StatUpgradeableTemplate(
+                    id = StatId("SPEED"),
+                    name = StatName("Speed"),
                     baseBonus = StatBonus(10.0f),
                     maximum = NumUpgrades(20),
                     upgradeCost = UpgradeCost(2.0f),
                     bonusPerUpgrade = BonusPerUpgrade(1.0f)
                 )
             ),
-            keys = listOf(LockTypes.GAMMA)
+            keys = listOf(LockType.GAMMA)
         )
 
         boltSkill = bolt.toSkill()
@@ -204,6 +212,7 @@ class MainScreen(
         val controller = SkillController(playerSkillBook)
 
         val assets = SkillAssets(
+            skillIcon = atlas.getTextureRegion("Atlas.atlas", "TexturasIconos/FireBall"),
             spellIconBackground = atlas.getNinePatchDrawable("Atlas.atlas", "TexturasIconos/FireBallNine", Color.WHITE, 1f),
             tableBackgroundLight = atlas.getNinePatchDrawable("Atlas.atlas","TexturasIconos/NineLight", Color.WHITE, 0.90f),
             tableBackgroundDark = atlas.getNinePatchDrawable("Atlas.atlas","TexturasIconos/NineDark", Color.WHITE, 0.90f),
@@ -222,8 +231,6 @@ class MainScreen(
 
         val container = Container<Table>()
         container.actor = skillView
-
-        println(skillView.minHeight)
 
         uiStage.addActor(container)
         container.setPosition(200f, 100f)

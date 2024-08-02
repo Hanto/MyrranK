@@ -2,6 +2,9 @@ package com.myrran.domain.skills.skills.skill
 
 import com.myrran.domain.Observable
 import com.myrran.domain.ObservableI
+import com.myrran.domain.events.BuffSkillChangedEvent
+import com.myrran.domain.events.StatUpgradedEvent
+import com.myrran.domain.events.SubSkillChangedEvent
 import com.myrran.domain.skills.skills.buff.BuffSkill
 import com.myrran.domain.skills.skills.buff.BuffSkillSlotContent
 import com.myrran.domain.skills.skills.buff.BuffSkillSlotId
@@ -44,10 +47,12 @@ data class Skill(
     fun removeSubSkill(subSkillSlotId: SubSkillSlotId): SubSkillSlotContent? =
 
         slots.removeSubSkill(subSkillSlotId)
+            .also { notify(SubSkillChangedEvent(subSkillSlotId)) }
 
     fun setSubSkill(subSkillSlotId: SubSkillSlotId, subSkill: SubSkill) =
 
         slots.setSubSkill(subSkillSlotId, subSkill)
+            .also { notify(SubSkillChangedEvent(subSkillSlotId)) }
 
     // BUFFSKILL
     //--------------------------------------------------------------------------------------------------------
@@ -59,10 +64,12 @@ data class Skill(
     fun removeBuffSkill(subSkillSlotId: SubSkillSlotId, buffSkillSlotId: BuffSkillSlotId): BuffSkillSlotContent? =
 
         slots.removeBuffSKill(subSkillSlotId, buffSkillSlotId)
+            .also { notify(BuffSkillChangedEvent(subSkillSlotId, buffSkillSlotId)) }
 
     fun setBuffSkill(subSkillSlotId: SubSkillSlotId, buffSkillSlotId: BuffSkillSlotId, buffSkill: BuffSkill) =
 
         slots.setBuffSkill(subSkillSlotId, buffSkillSlotId, buffSkill)
+            .also { notify(BuffSkillChangedEvent(subSkillSlotId, buffSkillSlotId)) }
 
     // UPGRADES:
     //--------------------------------------------------------------------------------------------------------
@@ -70,17 +77,17 @@ data class Skill(
     fun upgrade(subSkillSlotId: SubSkillSlotId, statId: StatId, upgradeBy: NumUpgrades) =
 
         slots.upgrade(subSkillSlotId, statId, upgradeBy)
-            .also { notify("$statId") }
+            .also { notify(StatUpgradedEvent) }
 
     fun upgrade(subSkillSlotId: SubSkillSlotId, buffSkillSlotId: BuffSkillSlotId, statId: StatId, upgradeBy: NumUpgrades) =
 
         slots.upgrade(subSkillSlotId, buffSkillSlotId, statId, upgradeBy)
-            .also { notify("$statId") }
+            .also { notify(StatUpgradedEvent) }
 
     override fun upgrade(statId: StatId, upgradeBy: NumUpgrades) =
 
         stats.upgrade(statId, upgradeBy)
-            .also { notify("$statId") }
+            .also { notify(StatUpgradedEvent) }
 
     fun totalCost(): UpgradeCost =
 

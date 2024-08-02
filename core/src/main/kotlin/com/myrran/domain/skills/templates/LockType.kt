@@ -1,6 +1,6 @@
 package com.myrran.domain.skills.templates
 
-enum class LockTypes(val value: String, val order: Int) {
+enum class LockType(val value: String, val order: Int) {
 
     ALPHA("A", 1),
     BETA("B", 2),

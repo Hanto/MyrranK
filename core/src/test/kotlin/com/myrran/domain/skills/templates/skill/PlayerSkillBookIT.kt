@@ -18,7 +18,7 @@ import com.myrran.domain.skills.skills.subskill.SubSkillName
 import com.myrran.domain.skills.skills.subskill.SubSkillSlotId
 import com.myrran.domain.skills.skills.subskill.SubSkillSlotName
 import com.myrran.domain.skills.templates.Lock
-import com.myrran.domain.skills.templates.LockTypes
+import com.myrran.domain.skills.templates.LockType
 import com.myrran.domain.skills.templates.buff.BuffSkillSlotTemplate
 import com.myrran.domain.skills.templates.buff.BuffSkillTemplate
 import com.myrran.domain.skills.templates.buff.BuffSkillTemplateId
@@ -68,12 +68,12 @@ class PlayerSkillBookIT {
                 SubSkillSlotTemplate(
                     id = SubSkillSlotId("IMPACT"),
                     name = SubSkillSlotName("impact"),
-                    lock = Lock(listOf(LockTypes.ALPHA, LockTypes.BETA))
+                    lock = Lock(listOf(LockType.ALPHA, LockType.BETA))
                 ),
                 SubSkillSlotTemplate(
                     id = SubSkillSlotId("TRAIL"),
                     name = SubSkillSlotName("trail"),
-                    lock = Lock(listOf(LockTypes.ALPHA, LockTypes.BETA))
+                    lock = Lock(listOf(LockType.ALPHA, LockType.BETA))
                 )
             )
         )
@@ -96,15 +96,15 @@ class PlayerSkillBookIT {
                 BuffSkillSlotTemplate(
                     id = BuffSkillSlotId("DEBUFF_1"),
                     name = BuffSkillSlotName("Debuff 1"),
-                    lock = Lock(listOf(LockTypes.GAMMA, LockTypes.EPSILON)),
+                    lock = Lock(listOf(LockType.GAMMA, LockType.EPSILON)),
                 ),
                 BuffSkillSlotTemplate(
                     id = BuffSkillSlotId("DEBUFF_2"),
                     name = BuffSkillSlotName("Debuff 2"),
-                    lock = Lock(listOf(LockTypes.GAMMA, LockTypes.EPSILON)),
+                    lock = Lock(listOf(LockType.GAMMA, LockType.EPSILON)),
                 )
             ),
-            keys = listOf(LockTypes.ALPHA)
+            keys = listOf(LockType.ALPHA)
         )
 
         val fire = BuffSkillTemplate(
@@ -129,7 +129,7 @@ class PlayerSkillBookIT {
                     bonusPerUpgrade = BonusPerUpgrade(1.0f)
                 )
             ),
-            keys = listOf(LockTypes.GAMMA)
+            keys = listOf(LockType.GAMMA)
         )
 
         val worldSkill = WorldSkillBook(

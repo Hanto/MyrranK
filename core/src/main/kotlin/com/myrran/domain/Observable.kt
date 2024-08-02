@@ -1,5 +1,6 @@
 package com.myrran.domain
 
+import com.myrran.domain.events.Event
 import java.beans.PropertyChangeListener
 import java.beans.PropertyChangeSupport
 
@@ -10,8 +11,11 @@ class Observable: ObservableI {
     // MAIN:
     //--------------------------------------------------------------------------------------------------------
 
+    override fun notify(event: Event) =
+        observed.firePropertyChange(event::class.simpleName, null, event)
+
     override fun notify(propertyName: String)  =
-        observed.firePropertyChange("change", null, null)
+        observed.firePropertyChange(propertyName, null, null)
 
     override fun notify(propertyName: String, oldValue: Any?, newValue: Any?) =
         observed.firePropertyChange(propertyName, oldValue, newValue)

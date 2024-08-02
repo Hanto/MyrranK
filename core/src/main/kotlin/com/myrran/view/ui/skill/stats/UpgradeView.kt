@@ -1,4 +1,4 @@
-package com.myrran.view.ui.skill
+package com.myrran.view.ui.skill.stats
 
 import com.badlogic.gdx.Input.Buttons
 import com.badlogic.gdx.graphics.Color
@@ -40,7 +40,6 @@ class UpgradeView(
             override fun touchDown(event: InputEvent, x: Float, y: Float, pointer: Int, button: Int): Boolean {
 
                 val numUpgrades = if (button == Buttons.RIGHT) 2 else 1
-
                 controller.upgrade.invoke(stat.id, NumUpgrades(numUpgrades))
                 return true
             }

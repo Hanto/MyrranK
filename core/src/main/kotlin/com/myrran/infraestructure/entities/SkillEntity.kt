@@ -1,6 +1,6 @@
 package com.myrran.infraestructure.entities
 
-import com.myrran.domain.skills.templates.LockTypes
+import com.myrran.domain.skills.templates.LockType
 import com.myrran.domain.spells.buff.BuffType
 import com.myrran.domain.spells.spell.SkillType
 import com.myrran.domain.spells.subspell.SubSkillType
@@ -17,7 +17,7 @@ data class SkillEntity(
 data class SubSkillSlotEntity(
     val id: String,
     val name: String,
-    val lock: List<LockTypes>,
+    val lock: List<LockType>,
     val content: SubSkillEntity?
 )
 
@@ -28,13 +28,13 @@ data class SubSkillEntity(
     val name: String,
     val stats: List<StatEntity>,
     val slots: List<BuffSKillSlotEntity>,
-    val keys: Collection<LockTypes>
+    val keys: Collection<LockType>
 )
 
 data class BuffSKillSlotEntity(
     val id: String,
     val name: String,
-    val lock: List<LockTypes>,
+    val lock: List<LockType>,
     val content: BuffSkillEntity?
 )
 
@@ -44,7 +44,7 @@ data class BuffSkillEntity(
     val type: BuffType,
     val name: String,
     val stats: List<StatEntity>,
-    val keys: List<LockTypes>
+    val keys: List<LockType>
 )
 
 data class StatEntity(

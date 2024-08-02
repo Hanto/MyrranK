@@ -4,11 +4,11 @@ import java.util.Collections
 
 data class Lock(
 
-    val openedBy: Collection<LockTypes>
+    val openedBy: Collection<LockType>
 
 ): LockI
 {
-    override fun isOpenedBy(keys: Collection<LockTypes>): Boolean =
+    override fun isOpenedBy(keys: Collection<LockType>): Boolean =
 
         !Collections.disjoint(openedBy, keys)
 }

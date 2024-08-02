@@ -5,7 +5,7 @@ import com.myrran.domain.skills.skills.stat.Stats
 import com.myrran.domain.skills.skills.subskill.SubSkill
 import com.myrran.domain.skills.skills.subskill.SubSkillId
 import com.myrran.domain.skills.skills.subskill.SubSkillName
-import com.myrran.domain.skills.templates.LockTypes
+import com.myrran.domain.skills.templates.LockType
 import com.myrran.domain.skills.templates.buff.BuffSkillSlotTemplate
 import com.myrran.domain.skills.templates.stat.StatTemplate
 import com.myrran.domain.spells.subspell.SubSkillType
@@ -17,7 +17,7 @@ data class SubSkillTemplate(
     val name: SubSkillName,
     val stats: Collection<StatTemplate>,
     val slots: Collection<BuffSkillSlotTemplate>,
-    val keys: Collection<LockTypes>
+    val keys: Collection<LockType>
 
 )
 {

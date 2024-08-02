@@ -1,9 +1,11 @@
 package com.myrran.view.ui.skill
 
 import com.badlogic.gdx.scenes.scene2d.ui.Table
+import com.myrran.domain.events.SkillEvent
 import com.myrran.domain.skills.skills.skill.Skill
 import com.myrran.view.ui.skill.assets.SkillAssets
 import com.myrran.view.ui.skill.controller.SkillController
+import com.myrran.view.ui.skill.stats.StatsView
 import java.beans.PropertyChangeEvent
 import java.beans.PropertyChangeListener
 
@@ -17,7 +19,7 @@ class SkillView(
 {
     private val header = SkillHeader(skill, assets)
     private val icon = SkillIconView(skill, assets)
-    private val statsView = StatsView(skill.getStats(), assets, controller.toStatController(skill))
+    private val statsView = StatsView( { skill.getStats() }, assets, controller.toStatController(skill))
     private val slotsView = skill.getSubSkillSlots()
         .map { SubSkillSlotView(it, assets, controller.toSubSkillController(skill, it)) }
 
@@ -26,30 +28,30 @@ class SkillView(
         top().left()
 
         val outerTable = Table()
-        val innerTable = Table()
+        val statsTable = Table()
 
-        outerTable.setBackground(assets.tableBackgroundDark)
+        statsTable.setBackground(assets.tableBackgroundDark)
 
-        //innerTable.add(icon).top().left()
-        outerTable.add(innerTable).left().row()
-        outerTable.add(statsView).top().left().row()
-        slotsView.forEach{ outerTable.add(it).top().left().row() }
-
-        add(header).left().minWidth(132f).row()
+        add(header).right().padBottom(0f).minWidth(346f).row() //minWidth(196f).row()
         add(outerTable)
+        outerTable.add(statsTable).top().right().padBottom(0f).row()
+        statsTable.add(statsView)
+        slotsView.forEach { outerTable.add(it).top().left().expand().fillX().padBottom(1f).row() }
     }
 
     // UPDATE:
     //--------------------------------------------------------------------------------------------------------
 
-    fun update() {
+    private fun update(event: SkillEvent) {
 
-        icon.update()
-        statsView.update()
-        slotsView.forEach{ it.update() }
+        icon.update(event)
+        statsView.update(event)
+        slotsView.forEach{ it.update(event) }
     }
 
+    override fun propertyChange(event: PropertyChangeEvent) {
 
-    override fun propertyChange(evt: PropertyChangeEvent) =
-        update()
+        if (event.newValue is SkillEvent)
+            update(event.newValue as SkillEvent)
+    }
 }
