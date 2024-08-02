@@ -1,4 +1,4 @@
-package com.myrran.view.ui
+package com.myrran.view.ui.misc
 
 import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.graphics.g2d.BitmapFont

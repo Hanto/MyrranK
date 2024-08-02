@@ -1,4 +1,4 @@
-package com.myrran.view.ui.skill
+package com.myrran.view.ui.skill.view.skill
 
 import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.graphics.Color.ORANGE
@@ -10,13 +10,13 @@ import com.myrran.domain.events.SkillEvent
 import com.myrran.domain.events.StatUpgradedEvent
 import com.myrran.domain.skills.skills.skill.Skill
 import com.myrran.domain.utils.format
-import com.myrran.view.ui.TextView
-import com.myrran.view.ui.skill.assets.SkillAssets
+import com.myrran.view.ui.misc.TextView
+import com.myrran.view.ui.skill.assets.SkillViewAssets
 
 class SkillHeader(
 
     val skill: Skill,
-    val assets: SkillAssets,
+    val assets: SkillViewAssets,
 
 ): Table()
 {

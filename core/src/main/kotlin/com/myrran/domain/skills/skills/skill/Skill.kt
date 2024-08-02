@@ -1,8 +1,6 @@
 package com.myrran.domain.skills.skills.skill
 
 import com.myrran.domain.Identifiable
-import com.myrran.domain.Observable
-import com.myrran.domain.ObservableI
 import com.myrran.domain.events.BuffSkillChangedEvent
 import com.myrran.domain.events.StatUpgradedEvent
 import com.myrran.domain.events.SubSkillChangedEvent
@@ -21,6 +19,8 @@ import com.myrran.domain.skills.skills.subskill.SubSkillSlotId
 import com.myrran.domain.skills.skills.subskill.SubSkillSlots
 import com.myrran.domain.skills.templates.skill.SkillTemplateId
 import com.myrran.domain.spells.spell.SkillType
+import com.myrran.domain.utils.observer.JavaObservable
+import com.myrran.domain.utils.observer.Observable
 
 data class Skill(
 
@@ -30,9 +30,9 @@ data class Skill(
     val name: SkillName,
     private val stats: Stats,
     private val slots: SubSkillSlots,
-    private val observable: ObservableI = Observable()
+    private val observable: Observable = JavaObservable()
 
-): StatsI by stats, ObservableI by observable, Identifiable<SkillId>
+): StatsI by stats, Observable by observable, Identifiable<SkillId>
 {
     // SUBSKILLS
     //--------------------------------------------------------------------------------------------------------

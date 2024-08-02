@@ -1,9 +1,9 @@
-package com.myrran.domain
+package com.myrran.domain.utils.observer
 
 import com.myrran.domain.events.Event
 import java.beans.PropertyChangeListener
 
-interface ObservableI {
+interface Observable {
 
     fun notify(event: Event)
     fun notify(propertyName: String)

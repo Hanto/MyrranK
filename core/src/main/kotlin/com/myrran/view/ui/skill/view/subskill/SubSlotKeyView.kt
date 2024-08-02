@@ -1,4 +1,4 @@
-package com.myrran.view.ui.skill
+package com.myrran.view.ui.skill.view.subskill
 
 import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.graphics.Color.GRAY
@@ -6,42 +6,58 @@ import com.badlogic.gdx.graphics.Color.LIGHT_GRAY
 import com.badlogic.gdx.graphics.Color.ORANGE
 import com.badlogic.gdx.scenes.scene2d.ui.Table
 import com.badlogic.gdx.utils.Align
-import com.myrran.domain.events.SkillEvent
+import com.myrran.domain.events.Event
+import com.myrran.domain.events.SubSkillChangedEvent
 import com.myrran.domain.skills.skills.subskill.SubSkill
 import com.myrran.domain.skills.skills.subskill.SubSkillSlot
 import com.myrran.domain.skills.skills.subskill.SubSkillSlotContent.NoSubSkill
 import com.myrran.domain.skills.templates.LockType
-import com.myrran.view.ui.TextView
-import com.myrran.view.ui.skill.assets.SkillAssets
+import com.myrran.domain.utils.observer.Observable
+import com.myrran.domain.utils.observer.Observer
+import com.myrran.view.ui.misc.TextView
+import com.myrran.view.ui.skill.assets.SkillViewAssets
 
 class SubSlotKeyView(
 
+    private val observable: Observable,
     private val subSkillSlot: SubSkillSlot,
-    private val assets: SkillAssets
+    private val assets: SkillViewAssets
 
-): Table() {
-
+): Table(), Observer
+{
     private val runesLabel = TextView("${subSkillSlot.getName()}:", assets.font10, subSkillSlot.getColor())
-    private val keys = subSkillSlot.lock.openedBy
-        .associateWith { TextView("${it.value} ", assets.font10, getColor(it), 1f) }
+    private var keys = subSkillSlot.lock.openedBy
+        .map { TextView("${it.value} ", assets.font10, it.getColor(), 1f) }
+
+    // LAYOUT:
+    //--------------------------------------------------------------------------------------------------------
 
     init {
 
+        observable.addObserver(this)
         left()
-        val runesRow = Table()
-
-        keys.forEach{ runesRow.add(it.value) }
-        add(runesLabel.align(Align.left)).padLeft(1f).left().padTop(-3f).row()
-        add(runesRow).left().padLeft(1f).padTop(-6f).padBottom(-1f)
-
         setBackground(assets.tableBackgroundLight)
+        rebuildTable()
     }
 
-    fun update(event: SkillEvent) {
+    private fun rebuildTable() {
 
-        keys.entries
-            .sortedBy { it.key.order }
-            .forEach{ it.value.setColor(getColor(it.key)) }
+        val runesRow = Table()
+        keys.forEach{ runesRow.add(it) }
+        add(runesLabel.align(Align.left)).padLeft(1f).left().padTop(-3f).row()
+        add(runesRow).left().padLeft(1f).padTop(-6f).padBottom(-1f)
+    }
+
+    // UPDATE:
+    //--------------------------------------------------------------------------------------------------------
+
+    override fun update(event: Event) {
+
+        if (event is SubSkillChangedEvent && event.subId == subSkillSlot.id) {
+
+            keys = subSkillSlot.lock.openedBy
+                .map { TextView("${it.value} ", assets.font10, it.getColor(), 1f) }
+        }
     }
 
     // HELPER:
@@ -63,12 +79,12 @@ class SubSlotKeyView(
             is SubSkill -> LIGHT_GRAY
         }
 
-    private fun getColor(lock: LockType): Color =
+    private fun LockType.getColor(): Color =
 
         when (val subSkill = subSkillSlot.content) {
 
             is NoSubSkill -> GRAY
-            is SubSkill -> when (subSkill.keys.contains(lock)) {
+            is SubSkill -> when (subSkill.keys.contains(this)) {
                 true -> ORANGE
                 false -> GRAY
             }

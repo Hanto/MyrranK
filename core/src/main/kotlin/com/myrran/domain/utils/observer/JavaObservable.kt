@@ -1,10 +1,10 @@
-package com.myrran.domain
+package com.myrran.domain.utils.observer
 
 import com.myrran.domain.events.Event
 import java.beans.PropertyChangeListener
 import java.beans.PropertyChangeSupport
 
-class Observable: ObservableI {
+class JavaObservable: Observable {
 
     private val observed: PropertyChangeSupport = PropertyChangeSupport(this)
 

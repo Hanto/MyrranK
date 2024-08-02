@@ -47,10 +47,10 @@ import com.myrran.infraestructure.adapters.SkillAdapter
 import com.myrran.infraestructure.adapters.SkillBookAdapter
 import com.myrran.infraestructure.adapters.SkillTemplateAdapter
 import com.myrran.view.atlas.Atlas
-import com.myrran.view.ui.TextView
-import com.myrran.view.ui.skill.SkillView
-import com.myrran.view.ui.skill.assets.SkillAssets
+import com.myrran.view.ui.misc.TextView
+import com.myrran.view.ui.skill.assets.SkillViewAssets
 import com.myrran.view.ui.skill.controller.SkillController
+import com.myrran.view.ui.skill.view.skill.SkillView
 import ktx.app.KtxScreen
 
 class MainScreen(
@@ -217,7 +217,7 @@ class MainScreen(
 
         val controller = SkillController(playerSkillBook)
 
-        val assets = SkillAssets(
+        val assets = SkillViewAssets(
             skillIcon = atlas.getTextureRegion("Atlas.atlas", "TexturasIconos/FireBall"),
             spellIconBackground = atlas.getNinePatchDrawable("Atlas.atlas", "TexturasIconos/FireBallNine", Color.WHITE, 1f),
             tableBackgroundLight = atlas.getNinePatchDrawable("Atlas.atlas","TexturasIconos/NineLight", Color.WHITE, 0.90f),
@@ -232,8 +232,6 @@ class MainScreen(
 
         val skillView = SkillView(boltSkill, assets, controller)
         //skillView.setDebug(true, true)
-
-        boltSkill.addObserver(skillView)
 
         val container = Container<Table>()
         container.actor = skillView

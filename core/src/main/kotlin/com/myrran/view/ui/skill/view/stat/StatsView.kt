@@ -1,29 +1,32 @@
-package com.myrran.view.ui.skill.stats
+package com.myrran.view.ui.skill.view.stat
 
 import com.badlogic.gdx.scenes.scene2d.ui.Table
 import com.myrran.domain.events.BuffSkillChangedEvent
-import com.myrran.domain.events.SkillEvent
-import com.myrran.domain.events.StatUpgradedEvent
+import com.myrran.domain.events.Event
 import com.myrran.domain.events.SubSkillChangedEvent
 import com.myrran.domain.skills.skills.stat.Stat
-import com.myrran.view.ui.skill.assets.SkillAssets
+import com.myrran.domain.utils.observer.Observable
+import com.myrran.domain.utils.observer.Observer
+import com.myrran.view.ui.skill.assets.SkillViewAssets
 import com.myrran.view.ui.skill.controller.StatController
 
 class StatsView(
 
+    private val observable: Observable,
     private val statsRetriever: () -> Collection<Stat>,
-    private val assets: SkillAssets,
+    private val assets: SkillViewAssets,
     private val controller: StatController,
 
-): Table()
+): Table(), Observer
 {
-    private var statList = statsRetriever.invoke().map { StatView(it, assets, controller) }
+    private var statList = statsRetriever.invoke().map { StatView(observable, it, assets, controller) }
 
     // LAYOUT:
     //--------------------------------------------------------------------------------------------------------
 
     init {
 
+        observable.addObserver(this)
         top().left().padLeft(5f).padRight(5f).padBottom(7f)
         setBackground(assets.tableBackgroundLight)
         reBuildTable()
@@ -41,16 +44,12 @@ class StatsView(
     // UPDATE:
     //--------------------------------------------------------------------------------------------------------
 
-    fun update(event: SkillEvent) {
+    override fun update(event: Event) {
 
-        when (event) {
+        if (event is BuffSkillChangedEvent || event is SubSkillChangedEvent) {
 
-            is StatUpgradedEvent -> statList.forEach { it.update() }
-            is BuffSkillChangedEvent, is SubSkillChangedEvent -> {
-
-                statList = statsRetriever.invoke().map { StatView(it, assets, controller) }
-                reBuildTable()
-            }
+            statList = statsRetriever.invoke().map { StatView(observable, it, assets, controller) }
+            reBuildTable()
         }
     }
 }

@@ -1,4 +1,4 @@
-package com.myrran.view.ui.skill
+package com.myrran.view.ui.skill.view.skill
 
 import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.graphics.Color.LIGHT_GRAY
@@ -8,13 +8,13 @@ import com.badlogic.gdx.utils.Align
 import com.myrran.domain.events.SkillEvent
 import com.myrran.domain.skills.skills.skill.Skill
 import com.myrran.domain.utils.format
-import com.myrran.view.ui.TextView
-import com.myrran.view.ui.skill.assets.SkillAssets
+import com.myrran.view.ui.misc.TextView
+import com.myrran.view.ui.skill.assets.SkillViewAssets
 
 class SkillIconView(
 
     private val skill: Skill,
-    assets: SkillAssets
+    assets: SkillViewAssets
 
 ): Table()
 {

@@ -4,7 +4,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont
 import com.badlogic.gdx.graphics.g2d.TextureRegion
 import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable
 
-data class SkillAssets(
+data class SkillViewAssets(
 
     val skillIcon: TextureRegion,
     val spellIconBackground: NinePatchDrawable,
