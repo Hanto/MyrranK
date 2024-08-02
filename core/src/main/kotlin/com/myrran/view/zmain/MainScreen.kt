@@ -32,6 +32,7 @@ import com.myrran.domain.skills.templates.buff.BuffSkillTemplate
 import com.myrran.domain.skills.templates.buff.BuffSkillTemplateId
 import com.myrran.domain.skills.templates.skill.SkillTemplate
 import com.myrran.domain.skills.templates.skill.SkillTemplateId
+import com.myrran.domain.skills.templates.stat.StatFixedTemplate
 import com.myrran.domain.skills.templates.stat.StatUpgradeableTemplate
 import com.myrran.domain.skills.templates.subskill.SubSkillSlotTemplate
 import com.myrran.domain.skills.templates.subskill.SubSkillTemplate
@@ -169,7 +170,7 @@ class MainScreen(
             name = BuffSkillName("Fire"),
             stats = listOf(
                 StatUpgradeableTemplate(
-                    id = StatId("DAMAGE"),
+                    id = StatId("1:DAMAGE"),
                     name = StatName("Damage per tick"),
                     baseBonus = StatBonus(10.0f),
                     maximum = NumUpgrades(20),
@@ -177,7 +178,7 @@ class MainScreen(
                     bonusPerUpgrade = BonusPerUpgrade(1.0f)
                 ),
                 StatUpgradeableTemplate(
-                    id = StatId("DURATION"),
+                    id = StatId("2:DURATION"),
                     name = StatName("Duration"),
                     baseBonus = StatBonus(10.0f),
                     maximum = NumUpgrades(20),
@@ -185,12 +186,17 @@ class MainScreen(
                     bonusPerUpgrade = BonusPerUpgrade(1.0f)
                 ),
                 StatUpgradeableTemplate(
-                    id = StatId("SPEED"),
+                    id = StatId("3:SPEED"),
                     name = StatName("Speed"),
                     baseBonus = StatBonus(10.0f),
                     maximum = NumUpgrades(20),
                     upgradeCost = UpgradeCost(2.0f),
                     bonusPerUpgrade = BonusPerUpgrade(1.0f)
+                ),
+                StatFixedTemplate(
+                    id = StatId("4:INITIAL_DAMAGE"),
+                    name = StatName("Initial damage"),
+                    baseBonus = StatBonus(10.0f),
                 )
             ),
             keys = listOf(LockType.GAMMA)

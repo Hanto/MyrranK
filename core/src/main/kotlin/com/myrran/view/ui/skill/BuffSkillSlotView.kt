@@ -15,9 +15,9 @@ import com.myrran.view.ui.skill.stats.StatsView
 
 class BuffSkillSlotView(
 
-    val buffSkillSlot: BuffSkillSlot,
-    val assets: SkillAssets,
-    val controller: BuffSKillController
+    private val buffSkillSlot: BuffSkillSlot,
+    private val assets: SkillAssets,
+    private val controller: BuffSKillController
 
 ): Table()
 {

@@ -2,6 +2,7 @@ package com.myrran.view.ui.skill
 
 import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.graphics.Color.GRAY
+import com.badlogic.gdx.graphics.Color.LIGHT_GRAY
 import com.badlogic.gdx.graphics.Color.ORANGE
 import com.badlogic.gdx.scenes.scene2d.ui.Table
 import com.badlogic.gdx.utils.Align
@@ -58,8 +59,8 @@ class SubSlotKeyView(
 
         when (val subSkill = subSkillSlot.content) {
 
-            is NoSubSkill -> Color.GRAY
-            is SubSkill -> Color.LIGHT_GRAY
+            is NoSubSkill -> GRAY
+            is SubSkill -> LIGHT_GRAY
         }
 
     private fun getColor(lock: LockType): Color =

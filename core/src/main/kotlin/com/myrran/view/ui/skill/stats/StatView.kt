@@ -9,17 +9,25 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener
 import com.badlogic.gdx.utils.Align
 import com.myrran.domain.skills.skills.stat.NumUpgrades
+import com.myrran.domain.skills.skills.stat.Stat
 import com.myrran.domain.skills.skills.stat.StatUpgradeable
 import com.myrran.domain.utils.format
 import com.myrran.view.ui.TextView
+import com.myrran.view.ui.skill.BASE_BONUS_SIZE
+import com.myrran.view.ui.skill.BONUS_PER_UPGRADE_SIZE
+import com.myrran.view.ui.skill.NAME_SIZE
+import com.myrran.view.ui.skill.TOTAL_BONUS_SIZE
+import com.myrran.view.ui.skill.UPGRADECOST_SIZE
+import com.myrran.view.ui.skill.UPGRADES_SIZE
+import com.myrran.view.ui.skill.UPGRADE_BAR_SIZE
 import com.myrran.view.ui.skill.assets.SkillAssets
 import com.myrran.view.ui.skill.controller.StatController
 
 class StatView(
 
-    val stat: StatUpgradeable,
-    assets: SkillAssets,
-    val controller: StatController,
+    val stat: Stat,
+    private val assets: SkillAssets,
+    private val controller: StatController,
 
 ): Table()
 {
@@ -29,13 +37,18 @@ class StatView(
         private val PURPLE_H = Color(110/255f, 110/255f, 211/255f, 1f)
     }
 
-    private val name = TextView(stat.name, assets.font12, WHITE, 1f) { it.value }
-    private val baseBonus = TextView(stat.baseBonus, assets.font14, PURPLE_H, 1f) { it.value.format(1) }
+    private val name = TextView(stat.name.value, assets.font12, WHITE, 1f)
+    private val baseBonus = if (stat is StatUpgradeable)
+        TextView(stat.baseBonus, assets.font14, PURPLE_H, 1f) { it.value.format(1) } else null
     private val totalBonus = TextView(stat.totalBonus(), assets.font14, ORANGE, 1f) { it.value.format(1) }
-    private val upgrades =  TextView(stat.upgrades, assets.font10, PURPLE_L, 1f) { "${it.actual.value}-${it.maximum.value}"}
-    private val upgradeCost = TextView(stat.upgradeCost, assets.font10, PURPLE_L, 1f) { it.value.format(0) }
-    private val bonusPerUpgrade = TextView(stat.bonusPerUpgrade, assets.font10, PURPLE_L, 1f) { it.value.format(1) }
-    private val upgradeBar = UpgradeView(stat, assets, controller)
+    private val upgrades = if (stat is StatUpgradeable)
+        TextView(stat.upgrades, assets.font10, PURPLE_L, 1f) { "${it.actual.value}-${it.maximum.value}"} else null
+    private val upgradeCost = if (stat is StatUpgradeable)
+        TextView(stat.upgradeCost, assets.font10, PURPLE_L, 1f) { it.value.format(0) } else null
+    private val bonusPerUpgrade = if (stat is StatUpgradeable)
+        TextView(stat.bonusPerUpgrade, assets.font10, PURPLE_L, 1f) { it.value.format(1) } else null
+    private val upgradeBar = if (stat is StatUpgradeable)
+        UpgradeView(stat, assets, controller)  else null
 
     // LAYOUT:
     //--------------------------------------------------------------------------------------------------------
@@ -43,20 +56,25 @@ class StatView(
     init {
 
         top().left().padTop(-3f).padBottom(-3f)
+        reBuildTable()
+    }
 
-        add(name.align(Align.left)).minWidth(90f)
+    private fun reBuildTable() {
 
-        add(upgradeCost.align(Align.center or Align.bottom)).minWidth(22f)
-        add(bonusPerUpgrade.align(Align.center or Align.bottom)).minWidth(22f)
-        add(upgrades.align(Align.center)).minWidth(40f)
+        clear()
+        add(name.align(Align.left)).minWidth(NAME_SIZE)
 
-        add(baseBonus.align(Align.right)).minWidth(35f)
-        add(upgradeBar).center().padLeft(2f).padTop(2f).minWidth(80f)
-        add(totalBonus.align(Align.right)).minWidth(35f)
+        add(upgradeCost?.align(Align.center or Align.bottom)).minWidth(BONUS_PER_UPGRADE_SIZE)
+        add(bonusPerUpgrade?.align(Align.center or Align.bottom)).minWidth(UPGRADECOST_SIZE)
+        add(upgrades?.align(Align.center)).minWidth(UPGRADES_SIZE)
+
+        add(baseBonus?.align(Align.right)).minWidth(BASE_BONUS_SIZE)
+        add(upgradeBar).center().padLeft(2f).padTop(2f).minWidth(UPGRADE_BAR_SIZE)
+        add(totalBonus.align(Align.right)).minWidth(TOTAL_BONUS_SIZE)
 
         row()
 
-        baseBonus.addListener(createListener(amountToUpgrade = -1))
+        baseBonus?.addListener(createListener(amountToUpgrade = -1))
         totalBonus.addListener(createListener(amountToUpgrade = +1))
     }
 
@@ -65,9 +83,11 @@ class StatView(
 
     fun update() {
 
-        upgrades.setText(stat.upgrades)
+        if (stat is StatUpgradeable)
+            upgrades?.setText(stat.upgrades)
+
         totalBonus.setText(stat.totalBonus())
-        upgradeBar.update()
+        upgradeBar?.update()
     }
 
     // LISTENER:

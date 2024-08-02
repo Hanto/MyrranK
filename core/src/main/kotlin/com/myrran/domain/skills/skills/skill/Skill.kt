@@ -1,5 +1,6 @@
 package com.myrran.domain.skills.skills.skill
 
+import com.myrran.domain.Identifiable
 import com.myrran.domain.Observable
 import com.myrran.domain.ObservableI
 import com.myrran.domain.events.BuffSkillChangedEvent
@@ -23,7 +24,7 @@ import com.myrran.domain.spells.spell.SkillType
 
 data class Skill(
 
-    val id: SkillId,
+    override val id: SkillId,
     val templateId: SkillTemplateId,
     val type: SkillType,
     val name: SkillName,
@@ -31,7 +32,7 @@ data class Skill(
     private val slots: SubSkillSlots,
     private val observable: ObservableI = Observable()
 
-): StatsI by stats, ObservableI by observable
+): StatsI by stats, ObservableI by observable, Identifiable<SkillId>
 {
     // SUBSKILLS
     //--------------------------------------------------------------------------------------------------------

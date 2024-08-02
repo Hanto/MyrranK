@@ -35,7 +35,7 @@ class SkillView(
         add(outerTable)
         outerTable.add(statsTable).top().right().padBottom(0f).padRight(4f).row()
         statsTable.add(statsView)
-        slotsView.forEach { outerTable.add(it).top().left().expand().fillX().padBottom(1f).row() }
+        slotsView.forEach { outerTable.add(it).top().left().expand().fillX().row() }
     }
 
     // UPDATE:

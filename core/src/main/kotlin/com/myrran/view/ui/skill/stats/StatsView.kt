@@ -6,19 +6,18 @@ import com.myrran.domain.events.SkillEvent
 import com.myrran.domain.events.StatUpgradedEvent
 import com.myrran.domain.events.SubSkillChangedEvent
 import com.myrran.domain.skills.skills.stat.Stat
-import com.myrran.domain.skills.skills.stat.StatUpgradeable
 import com.myrran.view.ui.skill.assets.SkillAssets
 import com.myrran.view.ui.skill.controller.StatController
 
 class StatsView(
 
-    val stats: () -> Collection<Stat>,
-    val assets: SkillAssets,
+    private val statsRetriever: () -> Collection<Stat>,
+    private val assets: SkillAssets,
     private val controller: StatController,
 
 ): Table()
 {
-    private var statList = stats.invoke().map{ StatView(it as StatUpgradeable, assets, controller) }
+    private var statList = statsRetriever.invoke().map { StatView(it, assets, controller) }
 
     // LAYOUT:
     //--------------------------------------------------------------------------------------------------------
@@ -27,11 +26,12 @@ class StatsView(
 
         top().left().padLeft(5f).padRight(5f).padBottom(7f)
         setBackground(assets.tableBackgroundLight)
-        fillTable()
+        reBuildTable()
     }
 
-    private fun fillTable() {
+    private fun reBuildTable() {
 
+        clear()
         add(StatHeaderView(assets)).row()
         statList
             .sortedBy { it.stat.id.value }
@@ -48,10 +48,9 @@ class StatsView(
             is StatUpgradedEvent -> statList.forEach { it.update() }
             is BuffSkillChangedEvent, is SubSkillChangedEvent -> {
 
-                statList = stats.invoke().map{ StatView(it as StatUpgradeable, assets, controller) }
-                fillTable()
+                statList = statsRetriever.invoke().map { StatView(it, assets, controller) }
+                reBuildTable()
             }
-
         }
     }
 }
