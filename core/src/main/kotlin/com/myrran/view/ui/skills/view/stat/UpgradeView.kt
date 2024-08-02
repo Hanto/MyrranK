@@ -1,4 +1,4 @@
-package com.myrran.view.ui.skill.view.stat
+package com.myrran.view.ui.skills.view.stat
 
 import com.badlogic.gdx.Input.Buttons
 import com.badlogic.gdx.graphics.Color
@@ -9,8 +9,8 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener
 import com.myrran.domain.skills.skills.stat.NumUpgrades
 import com.myrran.domain.skills.skills.stat.StatUpgradeable
-import com.myrran.view.ui.skill.assets.SkillViewAssets
-import com.myrran.view.ui.skill.controller.StatController
+import com.myrran.view.ui.skills.assets.SkillViewAssets
+import com.myrran.view.ui.skills.controller.StatController
 
 class UpgradeView(
 

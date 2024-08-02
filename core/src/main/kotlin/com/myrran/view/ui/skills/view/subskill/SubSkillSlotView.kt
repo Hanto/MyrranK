@@ -1,4 +1,4 @@
-package com.myrran.view.ui.skill.view.subskill
+package com.myrran.view.ui.skills.view.subskill
 
 import com.badlogic.gdx.scenes.scene2d.ui.Table
 import com.myrran.domain.skills.skills.stat.Stat
@@ -6,10 +6,10 @@ import com.myrran.domain.skills.skills.subskill.SubSkill
 import com.myrran.domain.skills.skills.subskill.SubSkillSlot
 import com.myrran.domain.skills.skills.subskill.SubSkillSlotContent.NoSubSkill
 import com.myrran.domain.utils.observer.Observable
-import com.myrran.view.ui.skill.assets.SkillViewAssets
-import com.myrran.view.ui.skill.controller.SubSkillController
-import com.myrran.view.ui.skill.view.buff.BuffSkillSlotView
-import com.myrran.view.ui.skill.view.stat.StatsView
+import com.myrran.view.ui.skills.assets.SkillViewAssets
+import com.myrran.view.ui.skills.controller.SubSkillController
+import com.myrran.view.ui.skills.view.buff.BuffSkillSlotView
+import com.myrran.view.ui.skills.view.stat.StatsView
 
 class SubSkillSlotView(
 

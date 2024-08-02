@@ -1,4 +1,4 @@
-package com.myrran.view.ui.skill.view.skill
+package com.myrran.view.ui.skills.view.skill
 
 import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.graphics.Color.ORANGE
@@ -11,7 +11,7 @@ import com.myrran.domain.events.StatUpgradedEvent
 import com.myrran.domain.skills.skills.skill.Skill
 import com.myrran.domain.utils.format
 import com.myrran.view.ui.misc.TextView
-import com.myrran.view.ui.skill.assets.SkillViewAssets
+import com.myrran.view.ui.skills.assets.SkillViewAssets
 
 class SkillHeader(
 

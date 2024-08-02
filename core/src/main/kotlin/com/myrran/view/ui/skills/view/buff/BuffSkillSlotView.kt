@@ -1,4 +1,4 @@
-package com.myrran.view.ui.skill.view.buff
+package com.myrran.view.ui.skills.view.buff
 
 import com.badlogic.gdx.scenes.scene2d.ui.Table
 import com.myrran.domain.events.BuffSkillChangedEvent
@@ -10,9 +10,9 @@ import com.myrran.domain.skills.skills.buff.BuffSkillSlot
 import com.myrran.domain.skills.skills.buff.BuffSkillSlotContent.NoBuffSkill
 import com.myrran.domain.skills.skills.stat.Stat
 import com.myrran.domain.utils.observer.Observable
-import com.myrran.view.ui.skill.assets.SkillViewAssets
-import com.myrran.view.ui.skill.controller.BuffSKillController
-import com.myrran.view.ui.skill.view.stat.StatsView
+import com.myrran.view.ui.skills.assets.SkillViewAssets
+import com.myrran.view.ui.skills.controller.BuffSKillController
+import com.myrran.view.ui.skills.view.stat.StatsView
 
 class BuffSkillSlotView(
 

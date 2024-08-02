@@ -48,9 +48,9 @@ import com.myrran.infraestructure.adapters.SkillBookAdapter
 import com.myrran.infraestructure.adapters.SkillTemplateAdapter
 import com.myrran.view.atlas.Atlas
 import com.myrran.view.ui.misc.TextView
-import com.myrran.view.ui.skill.assets.SkillViewAssets
-import com.myrran.view.ui.skill.controller.SkillController
-import com.myrran.view.ui.skill.view.skill.SkillView
+import com.myrran.view.ui.skills.assets.SkillViewAssets
+import com.myrran.view.ui.skills.controller.SkillController
+import com.myrran.view.ui.skills.view.skill.SkillView
 import ktx.app.KtxScreen
 
 class MainScreen(

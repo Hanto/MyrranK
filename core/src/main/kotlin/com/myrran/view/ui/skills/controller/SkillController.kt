@@ -1,4 +1,4 @@
-package com.myrran.view.ui.skill.controller
+package com.myrran.view.ui.skills.controller
 
 import com.myrran.domain.skills.book.PlayerSkillBook
 import com.myrran.domain.skills.skills.buff.BuffSkillSlot

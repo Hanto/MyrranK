@@ -1,12 +1,12 @@
-package com.myrran.view.ui.skill.view.skill
+package com.myrran.view.ui.skills.view.skill
 
 import com.badlogic.gdx.scenes.scene2d.ui.Table
 import com.badlogic.gdx.utils.Disposable
 import com.myrran.domain.skills.skills.skill.Skill
-import com.myrran.view.ui.skill.assets.SkillViewAssets
-import com.myrran.view.ui.skill.controller.SkillController
-import com.myrran.view.ui.skill.view.stat.StatsView
-import com.myrran.view.ui.skill.view.subskill.SubSkillSlotView
+import com.myrran.view.ui.skills.assets.SkillViewAssets
+import com.myrran.view.ui.skills.controller.SkillController
+import com.myrran.view.ui.skills.view.stat.StatsView
+import com.myrran.view.ui.skills.view.subskill.SubSkillSlotView
 
 class SkillView(
 

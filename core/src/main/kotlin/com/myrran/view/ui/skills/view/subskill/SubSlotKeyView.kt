@@ -1,4 +1,4 @@
-package com.myrran.view.ui.skill.view.buff
+package com.myrran.view.ui.skills.view.subskill
 
 import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.graphics.Color.GRAY
@@ -6,27 +6,27 @@ import com.badlogic.gdx.graphics.Color.LIGHT_GRAY
 import com.badlogic.gdx.graphics.Color.ORANGE
 import com.badlogic.gdx.scenes.scene2d.ui.Table
 import com.badlogic.gdx.utils.Align
-import com.myrran.domain.events.BuffSkillChangedEvent
 import com.myrran.domain.events.Event
-import com.myrran.domain.skills.skills.buff.BuffSkill
-import com.myrran.domain.skills.skills.buff.BuffSkillSlot
-import com.myrran.domain.skills.skills.buff.BuffSkillSlotContent.NoBuffSkill
+import com.myrran.domain.events.SubSkillChangedEvent
+import com.myrran.domain.skills.skills.subskill.SubSkill
+import com.myrran.domain.skills.skills.subskill.SubSkillSlot
+import com.myrran.domain.skills.skills.subskill.SubSkillSlotContent.NoSubSkill
 import com.myrran.domain.skills.templates.LockType
 import com.myrran.domain.utils.observer.Observable
 import com.myrran.domain.utils.observer.Observer
 import com.myrran.view.ui.misc.TextView
-import com.myrran.view.ui.skill.assets.SkillViewAssets
+import com.myrran.view.ui.skills.assets.SkillViewAssets
 
-class BuffSlotKeyView(
+class SubSlotKeyView(
 
     private val observable: Observable,
-    private val buffSkillSlot: BuffSkillSlot,
+    private val subSkillSlot: SubSkillSlot,
     private val assets: SkillViewAssets
 
 ): Table(), Observer
 {
-    private val runesLabel = TextView("${buffSkillSlot.getName()}:", assets.font10, buffSkillSlot.getColor())
-    private var keys = buffSkillSlot.lock.openedBy
+    private val runesLabel = TextView("${subSkillSlot.getName()}:", assets.font10, subSkillSlot.getColor())
+    private var keys = subSkillSlot.lock.openedBy
         .map { TextView("${it.value} ", assets.font10, it.getColor(), 1f) }
 
     // LAYOUT:
@@ -35,7 +35,7 @@ class BuffSlotKeyView(
     init {
 
         observable.addObserver(this)
-        top().left()
+        left()
         setBackground(assets.tableBackgroundLight)
         rebuildTable()
     }
@@ -44,7 +44,7 @@ class BuffSlotKeyView(
 
         val runesRow = Table()
         keys.forEach{ runesRow.add(it) }
-        add(runesLabel.align(Align.left)).left().padLeft(1f).padTop(-3f).row()
+        add(runesLabel.align(Align.left)).padLeft(1f).left().padTop(-3f).row()
         add(runesRow).left().padLeft(1f).padTop(-6f).padBottom(-1f)
     }
 
@@ -53,37 +53,38 @@ class BuffSlotKeyView(
 
     override fun update(event: Event) {
 
-        if (event is BuffSkillChangedEvent && event.buffId == buffSkillSlot.id)
+        if (event is SubSkillChangedEvent && event.subId == subSkillSlot.id) {
 
-        keys = buffSkillSlot.lock.openedBy
-            .map { TextView("${it.value} ", assets.font10, it.getColor(), 1f) }
+            keys = subSkillSlot.lock.openedBy
+                .map { TextView("${it.value} ", assets.font10, it.getColor(), 1f) }
+        }
     }
 
     // HELPER:
     //--------------------------------------------------------------------------------------------------------
 
-    private fun BuffSkillSlot.getName(): String =
+    private fun SubSkillSlot.getName(): String =
 
-        when (val buffSkill = buffSkillSlot.content) {
+        when (val subSkill = subSkillSlot.content) {
 
-            is NoBuffSkill -> this.name.value
-            is BuffSkill -> buffSkill.name.value
+            is NoSubSkill -> this.name.value
+            is SubSkill -> subSkill.name.value
         }
 
-    private fun BuffSkillSlot.getColor(): Color =
+    private fun SubSkillSlot.getColor(): Color =
 
-        when (val buffSkill = buffSkillSlot.content) {
+        when (val subSkill = subSkillSlot.content) {
 
-            is NoBuffSkill -> GRAY
-            is BuffSkill -> LIGHT_GRAY
+            is NoSubSkill -> GRAY
+            is SubSkill -> LIGHT_GRAY
         }
 
     private fun LockType.getColor(): Color =
 
-        when (val buffSkill = buffSkillSlot.content)
-        {
-            is NoBuffSkill -> GRAY
-            is BuffSkill -> when (buffSkill.keys.contains(this)) {
+        when (val subSkill = subSkillSlot.content) {
+
+            is NoSubSkill -> GRAY
+            is SubSkill -> when (subSkill.keys.contains(this)) {
                 true -> ORANGE
                 false -> GRAY
             }

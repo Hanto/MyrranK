@@ -1,4 +1,4 @@
-package com.myrran.view.ui.skill.view.stat
+package com.myrran.view.ui.skills.view.stat
 
 import com.badlogic.gdx.scenes.scene2d.ui.Table
 import com.myrran.domain.events.BuffSkillChangedEvent
@@ -7,8 +7,8 @@ import com.myrran.domain.events.SubSkillChangedEvent
 import com.myrran.domain.skills.skills.stat.Stat
 import com.myrran.domain.utils.observer.Observable
 import com.myrran.domain.utils.observer.Observer
-import com.myrran.view.ui.skill.assets.SkillViewAssets
-import com.myrran.view.ui.skill.controller.StatController
+import com.myrran.view.ui.skills.assets.SkillViewAssets
+import com.myrran.view.ui.skills.controller.StatController
 
 class StatsView(
 

@@ -1,4 +1,4 @@
-package com.myrran.view.ui.skill.view.stat
+package com.myrran.view.ui.skills.view.stat
 
 import com.badlogic.gdx.Input.Buttons
 import com.badlogic.gdx.graphics.Color.ORANGE
@@ -16,17 +16,17 @@ import com.myrran.domain.utils.format
 import com.myrran.domain.utils.observer.Observable
 import com.myrran.domain.utils.observer.Observer
 import com.myrran.view.ui.misc.TextView
-import com.myrran.view.ui.skill.assets.BASE_BONUS_SIZE
-import com.myrran.view.ui.skill.assets.BONUS_PER_UPGRADE_SIZE
-import com.myrran.view.ui.skill.assets.NAME_SIZE
-import com.myrran.view.ui.skill.assets.PURPLE_DARK
-import com.myrran.view.ui.skill.assets.PURPLE_LIGHT
-import com.myrran.view.ui.skill.assets.SkillViewAssets
-import com.myrran.view.ui.skill.assets.TOTAL_BONUS_SIZE
-import com.myrran.view.ui.skill.assets.UPGRADECOST_SIZE
-import com.myrran.view.ui.skill.assets.UPGRADES_SIZE
-import com.myrran.view.ui.skill.assets.UPGRADE_BAR_SIZE
-import com.myrran.view.ui.skill.controller.StatController
+import com.myrran.view.ui.skills.assets.BASE_BONUS_SIZE
+import com.myrran.view.ui.skills.assets.BONUS_PER_UPGRADE_SIZE
+import com.myrran.view.ui.skills.assets.NAME_SIZE
+import com.myrran.view.ui.skills.assets.PURPLE_DARK
+import com.myrran.view.ui.skills.assets.PURPLE_LIGHT
+import com.myrran.view.ui.skills.assets.SkillViewAssets
+import com.myrran.view.ui.skills.assets.TOTAL_BONUS_SIZE
+import com.myrran.view.ui.skills.assets.UPGRADECOST_SIZE
+import com.myrran.view.ui.skills.assets.UPGRADES_SIZE
+import com.myrran.view.ui.skills.assets.UPGRADE_BAR_SIZE
+import com.myrran.view.ui.skills.controller.StatController
 
 class StatView(
 
