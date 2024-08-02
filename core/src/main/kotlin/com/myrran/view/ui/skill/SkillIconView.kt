@@ -7,9 +7,9 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table
 import com.badlogic.gdx.utils.Align
 import com.myrran.domain.events.SkillEvent
 import com.myrran.domain.skills.skills.skill.Skill
+import com.myrran.domain.utils.format
 import com.myrran.view.ui.TextView
 import com.myrran.view.ui.skill.assets.SkillAssets
-import java.util.Locale
 
 class SkillIconView(
 
@@ -49,8 +49,4 @@ class SkillIconView(
 
         cost.setText(skill.statCost())
     }
-
-    private fun Float.format(decimals: Int) =
-
-        "%.${decimals}f".format(Locale.US,this)
 }

@@ -9,11 +9,11 @@ class TextView<T>(
 
     text: T,
     font: BitmapFont,
-    textColor: Color = Color.WHITE,
+    color: Color = Color.WHITE,
     val shadowTickness: Float = 0f,
     private val formater: (T) -> String =  { it.toString() }
 
-): Label(formater.invoke(text), LabelStyle(font, textColor))
+): Label(formater.invoke(text), LabelStyle(font, color))
 {
     fun setText(text: T) {
 

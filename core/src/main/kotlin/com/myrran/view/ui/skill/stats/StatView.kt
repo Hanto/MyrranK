@@ -10,10 +10,10 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener
 import com.badlogic.gdx.utils.Align
 import com.myrran.domain.skills.skills.stat.NumUpgrades
 import com.myrran.domain.skills.skills.stat.StatUpgradeable
+import com.myrran.domain.utils.format
 import com.myrran.view.ui.TextView
 import com.myrran.view.ui.skill.assets.SkillAssets
 import com.myrran.view.ui.skill.controller.StatController
-import java.util.Locale.US
 
 class StatView(
 
@@ -82,8 +82,4 @@ class StatView(
             return true
         }
     }
-
-    private fun Float.format(decimals: Int) =
-
-        "%.${decimals}f".format(US,this)
 }
