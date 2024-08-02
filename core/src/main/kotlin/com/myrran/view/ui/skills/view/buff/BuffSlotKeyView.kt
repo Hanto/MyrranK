@@ -51,7 +51,7 @@ class BuffSlotKeyView(
     // UPDATE:
     //--------------------------------------------------------------------------------------------------------
 
-    override fun update(event: Event) {
+    override fun propertyChange(event: Event) {
 
         if (event is BuffSkillChangedEvent && event.buffId == buffSkillSlot.id)
 
@@ -72,7 +72,7 @@ class BuffSlotKeyView(
 
     private fun BuffSkillSlot.getColor(): Color =
 
-        when (val buffSkill = buffSkillSlot.content) {
+        when (buffSkillSlot.content) {
 
             is NoBuffSkill -> GRAY
             is BuffSkill -> LIGHT_GRAY

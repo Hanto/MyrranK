@@ -6,6 +6,6 @@ import java.beans.PropertyChangeListener
 
 interface Observer: PropertyChangeListener {
 
-    fun update(event: Event)
-    override fun propertyChange(evt: PropertyChangeEvent) = update(evt.newValue as Event)
+    fun propertyChange(event: Event)
+    override fun propertyChange(evt: PropertyChangeEvent) = propertyChange(evt.newValue as Event)
 }

@@ -50,7 +50,7 @@ class BuffSkillSlotView(
 
         when (event) {
 
-            is StatUpgradedEvent -> stats.update(event)
+            is StatUpgradedEvent -> stats.propertyChange(event)
             is BuffSkillChangedEvent -> Unit
             is SubSkillChangedEvent -> Unit
         }

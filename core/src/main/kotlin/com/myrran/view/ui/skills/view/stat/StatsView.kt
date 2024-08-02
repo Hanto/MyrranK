@@ -44,7 +44,7 @@ class StatsView(
     // UPDATE:
     //--------------------------------------------------------------------------------------------------------
 
-    override fun update(event: Event) {
+    override fun propertyChange(event: Event) {
 
         if (event is BuffSkillChangedEvent || event is SubSkillChangedEvent) {
 

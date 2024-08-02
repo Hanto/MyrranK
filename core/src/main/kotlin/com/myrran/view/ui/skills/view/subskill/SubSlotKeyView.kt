@@ -51,7 +51,7 @@ class SubSlotKeyView(
     // UPDATE:
     //--------------------------------------------------------------------------------------------------------
 
-    override fun update(event: Event) {
+    override fun propertyChange(event: Event) {
 
         if (event is SubSkillChangedEvent && event.subId == subSkillSlot.id) {
 
@@ -73,7 +73,7 @@ class SubSlotKeyView(
 
     private fun SubSkillSlot.getColor(): Color =
 
-        when (val subSkill = subSkillSlot.content) {
+        when (subSkillSlot.content) {
 
             is NoSubSkill -> GRAY
             is SubSkill -> LIGHT_GRAY

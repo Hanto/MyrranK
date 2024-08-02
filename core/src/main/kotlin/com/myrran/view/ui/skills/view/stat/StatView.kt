@@ -81,7 +81,7 @@ class StatView(
     // UPDATE:
     //--------------------------------------------------------------------------------------------------------
 
-    override fun update(event: Event) {
+    override fun propertyChange(event: Event) {
 
         if (event is StatUpgradedEvent) {
 
