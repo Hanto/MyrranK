@@ -33,7 +33,7 @@ class SkillHeader(
 
         observable.addObserver(this)
         left()
-        setBackground(assets.tableBackgroundLight.tint(Color(0.6f, 0.6f, 0.6f, 0.90f)))
+        setBackground(assets.tableBackgroundLightToDark.tint(Color(0.6f, 0.6f, 0.6f, 0.90f)))
         rebuildTable()
     }
 

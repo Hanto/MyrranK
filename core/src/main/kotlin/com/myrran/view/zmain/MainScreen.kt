@@ -219,7 +219,7 @@ class MainScreen(
 
         val assets = SkillViewAssets(
             skillIcon = atlas.getTextureRegion("Atlas.atlas", "TexturasIconos/FireBall"),
-            spellIconBackground = atlas.getNinePatchDrawable("Atlas.atlas", "TexturasIconos/FireBallNine", Color.WHITE, 1f),
+            tableBackgroundLightToDark = atlas.getNinePatchDrawable("Atlas.atlas", "TexturasIconos/NineLightToDark", Color.WHITE, 1f),
             tableBackgroundLight = atlas.getNinePatchDrawable("Atlas.atlas","TexturasIconos/NineLight", Color.WHITE, 0.90f),
             tableBackgroundDark = atlas.getNinePatchDrawable("Atlas.atlas","TexturasIconos/NineDark", Color.WHITE, 0.90f),
             font20 = atlas.getFont("20.fnt"),
