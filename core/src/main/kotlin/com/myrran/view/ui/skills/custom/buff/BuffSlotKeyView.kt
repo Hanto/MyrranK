@@ -42,6 +42,7 @@ class BuffSlotKeyView(
 
     private fun rebuildTable() {
 
+        clear()
         val runesRow = Table()
         keys.forEach{ runesRow.add(it) }
         add(runesLabel.align(Align.left)).padLeft(1f).padTop(-3f).row()
@@ -53,10 +54,11 @@ class BuffSlotKeyView(
 
     override fun propertyChange(event: Event) {
 
-        if (event is BuffSkillChangedEvent && event.buffId == buffSkillSlot.id)
+        if (event is BuffSkillChangedEvent && event.buffId == buffSkillSlot.id) {
 
-        keys = buffSkillSlot.lock.openedBy.map { TextView("${it.value} ", assets.font10, it.getColor(), 1f) }
-        rebuildTable()
+            keys = buffSkillSlot.lock.openedBy.map { TextView("${it.value} ", assets.font10, it.getColor(), 1f) }
+            rebuildTable()
+        }
     }
 
     // HELPER:

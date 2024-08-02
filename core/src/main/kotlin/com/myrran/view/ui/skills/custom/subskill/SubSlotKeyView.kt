@@ -42,6 +42,7 @@ class SubSlotKeyView(
 
     private fun rebuildTable() {
 
+        clear()
         val runesRow = Table()
         keys.forEach{ runesRow.add(it) }
         add(runesLabel.align(Align.left)).padLeft(1f).padTop(-3f).row()

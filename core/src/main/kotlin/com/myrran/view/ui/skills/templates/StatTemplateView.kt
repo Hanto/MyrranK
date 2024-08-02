@@ -1,5 +1,6 @@
 package com.myrran.view.ui.skills.templates
 
+import com.badlogic.gdx.graphics.Color.ORANGE
 import com.badlogic.gdx.graphics.Color.WHITE
 import com.badlogic.gdx.scenes.scene2d.ui.Table
 import com.badlogic.gdx.utils.Align
@@ -15,6 +16,7 @@ import com.myrran.view.ui.skills.assets.PURPLE_LIGHT
 import com.myrran.view.ui.skills.assets.SkillViewAssets
 import com.myrran.view.ui.skills.assets.TOTAL_BONUS_SIZE
 import com.myrran.view.ui.skills.assets.UPGRADECOST_SIZE
+import com.myrran.view.ui.skills.assets.UPGRADES_SIZE
 
 class StatTemplateView(
 
@@ -35,8 +37,8 @@ class StatTemplateView(
     private val baseBonus = if (stat is StatUpgradeableTemplate)
         TextView(stat.baseBonus, assets.font14, PURPLE_DARK, 1f) { it.value.format(1) } else null
     private val totalBonus = if (stat is StatUpgradeableTemplate)
-        TextView(stat, assets.font14, PURPLE_DARK, 1f) { (it.baseBonus + it.maximum * it.bonusPerUpgrade).value.format(1) } else
-        TextView(stat, assets.font14, PURPLE_DARK, 1f) { it.baseBonus.value.format(1) }
+        TextView(stat, assets.font14, ORANGE, 1f) { (it.baseBonus + it.maximum * it.bonusPerUpgrade).value.format(1) } else
+        TextView(stat, assets.font14, ORANGE, 1f) { it.baseBonus.value.format(1) }
 
     // LAYOUT:
     //--------------------------------------------------------------------------------------------------------
@@ -53,6 +55,7 @@ class StatTemplateView(
 
         add(upgradeCost?.align(Align.center or Align.bottom)).minWidth(BONUS_PER_UPGRADE_SIZE)
         add(bonusPerUpgrade?.align(Align.center or Align.bottom)).minWidth(UPGRADECOST_SIZE)
+        add(maximum?.align(Align.center)).minWidth(UPGRADES_SIZE)
 
         add(baseBonus?.align(Align.right)).minWidth(BASE_BONUS_SIZE)
         add(totalBonus.align(Align.right)).minWidth(TOTAL_BONUS_SIZE)
