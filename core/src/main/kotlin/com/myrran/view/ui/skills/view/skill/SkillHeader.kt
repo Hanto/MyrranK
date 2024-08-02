@@ -41,15 +41,15 @@ class SkillHeader(
 
         val nameCostTable = Table().bottom().left()
         nameCostTable.add(name.align(Align.left)).left()
-        nameCostTable.add(cost.align(Align.left)).padLeft(3f).bottom().left()
+        nameCostTable.add(cost.align(Align.left)).bottom().left().padLeft(3f)
 
         val templateNameCostTable = Table().bottom().left()
         templateNameCostTable.padLeft(3f)
-        templateNameCostTable.add(templateId.align(Align.left)).padBottom(-4f).padBottom(-2f).left().row()
+        templateNameCostTable.add(templateId.align(Align.left)).left().padBottom(-4f).padBottom(-2f).row()
         templateNameCostTable.add(nameCostTable).padTop(-4f)
 
         add(icon).left()
-        add(templateNameCostTable).padTop(-2f).padBottom(-2f).left().row()
+        add(templateNameCostTable).left().padTop(-2f).padBottom(-2f).row()
     }
 
     // UPDATE:

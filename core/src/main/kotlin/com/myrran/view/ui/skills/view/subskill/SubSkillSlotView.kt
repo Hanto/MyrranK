@@ -39,6 +39,7 @@ class SubSkillSlotView(
         val keyAndStatsTable = Table().left()
         if (subSkillSlot.content is SubSkill)
             keyAndStatsTable.add(stats).left()
+
         keyAndStatsTable.add(subSlotKeyView.left())
         keyAndStatsTable.row()
 

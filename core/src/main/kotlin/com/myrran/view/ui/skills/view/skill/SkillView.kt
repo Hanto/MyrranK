@@ -34,7 +34,7 @@ class SkillView(
         outerTable.add(skillStatsTable).top().left().padBottom(0f).padLeft(4f).row()
         subSlots.forEach { outerTable.add(it).top().right().expand().fillX().row() }
 
-        add(skillHeader).left().padBottom(0f).minWidth(338f).padLeft(4f).row()
+        add(skillHeader).left().minWidth(338f).padBottom(0f).padLeft(4f).row()
         add(outerTable)
     }
 

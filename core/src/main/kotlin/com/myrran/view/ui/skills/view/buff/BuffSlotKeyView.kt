@@ -17,6 +17,7 @@ import com.myrran.view.ui.misc.TextView
 import com.myrran.view.ui.skills.assets.PURPLE_LIGHT
 import com.myrran.view.ui.skills.assets.SkillViewAssets
 
+@Suppress("DuplicatedCode")
 class BuffSlotKeyView(
 
     private val observable: Observable,
@@ -26,8 +27,7 @@ class BuffSlotKeyView(
 ): Table(), Observer
 {
     private val runesLabel = TextView("${buffSkillSlot.getName()}:", assets.font10, buffSkillSlot.getColor())
-    private var keys = buffSkillSlot.lock.openedBy
-        .map { TextView("${it.value} ", assets.font10, it.getColor(), 1f) }
+    private var keys = buffSkillSlot.lock.openedBy.map { TextView("${it.value} ", assets.font10, it.getColor(), 1f) }
 
     // LAYOUT:
     //--------------------------------------------------------------------------------------------------------
@@ -35,7 +35,7 @@ class BuffSlotKeyView(
     init {
 
         observable.addObserver(this)
-        left()
+        top().left()
         setBackground(assets.tableBackgroundLight)
         rebuildTable()
     }
@@ -44,7 +44,7 @@ class BuffSlotKeyView(
 
         val runesRow = Table()
         keys.forEach{ runesRow.add(it) }
-        add(runesLabel.align(Align.left)).left().padLeft(1f).padTop(-3f).row()
+        add(runesLabel.align(Align.left)).padLeft(1f).padTop(-3f).row()
         add(runesRow).left().padLeft(1f).padTop(-6f).padBottom(-1f)
     }
 
@@ -55,8 +55,8 @@ class BuffSlotKeyView(
 
         if (event is BuffSkillChangedEvent && event.buffId == buffSkillSlot.id)
 
-        keys = buffSkillSlot.lock.openedBy
-            .map { TextView("${it.value} ", assets.font10, it.getColor(), 1f) }
+        keys = buffSkillSlot.lock.openedBy.map { TextView("${it.value} ", assets.font10, it.getColor(), 1f) }
+        rebuildTable()
     }
 
     // HELPER:
