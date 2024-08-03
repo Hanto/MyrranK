@@ -51,7 +51,7 @@ import com.myrran.view.ui.misc.TextView
 import com.myrran.view.ui.skills.assets.SkillViewAssets
 import com.myrran.view.ui.skills.controller.SkillController
 import com.myrran.view.ui.skills.custom.skill.SkillView
-import com.myrran.view.ui.skills.templates.StatsTemplateView
+import com.myrran.view.ui.skills.templates.BuffTemplateView
 import ktx.app.KtxScreen
 
 class MainScreen(
@@ -154,12 +154,12 @@ class MainScreen(
                 BuffSkillSlotTemplate(
                     id = BuffSkillSlotId("DEBUFF_1"),
                     name = BuffSkillSlotName("Debuff 1"),
-                    lock = Lock(listOf(LockType.GAMMA, LockType.EPSILON)),
+                    lock = Lock(listOf(LockType.C, LockType.D)),
                 ),
                 BuffSkillSlotTemplate(
                     id = BuffSkillSlotId("DEBUFF_2"),
                     name = BuffSkillSlotName("Debuff 2"),
-                    lock = Lock(listOf(LockType.GAMMA, LockType.EPSILON)),
+                    lock = Lock(listOf(LockType.C, LockType.C)),
                 )
             ),
             keys = listOf(LockType.BETA, LockType.GAMMA)
@@ -200,7 +200,7 @@ class MainScreen(
                     baseBonus = StatBonus(10.0f),
                 )
             ),
-            keys = listOf(LockType.GAMMA)
+            keys = listOf(LockType.A, LockType.C, LockType.B, LockType.E, LockType.D)
         )
 
         boltSkill = bolt.toSkill()
@@ -242,13 +242,14 @@ class MainScreen(
         container.setPosition(200f, 100f)
 
 
-        val templateView = StatsTemplateView(fire.stats, assets)
+        val templateView = BuffTemplateView(fire, assets)
         val containerTemplate = Container<Table>()
         containerTemplate.actor = templateView
         containerTemplate.pack()
 
         uiStage.addActor(containerTemplate)
         containerTemplate.setPosition(50f, 50f)
+        //templateView.setDebug(true, true)
 
         //uiStage.setDebugUnderMouse(true)
         //uiStage.setDebugAll(true)
