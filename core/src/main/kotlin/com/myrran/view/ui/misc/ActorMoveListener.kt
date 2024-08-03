@@ -1,6 +1,5 @@
 package com.myrran.view.ui.misc
 
-import com.badlogic.gdx.Gdx.graphics
 import com.badlogic.gdx.math.Vector2
 import com.badlogic.gdx.scenes.scene2d.Actor
 import com.badlogic.gdx.scenes.scene2d.InputEvent
@@ -20,6 +19,7 @@ class ActorMoveListener(
 
     // MAIN:
     //--------------------------------------------------------------------------------------------------------
+
     override fun touchDown(event: InputEvent, x: Float, y: Float, pointer: Int, button: Int): Boolean {
 
         super.touchDown(event, x, y, pointer, button)
@@ -30,6 +30,7 @@ class ActorMoveListener(
     override fun drag(event: InputEvent, x: Float, y: Float, pointer: Int) {
 
         val scroll = Vector2(dragX - touchDownX, dragY - touchDownY)
+        val screenSize = Vector2(800f, 600f)
 
         parent.moveBy(scroll.x, scroll.y)
 
@@ -41,13 +42,13 @@ class ActorMoveListener(
         if (draggerPos.x < 0)
             parent.x = 0 + offsetToParent.x + offsetToLocal.x
 
-        if (draggerPos.x + dragger.width > graphics.width)
-            parent.x = graphics.width - dragger.width + offsetToParent.x + offsetToLocal.x
+        if (draggerPos.x + dragger.width > screenSize.x)
+            parent.x = screenSize.x - dragger.width + offsetToParent.x + offsetToLocal.x
 
         if (draggerPos.y < 0)
             parent.y = 0 + offsetToParent.y + offsetToLocal.y
 
-        if (draggerPos.y + dragger.height > graphics.height)
-            parent.y = graphics.height - dragger.height + offsetToParent.y + offsetToLocal.y
+        if (draggerPos.y + dragger.height > screenSize.y)
+            parent.y = screenSize.y - dragger.height + offsetToParent.y + offsetToLocal.y
     }
 }

@@ -7,8 +7,6 @@ import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.graphics.GL20
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import com.badlogic.gdx.scenes.scene2d.Stage
-import com.badlogic.gdx.scenes.scene2d.ui.Container
-import com.badlogic.gdx.scenes.scene2d.ui.Table
 import com.myrran.domain.skills.book.PlayerSkillBook
 import com.myrran.domain.skills.book.WorldSkillBook
 import com.myrran.domain.skills.custom.buff.BuffSkillName
@@ -234,21 +232,14 @@ class MainScreen(
         val skillView = SkillView(boltSkill, assets, controller)
         //skillView.setDebug(true, true)
 
-        val container = Container<Table>()
-        container.actor = skillView
-        container.pack()
-
-        uiStage.addActor(container)
-        container.setPosition(200f, 100f)
-
+        uiStage.addActor(skillView)
+        skillView.setPosition(200f, 100f)
+        //skillView.pack()
 
         val templateView = BuffTemplateView(fire, assets)
-        val containerTemplate = Container<Table>()
-        containerTemplate.actor = templateView
-        containerTemplate.pack()
-
-        uiStage.addActor(containerTemplate)
-        containerTemplate.setPosition(50f, 50f)
+        uiStage.addActor(templateView)
+        templateView.setPosition(50f, 50f)
+        //templateView.pack()
         //templateView.setDebug(true, true)
 
         //uiStage.setDebugUnderMouse(true)
@@ -285,6 +276,11 @@ class MainScreen(
 
         Gdx.gl.glClearColor(0.1f, 0.1f, 0.10f, 1f)
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT)
+    }
+
+    override fun resize(width: Int, height: Int) {
+
+        uiStage.viewport.update(Gdx.graphics.width, Gdx.graphics.height)
     }
 
     override fun dispose() {
