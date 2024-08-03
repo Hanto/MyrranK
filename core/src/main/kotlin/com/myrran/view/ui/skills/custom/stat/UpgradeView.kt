@@ -7,10 +7,10 @@ import com.badlogic.gdx.graphics.g2d.Batch
 import com.badlogic.gdx.scenes.scene2d.Actor
 import com.badlogic.gdx.scenes.scene2d.InputEvent
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener
+import com.myrran.controller.StatController
 import com.myrran.domain.skills.custom.stat.NumUpgrades
 import com.myrran.domain.skills.custom.stat.StatUpgradeable
 import com.myrran.view.ui.skills.assets.SkillViewAssets
-import com.myrran.view.ui.skills.controller.StatController
 
 class UpgradeView(
 
@@ -40,7 +40,7 @@ class UpgradeView(
             override fun touchDown(event: InputEvent, x: Float, y: Float, pointer: Int, button: Int): Boolean {
 
                 val numUpgrades = if (button == Buttons.RIGHT) 2 else 1
-                controller.upgrade.invoke(stat.id, NumUpgrades(numUpgrades))
+                controller.upgrade(stat.id, NumUpgrades(numUpgrades))
                 return true
             }
         })

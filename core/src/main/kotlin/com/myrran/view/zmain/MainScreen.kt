@@ -7,6 +7,9 @@ import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.graphics.GL20
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import com.badlogic.gdx.scenes.scene2d.Stage
+import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop
+import com.myrran.controller.DragAndDropManager
+import com.myrran.controller.SkillController
 import com.myrran.domain.skills.book.PlayerSkillBook
 import com.myrran.domain.skills.book.WorldSkillBook
 import com.myrran.domain.skills.custom.buff.BuffSkillName
@@ -47,7 +50,6 @@ import com.myrran.infraestructure.adapters.SkillTemplateAdapter
 import com.myrran.view.atlas.Atlas
 import com.myrran.view.ui.misc.TextView
 import com.myrran.view.ui.skills.assets.SkillViewAssets
-import com.myrran.view.ui.skills.controller.SkillController
 import com.myrran.view.ui.skills.custom.skill.SkillView
 import com.myrran.view.ui.skills.templates.BuffTemplateView
 import ktx.app.KtxScreen
@@ -214,7 +216,7 @@ class MainScreen(
         playerSkillBook.addBuffSKillTo(boltSkill.id, SubSkillSlotId("IMPACT"), BuffSkillSlotId("DEBUFF_1"), fireBuff)
         playerSkillBook.upgrade(boltSkill.id, StatId("1:SPEED"), NumUpgrades(15))
 
-        val controller = SkillController(playerSkillBook)
+        val controller = SkillController(boltSkill.id, playerSkillBook, DragAndDropManager(DragAndDrop()))
 
         val assets = SkillViewAssets(
             skillIcon = atlas.getTextureRegion("Atlas.atlas", "TexturasIconos/FireBall"),
@@ -230,18 +232,16 @@ class MainScreen(
         )
 
         val skillView = SkillView(boltSkill, assets, controller)
-        //skillView.setDebug(true, true)
-
         uiStage.addActor(skillView)
         skillView.setPosition(200f, 100f)
-        //skillView.pack()
 
-        val templateView = BuffTemplateView(fire, assets)
+        val templateView = BuffTemplateView(fire, assets, controller)
         uiStage.addActor(templateView)
         templateView.setPosition(50f, 50f)
-        //templateView.pack()
-        //templateView.setDebug(true, true)
 
+
+        //skillView.setDebug(true, true)
+        //templateView.setDebug(true, true)
         //uiStage.setDebugUnderMouse(true)
         //uiStage.setDebugAll(true)
 

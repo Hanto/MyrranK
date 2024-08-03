@@ -1,6 +1,7 @@
 package com.myrran.view.ui.skills.custom.stat
 
 import com.badlogic.gdx.scenes.scene2d.ui.Table
+import com.myrran.controller.StatController
 import com.myrran.domain.events.BuffSkillChangedEvent
 import com.myrran.domain.events.Event
 import com.myrran.domain.events.SubSkillChangedEvent
@@ -8,7 +9,6 @@ import com.myrran.domain.skills.custom.stat.Stat
 import com.myrran.domain.utils.observer.Observable
 import com.myrran.domain.utils.observer.Observer
 import com.myrran.view.ui.skills.assets.SkillViewAssets
-import com.myrran.view.ui.skills.controller.StatController
 
 class StatsView(
 

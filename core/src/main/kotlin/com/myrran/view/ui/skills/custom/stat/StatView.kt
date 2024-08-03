@@ -7,6 +7,7 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent
 import com.badlogic.gdx.scenes.scene2d.ui.Table
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener
 import com.badlogic.gdx.utils.Align
+import com.myrran.controller.StatController
 import com.myrran.domain.events.Event
 import com.myrran.domain.events.StatUpgradedEvent
 import com.myrran.domain.skills.custom.stat.NumUpgrades
@@ -26,7 +27,6 @@ import com.myrran.view.ui.skills.assets.TOTAL_BONUS_SIZE
 import com.myrran.view.ui.skills.assets.UPGRADECOST_SIZE
 import com.myrran.view.ui.skills.assets.UPGRADES_SIZE
 import com.myrran.view.ui.skills.assets.UPGRADE_BAR_SIZE
-import com.myrran.view.ui.skills.controller.StatController
 
 class StatView(
 
@@ -103,7 +103,7 @@ class StatView(
         override fun touchDown(event: InputEvent, x: Float, y: Float, pointer: Int, button: Int): Boolean {
 
             val numUpgrades = if (button == Buttons.RIGHT) amountToUpgrade*2 else amountToUpgrade
-            controller.upgrade.invoke(stat.id, NumUpgrades(numUpgrades))
+            controller.upgrade(stat.id, NumUpgrades(numUpgrades))
             return true
         }
     }

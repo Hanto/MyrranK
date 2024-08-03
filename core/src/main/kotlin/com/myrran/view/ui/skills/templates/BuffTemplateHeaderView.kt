@@ -16,7 +16,7 @@ class BuffTemplateHeaderView(
 
     ): Table()
 {
-    private val icon = Image(assets.skillIcon)
+    val icon = Image(assets.skillIcon)
     private val name = TextView(buff.name, assets.font20, Color.ORANGE, 2f) { it.value }
     private val description = TextView("DEBUFF", assets.font14, Color.WHITE, 1f)
     private val keys = TextView(buff.keys.map { it.value }, assets.font14, PURPLE_LIGHT, 2f) { it.joinToString( " ") }
