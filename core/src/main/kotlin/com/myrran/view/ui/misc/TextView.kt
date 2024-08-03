@@ -27,20 +27,27 @@ class TextView<T>(
         super.setText(newText)
     }
 
+    fun setTextColor(color: Color) {
+
+        style.fontColor = color
+    }
+
     fun align(alignment: Int): TextView<T> =
         super.setAlignment(alignment).let { this }
 
-    override fun draw(batch: Batch, parentAlpha: Float) {
+    override fun draw(batch: Batch, alpha: Float) {
+
+        val originalColor = Color(color)
 
         if (shadowTickness != 0f) {
 
             color = Color.BLACK
             moveBy(shadowTickness, -shadowTickness)
-            super.draw(batch, parentAlpha)
+            super.draw(batch, alpha)
         }
 
-        color = Color.WHITE
+        color = originalColor
         moveBy(-shadowTickness, shadowTickness)
-        super.draw(batch, parentAlpha)
+        super.draw(batch, alpha)
     }
 }
