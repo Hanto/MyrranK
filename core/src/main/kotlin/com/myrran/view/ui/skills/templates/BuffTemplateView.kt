@@ -1,6 +1,5 @@
 package com.myrran.view.ui.skills.templates
 
-import com.badlogic.gdx.scenes.scene2d.Actor
 import com.badlogic.gdx.scenes.scene2d.Touchable
 import com.badlogic.gdx.scenes.scene2d.ui.Container
 import com.badlogic.gdx.scenes.scene2d.ui.Table
@@ -19,7 +18,7 @@ class BuffTemplateView(
 
 ): Container<Table>(), Identifiable<SkillViewId>
 {
-    private val header = BuffTemplateHeaderView(model, assets)
+    val header = BuffTemplateHeaderView(model, assets)
 
     init {
 
@@ -35,8 +34,4 @@ class BuffTemplateView(
         actor = table
         setSize(prefWidth, prefHeight)
     }
-
-    fun dragActor(): Actor =
-
-        header.icon
 }

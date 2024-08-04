@@ -16,7 +16,7 @@ class BuffDaDSource(
     private val view: BuffTemplateView,
     private val assets: SkillViewAssets
 
-): Source(view.dragActor()), DaDSource<SkillViewId>
+): Source(view.header.icon), DaDSource<SkillViewId>
 {
     override val id: SkillViewId = view.id
 

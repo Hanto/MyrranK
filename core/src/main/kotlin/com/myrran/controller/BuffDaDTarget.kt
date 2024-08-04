@@ -24,7 +24,7 @@ class BuffDaDTarget(
 
     override fun drop(source: Source, payload: Payload, x: Float, y: Float, pointer: Int) {
 
-        view.buffSlotKeyView.setLockOpenable()
+        view.buffSlotKeyView.highlighIfOpenable()
         val template = payload.`object` as BuffSkillTemplate
         val subSkill = template.toBuffSkill()
 

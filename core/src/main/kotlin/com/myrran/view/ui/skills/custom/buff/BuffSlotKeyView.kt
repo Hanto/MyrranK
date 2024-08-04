@@ -2,7 +2,9 @@ package com.myrran.view.ui.skills.custom.buff
 
 import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.graphics.Color.GRAY
+import com.badlogic.gdx.graphics.Color.GREEN
 import com.badlogic.gdx.graphics.Color.ORANGE
+import com.badlogic.gdx.graphics.Color.RED
 import com.badlogic.gdx.math.Interpolation
 import com.badlogic.gdx.scenes.scene2d.Touchable
 import com.badlogic.gdx.scenes.scene2d.actions.Actions
@@ -24,8 +26,8 @@ class BuffSlotKeyView(
 
 ): Table()
 {
-    private val runesLabel = TextView("${buffSkillSlot.getName()}:", assets.font10, buffSkillSlot.getColor())
-    private var keys = getKeys()
+    private val runesLabel: TextView<String> = TextView("${buffSkillSlot.getName()}:", assets.font10, buffSkillSlot.getColor())
+    private var keys: List<TextView<String>> = getKeys()
 
     // LAYOUT:
     //--------------------------------------------------------------------------------------------------------
@@ -47,9 +49,13 @@ class BuffSlotKeyView(
         add(runesRow).left().padLeft(1f).padTop(-6f).padBottom(-1f)
     }
 
-    fun setLockOpenable() {
+    fun highlighIfOpenable() = modifyLockColor(GREEN)
+    fun highlighIfNotOpenable() = modifyLockColor(RED)
+    fun notHighlight() = modifyLockColor(buffSkillSlot.getColor())
 
-        runesLabel.setTextColor(Color.GREEN)
+    private fun modifyLockColor(color: Color) {
+
+        runesLabel.setTextColor(color)
         runesLabel.addAction(Actions.forever(Actions.sequence(
             Actions.fadeOut(0.2f, Interpolation.circleIn),
             Actions.fadeIn(1.0f, Interpolation.circleOut)

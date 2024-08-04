@@ -21,8 +21,8 @@ class SubSlotKeyView(
 
 ): Table()
 {
-    private val runesLabel = TextView("${model.getName()}:", assets.font10, model.getColor())
-    private var keys = getKeys()
+    private val runesLabel: TextView<String> = TextView("${model.getName()}:", assets.font10, model.getColor())
+    private var keys: List<TextView<String>> = getKeys()
 
     // LAYOUT:
     //--------------------------------------------------------------------------------------------------------
