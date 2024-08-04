@@ -1,6 +1,6 @@
 package com.myrran.domain.utils
 
-class MapOfMaps<KEY1, KEY2, VALUE>(
+class MutableMapOfMaps<KEY1, KEY2, VALUE>(
 
     rootMapCreator: () -> MutableMap<KEY1, MutableMap<KEY2, VALUE>>,
     private val innerMapCreator: () -> MutableMap<KEY2, VALUE>,

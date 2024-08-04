@@ -235,7 +235,7 @@ class MainScreen(
             statBarFront = atlas.getTextureRegion("Atlas.atlas", "TexturasMisc/CasillaTalento"),
         )
 
-        val dragAndDropManager = DragAndDropManager(DragAndDrop(), mutableMapOf())
+        val dragAndDropManager = DragAndDropManager(DragAndDrop())
         val skillViewFactory = SkillViewFactory(dragAndDropManager, assets)
 
         val skillView = skillViewFactory.createSkillView(boltSkill, controller)

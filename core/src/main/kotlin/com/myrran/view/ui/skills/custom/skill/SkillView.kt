@@ -47,6 +47,7 @@ class SkillView(
         skillHeader.addListener(ActorMoveListener(this))
         addListener(ActorClickListener { toFront() } )
 
+        top().left()
         val table = Table().top().left()
         val bodyTable = Table()
         val skillStatsTable = Table()

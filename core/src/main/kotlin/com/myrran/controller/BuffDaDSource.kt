@@ -16,9 +16,9 @@ class BuffDaDSource(
     private val view: BuffTemplateView,
     private val assets: SkillViewAssets
 
-): Source(view.dragActor())
+): Source(view.dragActor()), DaDSource<SkillViewId>
 {
-    val id: SkillViewId = view.id
+    override val id: SkillViewId = view.id
 
     override fun dragStart(event: InputEvent?, x: Float, y: Float, pointer: Int): Payload {
 
@@ -27,4 +27,6 @@ class BuffDaDSource(
         payload.dragActor = TextView(model.name, assets.font20, ORANGE, 2f) { it.value }
         return payload
     }
+
+    override fun getSource(): Source = this
 }

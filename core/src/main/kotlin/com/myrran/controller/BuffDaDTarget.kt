@@ -14,9 +14,9 @@ class BuffDaDTarget(
     private val assets: SkillViewAssets,
     private val controller: BuffSKillController
 
-) : Target(view.buffSlotKeyView)
+) : Target(view.buffSlotKeyView), DaDTarget<SkillViewId>
 {
-    val id: SkillViewId = view.id
+    override val id: SkillViewId = view.id
 
     override fun drag(source: Source, payload: Payload, x: Float, y: Float, pointer: Int): Boolean =
 
@@ -30,4 +30,6 @@ class BuffDaDTarget(
 
         controller.addBuffSkill(subSkill)
     }
+
+    override fun getTarget(): Target = this
 }

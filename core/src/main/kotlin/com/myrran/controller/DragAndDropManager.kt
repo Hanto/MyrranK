@@ -1,36 +1,37 @@
 package com.myrran.controller
 
 import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop
+import com.myrran.domain.utils.MutableMapOfLists
 import com.myrran.view.ui.skills.SkillViewId
 
 class DragAndDropManager(
 
     private val buffDaDs: DragAndDrop,
-    private val sources: MutableMap<SkillViewId, BuffDaDSource> = mutableMapOf(),
-    private val targets: MutableMap<SkillViewId, BuffDaDTarget> = mutableMapOf()
+    private val sources: MutableMapOfLists<SkillViewId, DaDSource<SkillViewId>> = MutableMapOfLists({ mutableMapOf() }, { mutableListOf() }),
+    private val targets: MutableMapOfLists<SkillViewId, DaDTarget<SkillViewId>> = MutableMapOfLists({ mutableMapOf() }, { mutableListOf() }),
 )
 {
-    fun addSource(buffSource: BuffDaDSource) {
+    fun addSource(dadSource: DaDSource<SkillViewId>) {
 
-        buffDaDs.addSource(buffSource)
-        sources[buffSource.id] = buffSource
+        buffDaDs.addSource(dadSource.getSource())
+        sources[dadSource.id] = dadSource
     }
 
     fun removeSource(id: SkillViewId) {
 
-        val source = sources.remove(id)
-        buffDaDs.removeSource(source)
+        sources.remove(id)
+            ?.forEach { buffDaDs.removeSource(it.getSource()) }
     }
 
-    fun addTarget(buffTarget: BuffDaDTarget) {
+    fun addTarget(dadTarget: DaDTarget<SkillViewId>) {
 
-        targets[buffTarget.id] = buffTarget
-        buffDaDs.addTarget(buffTarget)
+        buffDaDs.addTarget(dadTarget.getTarget())
+        targets[dadTarget.id] = dadTarget
     }
 
     fun removeTarget(id: SkillViewId) {
 
-        val target = targets.remove(id)
-        buffDaDs.removeTarget(target)
+        targets.remove(id)
+            ?.forEach { buffDaDs.removeTarget(it.getTarget()) }
     }
 }
