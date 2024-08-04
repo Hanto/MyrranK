@@ -8,7 +8,6 @@ import com.myrran.domain.skills.custom.subskill.SubSkillSlotId
 
 sealed interface SkillEvent: Event
 
-data object StatUpgradedEvent: SkillEvent
 data class SubSkillStatUpgradedEvent(val skillId: SkillId, val subId: SubSkillSlotId, val statId: StatId, val numUpgrades: NumUpgrades): SkillEvent
 data class BuffSkillStatUpgradedEvent(val skillId: SkillId, val subId: SubSkillSlotId, val buffId: BuffSkillSlotId, val statId: StatId, val numUpgrades: NumUpgrades): SkillEvent
 data class SkillStatUpgradedEvent(val skillId: SkillId, val statId: StatId, val numUpgrades: NumUpgrades): SkillEvent

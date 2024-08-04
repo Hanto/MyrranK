@@ -15,13 +15,13 @@ import com.myrran.view.ui.skills.custom.stat.StatsView
 class BuffSkillSlotView(
 
     override val id: SkillViewId,
-    private val buffSkillSlot: BuffSkillSlot,
+    private val model: BuffSkillSlot,
     private val assets: SkillViewAssets,
     private val controller: BuffSKillController
 
 ): Table(), Identifiable<SkillViewId>
 {
-    val buffSlotKeyView: BuffSlotKeyView = BuffSlotKeyView(buffSkillSlot, assets)
+    val buffSlotKeyView: BuffSlotKeyView = BuffSlotKeyView(model, assets)
     private var stats: StatsView = getStatsView()
 
     // LAYOUT:
@@ -36,7 +36,7 @@ class BuffSkillSlotView(
     private fun rebuildTable() {
 
         clear()
-        if (buffSkillSlot.content is BuffSkill)
+        if (model.content is BuffSkill)
             add(stats).right()
 
         add(buffSlotKeyView).expandY().fillY().right()
@@ -66,7 +66,7 @@ class BuffSkillSlotView(
 
     private fun getStats(): Collection<Stat> =
 
-        when (val buffSkill = buffSkillSlot.content) {
+        when (val buffSkill = model.content) {
 
             is NoBuffSkill -> emptyList()
             is BuffSkill -> buffSkill.stats.getStats()

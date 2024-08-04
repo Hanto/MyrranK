@@ -26,26 +26,26 @@ import com.myrran.view.ui.skills.assets.UPGRADE_BAR_SIZE
 
 class StatView(
 
-    val stat: Stat,
+    val model: Stat,
     private val assets: SkillViewAssets,
     private val controller: StatController,
 
 ): Table()
 {
-    private val name = TextView(stat.name.value, assets.font12, WHITE, 1f)
+    private val name = TextView(model.name.value, assets.font12, WHITE, 1f)
 
-    private val upgradeCost = if (stat is StatUpgradeable)
-        TextView(stat.upgradeCost, assets.font10, PURPLE_LIGHT, 1f) { it.value.format(0) } else null
-    private val bonusPerUpgrade = if (stat is StatUpgradeable)
-        TextView(stat.bonusPerUpgrade, assets.font10, PURPLE_LIGHT, 1f) { it.value.format(1) } else null
-    private val upgrades = if (stat is StatUpgradeable)
-        TextView(stat.upgrades, assets.font10, PURPLE_LIGHT, 1f) { "${it.actual.value}-${it.maximum.value}"} else null
+    private val upgradeCost = if (model is StatUpgradeable)
+        TextView(model.upgradeCost, assets.font10, PURPLE_LIGHT, 1f) { it.value.format(0) } else null
+    private val bonusPerUpgrade = if (model is StatUpgradeable)
+        TextView(model.bonusPerUpgrade, assets.font10, PURPLE_LIGHT, 1f) { it.value.format(1) } else null
+    private val upgrades = if (model is StatUpgradeable)
+        TextView(model.upgrades, assets.font10, PURPLE_LIGHT, 1f) { "${it.actual.value}-${it.maximum.value}"} else null
 
-    private val baseBonus = if (stat is StatUpgradeable)
-        TextView(stat.baseBonus, assets.font14, PURPLE_DARK, 1f) { it.value.format(1) } else null
-    private val upgradeBar = if (stat is StatUpgradeable)
-        UpgradeView(stat, assets, controller)  else null
-    private val totalBonus = TextView(stat.totalBonus(), assets.font14, ORANGE, 1f) { it.value.format(1) }
+    private val baseBonus = if (model is StatUpgradeable)
+        TextView(model.baseBonus, assets.font14, PURPLE_DARK, 1f) { it.value.format(1) } else null
+    private val upgradeBar = if (model is StatUpgradeable)
+        UpgradeView(model, assets, controller)  else null
+    private val totalBonus = TextView(model.totalBonus(), assets.font14, ORANGE, 1f) { it.value.format(1) }
 
     // LAYOUT:
     //--------------------------------------------------------------------------------------------------------
@@ -79,10 +79,10 @@ class StatView(
 
     fun update() {
 
-        if (stat is StatUpgradeable)
-            upgrades?.setText(stat.upgrades)
+        if (model is StatUpgradeable)
+            upgrades?.setText(model.upgrades)
 
-        totalBonus.setText(stat.totalBonus())
+        totalBonus.setText(model.totalBonus())
         upgradeBar?.update()
     }
 
@@ -94,7 +94,7 @@ class StatView(
         override fun touchDown(event: InputEvent, x: Float, y: Float, pointer: Int, button: Int): Boolean {
 
             val numUpgrades = if (button == Buttons.RIGHT) amountToUpgrade*2 else amountToUpgrade
-            controller.upgrade(stat.id, NumUpgrades(numUpgrades))
+            controller.upgrade(model.id, NumUpgrades(numUpgrades))
             return true
         }
     }

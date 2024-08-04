@@ -16,12 +16,12 @@ import com.myrran.view.ui.skills.assets.SkillViewAssets
 @Suppress("DuplicatedCode")
 class SubSlotKeyView(
 
-    private val subSkillSlot: SubSkillSlot,
+    private val model: SubSkillSlot,
     private val assets: SkillViewAssets
 
 ): Table()
 {
-    private val runesLabel = TextView("${subSkillSlot.getName()}:", assets.font10, subSkillSlot.getColor())
+    private val runesLabel = TextView("${model.getName()}:", assets.font10, model.getColor())
     private var keys = getKeys()
 
     // LAYOUT:
@@ -57,12 +57,12 @@ class SubSlotKeyView(
 
     private fun getKeys() =
 
-        subSkillSlot.lock.openedBy
+        model.lock.openedBy
             .map { TextView("${it.value} ", assets.font10, it.getColor(), 1f) }
 
     private fun SubSkillSlot.getName(): String =
 
-        when (val subSkill = subSkillSlot.content) {
+        when (val subSkill = model.content) {
 
             is NoSubSkill -> this.name.value
             is SubSkill -> subSkill.name.value
@@ -70,7 +70,7 @@ class SubSlotKeyView(
 
     private fun SubSkillSlot.getColor(): Color =
 
-        when (subSkillSlot.content) {
+        when (model.content) {
 
             is NoSubSkill -> GRAY
             is SubSkill -> ORANGE
@@ -78,7 +78,7 @@ class SubSlotKeyView(
 
     private fun LockType.getColor(): Color =
 
-        when (val subSkill = subSkillSlot.content) {
+        when (val subSkill = model.content) {
 
             is NoSubSkill -> GRAY
             is SubSkill -> when (subSkill.keys.contains(this)) {

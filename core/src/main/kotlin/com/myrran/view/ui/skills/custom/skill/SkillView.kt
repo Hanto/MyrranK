@@ -77,7 +77,6 @@ class SkillView(
             is BuffSkillStatUpgradedEvent -> { subSlots[event.subId]?.buffSlots?.get(event.buffId)?.update(event.statId); skillHeader.update() }
             is SubSkillChangedEvent -> subSlots[event.subId]?.update()
             is BuffSkillChangedEvent -> subSlots[event.subId]?.buffSlots?.get(event.buffId)?.update()
-            else -> Unit
         }
     }
 
@@ -87,7 +86,7 @@ class SkillView(
     private fun createSubSkillSlotViews(): Map<SubSkillSlotId, SubSkillSlotView> =
 
         model.getSubSkillSlots()
-            .associate { it.id to SubSkillSlotView(it, assets, controller.toSubSkillController(it), factory)  }
+            .associate { it.id to factory.createSubSlotView(it, controller)  }
 
     override fun dispose() =
 

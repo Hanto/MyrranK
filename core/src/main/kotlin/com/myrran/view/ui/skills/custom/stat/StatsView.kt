@@ -8,7 +8,7 @@ import com.myrran.view.ui.skills.assets.SkillViewAssets
 
 class StatsView(
 
-    private val statsRetriever: () -> Collection<Stat>,
+    private val modelsRetriever: () -> Collection<Stat>,
     private val assets: SkillViewAssets,
     private val controller: StatController,
 
@@ -28,7 +28,7 @@ class StatsView(
         clear()
         add(StatHeaderView(assets)).row()
         statsViews.values
-            .sortedBy { it.stat.id.value }
+            .sortedBy { it.model.id.value }
             .forEach { add(it).left().bottom().row() }
     }
 
@@ -45,6 +45,6 @@ class StatsView(
 
     private fun getStatViews(): Map<StatId, StatView> =
 
-        statsRetriever.invoke()
+        modelsRetriever.invoke()
             .associate { it.id to StatView(it, assets, controller) }
 }
