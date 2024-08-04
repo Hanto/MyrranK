@@ -45,6 +45,7 @@ import com.myrran.domain.utils.QuantityMap
 import com.myrran.infraestructure.Repository
 import com.myrran.infraestructure.SkillBookAdapter
 import com.myrran.infraestructure.skill.SkillAdapter
+import com.myrran.infraestructure.skill.SkillRepository
 import com.myrran.infraestructure.skilltemplate.SkillTemplateAdapter
 import com.myrran.infraestructure.skilltemplate.SkillTemplateRepository
 import com.myrran.view.atlas.Atlas
@@ -71,6 +72,7 @@ class MainScreen(
 ): KtxScreen
 {
     private val skillTemplateRepository: SkillTemplateRepository
+    private val skillRepository: SkillRepository
 
     private val fpsText: TextView<String>
     private val boltSkill: Skill
@@ -90,6 +92,8 @@ class MainScreen(
         val deSerializer = DeSerializer()
         val skillTemplateAdapter = SkillTemplateAdapter()
         skillTemplateRepository = SkillTemplateRepository(skillTemplateAdapter, deSerializer)
+        val skillAdapter = SkillAdapter()
+        skillRepository = SkillRepository(skillAdapter, deSerializer)
 
 
         fpsText = TextView("FPS: ?", atlas.getFont("20.fnt"), shadowTickness = 2f, formater = {it.toString()})
@@ -210,6 +214,8 @@ class MainScreen(
             ),
             keys = listOf(LockType.A, LockType.B, LockType.E, LockType.D)
         )
+
+        skillRepository.saveSkill(bolt.toSkill())
 
         boltSkill = bolt.toSkill()
         val explosionSkill = explosion.toSubSkill()
