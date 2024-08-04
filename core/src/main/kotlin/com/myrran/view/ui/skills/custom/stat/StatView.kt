@@ -8,14 +8,10 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener
 import com.badlogic.gdx.utils.Align
 import com.myrran.controller.StatController
-import com.myrran.domain.events.Event
-import com.myrran.domain.events.StatUpgradedEvent
 import com.myrran.domain.skills.custom.stat.NumUpgrades
 import com.myrran.domain.skills.custom.stat.Stat
 import com.myrran.domain.skills.custom.stat.StatUpgradeable
 import com.myrran.domain.utils.format
-import com.myrran.domain.utils.observer.Observable
-import com.myrran.domain.utils.observer.Observer
 import com.myrran.view.ui.misc.TextView
 import com.myrran.view.ui.skills.assets.BASE_BONUS_SIZE
 import com.myrran.view.ui.skills.assets.BONUS_PER_UPGRADE_SIZE
@@ -30,12 +26,11 @@ import com.myrran.view.ui.skills.assets.UPGRADE_BAR_SIZE
 
 class StatView(
 
-    private val observable: Observable,
     val stat: Stat,
     private val assets: SkillViewAssets,
     private val controller: StatController,
 
-): Table(), Observer
+): Table()
 {
     private val name = TextView(stat.name.value, assets.font12, WHITE, 1f)
 
@@ -57,7 +52,6 @@ class StatView(
 
     init {
 
-        observable.addObserver(this)
         top().left().padTop(-3f).padBottom(-3f)
         reBuildTable()
     }
@@ -83,16 +77,13 @@ class StatView(
     // UPDATE:
     //--------------------------------------------------------------------------------------------------------
 
-    override fun propertyChange(event: Event) {
+    fun update() {
 
-        if (event is StatUpgradedEvent) {
+        if (stat is StatUpgradeable)
+            upgrades?.setText(stat.upgrades)
 
-            if (stat is StatUpgradeable)
-                upgrades?.setText(stat.upgrades)
-
-            totalBonus.setText(stat.totalBonus())
-            upgradeBar?.update()
-        }
+        totalBonus.setText(stat.totalBonus())
+        upgradeBar?.update()
     }
 
     // LISTENER:

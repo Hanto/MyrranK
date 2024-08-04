@@ -8,7 +8,6 @@ import com.myrran.controller.SkillController
 import com.myrran.domain.skills.custom.buff.BuffSkillSlot
 import com.myrran.domain.skills.custom.skill.Skill
 import com.myrran.domain.skills.templates.buff.BuffSkillTemplate
-import com.myrran.domain.utils.observer.Observable
 import com.myrran.view.ui.skills.assets.SkillViewAssets
 import com.myrran.view.ui.skills.custom.buff.BuffSkillSlotView
 import com.myrran.view.ui.skills.custom.skill.SkillView
@@ -40,13 +39,19 @@ class SkillViewFactory(
         return SkillView(id, model, assets, controller, this)
     }
 
-    fun createBuffSlotView(deleteMe: Observable, model: BuffSkillSlot, controller: BuffSKillController): BuffSkillSlotView {
+    fun createBuffSlotView(model: BuffSkillSlot, controller: BuffSKillController): BuffSkillSlotView {
 
         val id = SkillViewId()
-        val view = BuffSkillSlotView(id, deleteMe, model, assets, controller)
+        val view = BuffSkillSlotView(id, model, assets, controller)
         val dadTarget = BuffDaDTarget(view, assets, controller)
         dragAndDropManager.addTarget(dadTarget)
 
         return view;
     }
+
+    fun disposeBuffSlotView(view: BuffSkillSlotView) {
+
+        dragAndDropManager.removeTarget(view.id)
+    }
+
 }

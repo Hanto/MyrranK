@@ -5,14 +5,10 @@ import com.badlogic.gdx.graphics.Color.GRAY
 import com.badlogic.gdx.graphics.Color.ORANGE
 import com.badlogic.gdx.scenes.scene2d.ui.Table
 import com.badlogic.gdx.utils.Align
-import com.myrran.domain.events.Event
-import com.myrran.domain.events.SubSkillChangedEvent
 import com.myrran.domain.skills.custom.subskill.SubSkill
 import com.myrran.domain.skills.custom.subskill.SubSkillSlot
 import com.myrran.domain.skills.custom.subskill.SubSkillSlotContent.NoSubSkill
 import com.myrran.domain.skills.templates.LockType
-import com.myrran.domain.utils.observer.Observable
-import com.myrran.domain.utils.observer.Observer
 import com.myrran.view.ui.misc.TextView
 import com.myrran.view.ui.skills.assets.PURPLE_LIGHT
 import com.myrran.view.ui.skills.assets.SkillViewAssets
@@ -20,21 +16,19 @@ import com.myrran.view.ui.skills.assets.SkillViewAssets
 @Suppress("DuplicatedCode")
 class SubSlotKeyView(
 
-    private val observable: Observable,
     private val subSkillSlot: SubSkillSlot,
     private val assets: SkillViewAssets
 
-): Table(), Observer
+): Table()
 {
     private val runesLabel = TextView("${subSkillSlot.getName()}:", assets.font10, subSkillSlot.getColor())
-    private var keys = subSkillSlot.lock.openedBy.map { TextView("${it.value} ", assets.font10, it.getColor(), 1f) }
+    private var keys = getKeys()
 
     // LAYOUT:
     //--------------------------------------------------------------------------------------------------------
 
     init {
 
-        observable.addObserver(this)
         top().left()
         setBackground(assets.tableBackgroundLight)
         rebuildTable()
@@ -52,17 +46,19 @@ class SubSlotKeyView(
     // UPDATE:
     //--------------------------------------------------------------------------------------------------------
 
-    override fun propertyChange(event: Event) {
+    fun update() {
 
-        if (event is SubSkillChangedEvent && event.subId == subSkillSlot.id) {
-
-            keys = subSkillSlot.lock.openedBy.map { TextView("${it.value} ", assets.font10, it.getColor(), 1f) }
-            rebuildTable()
-        }
+        keys = getKeys()
+        rebuildTable()
     }
 
     // HELPER:
     //--------------------------------------------------------------------------------------------------------
+
+    private fun getKeys() =
+
+        subSkillSlot.lock.openedBy
+            .map { TextView("${it.value} ", assets.font10, it.getColor(), 1f) }
 
     private fun SubSkillSlot.getName(): String =
 

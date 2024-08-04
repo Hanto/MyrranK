@@ -6,23 +6,18 @@ import com.badlogic.gdx.graphics.Color.WHITE
 import com.badlogic.gdx.scenes.scene2d.ui.Image
 import com.badlogic.gdx.scenes.scene2d.ui.Table
 import com.badlogic.gdx.utils.Align
-import com.myrran.domain.events.Event
-import com.myrran.domain.events.StatUpgradedEvent
 import com.myrran.domain.skills.custom.skill.Skill
 import com.myrran.domain.utils.format
-import com.myrran.domain.utils.observer.Observable
-import com.myrran.domain.utils.observer.Observer
 import com.myrran.view.ui.misc.TextView
 import com.myrran.view.ui.skills.assets.MAGENTA_EPIC
 import com.myrran.view.ui.skills.assets.SkillViewAssets
 
 class SkillHeader(
 
-    val observable: Observable,
     val skill: Skill,
     val assets: SkillViewAssets,
 
-): Table(), Observer
+): Table()
 {
     private val icon = Image(assets.skillIcon)
     private val name = TextView(skill.name, assets.font20, ORANGE, 2f) { it.value }
@@ -31,7 +26,6 @@ class SkillHeader(
 
     init {
 
-        observable.addObserver(this)
         left()
         setBackground(assets.tableBackgroundLightToDark.tint(Color(0.6f, 0.6f, 0.6f, 0.90f)))
         rebuildTable()
@@ -55,9 +49,8 @@ class SkillHeader(
     // UPDATE:
     //--------------------------------------------------------------------------------------------------------
 
-    override fun propertyChange(event: Event) {
+    fun update() {
 
-        if (event is StatUpgradedEvent)
-            cost.setText(skill.totalCost())
+        cost.setText(skill.totalCost())
     }
 }

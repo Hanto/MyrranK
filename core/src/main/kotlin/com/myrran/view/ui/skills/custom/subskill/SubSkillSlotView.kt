@@ -2,11 +2,12 @@ package com.myrran.view.ui.skills.custom.subskill
 
 import com.badlogic.gdx.scenes.scene2d.ui.Table
 import com.myrran.controller.SubSkillController
+import com.myrran.domain.events.SubSkillStatUpgradedEvent
+import com.myrran.domain.skills.custom.buff.BuffSkillSlotId
 import com.myrran.domain.skills.custom.stat.Stat
 import com.myrran.domain.skills.custom.subskill.SubSkill
 import com.myrran.domain.skills.custom.subskill.SubSkillSlot
 import com.myrran.domain.skills.custom.subskill.SubSkillSlotContent.NoSubSkill
-import com.myrran.domain.utils.observer.Observable
 import com.myrran.view.ui.skills.SkillViewFactory
 import com.myrran.view.ui.skills.assets.SkillViewAssets
 import com.myrran.view.ui.skills.custom.buff.BuffSkillSlotView
@@ -14,7 +15,6 @@ import com.myrran.view.ui.skills.custom.stat.StatsView
 
 class SubSkillSlotView(
 
-    private val observable: Observable,
     private val subSkillSlot: SubSkillSlot,
     private val assets: SkillViewAssets,
     private val controller: SubSkillController,
@@ -22,9 +22,9 @@ class SubSkillSlotView(
 
 ): Table()
 {
-    private val subSlotKeyView: SubSlotKeyView = SubSlotKeyView(observable, subSkillSlot, assets)
-    private var stats: StatsView = StatsView( observable, { getStats() }, assets, controller)
-    private var buffSkillSlotViews: Collection<BuffSkillSlotView> = getBuffSkillSlotViews()
+    private val subSlotKeyView: SubSlotKeyView = SubSlotKeyView(subSkillSlot, assets)
+    private var stats: StatsView = StatsView( { getStats() }, assets, controller)
+    var buffSlots: Map<BuffSkillSlotId, BuffSkillSlotView> = createBuffSkillSlotViews()
 
     // LAYOUT:
     //--------------------------------------------------------------------------------------------------------
@@ -46,18 +46,32 @@ class SubSkillSlotView(
         keyAndStatsTable.row()
 
         add(keyAndStatsTable).left().row()
-        buffSkillSlotViews.forEach{ add(it).right().row() }
+        buffSlots.values.forEach{ add(it).right().row() }
+    }
+
+    fun update(event: SubSkillStatUpgradedEvent) {
+
+        stats.update(event.statId)
+    }
+
+    fun update() {
+
+        subSlotKeyView.update()
+        buffSlots.values.forEach{ factory.disposeBuffSlotView(it) }
+        buffSlots = createBuffSkillSlotViews()
+        rebuildTable()
     }
 
     // HELPER:
     //--------------------------------------------------------------------------------------------------------
 
-    private fun getBuffSkillSlotViews(): List<BuffSkillSlotView> =
+    private fun createBuffSkillSlotViews(): Map<BuffSkillSlotId, BuffSkillSlotView> =
 
         when (val subSkill = subSkillSlot.content) {
 
-            is NoSubSkill -> emptyList()
-            is SubSkill -> subSkill.getBuffSkillSlots().map { factory.createBuffSlotView(observable, it, controller.toBuffSkillController(it)) }
+            is NoSubSkill -> emptyMap()
+            is SubSkill -> subSkill.getBuffSkillSlots()
+                .associate { it.id to factory.createBuffSlotView(it, controller.toBuffSkillController(it)) }
         }
 
     private fun getStats(): Collection<Stat> =

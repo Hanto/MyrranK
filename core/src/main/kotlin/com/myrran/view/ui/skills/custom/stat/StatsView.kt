@@ -2,28 +2,22 @@ package com.myrran.view.ui.skills.custom.stat
 
 import com.badlogic.gdx.scenes.scene2d.ui.Table
 import com.myrran.controller.StatController
-import com.myrran.domain.events.BuffSkillChangedEvent
-import com.myrran.domain.events.Event
-import com.myrran.domain.events.SubSkillChangedEvent
 import com.myrran.domain.skills.custom.stat.Stat
-import com.myrran.domain.utils.observer.Observable
-import com.myrran.domain.utils.observer.Observer
+import com.myrran.domain.skills.custom.stat.StatId
 import com.myrran.view.ui.skills.assets.SkillViewAssets
 
 class StatsView(
 
-    private val observable: Observable,
     private val statsRetriever: () -> Collection<Stat>,
     private val assets: SkillViewAssets,
     private val controller: StatController,
 
-): Table(), Observer
+): Table()
 {
-    private var statList: Collection<StatView> = statsRetriever.invoke().map { StatView(observable, it, assets, controller) }
+    private var statsViews: Map<StatId, StatView> = getStatViews()
 
     init {
 
-        observable.addObserver(this)
         top().left().padLeft(5f).padRight(5f).padBottom(7f)
         setBackground(assets.tableBackgroundLight)
         reBuildTable()
@@ -33,7 +27,7 @@ class StatsView(
 
         clear()
         add(StatHeaderView(assets)).row()
-        statList
+        statsViews.values
             .sortedBy { it.stat.id.value }
             .forEach { add(it).left().bottom().row() }
     }
@@ -41,12 +35,16 @@ class StatsView(
     // UPDATE:
     //--------------------------------------------------------------------------------------------------------
 
-    override fun propertyChange(event: Event) {
+    fun update(statId: StatId) {
 
-        if (event is BuffSkillChangedEvent || event is SubSkillChangedEvent) {
-
-            statList = statsRetriever.invoke().map { StatView(observable, it, assets, controller) }
-            reBuildTable()
-        }
+        statsViews[statId]?.update()
     }
+
+    // HELPER:
+    //--------------------------------------------------------------------------------------------------------
+
+    private fun getStatViews(): Map<StatId, StatView> =
+
+        statsRetriever.invoke()
+            .associate { it.id to StatView(it, assets, controller) }
 }
