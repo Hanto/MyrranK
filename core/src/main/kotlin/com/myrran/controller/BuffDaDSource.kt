@@ -2,8 +2,8 @@ package com.myrran.controller
 
 import com.badlogic.gdx.graphics.Color.ORANGE
 import com.badlogic.gdx.scenes.scene2d.InputEvent
-import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop.Payload
-import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop.Source
+import com.myrran.badlogic.Payload
+import com.myrran.badlogic.Source
 import com.myrran.domain.skills.templates.buff.BuffSkillTemplate
 import com.myrran.view.ui.misc.TextView
 import com.myrran.view.ui.skills.SkillViewId
@@ -19,6 +19,7 @@ class BuffDaDSource(
 ): Source(view.header.icon), DaDSource<SkillViewId>
 {
     override val id: SkillViewId = view.id
+    override fun getSource(): Source = this
 
     override fun dragStart(event: InputEvent?, x: Float, y: Float, pointer: Int): Payload {
 
@@ -27,6 +28,4 @@ class BuffDaDSource(
         payload.dragActor = TextView(model.name, assets.font20, ORANGE, 2f) { it.value }
         return payload
     }
-
-    override fun getSource(): Source = this
 }

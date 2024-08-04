@@ -15,7 +15,7 @@ import com.myrran.view.ui.skills.custom.stat.StatsView
 class BuffSkillSlotView(
 
     override val id: SkillViewId,
-    private val model: BuffSkillSlot,
+    val model: BuffSkillSlot,
     private val assets: SkillViewAssets,
     private val controller: BuffSKillController
 

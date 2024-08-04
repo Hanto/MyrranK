@@ -1,8 +1,9 @@
 package com.myrran.controller
 
-import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop.Payload
-import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop.Source
-import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop.Target
+import com.badlogic.gdx.graphics.Color
+import com.myrran.badlogic.Payload
+import com.myrran.badlogic.Source
+import com.myrran.badlogic.Target
 import com.myrran.domain.skills.templates.buff.BuffSkillTemplate
 import com.myrran.view.ui.skills.SkillViewId
 import com.myrran.view.ui.skills.assets.SkillViewAssets
@@ -12,11 +13,12 @@ class BuffDaDTarget(
 
     private val view: BuffSkillSlotView,
     private val assets: SkillViewAssets,
-    private val controller: BuffSKillController
+    private val controller: BuffSKillController,
 
 ) : Target(view.buffSlotKeyView), DaDTarget<SkillViewId>
 {
     override val id: SkillViewId = view.id
+    override fun getTarget(): Target = this
 
     override fun drag(source: Source, payload: Payload, x: Float, y: Float, pointer: Int): Boolean =
 
@@ -24,12 +26,21 @@ class BuffDaDTarget(
 
     override fun drop(source: Source, payload: Payload, x: Float, y: Float, pointer: Int) {
 
-        view.buffSlotKeyView.highlighIfOpenable()
         val template = payload.`object` as BuffSkillTemplate
         val subSkill = template.toBuffSkill()
 
         controller.addBuffSkill(subSkill)
     }
 
-    override fun getTarget(): Target = this
+    override fun notifyNewPayload(payload: Payload) =
+
+        when (view.model.lock.isOpenedBy((payload.`object` as BuffSkillTemplate).keys)) {
+            true -> view.buffSlotKeyView.highlightWithColor(Color.GREEN)
+            false -> view.buffSlotKeyView.highlightWithColor(Color.RED)
+        }
+
+    override fun notifyNoPayload() {
+
+        view.buffSlotKeyView.dontHighlight()
+    }
 }

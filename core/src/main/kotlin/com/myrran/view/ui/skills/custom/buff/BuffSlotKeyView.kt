@@ -2,9 +2,7 @@ package com.myrran.view.ui.skills.custom.buff
 
 import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.graphics.Color.GRAY
-import com.badlogic.gdx.graphics.Color.GREEN
 import com.badlogic.gdx.graphics.Color.ORANGE
-import com.badlogic.gdx.graphics.Color.RED
 import com.badlogic.gdx.math.Interpolation
 import com.badlogic.gdx.scenes.scene2d.Touchable
 import com.badlogic.gdx.scenes.scene2d.actions.Actions
@@ -21,12 +19,12 @@ import com.myrran.view.ui.skills.assets.SkillViewAssets
 @Suppress("DuplicatedCode")
 class BuffSlotKeyView(
 
-    private val buffSkillSlot: BuffSkillSlot,
+    private val model: BuffSkillSlot,
     private val assets: SkillViewAssets
 
 ): Table()
 {
-    private val runesLabel: TextView<String> = TextView("${buffSkillSlot.getName()}:", assets.font10, buffSkillSlot.getColor())
+    private val runesLabel: TextView<String> = TextView("${model.getName()}:", assets.font10, model.getColor())
     private var keys: List<TextView<String>> = getKeys()
 
     // LAYOUT:
@@ -45,15 +43,21 @@ class BuffSlotKeyView(
         clear()
         val runesRow = Table()
         keys.forEach{ runesRow.add(it) }
-        add(runesLabel.align(Align.left)).padLeft(1f).padTop(-3f).row()
+        add(runesLabel.align(Align.left)).left().padLeft(1f).padTop(-3f).row()
         add(runesRow).left().padLeft(1f).padTop(-6f).padBottom(-1f)
     }
 
-    fun highlighIfOpenable() = modifyLockColor(GREEN)
-    fun highlighIfNotOpenable() = modifyLockColor(RED)
-    fun notHighlight() = modifyLockColor(buffSkillSlot.getColor())
+    // DRAG AND DROP NOTIFICATIONS
+    //--------------------------------------------------------------------------------------------------------
 
-    private fun modifyLockColor(color: Color) {
+    fun dontHighlight() {
+
+        runesLabel.setTextColor(model.getColor())
+        runesLabel.clearActions()
+        runesLabel.addAction(Actions.fadeIn(0.4f))
+    }
+
+    fun highlightWithColor(color: Color) {
 
         runesLabel.setTextColor(color)
         runesLabel.addAction(Actions.forever(Actions.sequence(
@@ -67,6 +71,7 @@ class BuffSlotKeyView(
 
     fun update() {
 
+        runesLabel.setText("${model.getName()}:")
         keys = getKeys()
         rebuildTable()
     }
@@ -76,12 +81,12 @@ class BuffSlotKeyView(
 
     private fun getKeys() =
 
-        buffSkillSlot.lock.openedBy
+        model.lock.openedBy
             .map { TextView("${it.value} ", assets.font10, it.getColor(), 1f) }
 
     private fun BuffSkillSlot.getName(): String =
 
-        when (val buffSkill = buffSkillSlot.content) {
+        when (val buffSkill = model.content) {
 
             is NoBuffSkill -> this.name.value
             is BuffSkill -> buffSkill.name.value
@@ -89,7 +94,7 @@ class BuffSlotKeyView(
 
     private fun BuffSkillSlot.getColor(): Color =
 
-        when (buffSkillSlot.content) {
+        when (model.content) {
 
             is NoBuffSkill -> GRAY
             is BuffSkill -> ORANGE
@@ -97,7 +102,7 @@ class BuffSlotKeyView(
 
     private fun LockType.getColor(): Color =
 
-        when (val buffSkill = buffSkillSlot.content)
+        when (val buffSkill = model.content)
         {
             is NoBuffSkill -> GRAY
             is BuffSkill -> when (buffSkill.keys.contains(this)) {

@@ -1,12 +1,12 @@
 package com.myrran.controller
 
-import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop
+import com.myrran.badlogic.DaD
 import com.myrran.domain.utils.MutableMapOfLists
 import com.myrran.view.ui.skills.SkillViewId
 
 class DragAndDropManager(
 
-    private val buffDaDs: DragAndDrop,
+    private val buffDaDs: DaD,
     private val sources: MutableMapOfLists<SkillViewId, DaDSource<SkillViewId>> = MutableMapOfLists({ mutableMapOf() }, { mutableListOf() }),
     private val targets: MutableMapOfLists<SkillViewId, DaDTarget<SkillViewId>> = MutableMapOfLists({ mutableMapOf() }, { mutableListOf() }),
 )

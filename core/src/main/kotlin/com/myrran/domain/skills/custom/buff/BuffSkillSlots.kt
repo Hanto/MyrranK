@@ -3,6 +3,7 @@ package com.myrran.domain.skills.custom.buff
 import com.myrran.domain.skills.custom.stat.NumUpgrades
 import com.myrran.domain.skills.custom.stat.StatId
 import com.myrran.domain.skills.custom.stat.UpgradeCost
+import com.myrran.domain.skills.templates.buff.BuffSkillTemplate
 
 data class BuffSkillSlots(
 
@@ -31,6 +32,10 @@ data class BuffSkillSlots(
     fun setBuffSkill(buffSkillSlotId: BuffSkillSlotId, buffSkill: BuffSkill) =
 
         slotMap[buffSkillSlotId]?.setBuffSkill(buffSkill)
+
+    fun isOpenedBy(buffSkillSlotId: BuffSkillSlotId, buffSkillTemplate: BuffSkillTemplate): Boolean =
+
+        slotMap[buffSkillSlotId]?.isOpenedBy(buffSkillTemplate.keys) ?: false
 
     // UPGRADES:
     //--------------------------------------------------------------------------------------------------------

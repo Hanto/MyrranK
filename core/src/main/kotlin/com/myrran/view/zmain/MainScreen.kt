@@ -7,7 +7,7 @@ import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.graphics.GL20
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import com.badlogic.gdx.scenes.scene2d.Stage
-import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop
+import com.myrran.badlogic.DaD
 import com.myrran.controller.DragAndDropManager
 import com.myrran.controller.SkillController
 import com.myrran.domain.skills.book.PlayerSkillBook
@@ -158,7 +158,7 @@ class MainScreen(
                 BuffSkillSlotTemplate(
                     id = BuffSkillSlotId("DEBUFF_2"),
                     name = BuffSkillSlotName("Debuff 2"),
-                    lock = Lock(listOf(LockType.A, LockType.C)),
+                    lock = Lock(listOf(LockType.C, LockType.F)),
                 ),
                 BuffSkillSlotTemplate(
                     id = BuffSkillSlotId("DEBUFF_3"),
@@ -235,7 +235,7 @@ class MainScreen(
             statBarFront = atlas.getTextureRegion("Atlas.atlas", "TexturasMisc/CasillaTalento"),
         )
 
-        val dragAndDropManager = DragAndDropManager(DragAndDrop())
+        val dragAndDropManager = DragAndDropManager(DaD())
         val skillViewFactory = SkillViewFactory(dragAndDropManager, assets)
 
         val skillView = skillViewFactory.createSkillView(boltSkill, controller)

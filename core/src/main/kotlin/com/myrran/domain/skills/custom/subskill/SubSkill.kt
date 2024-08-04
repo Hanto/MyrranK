@@ -11,6 +11,7 @@ import com.myrran.domain.skills.custom.stat.Stats
 import com.myrran.domain.skills.custom.stat.StatsI
 import com.myrran.domain.skills.custom.stat.UpgradeCost
 import com.myrran.domain.skills.templates.LockType
+import com.myrran.domain.skills.templates.buff.BuffSkillTemplate
 import com.myrran.domain.skills.templates.subskill.SubSkillTemplateId
 import com.myrran.domain.spells.subspell.SubSkillType
 import com.myrran.domain.spells.subspell.SubSpell
@@ -53,6 +54,11 @@ data class SubSkill(
     fun setBuffSkill(buffSkillSlotId: BuffSkillSlotId, buffSkill: BuffSkill) =
 
         slots.setBuffSkill(buffSkillSlotId, buffSkill)
+
+    fun isOpenedBy(buffSkillSlotId: BuffSkillSlotId, buffSkillTemplate: BuffSkillTemplate): Boolean =
+
+        slots.getBuffSkills().none { it.templateId == buffSkillTemplate.id } &&
+        slots.isOpenedBy(buffSkillSlotId, buffSkillTemplate)
 
     // UPGRADES:
     //--------------------------------------------------------------------------------------------------------

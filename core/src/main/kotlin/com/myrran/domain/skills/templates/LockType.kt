@@ -13,5 +13,6 @@ enum class LockType(val value: String, val order: Int) {
     B("b", 7),
     C("c", 8),
     D("d", 9),
-    E("e", 10)
+    E("e", 10),
+    F("f", 11)
 }
