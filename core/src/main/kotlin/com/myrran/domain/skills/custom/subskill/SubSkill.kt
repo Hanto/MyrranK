@@ -58,7 +58,7 @@ data class SubSkill(
     fun isOpenedBy(buffSkillSlotId: BuffSkillSlotId, buffSkillTemplate: BuffSkillTemplate): Boolean =
 
         slots.getBuffSkills().none { it.templateId == buffSkillTemplate.id } &&
-        slots.isOpenedBy(buffSkillSlotId, buffSkillTemplate)
+        slots.isBuffSkillOpenedBy(buffSkillSlotId, buffSkillTemplate)
 
     // UPGRADES:
     //--------------------------------------------------------------------------------------------------------

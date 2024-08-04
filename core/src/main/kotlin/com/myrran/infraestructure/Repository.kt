@@ -24,16 +24,16 @@ class Repository(
         return skillBookAdapter.toDomain(entity)
     }
 
-    fun loadAssetCollection(assetsName: String): AssetsCollection {
-
-        val json = Gdx.files.internal("$CONFIG_FOLDER$assetsName").readString()
-        return deSerializer.deserialize(json, AssetsCollection::class.java)
-    }
-
     fun saveSkillBook(worldSkillBook: WorldSkillBook) {
 
         val entity = skillBookAdapter.fromDomain(worldSkillBook)
         val json = deSerializer.serialize(entity)
         Gdx.files.local("WorldSkillBook2.json").writeString(json, false)
+    }
+
+    fun loadAssetCollection(assetsName: String): AssetsCollection {
+
+        val json = Gdx.files.internal("$CONFIG_FOLDER$assetsName").readString()
+        return deSerializer.deserialize(json, AssetsCollection::class.java)
     }
 }

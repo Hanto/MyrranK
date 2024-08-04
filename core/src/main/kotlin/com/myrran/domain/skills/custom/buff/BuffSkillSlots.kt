@@ -33,7 +33,7 @@ data class BuffSkillSlots(
 
         slotMap[buffSkillSlotId]?.setBuffSkill(buffSkill)
 
-    fun isOpenedBy(buffSkillSlotId: BuffSkillSlotId, buffSkillTemplate: BuffSkillTemplate): Boolean =
+    fun isBuffSkillOpenedBy(buffSkillSlotId: BuffSkillSlotId, buffSkillTemplate: BuffSkillTemplate): Boolean =
 
         slotMap[buffSkillSlotId]?.isOpenedBy(buffSkillTemplate.keys) ?: false
 

@@ -1,0 +1,38 @@
+[
+    {
+        "id": "EXPLOSION_1",
+        "type": "EXPLOSION",
+        "name": "Explosion",
+        "stats": [
+            {
+                "id": "RADIUS",
+                "name": "radius",
+                "baseBonus": 10.0,
+                "maximum": 20,
+                "upgradeCost": 2.0,
+                "bonusPerUpgrade": 1.0
+            }
+        ],
+        "slots": [
+            {
+                "id": "DEBUFF_1",
+                "name": "Debuff 1",
+                "lock": [
+                    "GAMMA",
+                    "EPSILON"
+                ]
+            },
+            {
+                "id": "DEBUFF_2",
+                "name": "Debuff 2",
+                "lock": [
+                    "GAMMA",
+                    "EPSILON"
+                ]
+            }
+        ],
+        "keys": [
+            "ALPHA"
+        ]
+    }
+]

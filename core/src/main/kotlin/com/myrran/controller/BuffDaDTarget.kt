@@ -34,7 +34,7 @@ class BuffDaDTarget(
 
     override fun notifyNewPayload(payload: Payload) =
 
-        when (view.model.lock.isOpenedBy((payload.`object` as BuffSkillTemplate).keys)) {
+        when (controller.isOpenedBy(payload.`object` as BuffSkillTemplate)) {
             true -> view.buffSlotKeyView.highlightWithColor(Color.GREEN)
             false -> view.buffSlotKeyView.highlightWithColor(Color.RED)
         }

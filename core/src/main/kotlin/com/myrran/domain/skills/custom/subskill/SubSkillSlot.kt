@@ -11,6 +11,7 @@ import com.myrran.domain.skills.custom.stat.UpgradeCost.Companion.ZERO
 import com.myrran.domain.skills.custom.subskill.SubSkillSlotContent.NoSubSkill
 import com.myrran.domain.skills.templates.Lock
 import com.myrran.domain.skills.templates.LockI
+import com.myrran.domain.skills.templates.buff.BuffSkillTemplate
 import kotlin.reflect.KClass
 
 data class SubSkillSlot(
@@ -51,6 +52,10 @@ data class SubSkillSlot(
     fun setBuffSkill(buffSkillSlotId: BuffSkillSlotId, buffSkill: BuffSkill) =
 
         content.ifIs(SubSkill::class)?.setBuffSkill(buffSkillSlotId, buffSkill)
+
+    fun isBuffSkillOpenedBy(buffSkillSlotId: BuffSkillSlotId, buffSkillTemplate: BuffSkillTemplate): Boolean =
+
+        content.ifIs(SubSkill::class)?.isOpenedBy(buffSkillSlotId, buffSkillTemplate) ?: false
 
     // UPGRADES:
     //--------------------------------------------------------------------------------------------------------

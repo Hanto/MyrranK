@@ -9,6 +9,7 @@ import com.myrran.domain.skills.custom.stat.NumUpgrades
 import com.myrran.domain.skills.custom.stat.StatId
 import com.myrran.domain.skills.custom.subskill.SubSkillSlot
 import com.myrran.domain.skills.custom.subskill.SubSkillSlotId
+import com.myrran.domain.skills.templates.buff.BuffSkillTemplate
 
 // BOOK
 //------------------------------------------------------------------------------------------------------------
@@ -85,6 +86,10 @@ class BuffSKillController(
     override fun upgrade(stat: StatId, numUpgrades: NumUpgrades) =
 
         book.upgrade(skillId, subSlotId, buffSlotId, stat, numUpgrades)
+
+    fun isOpenedBy(buffSkillTemplate: BuffSkillTemplate) =
+
+        book.isBuffSkillOpenedBy(skillId, subSlotId, buffSlotId, buffSkillTemplate)
 
     fun addBuffSkill(buffSkill: BuffSkill) {
 

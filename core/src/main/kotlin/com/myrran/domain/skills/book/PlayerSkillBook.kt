@@ -8,6 +8,7 @@ import com.myrran.domain.skills.custom.stat.NumUpgrades
 import com.myrran.domain.skills.custom.stat.StatId
 import com.myrran.domain.skills.custom.subskill.SubSkill
 import com.myrran.domain.skills.custom.subskill.SubSkillSlotId
+import com.myrran.domain.skills.templates.buff.BuffSkillTemplate
 import com.myrran.domain.skills.templates.buff.BuffSkillTemplateId
 import com.myrran.domain.skills.templates.skill.SkillTemplateId
 import com.myrran.domain.skills.templates.subskill.SubSkillTemplateId
@@ -95,6 +96,13 @@ data class PlayerSkillBook(
             learnedBuffSkills.returnBack(it.templateId)
         }
     }
+
+    // IS OPENED:
+    //--------------------------------------------------------------------------------------------------------
+
+    fun isBuffSkillOpenedBy(skillId: SkillId, subSkillSlotId: SubSkillSlotId, buffSkillSlotId: BuffSkillSlotId, buffSkillTemplate: BuffSkillTemplate): Boolean =
+
+        createdSkills[skillId]?.isBuffSkillOpenedBy(subSkillSlotId, buffSkillSlotId, buffSkillTemplate) ?: false
 
     // UPGRADE:
     //--------------------------------------------------------------------------------------------------------

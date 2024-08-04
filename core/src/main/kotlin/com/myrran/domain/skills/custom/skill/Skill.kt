@@ -20,6 +20,7 @@ import com.myrran.domain.skills.custom.subskill.SubSkillSlot
 import com.myrran.domain.skills.custom.subskill.SubSkillSlotContent
 import com.myrran.domain.skills.custom.subskill.SubSkillSlotId
 import com.myrran.domain.skills.custom.subskill.SubSkillSlots
+import com.myrran.domain.skills.templates.buff.BuffSkillTemplate
 import com.myrran.domain.skills.templates.skill.SkillTemplateId
 import com.myrran.domain.spells.spell.SkillType
 import com.myrran.domain.utils.observer.JavaObservable
@@ -74,6 +75,10 @@ data class Skill(
 
         slots.setBuffSkill(subSkillSlotId, buffSkillSlotId, buffSkill)
             .also { notify(BuffSkillChangedEvent(subSkillSlotId, buffSkillSlotId)) }
+
+    fun isBuffSkillOpenedBy(subSkillSlotId: SubSkillSlotId, buffSkillSlotId: BuffSkillSlotId, buffSkillTemplate: BuffSkillTemplate): Boolean =
+
+        slots.isBuffSkillOpenedBy(subSkillSlotId, buffSkillSlotId, buffSkillTemplate)
 
     // UPGRADES:
     //--------------------------------------------------------------------------------------------------------
