@@ -1,6 +1,6 @@
 [ {
   "id" : {
-    "value" : "bf92c781-f10c-44dc-89b9-97dd004f5334"
+    "value" : "5bd39c88-2911-41eb-a26b-ae4f9f5ef2cd"
   },
   "templateId" : {
     "value" : "FIREBOLT_1"
@@ -70,7 +70,7 @@
     },
     "content" : {
       "id" : {
-        "value" : "b05a0335-d92e-481c-a92b-14e8106e3a86"
+        "value" : "dafca67a-fa78-437e-bf82-b613ed20feaf"
       },
       "templateId" : {
         "value" : "EXPLOSION_1"
@@ -79,35 +79,37 @@
       "name" : {
         "value" : "Explosion"
       },
-      "stats" : [ {
-        "id" : {
-          "value" : "RADIUS"
-        },
-        "name" : {
-          "value" : "radius"
-        },
-        "baseBonus" : {
-          "value" : 10.0
-        },
-        "upgrades" : {
-          "actual" : {
-            "value" : 0
+      "stats" : {
+        "stats" : [ {
+          "id" : {
+            "value" : "RADIUS"
           },
-          "maximum" : {
-            "value" : 20
+          "name" : {
+            "value" : "radius"
+          },
+          "baseBonus" : {
+            "value" : 10.0
+          },
+          "upgrades" : {
+            "actual" : {
+              "value" : 0
+            },
+            "maximum" : {
+              "value" : 20
+            }
+          },
+          "upgradeCost" : {
+            "value" : 2.0
+          },
+          "bonusPerUpgrade" : {
+            "value" : 1.0
           }
-        },
-        "upgradeCost" : {
-          "value" : 2.0
-        },
-        "bonusPerUpgrade" : {
-          "value" : 1.0
-        }
-      } ],
+        } ]
+      },
       "slots" : {
         "buffSkills" : [ {
           "id" : {
-            "value" : "50c86171-5ed8-4ea1-a135-d4de8d7462c0"
+            "value" : "cf1cbfe4-3dfa-4501-8d24-936773e0c591"
           },
           "templateId" : {
             "value" : "FIRE_1"
@@ -116,159 +118,6 @@
           "name" : {
             "value" : "Fire"
           },
-          "stats" : {
-            "stats" : [ {
-              "id" : {
-                "value" : "DAMAGE"
-              },
-              "name" : {
-                "value" : "damage per tick"
-              },
-              "baseBonus" : {
-                "value" : 10.0
-              },
-              "upgrades" : {
-                "actual" : {
-                  "value" : 0
-                },
-                "maximum" : {
-                  "value" : 20
-                }
-              },
-              "upgradeCost" : {
-                "value" : 2.0
-              },
-              "bonusPerUpgrade" : {
-                "value" : 1.0
-              }
-            }, {
-              "id" : {
-                "value" : "DURATION"
-              },
-              "name" : {
-                "value" : "duration"
-              },
-              "baseBonus" : {
-                "value" : 10.0
-              },
-              "upgrades" : {
-                "actual" : {
-                  "value" : 0
-                },
-                "maximum" : {
-                  "value" : 20
-                }
-              },
-              "upgradeCost" : {
-                "value" : 2.0
-              },
-              "bonusPerUpgrade" : {
-                "value" : 1.0
-              }
-            } ]
-          },
-          "keys" : [ "GAMMA" ]
-        } ],
-        "buffSkillSlots" : [ {
-          "id" : {
-            "value" : "DEBUFF_1"
-          },
-          "name" : {
-            "value" : "Debuff 1"
-          },
-          "lock" : {
-            "openedBy" : [ "GAMMA", "EPSILON" ]
-          },
-          "content" : {
-            "id" : {
-              "value" : "50c86171-5ed8-4ea1-a135-d4de8d7462c0"
-            },
-            "templateId" : {
-              "value" : "FIRE_1"
-            },
-            "type" : "FIRE",
-            "name" : {
-              "value" : "Fire"
-            },
-            "stats" : {
-              "stats" : [ {
-                "id" : {
-                  "value" : "DAMAGE"
-                },
-                "name" : {
-                  "value" : "damage per tick"
-                },
-                "baseBonus" : {
-                  "value" : 10.0
-                },
-                "upgrades" : {
-                  "actual" : {
-                    "value" : 0
-                  },
-                  "maximum" : {
-                    "value" : 20
-                  }
-                },
-                "upgradeCost" : {
-                  "value" : 2.0
-                },
-                "bonusPerUpgrade" : {
-                  "value" : 1.0
-                }
-              }, {
-                "id" : {
-                  "value" : "DURATION"
-                },
-                "name" : {
-                  "value" : "duration"
-                },
-                "baseBonus" : {
-                  "value" : 10.0
-                },
-                "upgrades" : {
-                  "actual" : {
-                    "value" : 0
-                  },
-                  "maximum" : {
-                    "value" : 20
-                  }
-                },
-                "upgradeCost" : {
-                  "value" : 2.0
-                },
-                "bonusPerUpgrade" : {
-                  "value" : 1.0
-                }
-              } ]
-            },
-            "keys" : [ "GAMMA" ]
-          }
-        }, {
-          "id" : {
-            "value" : "DEBUFF_2"
-          },
-          "name" : {
-            "value" : "Debuff 2"
-          },
-          "lock" : {
-            "openedBy" : [ "GAMMA", "EPSILON" ]
-          },
-          "content" : { }
-        } ]
-      },
-      "keys" : [ "ALPHA" ],
-      "buffSkills" : [ {
-        "id" : {
-          "value" : "50c86171-5ed8-4ea1-a135-d4de8d7462c0"
-        },
-        "templateId" : {
-          "value" : "FIRE_1"
-        },
-        "type" : "FIRE",
-        "name" : {
-          "value" : "Fire"
-        },
-        "stats" : {
           "stats" : [ {
             "id" : {
               "value" : "DAMAGE"
@@ -317,32 +166,30 @@
             "bonusPerUpgrade" : {
               "value" : 1.0
             }
-          } ]
-        },
-        "keys" : [ "GAMMA" ]
-      } ],
-      "buffSkillSlots" : [ {
-        "id" : {
-          "value" : "DEBUFF_1"
-        },
-        "name" : {
-          "value" : "Debuff 1"
-        },
-        "lock" : {
-          "openedBy" : [ "GAMMA", "EPSILON" ]
-        },
-        "content" : {
+          } ],
+          "keys" : [ "GAMMA" ]
+        } ],
+        "buffSkillSlots" : [ {
           "id" : {
-            "value" : "50c86171-5ed8-4ea1-a135-d4de8d7462c0"
+            "value" : "DEBUFF_1"
           },
-          "templateId" : {
-            "value" : "FIRE_1"
-          },
-          "type" : "FIRE",
           "name" : {
-            "value" : "Fire"
+            "value" : "Debuff 1"
           },
-          "stats" : {
+          "lock" : {
+            "openedBy" : [ "GAMMA", "EPSILON" ]
+          },
+          "content" : {
+            "id" : {
+              "value" : "cf1cbfe4-3dfa-4501-8d24-936773e0c591"
+            },
+            "templateId" : {
+              "value" : "FIRE_1"
+            },
+            "type" : "FIRE",
+            "name" : {
+              "value" : "Fire"
+            },
             "stats" : [ {
               "id" : {
                 "value" : "DAMAGE"
@@ -391,8 +238,155 @@
               "bonusPerUpgrade" : {
                 "value" : 1.0
               }
-            } ]
+            } ],
+            "keys" : [ "GAMMA" ]
+          }
+        }, {
+          "id" : {
+            "value" : "DEBUFF_2"
           },
+          "name" : {
+            "value" : "Debuff 2"
+          },
+          "lock" : {
+            "openedBy" : [ "GAMMA", "EPSILON" ]
+          },
+          "content" : { }
+        } ]
+      },
+      "keys" : [ "ALPHA" ],
+      "buffSkills" : [ {
+        "id" : {
+          "value" : "cf1cbfe4-3dfa-4501-8d24-936773e0c591"
+        },
+        "templateId" : {
+          "value" : "FIRE_1"
+        },
+        "type" : "FIRE",
+        "name" : {
+          "value" : "Fire"
+        },
+        "stats" : [ {
+          "id" : {
+            "value" : "DAMAGE"
+          },
+          "name" : {
+            "value" : "damage per tick"
+          },
+          "baseBonus" : {
+            "value" : 10.0
+          },
+          "upgrades" : {
+            "actual" : {
+              "value" : 0
+            },
+            "maximum" : {
+              "value" : 20
+            }
+          },
+          "upgradeCost" : {
+            "value" : 2.0
+          },
+          "bonusPerUpgrade" : {
+            "value" : 1.0
+          }
+        }, {
+          "id" : {
+            "value" : "DURATION"
+          },
+          "name" : {
+            "value" : "duration"
+          },
+          "baseBonus" : {
+            "value" : 10.0
+          },
+          "upgrades" : {
+            "actual" : {
+              "value" : 0
+            },
+            "maximum" : {
+              "value" : 20
+            }
+          },
+          "upgradeCost" : {
+            "value" : 2.0
+          },
+          "bonusPerUpgrade" : {
+            "value" : 1.0
+          }
+        } ],
+        "keys" : [ "GAMMA" ]
+      } ],
+      "buffSkillSlots" : [ {
+        "id" : {
+          "value" : "DEBUFF_1"
+        },
+        "name" : {
+          "value" : "Debuff 1"
+        },
+        "lock" : {
+          "openedBy" : [ "GAMMA", "EPSILON" ]
+        },
+        "content" : {
+          "id" : {
+            "value" : "cf1cbfe4-3dfa-4501-8d24-936773e0c591"
+          },
+          "templateId" : {
+            "value" : "FIRE_1"
+          },
+          "type" : "FIRE",
+          "name" : {
+            "value" : "Fire"
+          },
+          "stats" : [ {
+            "id" : {
+              "value" : "DAMAGE"
+            },
+            "name" : {
+              "value" : "damage per tick"
+            },
+            "baseBonus" : {
+              "value" : 10.0
+            },
+            "upgrades" : {
+              "actual" : {
+                "value" : 0
+              },
+              "maximum" : {
+                "value" : 20
+              }
+            },
+            "upgradeCost" : {
+              "value" : 2.0
+            },
+            "bonusPerUpgrade" : {
+              "value" : 1.0
+            }
+          }, {
+            "id" : {
+              "value" : "DURATION"
+            },
+            "name" : {
+              "value" : "duration"
+            },
+            "baseBonus" : {
+              "value" : 10.0
+            },
+            "upgrades" : {
+              "actual" : {
+                "value" : 0
+              },
+              "maximum" : {
+                "value" : 20
+              }
+            },
+            "upgradeCost" : {
+              "value" : 2.0
+            },
+            "bonusPerUpgrade" : {
+              "value" : 1.0
+            }
+          } ],
           "keys" : [ "GAMMA" ]
         }
       }, {
