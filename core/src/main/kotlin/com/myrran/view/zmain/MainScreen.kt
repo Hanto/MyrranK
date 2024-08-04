@@ -11,7 +11,6 @@ import com.myrran.badlogic.DaD
 import com.myrran.controller.DragAndDropManager
 import com.myrran.controller.SkillController
 import com.myrran.domain.skills.book.PlayerSkillBook
-import com.myrran.domain.skills.book.WorldSkillBook
 import com.myrran.domain.skills.custom.buff.BuffSkillName
 import com.myrran.domain.skills.custom.buff.BuffSkillSlotId
 import com.myrran.domain.skills.custom.buff.BuffSkillSlotName
@@ -43,7 +42,10 @@ import com.myrran.domain.spells.spell.SkillType
 import com.myrran.domain.spells.subspell.SubSkillType
 import com.myrran.domain.utils.DeSerializer
 import com.myrran.domain.utils.QuantityMap
+import com.myrran.infraestructure.BuffSkillTemplateRepository
 import com.myrran.infraestructure.Repository
+import com.myrran.infraestructure.SkillTemplateRepository
+import com.myrran.infraestructure.SubSkillTemplateRepository
 import com.myrran.infraestructure.adapters.SkillAdapter
 import com.myrran.infraestructure.adapters.SkillBookAdapter
 import com.myrran.infraestructure.adapters.SkillTemplateAdapter
@@ -67,10 +69,12 @@ class MainScreen(
             skillTemplateAdapter = SkillTemplateAdapter()),
         deSerializer =  DeSerializer()),
 
-    private val worldSkillBook: WorldSkillBook = repository.loadSkillBook(),
-
 ): KtxScreen
 {
+    private val buffSkillTemplateRepository: BuffSkillTemplateRepository
+    private val subSkillTemplateRepository: SubSkillTemplateRepository
+    private val skillTemplateRepository: SkillTemplateRepository
+
     private val fpsText: TextView<String>
     private val boltSkill: Skill
 
@@ -86,6 +90,11 @@ class MainScreen(
         atlas.load(initialAssets)
         atlas.finishLoading()
 
+        val deSerializer = DeSerializer()
+        val skillTemplateAdapter = SkillTemplateAdapter()
+        buffSkillTemplateRepository = BuffSkillTemplateRepository(skillTemplateAdapter, deSerializer)
+        subSkillTemplateRepository = SubSkillTemplateRepository(skillTemplateAdapter, deSerializer)
+        skillTemplateRepository = SkillTemplateRepository(skillTemplateAdapter, deSerializer)
 
 
         fpsText = TextView("FPS: ?", atlas.getFont("20.fnt"), shadowTickness = 2f, formater = {it.toString()})

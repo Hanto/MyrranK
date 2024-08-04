@@ -12,6 +12,7 @@ import com.myrran.domain.skills.custom.subskill.SubSkillSlotContent.NoSubSkill
 import com.myrran.domain.skills.templates.Lock
 import com.myrran.domain.skills.templates.LockI
 import com.myrran.domain.skills.templates.buff.BuffSkillTemplate
+import com.myrran.domain.skills.templates.subskill.SubSkillTemplate
 import kotlin.reflect.KClass
 
 data class SubSkillSlot(
@@ -37,6 +38,10 @@ data class SubSkillSlot(
             true -> content = subSkill
             false -> Unit
         }
+
+    fun isSubSkillOpenedBy(subSkillTemplate: SubSkillTemplate): Boolean =
+
+        lock.isOpenedBy(subSkillTemplate.keys)
 
     // BUFFKILLS:
     //--------------------------------------------------------------------------------------------------------

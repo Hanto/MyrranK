@@ -7,6 +7,7 @@ import com.myrran.domain.skills.custom.stat.NumUpgrades
 import com.myrran.domain.skills.custom.stat.StatId
 import com.myrran.domain.skills.custom.stat.UpgradeCost
 import com.myrran.domain.skills.templates.buff.BuffSkillTemplate
+import com.myrran.domain.skills.templates.subskill.SubSkillTemplate
 
 data class SubSkillSlots(
 
@@ -31,6 +32,10 @@ data class SubSkillSlots(
     fun setSubSkill(subSkillSlotId: SubSkillSlotId, subSkill: SubSkill) =
 
         slotMap[subSkillSlotId]?.setSubSkill(subSkill)
+
+    fun isSubSkillOpenedBy(subSkillSlotId: SubSkillSlotId, subSkillTemplate: SubSkillTemplate): Boolean =
+
+        slotMap[subSkillSlotId]?.isSubSkillOpenedBy(subSkillTemplate) ?: false
 
     // BUFFKILLS:
     //--------------------------------------------------------------------------------------------------------

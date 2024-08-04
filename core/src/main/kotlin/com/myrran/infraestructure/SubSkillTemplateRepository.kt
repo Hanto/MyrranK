@@ -5,7 +5,6 @@ import com.myrran.domain.skills.templates.subskill.SubSkillTemplate
 import com.myrran.domain.skills.templates.subskill.SubSkillTemplateId
 import com.myrran.domain.utils.DeSerializer
 import com.myrran.infraestructure.adapters.SkillTemplateAdapter
-import com.myrran.infraestructure.entities.SubSkillTemplateEntity
 
 class SubSkillTemplateRepository(
 

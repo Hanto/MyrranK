@@ -1,5 +1,10 @@
 package com.myrran.infraestructure.entities
 
+import com.myrran.infraestructure.BuffSKillTemplateEntity
+import com.myrran.infraestructure.SkillEntity
+import com.myrran.infraestructure.SkillTemplateEntity
+import com.myrran.infraestructure.SubSkillTemplateEntity
+
 data class PlayerSkillBookEntity(
     val learnedSkills: List<LearnedEntity>,
     val learnedSubSKills: List<LearnedEntity>,

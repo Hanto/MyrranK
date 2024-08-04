@@ -34,12 +34,12 @@ import com.myrran.domain.skills.templates.Lock
 import com.myrran.domain.skills.templates.buff.BuffSkillTemplateId
 import com.myrran.domain.skills.templates.skill.SkillTemplateId
 import com.myrran.domain.skills.templates.subskill.SubSkillTemplateId
-import com.myrran.infraestructure.entities.BuffSKillSlotEntity
-import com.myrran.infraestructure.entities.BuffSkillEntity
-import com.myrran.infraestructure.entities.SkillEntity
-import com.myrran.infraestructure.entities.StatEntity
-import com.myrran.infraestructure.entities.SubSkillEntity
-import com.myrran.infraestructure.entities.SubSkillSlotEntity
+import com.myrran.infraestructure.BuffSKillSlotEntity
+import com.myrran.infraestructure.BuffSkillEntity
+import com.myrran.infraestructure.SkillEntity
+import com.myrran.infraestructure.StatEntity
+import com.myrran.infraestructure.SubSkillEntity
+import com.myrran.infraestructure.SubSkillSlotEntity
 import java.util.UUID
 
 class SkillAdapter

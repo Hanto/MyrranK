@@ -5,13 +5,11 @@ import com.myrran.domain.skills.templates.buff.BuffSkillTemplate
 import com.myrran.domain.skills.templates.buff.BuffSkillTemplateId
 import com.myrran.domain.utils.DeSerializer
 import com.myrran.infraestructure.adapters.SkillTemplateAdapter
-import com.myrran.infraestructure.entities.BuffSKillTemplateEntity
 
 class BuffSkillTemplateRepository(
 
     private val skillTemplateAdapter: SkillTemplateAdapter,
     private val deSerializer: DeSerializer
-
 )
 {
     private val buffSkillTemplates: Map<BuffSkillTemplateId, BuffSkillTemplate>
