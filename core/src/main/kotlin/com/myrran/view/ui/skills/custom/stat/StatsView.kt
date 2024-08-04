@@ -19,7 +19,7 @@ class StatsView(
 
 ): Table(), Observer
 {
-    private var statList = statsRetriever.invoke().map { StatView(observable, it, assets, controller) }
+    private var statList: Collection<StatView> = statsRetriever.invoke().map { StatView(observable, it, assets, controller) }
 
     init {
 

@@ -11,8 +11,8 @@ import com.myrran.view.ui.skills.assets.SkillViewAssets
 
 class BuffTemplateHeaderView(
 
-    val buff: BuffSkillTemplate,
-    val assets: SkillViewAssets,
+    private val buff: BuffSkillTemplate,
+    private val assets: SkillViewAssets,
 
     ): Table()
 {

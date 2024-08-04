@@ -49,9 +49,8 @@ import com.myrran.infraestructure.adapters.SkillBookAdapter
 import com.myrran.infraestructure.adapters.SkillTemplateAdapter
 import com.myrran.view.atlas.Atlas
 import com.myrran.view.ui.misc.TextView
+import com.myrran.view.ui.skills.SkillViewFactory
 import com.myrran.view.ui.skills.assets.SkillViewAssets
-import com.myrran.view.ui.skills.custom.skill.SkillView
-import com.myrran.view.ui.skills.templates.BuffTemplateView
 import ktx.app.KtxScreen
 
 class MainScreen(
@@ -132,7 +131,7 @@ class MainScreen(
                     id = SubSkillSlotId("TRAIL"),
                     name = SubSkillSlotName("Trail"),
                     lock = Lock(listOf(LockType.ALPHA, LockType.BETA))
-                )
+                ),
             )
         )
 
@@ -159,7 +158,12 @@ class MainScreen(
                 BuffSkillSlotTemplate(
                     id = BuffSkillSlotId("DEBUFF_2"),
                     name = BuffSkillSlotName("Debuff 2"),
-                    lock = Lock(listOf(LockType.C, LockType.C)),
+                    lock = Lock(listOf(LockType.A, LockType.C)),
+                ),
+                BuffSkillSlotTemplate(
+                    id = BuffSkillSlotId("DEBUFF_3"),
+                    name = BuffSkillSlotName("Debuff 3"),
+                    lock = Lock(listOf(LockType.A, LockType.B, LockType.D, LockType.E)),
                 )
             ),
             keys = listOf(LockType.BETA, LockType.GAMMA)
@@ -200,7 +204,7 @@ class MainScreen(
                     baseBonus = StatBonus(10.0f),
                 )
             ),
-            keys = listOf(LockType.A, LockType.C, LockType.B, LockType.E, LockType.D)
+            keys = listOf(LockType.A, LockType.B, LockType.E, LockType.D)
         )
 
         boltSkill = bolt.toSkill()
@@ -213,8 +217,8 @@ class MainScreen(
         playerSkillBook.learn(explosion.id)
         playerSkillBook.addSubSkillTo(boltSkill.id, SubSkillSlotId("IMPACT"), explosionSkill)
         playerSkillBook.learn(fire.id)
-        playerSkillBook.addBuffSKillTo(boltSkill.id, SubSkillSlotId("IMPACT"), BuffSkillSlotId("DEBUFF_1"), fireBuff)
-        playerSkillBook.upgrade(boltSkill.id, StatId("1:SPEED"), NumUpgrades(15))
+        //playerSkillBook.addBuffSKillTo(boltSkill.id, SubSkillSlotId("IMPACT"), BuffSkillSlotId("DEBUFF_1"), fireBuff)
+        //playerSkillBook.upgrade(boltSkill.id, StatId("1:SPEED"), NumUpgrades(15))
 
         val controller = SkillController(boltSkill.id, playerSkillBook, DragAndDropManager(DragAndDrop()))
 
@@ -231,11 +235,14 @@ class MainScreen(
             statBarFront = atlas.getTextureRegion("Atlas.atlas", "TexturasMisc/CasillaTalento"),
         )
 
-        val skillView = SkillView(boltSkill, assets, controller)
+        val dragAndDropManager = DragAndDropManager(DragAndDrop(), mutableMapOf())
+        val skillViewFactory = SkillViewFactory(dragAndDropManager, assets)
+
+        val skillView = skillViewFactory.createSkillView(boltSkill, controller)
         uiStage.addActor(skillView)
         skillView.setPosition(200f, 100f)
 
-        val templateView = BuffTemplateView(fire, assets, controller)
+        val templateView = skillViewFactory.createBuffTemplateView(fire)
         uiStage.addActor(templateView)
         templateView.setPosition(50f, 50f)
 

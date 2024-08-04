@@ -5,25 +5,30 @@ import com.badlogic.gdx.scenes.scene2d.ui.Container
 import com.badlogic.gdx.scenes.scene2d.ui.Table
 import com.badlogic.gdx.utils.Disposable
 import com.myrran.controller.SkillController
+import com.myrran.domain.Identifiable
 import com.myrran.domain.skills.custom.skill.Skill
 import com.myrran.view.ui.misc.ActorClickListener
 import com.myrran.view.ui.misc.ActorMoveListener
+import com.myrran.view.ui.skills.SkillViewFactory
+import com.myrran.view.ui.skills.SkillViewId
 import com.myrran.view.ui.skills.assets.SkillViewAssets
 import com.myrran.view.ui.skills.custom.stat.StatsView
 import com.myrran.view.ui.skills.custom.subskill.SubSkillSlotView
 
 class SkillView(
 
-    private val skill: Skill,
+    override val id: SkillViewId,
+    private val model: Skill,
     assets: SkillViewAssets,
     controller: SkillController,
+    factory: SkillViewFactory,
 
-): Container<Table>(), Disposable
+): Container<Table>(), Identifiable<SkillViewId>, Disposable
 {
-    private val skillHeader = SkillHeader(skill, skill, assets)
-    private val skillStats = StatsView( skill, { skill.getStats() }, assets, controller)
-    private val subSlots = skill.getSubSkillSlots()
-        .map { SubSkillSlotView(skill, it, assets, controller.toSubSkillController(it)) }
+    private val skillHeader: SkillHeader = SkillHeader(model, model, assets)
+    private val skillStats: StatsView = StatsView( model, { model.getStats() }, assets, controller)
+    private val subSlots: Collection<SubSkillSlotView> = model.getSubSkillSlots()
+        .map { SubSkillSlotView(model, it, assets, controller.toSubSkillController(it), factory) }
 
     // LAYOUT:
     //--------------------------------------------------------------------------------------------------------
@@ -53,5 +58,5 @@ class SkillView(
 
     override fun dispose() =
 
-        skill.removeAllObservers()
+        model.removeAllObservers()
 }

@@ -7,6 +7,7 @@ import com.myrran.domain.skills.custom.subskill.SubSkill
 import com.myrran.domain.skills.custom.subskill.SubSkillSlot
 import com.myrran.domain.skills.custom.subskill.SubSkillSlotContent.NoSubSkill
 import com.myrran.domain.utils.observer.Observable
+import com.myrran.view.ui.skills.SkillViewFactory
 import com.myrran.view.ui.skills.assets.SkillViewAssets
 import com.myrran.view.ui.skills.custom.buff.BuffSkillSlotView
 import com.myrran.view.ui.skills.custom.stat.StatsView
@@ -16,13 +17,14 @@ class SubSkillSlotView(
     private val observable: Observable,
     private val subSkillSlot: SubSkillSlot,
     private val assets: SkillViewAssets,
-    private val controller: SubSkillController
+    private val controller: SubSkillController,
+    private val factory: SkillViewFactory,
 
 ): Table()
 {
-    private val subSlotKeyView = SubSlotKeyView(observable, subSkillSlot, assets)
-    private var stats = StatsView( observable, { getStats() }, assets, controller)
-    private var buffSkillSlotViews = getBuffSkillSLotViews()
+    private val subSlotKeyView: SubSlotKeyView = SubSlotKeyView(observable, subSkillSlot, assets)
+    private var stats: StatsView = StatsView( observable, { getStats() }, assets, controller)
+    private var buffSkillSlotViews: Collection<BuffSkillSlotView> = getBuffSkillSlotViews()
 
     // LAYOUT:
     //--------------------------------------------------------------------------------------------------------
@@ -50,12 +52,12 @@ class SubSkillSlotView(
     // HELPER:
     //--------------------------------------------------------------------------------------------------------
 
-    private fun getBuffSkillSLotViews(): List<BuffSkillSlotView> =
+    private fun getBuffSkillSlotViews(): List<BuffSkillSlotView> =
 
         when (val subSkill = subSkillSlot.content) {
 
             is NoSubSkill -> emptyList()
-            is SubSkill -> subSkill.getBuffSkillSlots().map { BuffSkillSlotView(observable, it, assets, controller.toBuffSkillController(it)) }
+            is SubSkill -> subSkill.getBuffSkillSlots().map { factory.createBuffSlotView(observable, it, controller.toBuffSkillController(it)) }
         }
 
     private fun getStats(): Collection<Stat> =
