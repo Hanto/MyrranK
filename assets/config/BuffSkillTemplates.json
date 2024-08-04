@@ -6,7 +6,7 @@
         "stats": [
             {
                 "id": "DAMAGE",
-                "name": "damage per second",
+                "name": "damage per tick",
                 "baseBonus": 10.0,
                 "maximum": 20,
                 "upgradeCost": 2.0,

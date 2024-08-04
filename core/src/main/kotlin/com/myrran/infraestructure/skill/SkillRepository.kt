@@ -2,6 +2,7 @@ package com.myrran.infraestructure.skill
 
 import com.badlogic.gdx.Gdx
 import com.myrran.domain.skills.custom.skill.Skill
+import com.myrran.domain.skills.custom.skill.SkillId
 import com.myrran.domain.utils.DeSerializer
 
 class SkillRepository(
@@ -10,10 +11,45 @@ class SkillRepository(
     private val deSerializer: DeSerializer
 )
 {
-    // MAIN
+    private var createdSkills: MutableMap<SkillId, Skill>
+
+    init {
+
+        createdSkills = loadSkills().associateBy { it.id }.toMutableMap()
+    }
+
+    // MAIN:
     //--------------------------------------------------------------------------------------------------------
 
+    fun findSkillById(skillId: SkillId): Skill? =
+
+        createdSkills[skillId]
+
     fun findSkills(): Collection<Skill> =
+
+        createdSkills.values
+
+    fun saveSkill(skill: Skill) {
+
+        createdSkills[skill.id] = skill
+
+        val skills = loadSkills() + skill
+        val json = deSerializer.serialize(skills)
+        Gdx.files.local("Skill.json").writeString(json, false)
+    }
+
+    fun saveSkills(skills: Collection<Skill>) {
+
+        createdSkills = skills.associateBy { it.id }.toMutableMap()
+
+        val json = deSerializer.serialize(createdSkills)
+        Gdx.files.local("Skill.json").writeString(json, false)
+    }
+
+    // HELPER:
+    //--------------------------------------------------------------------------------------------------------
+
+    private fun loadSkills(): Collection<Skill> =
 
         runCatching {
 
@@ -22,17 +58,4 @@ class SkillRepository(
             entities.map { skillAdapter.toDomain(it) }
 
         }.getOrElse { emptyList() }
-
-    fun saveSkill(skill: Skill) {
-
-        val skills = findSkills() + skill
-        val json = deSerializer.serialize(skills)
-        Gdx.files.local("Skill.json").writeString(json, false)
-    }
-
-    fun saveSkills(skills: Collection<Skill>) {
-
-        val json = deSerializer.serialize(skills)
-        Gdx.files.local("Skill.json").writeString(json, false)
-    }
 }

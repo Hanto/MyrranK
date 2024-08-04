@@ -47,9 +47,13 @@ data class SubSkill(
 
         slots.getBuffSkill(buffSkillSlotId)
 
-    fun removeBuffSkill(buffSkillSlotId: BuffSkillSlotId): BuffSkillSlotContent =
+    fun removeBuffSkill(buffSkillSlotId: BuffSkillSlotId): BuffSkillSlotContent? =
 
         slots.removeBuffSkill(buffSkillSlotId)
+
+    fun removeAllBuffSkills(): Collection<BuffSkillSlotContent> =
+
+        slots.removeAllBuffSkills()
 
     fun setBuffSkill(buffSkillSlotId: BuffSkillSlotId, buffSkill: BuffSkill) =
 

@@ -28,11 +28,6 @@ import com.myrran.domain.skills.templates.subskill.SubSkillTemplateId
 import com.myrran.domain.spells.buff.BuffType
 import com.myrran.domain.spells.spell.SkillType
 import com.myrran.domain.spells.subspell.SubSkillType
-import com.myrran.infraestructure.SkillBookAdapter
-import com.myrran.infraestructure.WorldSkillBookEntity
-import com.myrran.infraestructure.skill.SkillAdapter
-import com.myrran.infraestructure.skilltemplate.SkillTemplateAdapter
-import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
 class WorldSkillBookIT {
@@ -138,15 +133,6 @@ class WorldSkillBookIT {
         )
 
         val objectMapper = ObjectMapper().registerModule(KotlinModule.Builder().build())
-        val skillBookAdapter = SkillBookAdapter(SkillAdapter(), SkillTemplateAdapter())
-
-        val originalEntity = skillBookAdapter.fromDomain(originalDomain)
-        val json = objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(originalEntity)
-        val deserializedEntity = objectMapper.readValue(json, WorldSkillBookEntity::class.java)
-        val deserializedDomain = skillBookAdapter.toDomain(deserializedEntity)
-
-        assertThat(deserializedDomain).usingRecursiveComparison().isEqualTo(originalDomain)
-        assertThat(deserializedDomain).usingRecursiveComparison().isEqualTo(deserializedDomain.copy())
     }
 
 

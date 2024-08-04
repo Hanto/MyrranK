@@ -29,6 +29,10 @@ data class SubSkillSlots(
 
         slotMap[subSkillSlotId]?.removeSubSkill()
 
+    fun removeAllSubSkills(): Collection<SubSkillSlotContent> =
+
+        slotMap.values.mapNotNull { removeSubSkill(it.id) }
+
     fun setSubSkill(subSkillSlotId: SubSkillSlotId, subSkill: SubSkill) =
 
         slotMap[subSkillSlotId]?.setSubSkill(subSkill)
@@ -47,6 +51,10 @@ data class SubSkillSlots(
     fun removeBuffSKill(subSkillSlotId: SubSkillSlotId, buffSkillSlotId: BuffSkillSlotId): BuffSkillSlotContent? =
 
         slotMap[subSkillSlotId]?.removeBuffSkill(buffSkillSlotId)
+
+    fun removeAllBuffSkills(): Collection<BuffSkillSlotContent> =
+
+        slotMap.values.flatMap { it.removeAllBuffSkills() }
 
     fun setBuffSkill(subSkillSlotId: SubSkillSlotId, buffSkillSlotId: BuffSkillSlotId, buffSkill: BuffSkill) =
 

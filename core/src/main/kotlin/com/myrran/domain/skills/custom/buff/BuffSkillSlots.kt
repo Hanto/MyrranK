@@ -25,9 +25,13 @@ data class BuffSkillSlots(
 
         slotMap.values.map { it.content }.filterIsInstance<BuffSkill>()
 
-    fun removeBuffSkill(buffSkillSlotId: BuffSkillSlotId): BuffSkillSlotContent =
+    fun removeBuffSkill(buffSkillSlotId: BuffSkillSlotId): BuffSkillSlotContent? =
 
-        slotMap[buffSkillSlotId]?.removeBuffSkill()!!
+        slotMap[buffSkillSlotId]?.removeBuffSkill()
+
+    fun removeAllBuffSkills(): Collection<BuffSkillSlotContent> =
+
+        slotMap.values.mapNotNull { removeBuffSkill(it.id) }
 
     fun setBuffSkill(buffSkillSlotId: BuffSkillSlotId, buffSkill: BuffSkill) =
 

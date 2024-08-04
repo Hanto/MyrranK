@@ -1,7 +1,6 @@
 package com.myrran.controller
 
 import com.myrran.domain.skills.book.PlayerSkillBook
-import com.myrran.domain.skills.custom.buff.BuffSkill
 import com.myrran.domain.skills.custom.buff.BuffSkillSlot
 import com.myrran.domain.skills.custom.buff.BuffSkillSlotId
 import com.myrran.domain.skills.custom.skill.SkillId
@@ -91,9 +90,9 @@ class BuffSKillController(
 
         book.isBuffSkillOpenedBy(skillId, subSlotId, buffSlotId, buffSkillTemplate)
 
-    fun addBuffSkill(buffSkill: BuffSkill) {
+    fun addBuffSkill(buffSkillTemplate: BuffSkillTemplate) {
 
-        book.addBuffSKillTo(skillId, subSlotId, buffSlotId, buffSkill)
+        book.addBuffSKillTo(skillId, subSlotId, buffSlotId, buffSkillTemplate.id)
     }
 }
 

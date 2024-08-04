@@ -58,6 +58,10 @@ data class SubSkillSlot(
 
         content.ifIs(SubSkill::class)?.setBuffSkill(buffSkillSlotId, buffSkill)
 
+    fun removeAllBuffSkills(): Collection<BuffSkillSlotContent> =
+
+        content.ifIs(SubSkill::class)?.removeAllBuffSkills() ?: emptyList()
+
     fun isBuffSkillOpenedBy(buffSkillSlotId: BuffSkillSlotId, buffSkillTemplate: BuffSkillTemplate): Boolean =
 
         content.ifIs(SubSkill::class)?.isOpenedBy(buffSkillSlotId, buffSkillTemplate) ?: false

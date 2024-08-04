@@ -55,12 +55,16 @@ data class Skill(
         slots.removeSubSkill(subSkillSlotId)
             .also { notify(SubSkillChangedEvent(subSkillSlotId)) }
 
+    fun removeAllSubSkills(): Collection<SubSkillSlotContent> =
+
+        slots.removeAllSubSkills()
+
     fun setSubSkill(subSkillSlotId: SubSkillSlotId, subSkill: SubSkill) =
 
         slots.setSubSkill(subSkillSlotId, subSkill)
             .also { notify(SubSkillChangedEvent(subSkillSlotId)) }
 
-    fun isSubFkillOpenedBy(subSkillSlotId: SubSkillSlotId, subSkillTemplate: SubSkillTemplate): Boolean =
+    fun isSubSkillOpenedBy(subSkillSlotId: SubSkillSlotId, subSkillTemplate: SubSkillTemplate): Boolean =
 
         slots.isSubSkillOpenedBy(subSkillSlotId, subSkillTemplate)
 
@@ -75,6 +79,10 @@ data class Skill(
 
         slots.removeBuffSKill(subSkillSlotId, buffSkillSlotId)
             .also { notify(BuffSkillChangedEvent(subSkillSlotId, buffSkillSlotId)) }
+
+    fun removeAllBuffSkills(): Collection<BuffSkillSlotContent> =
+
+        slots.removeAllBuffSkills()
 
     fun setBuffSkill(subSkillSlotId: SubSkillSlotId, buffSkillSlotId: BuffSkillSlotId, buffSkill: BuffSkill) =
 

@@ -27,9 +27,8 @@ class BuffDaDTarget(
     override fun drop(source: Source, payload: Payload, x: Float, y: Float, pointer: Int) {
 
         val template = payload.`object` as BuffSkillTemplate
-        val subSkill = template.toBuffSkill()
 
-        controller.addBuffSkill(subSkill)
+        controller.addBuffSkill(template)
     }
 
     override fun notifyNewPayload(payload: Payload) =
