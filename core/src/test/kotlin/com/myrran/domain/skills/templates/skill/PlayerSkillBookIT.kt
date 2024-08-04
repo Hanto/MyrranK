@@ -30,10 +30,10 @@ import com.myrran.domain.spells.buff.BuffType
 import com.myrran.domain.spells.spell.SkillType
 import com.myrran.domain.spells.subspell.SubSkillType
 import com.myrran.domain.utils.QuantityMap
-import com.myrran.infraestructure.adapters.SkillAdapter
-import com.myrran.infraestructure.adapters.SkillBookAdapter
-import com.myrran.infraestructure.adapters.SkillTemplateAdapter
-import com.myrran.infraestructure.entities.PlayerSkillBookEntity
+import com.myrran.infraestructure.PlayerSkillBookEntity
+import com.myrran.infraestructure.SkillBookAdapter
+import com.myrran.infraestructure.skill.SkillAdapter
+import com.myrran.infraestructure.skilltemplate.SkillTemplateAdapter
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 

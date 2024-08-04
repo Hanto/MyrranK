@@ -4,7 +4,8 @@ import com.badlogic.gdx.Gdx
 import com.myrran.domain.skills.templates.buff.BuffSkillTemplate
 import com.myrran.domain.skills.templates.buff.BuffSkillTemplateId
 import com.myrran.domain.utils.DeSerializer
-import com.myrran.infraestructure.adapters.SkillTemplateAdapter
+import com.myrran.infraestructure.skilltemplate.BuffSKillTemplateEntity
+import com.myrran.infraestructure.skilltemplate.SkillTemplateAdapter
 
 class BuffSkillTemplateRepository(
 

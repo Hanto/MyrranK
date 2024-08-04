@@ -1,4 +1,4 @@
-package com.myrran.infraestructure
+package com.myrran.infraestructure.skilltemplate
 
 import com.myrran.domain.skills.templates.LockType
 import com.myrran.domain.spells.buff.BuffType

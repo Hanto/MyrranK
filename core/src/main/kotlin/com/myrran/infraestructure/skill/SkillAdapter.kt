@@ -1,4 +1,4 @@
-package com.myrran.infraestructure.adapters
+package com.myrran.infraestructure.skill
 
 import com.myrran.domain.skills.custom.buff.BuffSkill
 import com.myrran.domain.skills.custom.buff.BuffSkillId
@@ -34,12 +34,6 @@ import com.myrran.domain.skills.templates.Lock
 import com.myrran.domain.skills.templates.buff.BuffSkillTemplateId
 import com.myrran.domain.skills.templates.skill.SkillTemplateId
 import com.myrran.domain.skills.templates.subskill.SubSkillTemplateId
-import com.myrran.infraestructure.BuffSKillSlotEntity
-import com.myrran.infraestructure.BuffSkillEntity
-import com.myrran.infraestructure.SkillEntity
-import com.myrran.infraestructure.StatEntity
-import com.myrran.infraestructure.SubSkillEntity
-import com.myrran.infraestructure.SubSkillSlotEntity
 import java.util.UUID
 
 class SkillAdapter

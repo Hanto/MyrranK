@@ -4,7 +4,8 @@ import com.badlogic.gdx.Gdx
 import com.myrran.domain.skills.templates.subskill.SubSkillTemplate
 import com.myrran.domain.skills.templates.subskill.SubSkillTemplateId
 import com.myrran.domain.utils.DeSerializer
-import com.myrran.infraestructure.adapters.SkillTemplateAdapter
+import com.myrran.infraestructure.skilltemplate.SkillTemplateAdapter
+import com.myrran.infraestructure.skilltemplate.SubSkillTemplateEntity
 
 class SubSkillTemplateRepository(
 

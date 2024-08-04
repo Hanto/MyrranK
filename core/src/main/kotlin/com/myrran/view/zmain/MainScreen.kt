@@ -42,13 +42,11 @@ import com.myrran.domain.spells.spell.SkillType
 import com.myrran.domain.spells.subspell.SubSkillType
 import com.myrran.domain.utils.DeSerializer
 import com.myrran.domain.utils.QuantityMap
-import com.myrran.infraestructure.BuffSkillTemplateRepository
 import com.myrran.infraestructure.Repository
-import com.myrran.infraestructure.SkillTemplateRepository
-import com.myrran.infraestructure.SubSkillTemplateRepository
-import com.myrran.infraestructure.adapters.SkillAdapter
-import com.myrran.infraestructure.adapters.SkillBookAdapter
-import com.myrran.infraestructure.adapters.SkillTemplateAdapter
+import com.myrran.infraestructure.SkillBookAdapter
+import com.myrran.infraestructure.skill.SkillAdapter
+import com.myrran.infraestructure.skilltemplate.SkillTemplateAdapter
+import com.myrran.infraestructure.skilltemplate.SkillTemplateRepository
 import com.myrran.view.atlas.Atlas
 import com.myrran.view.ui.misc.TextView
 import com.myrran.view.ui.skills.SkillViewFactory
@@ -66,13 +64,12 @@ class MainScreen(
     private val repository: Repository = Repository(
         skillBookAdapter = SkillBookAdapter(
             skillAdapter = SkillAdapter(),
-            skillTemplateAdapter = SkillTemplateAdapter()),
+            skillTemplateAdapter = SkillTemplateAdapter()
+        ),
         deSerializer =  DeSerializer()),
 
 ): KtxScreen
 {
-    private val buffSkillTemplateRepository: BuffSkillTemplateRepository
-    private val subSkillTemplateRepository: SubSkillTemplateRepository
     private val skillTemplateRepository: SkillTemplateRepository
 
     private val fpsText: TextView<String>
@@ -92,8 +89,6 @@ class MainScreen(
 
         val deSerializer = DeSerializer()
         val skillTemplateAdapter = SkillTemplateAdapter()
-        buffSkillTemplateRepository = BuffSkillTemplateRepository(skillTemplateAdapter, deSerializer)
-        subSkillTemplateRepository = SubSkillTemplateRepository(skillTemplateAdapter, deSerializer)
         skillTemplateRepository = SkillTemplateRepository(skillTemplateAdapter, deSerializer)
 
 

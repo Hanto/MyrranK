@@ -3,8 +3,6 @@ package com.myrran.infraestructure
 import com.badlogic.gdx.Gdx
 import com.myrran.domain.skills.book.WorldSkillBook
 import com.myrran.domain.utils.DeSerializer
-import com.myrran.infraestructure.adapters.SkillBookAdapter
-import com.myrran.infraestructure.entities.WorldSkillBookEntity
 import com.myrran.view.atlas.AssetsCollection
 
 class Repository(

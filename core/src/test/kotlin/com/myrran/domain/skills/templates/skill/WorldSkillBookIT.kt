@@ -28,10 +28,10 @@ import com.myrran.domain.skills.templates.subskill.SubSkillTemplateId
 import com.myrran.domain.spells.buff.BuffType
 import com.myrran.domain.spells.spell.SkillType
 import com.myrran.domain.spells.subspell.SubSkillType
-import com.myrran.infraestructure.adapters.SkillAdapter
-import com.myrran.infraestructure.adapters.SkillBookAdapter
-import com.myrran.infraestructure.adapters.SkillTemplateAdapter
-import com.myrran.infraestructure.entities.WorldSkillBookEntity
+import com.myrran.infraestructure.SkillBookAdapter
+import com.myrran.infraestructure.WorldSkillBookEntity
+import com.myrran.infraestructure.skill.SkillAdapter
+import com.myrran.infraestructure.skilltemplate.SkillTemplateAdapter
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
