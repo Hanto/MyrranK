@@ -247,6 +247,7 @@ class MainScreen(
         templateView.setPosition(50f, 50f)
 
 
+
         //skillView.setDebug(true, true)
         //templateView.setDebug(true, true)
         //uiStage.setDebugUnderMouse(true)

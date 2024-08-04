@@ -1,12 +1,20 @@
 [
     {
-        "id": "EXPLOSION_1",
-        "type": "EXPLOSION",
-        "name": "Explosion",
+        "id": "FIREBOLT_1",
+        "type": "BOLT",
+        "name": "Fire bolt",
         "stats": [
             {
-                "id": "RADIUS",
-                "name": "radius",
+                "id": "SPEED",
+                "name": "speed",
+                "baseBonus": 10.0,
+                "maximum": 20,
+                "upgradeCost": 2.0,
+                "bonusPerUpgrade": 1.0
+            },
+            {
+                "id": "Cooldown",
+                "name": "cooldown",
                 "baseBonus": 10.0,
                 "maximum": 20,
                 "upgradeCost": 2.0,
@@ -15,24 +23,21 @@
         ],
         "slots": [
             {
-                "id": "DEBUFF_1",
-                "name": "Debuff 1",
+                "id": "IMPACT",
+                "name": "impact",
                 "lock": [
-                    "GAMMA",
-                    "EPSILON"
+                    "ALPHA",
+                    "BETA"
                 ]
             },
             {
-                "id": "DEBUFF_2",
-                "name": "Debuff 2",
+                "id": "TRAIL",
+                "name": "trail",
                 "lock": [
-                    "GAMMA",
-                    "EPSILON"
+                    "ALPHA",
+                    "BETA"
                 ]
             }
-        ],
-        "keys": [
-            "ALPHA"
         ]
     }
 ]

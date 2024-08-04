@@ -1,0 +1,28 @@
+[
+    {
+        "id": "FIRE_1",
+        "type": "FIRE",
+        "name": "Fire",
+        "stats": [
+            {
+                "id": "DAMAGE",
+                "name": "damage per second",
+                "baseBonus": 10.0,
+                "maximum": 20,
+                "upgradeCost": 2.0,
+                "bonusPerUpgrade": 1.0
+            },
+            {
+                "id": "DURATION",
+                "name": "duration",
+                "baseBonus": 10.0,
+                "maximum": 20,
+                "upgradeCost": 2.0,
+                "bonusPerUpgrade": 1.0
+            }
+        ],
+        "keys": [
+            "GAMMA"
+        ]
+    }
+]
