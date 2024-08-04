@@ -220,7 +220,7 @@ class MainScreen(
         //playerSkillBook.addBuffSKillTo(boltSkill.id, SubSkillSlotId("IMPACT"), BuffSkillSlotId("DEBUFF_1"), fireBuff)
         //playerSkillBook.upgrade(boltSkill.id, StatId("1:SPEED"), NumUpgrades(15))
 
-        val controller = SkillController(boltSkill.id, playerSkillBook, DragAndDropManager(DragAndDrop()))
+        val controller = SkillController(boltSkill.id, playerSkillBook)
 
         val assets = SkillViewAssets(
             skillIcon = atlas.getTextureRegion("Atlas.atlas", "TexturasIconos/FireBall"),

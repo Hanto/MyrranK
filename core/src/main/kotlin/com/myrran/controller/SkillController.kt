@@ -15,15 +15,13 @@ import com.myrran.domain.skills.custom.subskill.SubSkillSlotId
 
 class BookSkillController(
     private val book: PlayerSkillBook,
-    private val dadManager: DragAndDropManager
 )
 {
     fun toSkillController(skillId: SkillId): SkillController =
 
         SkillController(
             skillId = skillId,
-            book = book,
-            dadManager = dadManager)
+            book = book,)
 }
 
 // SKILL:
@@ -33,7 +31,6 @@ class SkillController(
 
     private val skillId: SkillId,
     private val book: PlayerSkillBook,
-    val dadManager: DragAndDropManager
 
 ): StatController
 {
@@ -46,8 +43,7 @@ class SkillController(
         SubSkillController(
             skillId = skillId,
             subSlotId = subSkillSlot.id,
-            book = book,
-            dadManager = dadManager)
+            book = book,)
 }
 
 // SUBSKILL:
@@ -58,7 +54,6 @@ class SubSkillController(
     private val skillId: SkillId,
     private val subSlotId: SubSkillSlotId,
     private val book: PlayerSkillBook,
-    val dadManager: DragAndDropManager,
 
 ): StatController
 {
@@ -72,8 +67,7 @@ class SubSkillController(
             skillId = skillId,
             subSlotId = subSlotId,
             buffSlotId = buffSkillSlot.id,
-            book = book,
-            dadManager = dadManager)
+            book = book,)
 }
 
 // BUFFSKILL:
@@ -85,7 +79,6 @@ class BuffSKillController(
     private val subSlotId: SubSkillSlotId,
     private val buffSlotId: BuffSkillSlotId,
     private val book: PlayerSkillBook,
-    val dadManager: DragAndDropManager,
 
 ): StatController
 {
