@@ -1,5 +1,7 @@
-package com.myrran.domain.skills.custom.buff
+package com.myrran.domain.skills.custom
 
+import com.myrran.domain.skills.custom.buff.BuffSkillId
+import com.myrran.domain.skills.custom.buff.BuffSkillName
 import com.myrran.domain.skills.custom.stat.Stats
 import com.myrran.domain.skills.custom.stat.StatsI
 import com.myrran.domain.skills.templates.LockType
@@ -16,9 +18,14 @@ data class BuffSkill(
     val stats: Stats,
     val keys: Collection<LockType>
 
-): BuffSkillSlotContent, StatsI by stats
+): BuffSkillSlotContent, StatsI by stats, SubBuffSkill
 {
     fun createBuff(): Buff =
 
         type.builder.invoke(this.copy())
+}
+
+sealed interface BuffSkillSlotContent {
+
+    data object NoBuffSkill: BuffSkillSlotContent
 }

@@ -1,14 +1,14 @@
 package com.myrran.domain.skills.custom.subskill
 
-import com.myrran.domain.skills.custom.buff.BuffSkill
-import com.myrran.domain.skills.custom.buff.BuffSkillSlotContent
-import com.myrran.domain.skills.custom.buff.BuffSkillSlotContent.NoBuffSkill
+import com.myrran.domain.skills.custom.BuffSkill
+import com.myrran.domain.skills.custom.SubSkill
+import com.myrran.domain.skills.custom.SubSkillSlotContent
+import com.myrran.domain.skills.custom.SubSkillSlotContent.NoSubSkill
 import com.myrran.domain.skills.custom.buff.BuffSkillSlotId
 import com.myrran.domain.skills.custom.stat.NumUpgrades
 import com.myrran.domain.skills.custom.stat.StatId
 import com.myrran.domain.skills.custom.stat.UpgradeCost
 import com.myrran.domain.skills.custom.stat.UpgradeCost.Companion.ZERO
-import com.myrran.domain.skills.custom.subskill.SubSkillSlotContent.NoSubSkill
 import com.myrran.domain.skills.templates.Lock
 import com.myrran.domain.skills.templates.LockI
 import com.myrran.domain.skills.templates.buff.BuffSkillTemplate
@@ -27,9 +27,13 @@ data class SubSkillSlot(
     // SUBSKILLS:
     //--------------------------------------------------------------------------------------------------------
 
-    fun removeSubSkill(): SubSkillSlotContent =
+    fun getSubSkill(): SubSkill? =
 
-        content.also { content = NoSubSkill }
+        content.ifIs(SubSkill::class)
+
+    fun removeSubSkill(): SubSkill? =
+
+        content.ifIs(SubSkill::class).also { content = NoSubSkill }
 
     fun setSubSkill(subSkill: SubSkill) =
 
@@ -46,21 +50,21 @@ data class SubSkillSlot(
     // BUFFKILLS:
     //--------------------------------------------------------------------------------------------------------
 
-    fun getBuffSkill(buffSkillSlotId: BuffSkillSlotId): BuffSkillSlotContent =
+    fun getBuffSkill(buffSkillSlotId: BuffSkillSlotId): BuffSkill? =
 
-        content.ifIs(SubSkill::class)?.getBuffSkill(buffSkillSlotId) ?: NoBuffSkill
+        content.ifIs(SubSkill::class)?.getBuffSkill(buffSkillSlotId)
 
-    fun removeBuffSkill(buffSkillSlotId: BuffSkillSlotId): BuffSkillSlotContent =
+    fun removeBuffSkill(buffSkillSlotId: BuffSkillSlotId): BuffSkill? =
 
-        content.ifIs(SubSkill::class)?.removeBuffSkill(buffSkillSlotId) ?: NoBuffSkill
+        content.ifIs(SubSkill::class)?.removeBuffSkill(buffSkillSlotId)
+
+    fun removeAllBuffSkills(): Collection<BuffSkill> =
+
+        content.ifIs(SubSkill::class)?.removeAllBuffSkills() ?: emptyList()
 
     fun setBuffSkill(buffSkillSlotId: BuffSkillSlotId, buffSkill: BuffSkill) =
 
         content.ifIs(SubSkill::class)?.setBuffSkill(buffSkillSlotId, buffSkill)
-
-    fun removeAllBuffSkills(): Collection<BuffSkillSlotContent> =
-
-        content.ifIs(SubSkill::class)?.removeAllBuffSkills() ?: emptyList()
 
     fun isBuffSkillOpenedBy(buffSkillSlotId: BuffSkillSlotId, buffSkillTemplate: BuffSkillTemplate): Boolean =
 

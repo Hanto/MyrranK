@@ -8,9 +8,9 @@ import com.badlogic.gdx.scenes.scene2d.Touchable
 import com.badlogic.gdx.scenes.scene2d.actions.Actions
 import com.badlogic.gdx.scenes.scene2d.ui.Table
 import com.badlogic.gdx.utils.Align
-import com.myrran.domain.skills.custom.buff.BuffSkill
+import com.myrran.domain.skills.custom.BuffSkill
+import com.myrran.domain.skills.custom.BuffSkillSlotContent.NoBuffSkill
 import com.myrran.domain.skills.custom.buff.BuffSkillSlot
-import com.myrran.domain.skills.custom.buff.BuffSkillSlotContent.NoBuffSkill
 import com.myrran.domain.skills.templates.LockType
 import com.myrran.view.ui.misc.TextView
 import com.myrran.view.ui.skills.assets.PURPLE_LIGHT
@@ -20,7 +20,7 @@ import com.myrran.view.ui.skills.assets.SkillViewAssets
 class BuffSlotKeyView(
 
     private val model: BuffSkillSlot,
-    private val assets: SkillViewAssets
+    private val assets: SkillViewAssets,
 
 ): Table()
 {
@@ -40,7 +40,7 @@ class BuffSlotKeyView(
 
     private fun rebuildTable() {
 
-        clear()
+        clearChildren()
         val runesRow = Table()
         keys.forEach{ runesRow.add(it) }
         add(runesLabel.align(Align.left)).left().padLeft(1f).padTop(-3f).row()
@@ -72,6 +72,7 @@ class BuffSlotKeyView(
     fun update() {
 
         runesLabel.setText("${model.getName()}:")
+        runesLabel.setTextColor(model.getColor())
         keys = getKeys()
         rebuildTable()
     }

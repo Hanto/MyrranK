@@ -1,7 +1,7 @@
 package com.myrran.domain.skills.templates.subskill
 
+import com.myrran.domain.skills.custom.SubSkillSlotContent.NoSubSkill
 import com.myrran.domain.skills.custom.subskill.SubSkillSlot
-import com.myrran.domain.skills.custom.subskill.SubSkillSlotContent.NoSubSkill
 import com.myrran.domain.skills.custom.subskill.SubSkillSlotId
 import com.myrran.domain.skills.custom.subskill.SubSkillSlotName
 import com.myrran.domain.skills.templates.Lock

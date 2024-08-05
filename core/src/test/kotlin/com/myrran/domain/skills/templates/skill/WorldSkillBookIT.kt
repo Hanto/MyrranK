@@ -62,12 +62,12 @@ class WorldSkillBookIT {
                 SubSkillSlotTemplate(
                     id = SubSkillSlotId("IMPACT"),
                     name = SubSkillSlotName("impact"),
-                    lock = Lock(listOf(LockType.ALPHA, LockType.BETA))
+                    lock = Lock(listOf(LockType.A, LockType.B))
                 ),
                 SubSkillSlotTemplate(
                     id = SubSkillSlotId("TRAIL"),
                     name = SubSkillSlotName("trail"),
-                    lock = Lock(listOf(LockType.ALPHA, LockType.BETA))
+                    lock = Lock(listOf(LockType.A, LockType.B))
                 )
             )
         )
@@ -90,15 +90,15 @@ class WorldSkillBookIT {
                 BuffSkillSlotTemplate(
                     id = BuffSkillSlotId("DEBUFF_1"),
                     name = BuffSkillSlotName("Debuff 1"),
-                    lock = Lock(listOf(LockType.GAMMA, LockType.EPSILON)),
+                    lock = Lock(listOf(LockType.C, LockType.D)),
                 ),
                 BuffSkillSlotTemplate(
                     id = BuffSkillSlotId("DEBUFF_2"),
                     name = BuffSkillSlotName("Debuff 2"),
-                    lock = Lock(listOf(LockType.GAMMA, LockType.EPSILON)),
+                    lock = Lock(listOf(LockType.C, LockType.D)),
                 )
             ),
-            keys = listOf(LockType.ALPHA)
+            keys = listOf(LockType.A)
         )
 
         val fire = BuffSkillTemplate(
@@ -123,7 +123,7 @@ class WorldSkillBookIT {
                     bonusPerUpgrade = BonusPerUpgrade(1.0f)
                 )
             ),
-            keys = listOf(LockType.GAMMA)
+            keys = listOf(LockType.C)
         )
 
         val originalDomain = WorldSkillBook(

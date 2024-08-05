@@ -1,6 +1,6 @@
 package com.myrran.domain.skills.templates.skill
 
-import com.myrran.domain.skills.custom.skill.Skill
+import com.myrran.domain.skills.custom.Skill
 import com.myrran.domain.skills.custom.skill.SkillId
 import com.myrran.domain.skills.custom.skill.SkillName
 import com.myrran.domain.skills.custom.stat.Stats

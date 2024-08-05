@@ -26,16 +26,16 @@
                 "id": "IMPACT",
                 "name": "impact",
                 "lock": [
-                    "ALPHA",
-                    "BETA"
+                    "A",
+                    "B"
                 ]
             },
             {
                 "id": "TRAIL",
                 "name": "trail",
                 "lock": [
-                    "ALPHA",
-                    "BETA"
+                    "A",
+                    "B"
                 ]
             }
         ]

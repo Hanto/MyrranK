@@ -1,6 +1,8 @@
 package com.myrran.domain.skills.custom.buff
 
-import com.myrran.domain.skills.custom.buff.BuffSkillSlotContent.NoBuffSkill
+import com.myrran.domain.skills.custom.BuffSkill
+import com.myrran.domain.skills.custom.BuffSkillSlotContent
+import com.myrran.domain.skills.custom.BuffSkillSlotContent.NoBuffSkill
 import com.myrran.domain.skills.custom.stat.NumUpgrades
 import com.myrran.domain.skills.custom.stat.StatId
 import com.myrran.domain.skills.custom.stat.UpgradeCost
@@ -21,9 +23,13 @@ data class BuffSkillSlot(
     // CONTENT:
     //--------------------------------------------------------------------------------------------------------
 
-    fun removeBuffSkill(): BuffSkillSlotContent =
+    fun getBuffSkill(): BuffSkill? =
 
-        content.also { content = NoBuffSkill }
+        content.ifIs(BuffSkill::class)
+
+    fun removeBuffSkill(): BuffSkill? =
+
+        content.ifIs(BuffSkill::class).also { content = NoBuffSkill }
 
     fun setBuffSkill(buffSkill: BuffSkill) =
 

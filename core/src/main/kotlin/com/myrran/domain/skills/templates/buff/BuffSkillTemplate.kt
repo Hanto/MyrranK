@@ -1,6 +1,6 @@
 package com.myrran.domain.skills.templates.buff
 
-import com.myrran.domain.skills.custom.buff.BuffSkill
+import com.myrran.domain.skills.custom.BuffSkill
 import com.myrran.domain.skills.custom.buff.BuffSkillId
 import com.myrran.domain.skills.custom.buff.BuffSkillName
 import com.myrran.domain.skills.custom.stat.Stats

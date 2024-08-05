@@ -6,7 +6,7 @@ import com.badlogic.gdx.graphics.Color.WHITE
 import com.badlogic.gdx.scenes.scene2d.ui.Image
 import com.badlogic.gdx.scenes.scene2d.ui.Table
 import com.badlogic.gdx.utils.Align
-import com.myrran.domain.skills.custom.skill.Skill
+import com.myrran.domain.skills.custom.Skill
 import com.myrran.domain.utils.format
 import com.myrran.view.ui.misc.TextView
 import com.myrran.view.ui.skills.assets.MAGENTA_EPIC

@@ -1,14 +1,16 @@
 package com.myrran.infraestructure.skill
 
-import com.myrran.domain.skills.custom.buff.BuffSkill
+import com.myrran.domain.skills.custom.BuffSkill
+import com.myrran.domain.skills.custom.BuffSkillSlotContent.NoBuffSkill
+import com.myrran.domain.skills.custom.Skill
+import com.myrran.domain.skills.custom.SubSkill
+import com.myrran.domain.skills.custom.SubSkillSlotContent.NoSubSkill
 import com.myrran.domain.skills.custom.buff.BuffSkillId
 import com.myrran.domain.skills.custom.buff.BuffSkillName
 import com.myrran.domain.skills.custom.buff.BuffSkillSlot
-import com.myrran.domain.skills.custom.buff.BuffSkillSlotContent.NoBuffSkill
 import com.myrran.domain.skills.custom.buff.BuffSkillSlotId
 import com.myrran.domain.skills.custom.buff.BuffSkillSlotName
 import com.myrran.domain.skills.custom.buff.BuffSkillSlots
-import com.myrran.domain.skills.custom.skill.Skill
 import com.myrran.domain.skills.custom.skill.SkillId
 import com.myrran.domain.skills.custom.skill.SkillName
 import com.myrran.domain.skills.custom.stat.BonusPerUpgrade
@@ -22,11 +24,9 @@ import com.myrran.domain.skills.custom.stat.StatUpgradeable
 import com.myrran.domain.skills.custom.stat.Stats
 import com.myrran.domain.skills.custom.stat.UpgradeCost
 import com.myrran.domain.skills.custom.stat.Upgrades
-import com.myrran.domain.skills.custom.subskill.SubSkill
 import com.myrran.domain.skills.custom.subskill.SubSkillId
 import com.myrran.domain.skills.custom.subskill.SubSkillName
 import com.myrran.domain.skills.custom.subskill.SubSkillSlot
-import com.myrran.domain.skills.custom.subskill.SubSkillSlotContent.NoSubSkill
 import com.myrran.domain.skills.custom.subskill.SubSkillSlotId
 import com.myrran.domain.skills.custom.subskill.SubSkillSlotName
 import com.myrran.domain.skills.custom.subskill.SubSkillSlots

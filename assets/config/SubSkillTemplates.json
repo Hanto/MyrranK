@@ -18,21 +18,21 @@
                 "id": "DEBUFF_1",
                 "name": "Debuff 1",
                 "lock": [
-                    "GAMMA",
-                    "EPSILON"
+                    "c",
+                    "d"
                 ]
             },
             {
                 "id": "DEBUFF_2",
                 "name": "Debuff 2",
                 "lock": [
-                    "GAMMA",
-                    "EPSILON"
+                    "c",
+                    "d"
                 ]
             }
         ],
         "keys": [
-            "ALPHA"
+            "A"
         ]
     }
 ]

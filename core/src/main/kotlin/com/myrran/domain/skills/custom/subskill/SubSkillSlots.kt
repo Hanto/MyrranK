@@ -1,7 +1,7 @@
 package com.myrran.domain.skills.custom.subskill
 
-import com.myrran.domain.skills.custom.buff.BuffSkill
-import com.myrran.domain.skills.custom.buff.BuffSkillSlotContent
+import com.myrran.domain.skills.custom.BuffSkill
+import com.myrran.domain.skills.custom.SubSkill
 import com.myrran.domain.skills.custom.buff.BuffSkillSlotId
 import com.myrran.domain.skills.custom.stat.NumUpgrades
 import com.myrran.domain.skills.custom.stat.StatId
@@ -21,17 +21,17 @@ data class SubSkillSlots(
 
         bySlotId.values
 
-    fun getSubSkill(subSkillSlotId: SubSkillSlotId): SubSkillSlotContent =
+    fun getSubSkill(subSkillSlotId: SubSkillSlotId): SubSkill? =
 
-        bySlotId[subSkillSlotId]?.content!!
+        bySlotId[subSkillSlotId]?.getSubSkill()
 
-    fun removeSubSkill(subSkillSlotId: SubSkillSlotId): SubSkillSlotContent? =
+    fun removeSubSkill(subSkillSlotId: SubSkillSlotId): SubSkill? =
 
         bySlotId[subSkillSlotId]?.removeSubSkill()
 
-    fun removeAllSubSkills(): Collection<SubSkillSlotContent> =
+    fun removeAllSubSkills(): Collection<SubSkill> =
 
-        bySlotId.values.mapNotNull { removeSubSkill(it.id) }
+        bySlotId.values.mapNotNull { removeSubSkill(it.id) }.filterIsInstance<SubSkill>()
 
     fun setSubSkill(subSkillSlotId: SubSkillSlotId, subSkill: SubSkill) =
 
@@ -44,15 +44,15 @@ data class SubSkillSlots(
     // BUFFKILLS:
     //--------------------------------------------------------------------------------------------------------
 
-    fun getBuffSkill(subSkillSlotId: SubSkillSlotId, buffSkillSlotId: BuffSkillSlotId): BuffSkillSlotContent =
+    fun getBuffSkill(subSkillSlotId: SubSkillSlotId, buffSkillSlotId: BuffSkillSlotId): BuffSkill? =
 
-        bySlotId[subSkillSlotId]?.getBuffSkill(buffSkillSlotId)!!
+        bySlotId[subSkillSlotId]?.getBuffSkill(buffSkillSlotId)
 
-    fun removeBuffSKill(subSkillSlotId: SubSkillSlotId, buffSkillSlotId: BuffSkillSlotId): BuffSkillSlotContent? =
+    fun removeBuffSKill(subSkillSlotId: SubSkillSlotId, buffSkillSlotId: BuffSkillSlotId): BuffSkill? =
 
         bySlotId[subSkillSlotId]?.removeBuffSkill(buffSkillSlotId)
 
-    fun removeAllBuffSkills(): Collection<BuffSkillSlotContent> =
+    fun removeAllBuffSkills(): Collection<BuffSkill> =
 
         bySlotId.values.flatMap { it.removeAllBuffSkills() }
 

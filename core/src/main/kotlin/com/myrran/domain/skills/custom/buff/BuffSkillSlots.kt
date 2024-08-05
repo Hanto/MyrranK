@@ -1,5 +1,6 @@
 package com.myrran.domain.skills.custom.buff
 
+import com.myrran.domain.skills.custom.BuffSkill
 import com.myrran.domain.skills.custom.stat.NumUpgrades
 import com.myrran.domain.skills.custom.stat.StatId
 import com.myrran.domain.skills.custom.stat.UpgradeCost
@@ -17,21 +18,21 @@ data class BuffSkillSlots(
 
         bySlotId.values
 
-    fun getBuffSkill(buffSkillSlotId: BuffSkillSlotId): BuffSkillSlotContent =
+    fun getBuffSkill(buffSkillSlotId: BuffSkillSlotId): BuffSkill? =
 
-        bySlotId[buffSkillSlotId]?.content!!
+        bySlotId[buffSkillSlotId]?.getBuffSkill()
 
     fun getBuffSkills(): Collection<BuffSkill> =
 
         bySlotId.values.map { it.content }.filterIsInstance<BuffSkill>()
 
-    fun removeBuffSkill(buffSkillSlotId: BuffSkillSlotId): BuffSkillSlotContent? =
+    fun removeBuffSkill(buffSkillSlotId: BuffSkillSlotId): BuffSkill? =
 
         bySlotId[buffSkillSlotId]?.removeBuffSkill()
 
-    fun removeAllBuffSkills(): Collection<BuffSkillSlotContent> =
+    fun removeAllBuffSkills(): Collection<BuffSkill> =
 
-        bySlotId.values.mapNotNull { removeBuffSkill(it.id) }
+        bySlotId.values.mapNotNull { removeBuffSkill(it.id) }.filterIsInstance<BuffSkill>()
 
     fun setBuffSkill(buffSkillSlotId: BuffSkillSlotId, buffSkill: BuffSkill) =
 

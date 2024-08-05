@@ -1,4 +1,4 @@
-package com.myrran.domain.skills.custom.skill
+package com.myrran.domain.skills.custom
 
 import com.myrran.domain.Identifiable
 import com.myrran.domain.events.BuffSkillChangedEvent
@@ -7,17 +7,15 @@ import com.myrran.domain.events.SkillEvent
 import com.myrran.domain.events.SkillStatUpgradedEvent
 import com.myrran.domain.events.SubSkillChangedEvent
 import com.myrran.domain.events.SubSkillStatUpgradedEvent
-import com.myrran.domain.skills.custom.buff.BuffSkill
-import com.myrran.domain.skills.custom.buff.BuffSkillSlotContent
 import com.myrran.domain.skills.custom.buff.BuffSkillSlotId
+import com.myrran.domain.skills.custom.skill.SkillId
+import com.myrran.domain.skills.custom.skill.SkillName
 import com.myrran.domain.skills.custom.stat.NumUpgrades
 import com.myrran.domain.skills.custom.stat.StatId
 import com.myrran.domain.skills.custom.stat.Stats
 import com.myrran.domain.skills.custom.stat.StatsI
 import com.myrran.domain.skills.custom.stat.UpgradeCost
-import com.myrran.domain.skills.custom.subskill.SubSkill
 import com.myrran.domain.skills.custom.subskill.SubSkillSlot
-import com.myrran.domain.skills.custom.subskill.SubSkillSlotContent
 import com.myrran.domain.skills.custom.subskill.SubSkillSlotId
 import com.myrran.domain.skills.custom.subskill.SubSkillSlots
 import com.myrran.domain.skills.templates.buff.BuffSkillTemplate
@@ -46,18 +44,19 @@ data class Skill(
 
         slots.getSubSkillSlots()
 
-    fun getSubSkill(subSkillSlotId: SubSkillSlotId): SubSkillSlotContent =
+    fun getSubSkill(subSkillSlotId: SubSkillSlotId): SubSkill? =
 
         slots.getSubSkill(subSkillSlotId)
 
-    fun removeSubSkill(subSkillSlotId: SubSkillSlotId): SubSkillSlotContent? =
+    fun removeSubSkill(subSkillSlotId: SubSkillSlotId): Collection<SubBuffSkill> =
 
         slots.removeSubSkill(subSkillSlotId)
-            .also { notify(SubSkillChangedEvent(subSkillSlotId)) }
+            ?.let { subSkill -> subSkill.removeAllBuffSkills() + subSkill } ?: emptyList()
 
-    fun removeAllSubSkills(): Collection<SubSkillSlotContent> =
+    fun removeAllSubSkills(): Collection<SubBuffSkill> =
 
         slots.removeAllSubSkills()
+            .let { subSkills -> subSkills.flatMap { it.removeAllBuffSkills() } + subSkills }
 
     fun setSubSkill(subSkillSlotId: SubSkillSlotId, subSkill: SubSkill) =
 
@@ -71,16 +70,15 @@ data class Skill(
     // BUFFSKILL
     //--------------------------------------------------------------------------------------------------------
 
-    fun getBuffSkill(subSkillSlotId: SubSkillSlotId, buffSkillSlotId: BuffSkillSlotId): BuffSkillSlotContent =
+    fun getBuffSkill(subSkillSlotId: SubSkillSlotId, buffSkillSlotId: BuffSkillSlotId): BuffSkill? =
 
         slots.getBuffSkill(subSkillSlotId, buffSkillSlotId)
 
-    fun removeBuffSkill(subSkillSlotId: SubSkillSlotId, buffSkillSlotId: BuffSkillSlotId): BuffSkillSlotContent? =
+    fun removeBuffSkill(subSkillSlotId: SubSkillSlotId, buffSkillSlotId: BuffSkillSlotId): BuffSkill? =
 
         slots.removeBuffSKill(subSkillSlotId, buffSkillSlotId)
-            .also { notify(BuffSkillChangedEvent(subSkillSlotId, buffSkillSlotId)) }
 
-    fun removeAllBuffSkills(): Collection<BuffSkillSlotContent> =
+    fun removeAllBuffSkills(): Collection<BuffSkill> =
 
         slots.removeAllBuffSkills()
 

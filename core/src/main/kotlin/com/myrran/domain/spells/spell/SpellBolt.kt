@@ -1,8 +1,8 @@
 package com.myrran.domain.spells.spell
 
-import com.myrran.domain.skills.custom.skill.Skill
+import com.myrran.domain.skills.custom.Skill
+import com.myrran.domain.skills.custom.SubSkill
 import com.myrran.domain.skills.custom.stat.StatId
-import com.myrran.domain.skills.custom.subskill.SubSkill
 import com.myrran.domain.skills.custom.subskill.SubSkillSlotId
 
 class SpellBolt(

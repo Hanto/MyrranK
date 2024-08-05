@@ -1,5 +1,6 @@
 package com.myrran.view.ui.skills.custom.skill
 
+import com.badlogic.gdx.Input.Buttons
 import com.badlogic.gdx.scenes.scene2d.Touchable
 import com.badlogic.gdx.scenes.scene2d.ui.Container
 import com.badlogic.gdx.scenes.scene2d.ui.Table
@@ -12,7 +13,7 @@ import com.myrran.domain.events.SkillEvent
 import com.myrran.domain.events.SkillStatUpgradedEvent
 import com.myrran.domain.events.SubSkillChangedEvent
 import com.myrran.domain.events.SubSkillStatUpgradedEvent
-import com.myrran.domain.skills.custom.skill.Skill
+import com.myrran.domain.skills.custom.Skill
 import com.myrran.domain.skills.custom.subskill.SubSkillSlotId
 import com.myrran.domain.utils.observer.Observer
 import com.myrran.view.ui.misc.ActorClickListener
@@ -45,7 +46,7 @@ class SkillView(
         model.addObserver(this)
         skillHeader.touchable = Touchable.enabled
         skillHeader.addListener(ActorMoveListener(this))
-        addListener(ActorClickListener { toFront() } )
+        addListener(ActorClickListener(Buttons.LEFT) { toFront() } )
 
         top().left()
         val table = Table().top().left()

@@ -5,8 +5,8 @@ import com.myrran.controller.BuffDaDTarget
 import com.myrran.controller.DragAndDropManager
 import com.myrran.controller.SkillController
 import com.myrran.controller.SubSkillController
+import com.myrran.domain.skills.custom.Skill
 import com.myrran.domain.skills.custom.buff.BuffSkillSlot
-import com.myrran.domain.skills.custom.skill.Skill
 import com.myrran.domain.skills.custom.subskill.SubSkillSlot
 import com.myrran.domain.skills.templates.buff.BuffSkillTemplate
 import com.myrran.view.ui.skills.assets.SkillViewAssets

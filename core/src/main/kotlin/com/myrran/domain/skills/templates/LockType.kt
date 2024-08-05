@@ -2,17 +2,18 @@ package com.myrran.domain.skills.templates
 
 enum class LockType(val value: String, val order: Int) {
 
-    ALPHA("A", 1),
-    BETA("B", 2),
-    GAMMA("C", 3),
-    EPSILON("D", 4),
-    OMEGA("E", 5),
+    A("A", 1),
+    B("B", 2),
+    C("C", 3),
+    D("D", 4),
+    E("E", 5),
+    F("F", 6),
 
 
-    A("a", 6),
-    B("b", 7),
-    C("c", 8),
-    D("d", 9),
-    E("e", 10),
-    F("f", 11)
+    a("a", 7),
+    b("b", 8),
+    c("c", 9),
+    d("d", 10),
+    e("e", 11),
+    f("f", 12)
 }

@@ -1,11 +1,11 @@
 package com.myrran.domain.skills.book
 
-import com.myrran.domain.skills.custom.buff.BuffSkill
+import com.myrran.domain.skills.custom.BuffSkill
+import com.myrran.domain.skills.custom.SubSkill
 import com.myrran.domain.skills.custom.buff.BuffSkillSlotId
 import com.myrran.domain.skills.custom.skill.SkillId
 import com.myrran.domain.skills.custom.stat.NumUpgrades
 import com.myrran.domain.skills.custom.stat.StatId
-import com.myrran.domain.skills.custom.subskill.SubSkill
 import com.myrran.domain.skills.custom.subskill.SubSkillSlotId
 import com.myrran.domain.skills.templates.buff.BuffSkillTemplateId
 import com.myrran.domain.skills.templates.skill.SkillTemplateId
@@ -70,7 +70,8 @@ data class PlayerSkillBook(
         val skill = createdSkillsRepository.findBy(skillId)!!
         val subSkillTemplate = skillTemplateRepository.findBy(subSkillTemplateId)!!
 
-        if (skill.isSubSkillOpenedBy(subSkillSlotId, subSkillTemplate) && learnedSubSkillsTemplates.isAvailable(subSkillTemplateId)) {
+        if (skill.isSubSkillOpenedBy(subSkillSlotId, subSkillTemplate) &&
+            learnedSubSkillsTemplates.isAvailable(subSkillTemplateId)) {
 
             learnedSubSkillsTemplates.borrow(subSkillTemplateId)
             removeSubSkill(skillId, subSkillSlotId)
@@ -102,36 +103,62 @@ data class PlayerSkillBook(
     // REMOVE:
     //--------------------------------------------------------------------------------------------------------
 
-    private fun removeSkill(skillId: SkillId) {
+    fun removeSkill(skillId: SkillId) =
 
-        createdSkillsRepository.findBy(skillId)
-            ?.also {
+        createdSkillsRepository.findBy(skillId)?.also { skill ->
 
-                learnedSkillTemplates.returnBack(it.templateId)
+            val subBuffSKills = skill.removeAllSubSkills()
 
-                createdSkillsRepository.save(it)
-                learnedRepository.saveLearnedSkills(learnedSkillTemplates)
+            subBuffSKills.forEach {
+                when(it) {
+                    is SubSkill -> learnedSubSkillsTemplates.returnBack(it.templateId)
+                    is BuffSkill -> learnedBuffSkillsTemplates.returnBack(it.templateId)
+                }
             }
-    }
+            learnedSkillTemplates.returnBack(skill.templateId)
 
-    private fun removeSubSkill(skillId: SkillId, subSkillSlotId: SubSkillSlotId) {
+            if (subBuffSKills.any { it is SubSkill })
+                learnedRepository.saveLearnedSubSkills(learnedSubSkillsTemplates)
+            if (subBuffSKills.any { it is BuffSkill })
+                learnedRepository.saveLearnedBuffSkills(learnedBuffSkillsTemplates)
 
-        createdSkillsRepository.findBy(skillId)?.removeSubSkill(subSkillSlotId)
-            ?.ifIs(SubSkill::class)?.also {
-
-            learnedSubSkillsTemplates.returnBack(it.templateId)
-            it.getBuffSkills().forEach { buffSkill -> learnedBuffSkillsTemplates.returnBack(buffSkill.templateId) }
+            learnedRepository.saveLearnedSkills(learnedSkillTemplates)
         }
-    }
 
-    private fun removeBuffSkill(skillId: SkillId, subSkillSlotId: SubSkillSlotId, buffSkillSlotId: BuffSkillSlotId) {
+    fun removeSubSkill(skillId: SkillId, subSkillSlotId: SubSkillSlotId) =
 
-        createdSkillsRepository.findBy(skillId)?.removeBuffSkill(subSkillSlotId, buffSkillSlotId)
-            ?.ifIs(BuffSkill::class)?.also {
+        createdSkillsRepository.findBy(skillId)?.also { skill ->
 
-            learnedBuffSkillsTemplates.returnBack(it.templateId)
+            val subBuffSkills = skill.removeSubSkill(subSkillSlotId)
+
+            subBuffSkills.forEach {
+                when(it) {
+                    is SubSkill -> learnedSubSkillsTemplates.returnBack(it.templateId)
+                    is BuffSkill -> learnedBuffSkillsTemplates.returnBack(it.templateId)
+                }
+            }
+
+            if (subBuffSkills.any { it is SubSkill })
+                learnedRepository.saveLearnedSubSkills(learnedSubSkillsTemplates)
+            if (subBuffSkills.any { it is BuffSkill })
+                learnedRepository.saveLearnedBuffSkills(learnedBuffSkillsTemplates)
+
+            createdSkillsRepository.save(skill)
         }
-    }
+
+    fun removeBuffSkill(skillId: SkillId, subSkillSlotId: SubSkillSlotId, buffSkillSlotId: BuffSkillSlotId) =
+
+        createdSkillsRepository.findBy(skillId)?.also { skill ->
+
+            skill.removeBuffSkill(subSkillSlotId, buffSkillSlotId)?.also {
+
+                learnedBuffSkillsTemplates.returnBack(it.templateId)
+
+                learnedRepository.saveLearnedBuffSkills(learnedBuffSkillsTemplates)
+            }
+
+            createdSkillsRepository.save(skill)
+        }
 
     // IS OPENED:
     //--------------------------------------------------------------------------------------------------------

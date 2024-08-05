@@ -15,7 +15,7 @@
     "id" : "Cooldown",
     "name" : "cooldown",
     "baseBonus" : 10.0,
-    "actual" : 15,
+    "actual" : 17,
     "maximum" : 20,
     "upgradeCost" : 2.0,
     "bonusPerUpgrade" : 1.0
@@ -23,7 +23,7 @@
   "slots" : [ {
     "id" : "IMPACT",
     "name" : "impact",
-    "lock" : [ "ALPHA", "BETA" ],
+    "lock" : [ "A", "B" ],
     "content" : {
       "id" : "52d9ae51-ec26-4a20-85d8-4b638d053322",
       "templateId" : "EXPLOSION_1",
@@ -33,7 +33,7 @@
         "id" : "RADIUS",
         "name" : "radius",
         "baseBonus" : 10.0,
-        "actual" : 12,
+        "actual" : 7,
         "maximum" : 20,
         "upgradeCost" : 2.0,
         "bonusPerUpgrade" : 1.0
@@ -41,43 +41,20 @@
       "slots" : [ {
         "id" : "DEBUFF_1",
         "name" : "Debuff 1",
-        "lock" : [ "GAMMA", "EPSILON" ],
-        "content" : {
-          "id" : "1583cb41-e5ee-4444-927a-a3854184e040",
-          "templateId" : "FIRE_1",
-          "type" : "FIRE",
-          "name" : "Fire",
-          "stats" : [ {
-            "id" : "DAMAGE",
-            "name" : "damage per tick",
-            "baseBonus" : 10.0,
-            "actual" : 4,
-            "maximum" : 20,
-            "upgradeCost" : 2.0,
-            "bonusPerUpgrade" : 1.0
-          }, {
-            "id" : "DURATION",
-            "name" : "duration",
-            "baseBonus" : 10.0,
-            "actual" : 12,
-            "maximum" : 20,
-            "upgradeCost" : 2.0,
-            "bonusPerUpgrade" : 1.0
-          } ],
-          "keys" : [ "GAMMA" ]
-        }
+        "lock" : [ "c", "e" ],
+        "content" : null
       }, {
         "id" : "DEBUFF_2",
         "name" : "Debuff 2",
-        "lock" : [ "GAMMA", "EPSILON" ],
+        "lock" : [ "b", "c" ],
         "content" : null
       } ],
-      "keys" : [ "ALPHA" ]
+      "keys" : [ "a" ]
     }
   }, {
     "id" : "TRAIL",
     "name" : "trail",
-    "lock" : [ "ALPHA", "BETA" ],
+    "lock" : [ "A", "B" ],
     "content" : null
   } ]
 } ]
