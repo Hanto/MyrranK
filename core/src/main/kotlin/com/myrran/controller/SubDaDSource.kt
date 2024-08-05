@@ -1,9 +1,11 @@
 package com.myrran.controller
 
 import com.badlogic.gdx.graphics.Color
+import com.badlogic.gdx.scenes.scene2d.Actor
 import com.badlogic.gdx.scenes.scene2d.InputEvent
+import com.myrran.badlogic.DaDSource
 import com.myrran.badlogic.Payload
-import com.myrran.badlogic.Source
+import com.myrran.domain.Identifiable
 import com.myrran.domain.skills.templates.SubSkillTemplate
 import com.myrran.view.ui.misc.TextView
 import com.myrran.view.ui.skills.SkillViewId
@@ -16,12 +18,11 @@ class SubDaDSource(
     private val view: SubSkillTemplateView,
     private val assets: SkillViewAssets
 
-): Source(view.header.icon), DaDSource<SkillViewId>
+): DaDSource, Identifiable<SkillViewId>
 {
     override val id: SkillViewId = view.id
-    override fun getSource(): Source = this
-
-    override fun dragStart(event: InputEvent?, x: Float, y: Float, pointer: Int): Payload {
+    override fun getActor(): Actor = view.header.icon
+    override fun dragStart(event: InputEvent, x: Float, y: Float, pointer: Int): Payload {
 
         val payload = Payload()
         payload.`object` = model

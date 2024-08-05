@@ -15,15 +15,15 @@ import com.badlogic.gdx.utils.ObjectMap.Entry;
 /** Manages drag and drop operations through registered drag sources and drop targets.
  * @author Nathan Sweet */
 
-public class DaD {
-    static final Vector2 tmpVector = new Vector2();
+public class DaD<SOURCE extends DaDSource, TARGET extends DaDTarget> {
 
+    static final Vector2 tmpVector = new Vector2();
     Payload payload;
     Actor dragActor;
-    Target target;
+    TARGET target;
     boolean isValidTarget;
-    Array<Target> targets = new Array();
-    ObjectMap<Source, DragListener> sourceListeners = new ObjectMap();
+    Array<TARGET> targets = new Array<>();
+    ObjectMap<SOURCE, DragListener> sourceListeners = new ObjectMap<>();
     private float tapSquareSize = 8;
     private int button;
     float dragActorX = 0, dragActorY = 0;
@@ -34,8 +34,10 @@ public class DaD {
     boolean cancelTouchFocus = true;
     boolean keepWithinStage = true;
 
-    public void addSource (final Source source) {
+    public void addSource (final SOURCE source) {
+
         DragListener listener = new DragListener() {
+
             public void dragStart (InputEvent event, float x, float y, int pointer) {
                 if (activePointer != -1) {
                     event.stop();
@@ -65,17 +67,17 @@ public class DaD {
                 }
 
                 // Find target.
-                Target newTarget = null;
+                TARGET newTarget = null;
                 isValidTarget = false;
                 float stageX = event.getStageX() + touchOffsetX, stageY = event.getStageY() + touchOffsetY;
                 Actor hit = event.getStage().hit(stageX, stageY, true); // Prefer touchable actors.
                 if (hit == null) hit = event.getStage().hit(stageX, stageY, false);
                 if (hit != null) {
                     for (int i = 0, n = targets.size; i < n; i++) {
-                        Target target = targets.get(i);
-                        if (!target.actor.isAscendantOf(hit)) continue;
+                        TARGET target = targets.get(i);
+                        if (!target.getActor().isAscendantOf(hit)) continue;
                         newTarget = target;
-                        target.actor.stageToLocalCoordinates(tmpVector.set(stageX, stageY));
+                        target.getActor().stageToLocalCoordinates(tmpVector.set(stageX, stageY));
                         break;
                     }
                 }
@@ -114,7 +116,7 @@ public class DaD {
                 if (dragActor != null) dragActor.remove();
                 if (isValidTarget) {
                     float stageX = event.getStageX() + touchOffsetX, stageY = event.getStageY() + touchOffsetY;
-                    target.actor.stageToLocalCoordinates(tmpVector.set(stageX, stageY));
+                    target.getActor().stageToLocalCoordinates(tmpVector.set(stageX, stageY));
                     target.drop(source, payload, tmpVector.x, tmpVector.y, pointer);
                 }
                 source.dragStop(event, x, y, pointer, payload, isValidTarget ? target : null);
@@ -124,33 +126,33 @@ public class DaD {
                 isValidTarget = false;
                 dragActor = null;
 
-                targets.forEach(Target::notifyNoPayload);
+                targets.forEach(DaDTarget::notifyNoPayload);
             }
         };
         listener.setTapSquareSize(tapSquareSize);
         listener.setButton(button);
-        source.actor.addCaptureListener(listener);
+        source.getActor().addCaptureListener(listener);
         sourceListeners.put(source, listener);
     }
 
-    public void removeSource (Source source) {
+    public void removeSource (SOURCE source) {
         DragListener dragListener = sourceListeners.remove(source);
-        source.actor.removeCaptureListener(dragListener);
+        source.getActor().removeCaptureListener(dragListener);
     }
 
-    public void addTarget (Target target) {
+    public void addTarget (TARGET target) {
         targets.add(target);
     }
 
-    public void removeTarget (Target target) {
+    public void removeTarget (TARGET target) {
         targets.removeValue(target, true);
     }
 
     /** Removes all targets and sources. */
     public void clear () {
         targets.clear();
-        for (Entry<Source, DragListener> entry : sourceListeners.entries())
-            entry.key.actor.removeCaptureListener(entry.value);
+        for (Entry<SOURCE, DragListener> entry : sourceListeners.entries())
+            entry.key.getActor().removeCaptureListener(entry.value);
         sourceListeners.clear();
     }
 

@@ -25,7 +25,7 @@
     "name" : "impact",
     "lock" : [ "A", "B" ],
     "content" : {
-      "id" : "f6a7346c-b938-448e-bb72-023fb0cc0eb2",
+      "id" : "4dcc7317-da14-4b2f-8f64-6ffda905f102",
       "templateId" : "EXPLOSION_1",
       "type" : "EXPLOSION",
       "name" : "Explosion",
@@ -43,7 +43,7 @@
         "name" : "Debuff 1",
         "lock" : [ "c", "d" ],
         "content" : {
-          "id" : "142aeb6e-a7c3-4304-8a1f-cd436df72408",
+          "id" : "d9801cfa-08a9-4549-98dc-5b59c3168bed",
           "templateId" : "BOMB_1",
           "type" : "BOMB",
           "name" : "Bomb",
@@ -71,7 +71,7 @@
         "name" : "Debuff 2",
         "lock" : [ "c", "d" ],
         "content" : {
-          "id" : "e86ad866-95d3-49a5-89c1-8a17023615e8",
+          "id" : "c7065d6a-d212-45b9-a6a0-4ba29fd6c4ee",
           "templateId" : "FIRE_1",
           "type" : "FIRE",
           "name" : "Fire",

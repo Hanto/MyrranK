@@ -128,16 +128,11 @@ class MainScreen(
         clearScreen()
 
         batch.begin()
-        renderWorld(delta)
         batch.end()
 
         uiStage.act()
         renderUI(delta)
         uiStage.draw()
-    }
-
-    private fun renderWorld(delta: Float) {
-
     }
 
     private fun renderUI(delta: Float) {

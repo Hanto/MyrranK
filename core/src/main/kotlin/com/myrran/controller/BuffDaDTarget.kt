@@ -1,9 +1,11 @@
 package com.myrran.controller
 
 import com.badlogic.gdx.graphics.Color
+import com.badlogic.gdx.scenes.scene2d.Actor
+import com.myrran.badlogic.DaDSource
+import com.myrran.badlogic.DaDTarget
 import com.myrran.badlogic.Payload
-import com.myrran.badlogic.Source
-import com.myrran.badlogic.Target
+import com.myrran.domain.Identifiable
 import com.myrran.domain.skills.templates.BuffSkillTemplate
 import com.myrran.view.ui.skills.SkillViewId
 import com.myrran.view.ui.skills.assets.SkillViewAssets
@@ -15,16 +17,16 @@ class BuffDaDTarget(
     private val assets: SkillViewAssets,
     private val controller: BuffSKillController,
 
-) : Target(view.buffSlotKeyView), DaDTarget<SkillViewId>
+): DaDTarget, Identifiable<SkillViewId>
 {
     override val id: SkillViewId = view.id
-    override fun getTarget(): Target = this
+    override fun getActor(): Actor = view.buffSlotKeyView
 
-    override fun drag(source: Source, payload: Payload, x: Float, y: Float, pointer: Int): Boolean =
+    override fun drag(source: DaDSource, payload: Payload, x: Float, y: Float, pointer: Int): Boolean =
 
         true
 
-    override fun drop(source: Source, payload: Payload, x: Float, y: Float, pointer: Int) {
+    override fun drop(source: DaDSource, payload: Payload, x: Float, y: Float, pointer: Int) {
 
         val template = payload.`object` as BuffSkillTemplate
 
