@@ -59,21 +59,21 @@ class LearnedRepository(
 
         }.getOrElse { QuantityMap() }
 
-    fun save(learnedSkillTemplates: QuantityMap<SkillTemplateId>) {
+    fun saveLearnedSkills(learnedSkillTemplates: QuantityMap<SkillTemplateId>) {
 
         val entities = learnedSkillTemplates.entries.map { LearnedEntity(it.key.value, it.value.available, it.value.total) }
         val json = deSerializer.serialize(entities)
         Gdx.files.local(LEARNED_SKILL_TEMPLATES_JSON).writeString(json, false)
     }
 
-    fun save(learnedSkillTemplates: QuantityMap<SubSkillTemplateId>) {
+    fun saveLearnedSubSkills(learnedSkillTemplates: QuantityMap<SubSkillTemplateId>) {
 
         val entities = learnedSkillTemplates.entries.map { LearnedEntity(it.key.value, it.value.available, it.value.total) }
         val json = deSerializer.serialize(entities)
         Gdx.files.local(LEARNED_SUBSKILL_TEMPLATES_JSON).writeString(json, false)
     }
 
-    fun save(learnedSkillTemplates: QuantityMap<BuffSkillTemplateId>) {
+    fun saveLearnedBuffSkills(learnedSkillTemplates: QuantityMap<BuffSkillTemplateId>) {
 
         val entities = learnedSkillTemplates.entries.map { LearnedEntity(it.key.value, it.value.available, it.value.total) }
         val json = deSerializer.serialize(entities)

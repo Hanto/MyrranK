@@ -7,7 +7,7 @@ import com.myrran.domain.skills.templates.buff.BuffSkillTemplate
 
 data class BuffSkillSlots(
 
-    private val slotMap: Map<BuffSkillSlotId, BuffSkillSlot>
+    private val bySlotId: Map<BuffSkillSlotId, BuffSkillSlot>
 )
 {
     // BDEBUFFSKILL:
@@ -15,42 +15,42 @@ data class BuffSkillSlots(
 
     fun getBuffSkillSlots(): Collection<BuffSkillSlot> =
 
-        slotMap.values
+        bySlotId.values
 
     fun getBuffSkill(buffSkillSlotId: BuffSkillSlotId): BuffSkillSlotContent =
 
-        slotMap[buffSkillSlotId]?.content!!
+        bySlotId[buffSkillSlotId]?.content!!
 
     fun getBuffSkills(): Collection<BuffSkill> =
 
-        slotMap.values.map { it.content }.filterIsInstance<BuffSkill>()
+        bySlotId.values.map { it.content }.filterIsInstance<BuffSkill>()
 
     fun removeBuffSkill(buffSkillSlotId: BuffSkillSlotId): BuffSkillSlotContent? =
 
-        slotMap[buffSkillSlotId]?.removeBuffSkill()
+        bySlotId[buffSkillSlotId]?.removeBuffSkill()
 
     fun removeAllBuffSkills(): Collection<BuffSkillSlotContent> =
 
-        slotMap.values.mapNotNull { removeBuffSkill(it.id) }
+        bySlotId.values.mapNotNull { removeBuffSkill(it.id) }
 
     fun setBuffSkill(buffSkillSlotId: BuffSkillSlotId, buffSkill: BuffSkill) =
 
-        slotMap[buffSkillSlotId]?.setBuffSkill(buffSkill)
+        bySlotId[buffSkillSlotId]?.setBuffSkill(buffSkill)
 
     fun isBuffSkillOpenedBy(buffSkillSlotId: BuffSkillSlotId, buffSkillTemplate: BuffSkillTemplate): Boolean =
 
-        slotMap[buffSkillSlotId]?.isOpenedBy(buffSkillTemplate.keys) ?: false
+        bySlotId[buffSkillSlotId]?.isOpenedBy(buffSkillTemplate.keys) ?: false
 
     // UPGRADES:
     //--------------------------------------------------------------------------------------------------------
 
     fun upgrade(buffSkillSlotId: BuffSkillSlotId, statId: StatId, upgradeBy: NumUpgrades) =
 
-        slotMap[buffSkillSlotId]?.upgrade(statId, upgradeBy)
+        bySlotId[buffSkillSlotId]?.upgrade(statId, upgradeBy)
 
     fun totalCost(): UpgradeCost =
 
-        slotMap.values
+        bySlotId.values
             .map { it.totalCost() }
             .reduce { acc, next -> acc.plus(next) }
 }

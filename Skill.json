@@ -7,7 +7,7 @@
     "id" : "SPEED",
     "name" : "speed",
     "baseBonus" : 10.0,
-    "actual" : 0,
+    "actual" : 8,
     "maximum" : 20,
     "upgradeCost" : 2.0,
     "bonusPerUpgrade" : 1.0
@@ -15,7 +15,7 @@
     "id" : "Cooldown",
     "name" : "cooldown",
     "baseBonus" : 10.0,
-    "actual" : 0,
+    "actual" : 15,
     "maximum" : 20,
     "upgradeCost" : 2.0,
     "bonusPerUpgrade" : 1.0
@@ -33,7 +33,7 @@
         "id" : "RADIUS",
         "name" : "radius",
         "baseBonus" : 10.0,
-        "actual" : 0,
+        "actual" : 12,
         "maximum" : 20,
         "upgradeCost" : 2.0,
         "bonusPerUpgrade" : 1.0
@@ -51,7 +51,7 @@
             "id" : "DAMAGE",
             "name" : "damage per tick",
             "baseBonus" : 10.0,
-            "actual" : 0,
+            "actual" : 4,
             "maximum" : 20,
             "upgradeCost" : 2.0,
             "bonusPerUpgrade" : 1.0
@@ -59,7 +59,7 @@
             "id" : "DURATION",
             "name" : "duration",
             "baseBonus" : 10.0,
-            "actual" : 0,
+            "actual" : 12,
             "maximum" : 20,
             "upgradeCost" : 2.0,
             "bonusPerUpgrade" : 1.0

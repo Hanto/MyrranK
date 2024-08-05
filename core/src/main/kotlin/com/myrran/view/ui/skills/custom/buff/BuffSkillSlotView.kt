@@ -4,6 +4,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table
 import com.myrran.controller.BuffSKillController
 import com.myrran.domain.Identifiable
 import com.myrran.domain.skills.custom.buff.BuffSkill
+import com.myrran.domain.skills.custom.buff.BuffSkillId
 import com.myrran.domain.skills.custom.buff.BuffSkillSlot
 import com.myrran.domain.skills.custom.buff.BuffSkillSlotContent.NoBuffSkill
 import com.myrran.domain.skills.custom.stat.Stat
@@ -23,6 +24,7 @@ class BuffSkillSlotView(
 {
     val buffSlotKeyView: BuffSlotKeyView = BuffSlotKeyView(model, assets)
     private var stats: StatsView = getStatsView()
+    var buffSkillId: BuffSkillId? = retrieveBuffSkillId()
 
     // LAYOUT:
     //--------------------------------------------------------------------------------------------------------
@@ -52,6 +54,7 @@ class BuffSkillSlotView(
 
     fun update() {
 
+        buffSkillId = retrieveBuffSkillId()
         buffSlotKeyView.update()
         stats = getStatsView()
         rebuildTable()
@@ -70,5 +73,13 @@ class BuffSkillSlotView(
 
             is NoBuffSkill -> emptyList()
             is BuffSkill -> buffSkill.stats.getStats()
+        }
+
+    private fun retrieveBuffSkillId(): BuffSkillId? =
+
+        when (val buffSkill = model.content) {
+
+            is NoBuffSkill -> null
+            is BuffSkill -> buffSkill.id
         }
 }

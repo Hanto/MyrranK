@@ -2,7 +2,6 @@ package com.myrran.domain.skills.book
 
 import com.myrran.domain.skills.custom.buff.BuffSkill
 import com.myrran.domain.skills.custom.buff.BuffSkillSlotId
-import com.myrran.domain.skills.custom.skill.Skill
 import com.myrran.domain.skills.custom.skill.SkillId
 import com.myrran.domain.skills.custom.stat.NumUpgrades
 import com.myrran.domain.skills.custom.stat.StatId
@@ -34,51 +33,52 @@ data class PlayerSkillBook(
     fun learn(templateId: SkillTemplateId) {
 
         learnedSkillTemplates.add(templateId)
-        learnedRepository.save(learnedSkillTemplates)
+        learnedRepository.saveLearnedSkills(learnedSkillTemplates)
     }
 
     fun learn(templateId: SubSkillTemplateId) {
 
         learnedSubSkillsTemplates.add(templateId)
-        learnedRepository.save(learnedSubSkillsTemplates)
+        learnedRepository.saveLearnedSubSkills(learnedSubSkillsTemplates)
     }
 
     fun learn(templateId: BuffSkillTemplateId) {
 
         learnedBuffSkillsTemplates.add(templateId)
-        learnedRepository.save(learnedBuffSkillsTemplates)
+        learnedRepository.saveLearnedBuffSkills(learnedBuffSkillsTemplates)
     }
 
     // ADD:
     //--------------------------------------------------------------------------------------------------------
 
-    fun addSkill(skillTemplateId: SkillTemplateId): Skill {
+    fun addSkill(skillTemplateId: SkillTemplateId) {
 
         val skillTemplate = skillTemplateRepository.findBy(skillTemplateId)!!
-        val skill = skillTemplate.toSkill()
 
-        learnedSkillTemplates.borrow(skillTemplate.id)
+        if (learnedSkillTemplates.isAvailable(skillTemplateId)) {
 
-        createdSkillsRepository.save(skill)
-        learnedRepository.save(learnedSkillTemplates)
+            learnedSkillTemplates.borrow(skillTemplate.id)
+            val skill = skillTemplate.toSkill()
 
-        return skill
+            createdSkillsRepository.save(skill)
+            learnedRepository.saveLearnedSkills(learnedSkillTemplates)
+        }
     }
 
     fun addSubSkillTo(skillId: SkillId, subSkillSlotId: SubSkillSlotId, subSkillTemplateId: SubSkillTemplateId) {
 
         val skill = createdSkillsRepository.findBy(skillId)!!
         val subSkillTemplate = skillTemplateRepository.findBy(subSkillTemplateId)!!
-        val subSkill = subSkillTemplate.toSubSkill()
 
         if (skill.isSubSkillOpenedBy(subSkillSlotId, subSkillTemplate) && learnedSubSkillsTemplates.isAvailable(subSkillTemplateId)) {
 
             learnedSubSkillsTemplates.borrow(subSkillTemplateId)
             removeSubSkill(skillId, subSkillSlotId)
+            val subSkill = subSkillTemplate.toSubSkill()
             skill.setSubSkill(subSkillSlotId, subSkill)
 
             createdSkillsRepository.save(skill)
-            learnedRepository.save(learnedSubSkillsTemplates)
+            learnedRepository.saveLearnedSubSkills(learnedSubSkillsTemplates)
         }
     }
 
@@ -95,7 +95,7 @@ data class PlayerSkillBook(
             skill.setBuffSkill(subSkillSlotId, buffSkillSlotId, buffSkill)
 
             createdSkillsRepository.save(skill)
-            learnedRepository.save(learnedBuffSkillsTemplates)
+            learnedRepository.saveLearnedBuffSkills(learnedBuffSkillsTemplates)
         }
     }
 
@@ -110,7 +110,7 @@ data class PlayerSkillBook(
                 learnedSkillTemplates.returnBack(it.templateId)
 
                 createdSkillsRepository.save(it)
-                learnedRepository.save(learnedSkillTemplates)
+                learnedRepository.saveLearnedSkills(learnedSkillTemplates)
             }
     }
 
@@ -136,7 +136,6 @@ data class PlayerSkillBook(
     // IS OPENED:
     //--------------------------------------------------------------------------------------------------------
 
-
     fun isBuffSkillOpenedBy(skillId: SkillId, subSkillSlotId: SubSkillSlotId, buffSkillSlotId: BuffSkillSlotId, buffSkillTemplateId: BuffSkillTemplateId): Boolean =
 
         createdSkillsRepository.findBy(skillId)
@@ -147,17 +146,29 @@ data class PlayerSkillBook(
     // UPGRADE:
     //--------------------------------------------------------------------------------------------------------
 
-    fun upgrade(skillId: SkillId, statId: StatId, upgradeBy: NumUpgrades) =
+    fun upgrade(skillId: SkillId, statId: StatId, upgradeBy: NumUpgrades) {
 
-        createdSkillsRepository.findBy(skillId)?.upgrade(statId, upgradeBy)
+        val skill = createdSkillsRepository.findBy(skillId)
 
-    fun upgrade(skillId: SkillId, subSkillSlotId: SubSkillSlotId, statId: StatId, upgradeBy: NumUpgrades) =
+        skill?.upgrade(statId, upgradeBy)
+            ?.also { createdSkillsRepository.save(skill) }
+    }
 
-        createdSkillsRepository.findBy(skillId)?.upgrade(subSkillSlotId, statId, upgradeBy)
+    fun upgrade(skillId: SkillId, subSkillSlotId: SubSkillSlotId, statId: StatId, upgradeBy: NumUpgrades) {
 
-    fun upgrade(skillId: SkillId, subSkillSlotId: SubSkillSlotId, buffSkillSlotId: BuffSkillSlotId, statId: StatId, upgradeBy: NumUpgrades) =
+        val skill = createdSkillsRepository.findBy(skillId)
 
-        createdSkillsRepository.findBy(skillId)?.upgrade(subSkillSlotId, buffSkillSlotId, statId, upgradeBy)
+        skill?.upgrade(subSkillSlotId, statId, upgradeBy)
+            ?.also { createdSkillsRepository.save(skill) }
+    }
+
+    fun upgrade(skillId: SkillId, subSkillSlotId: SubSkillSlotId, buffSkillSlotId: BuffSkillSlotId, statId: StatId, upgradeBy: NumUpgrades) {
+
+        val skill = createdSkillsRepository.findBy(skillId)
+
+        skill?.upgrade(subSkillSlotId, buffSkillSlotId, statId, upgradeBy)
+            ?.also { createdSkillsRepository.save(skill) }
+    }
 
     private inline fun <reified T: Any> Any.ifIs(classz: KClass<T>): T? =
 

@@ -7,6 +7,7 @@ import com.myrran.domain.events.SubSkillStatUpgradedEvent
 import com.myrran.domain.skills.custom.buff.BuffSkillSlotId
 import com.myrran.domain.skills.custom.stat.Stat
 import com.myrran.domain.skills.custom.subskill.SubSkill
+import com.myrran.domain.skills.custom.subskill.SubSkillId
 import com.myrran.domain.skills.custom.subskill.SubSkillSlot
 import com.myrran.domain.skills.custom.subskill.SubSkillSlotContent.NoSubSkill
 import com.myrran.view.ui.skills.SkillViewFactory
@@ -28,6 +29,7 @@ class SubSkillSlotView(
     private val subSlotKeyView: SubSlotKeyView = SubSlotKeyView(model, assets)
     private var stats: StatsView = StatsView( { getStats() }, assets, controller)
     var buffSlots: Map<BuffSkillSlotId, BuffSkillSlotView> = createBuffSkillSlotViews()
+    var subSkillId: SubSkillId? = retrieveSubSkillId()
 
     // LAYOUT:
     //--------------------------------------------------------------------------------------------------------
@@ -62,6 +64,7 @@ class SubSkillSlotView(
 
     fun update() {
 
+        subSkillId = retrieveSubSkillId()
         subSlotKeyView.update()
         buffSlots.values.forEach{ factory.disposeBuffSlotView(it) }
         buffSlots = createBuffSkillSlotViews()
@@ -84,7 +87,15 @@ class SubSkillSlotView(
 
         when (val subSkill = model.content) {
 
-            NoSubSkill -> emptyList()
+            is NoSubSkill -> emptyList()
             is SubSkill -> subSkill.stats.getStats()
+        }
+
+    private fun retrieveSubSkillId(): SubSkillId? =
+
+        when (val subSkill = model.content) {
+
+            is NoSubSkill -> null
+            is SubSkill -> subSkill.id
         }
 }

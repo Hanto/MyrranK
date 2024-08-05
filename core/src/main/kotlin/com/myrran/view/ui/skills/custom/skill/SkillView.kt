@@ -58,7 +58,7 @@ class SkillView(
         bodyTable.add(skillStatsTable).top().left().padBottom(0f).padLeft(4f).row()
         subSlots.values.forEach { bodyTable.add(it).top().right().expand().fillX().row() }
 
-        table.add(skillHeader).left().minWidth(338f).padBottom(0f).padLeft(4f).row()
+        table.add(skillHeader).left().minWidth(336f).padBottom(0f).padLeft(4f).row()
         table.add(bodyTable)
 
         actor = table
