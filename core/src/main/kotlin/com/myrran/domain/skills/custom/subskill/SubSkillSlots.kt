@@ -25,6 +25,10 @@ data class SubSkillSlots(
 
         bySlotId[subSkillSlotId]?.getSubSkill()
 
+    fun isSubSkillOpenedBy(subSkillSlotId: SubSkillSlotId, subSkillTemplate: SubSkillTemplate): Boolean =
+
+        bySlotId[subSkillSlotId]?.isSubSkillOpenedBy(subSkillTemplate) ?: false
+
     fun removeSubSkill(subSkillSlotId: SubSkillSlotId): SubSkill? =
 
         bySlotId[subSkillSlotId]?.removeSubSkill()
@@ -37,16 +41,16 @@ data class SubSkillSlots(
 
         bySlotId[subSkillSlotId]?.setSubSkill(subSkill)
 
-    fun isSubSkillOpenedBy(subSkillSlotId: SubSkillSlotId, subSkillTemplate: SubSkillTemplate): Boolean =
-
-        bySlotId[subSkillSlotId]?.isSubSkillOpenedBy(subSkillTemplate) ?: false
-
     // BUFFKILLS:
     //--------------------------------------------------------------------------------------------------------
 
     fun getBuffSkill(subSkillSlotId: SubSkillSlotId, buffSkillSlotId: BuffSkillSlotId): BuffSkill? =
 
         bySlotId[subSkillSlotId]?.getBuffSkill(buffSkillSlotId)
+
+    fun isBuffSkillOpenedBy(subSkillSlotId: SubSkillSlotId, buffSkillSlotId: BuffSkillSlotId, buffSkillTemplate: BuffSkillTemplate): Boolean =
+
+        bySlotId[subSkillSlotId]?.isBuffSkillOpenedBy(buffSkillSlotId, buffSkillTemplate) ?: false
 
     fun removeBuffSKill(subSkillSlotId: SubSkillSlotId, buffSkillSlotId: BuffSkillSlotId): BuffSkill? =
 
@@ -59,10 +63,6 @@ data class SubSkillSlots(
     fun setBuffSkill(subSkillSlotId: SubSkillSlotId, buffSkillSlotId: BuffSkillSlotId, buffSkill: BuffSkill) =
 
         bySlotId[subSkillSlotId]?.setBuffSkill(buffSkillSlotId, buffSkill)
-
-    fun isBuffSkillOpenedBy(subSkillSlotId: SubSkillSlotId, buffSkillSlotId: BuffSkillSlotId, buffSkillTemplate: BuffSkillTemplate): Boolean =
-
-        bySlotId[subSkillSlotId]?.isBuffSkillOpenedBy(buffSkillSlotId, buffSkillTemplate) ?: false
 
     // UPGRADES:
     //--------------------------------------------------------------------------------------------------------

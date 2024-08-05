@@ -93,7 +93,7 @@ class MainScreen(
         val skill = playerSkillBook.createdSkillsRepository.findBy(SkillId.from("95a1bfb2-a2bd-47d3-920b-e7f9ad798b76"))!!
         val skillView = skillViewFactory.createSkillView(skill, controller)
         uiStage.addActor(skillView)
-        skillView.setPosition(200f, 100f)
+        skillView.setPosition(350f, 100f)
 
         val fireTemplate = skillTemplateRepository.findBy( BuffSkillTemplateId("FIRE_1") )!!
         val fireTemplateView = skillViewFactory.createBuffTemplateView(fireTemplate)
@@ -103,7 +103,7 @@ class MainScreen(
         val bombTemplate = skillTemplateRepository.findBy( BuffSkillTemplateId("BOMB_1") )!!
         val bombTemplateView = skillViewFactory.createBuffTemplateView(bombTemplate)
         uiStage.addActor(bombTemplateView)
-        bombTemplateView.setPosition(70f, 70f)
+        bombTemplateView.setPosition(50f, 150f)
 
 
         //playerSkillBook.learn(BuffSkillTemplateId("BOMB_1"))

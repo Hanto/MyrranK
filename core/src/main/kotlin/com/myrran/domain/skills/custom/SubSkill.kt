@@ -47,6 +47,11 @@ data class SubSkill(
 
         slots.getBuffSkill(buffSkillSlotId)
 
+    fun isOpenedBy(buffSkillSlotId: BuffSkillSlotId, buffSkillTemplate: BuffSkillTemplate): Boolean =
+
+        slots.getBuffSkills().none { it.templateId == buffSkillTemplate.id } &&
+        slots.isBuffSkillOpenedBy(buffSkillSlotId, buffSkillTemplate)
+
     fun removeBuffSkill(buffSkillSlotId: BuffSkillSlotId): BuffSkill? =
 
         slots.removeBuffSkill(buffSkillSlotId)
@@ -58,11 +63,6 @@ data class SubSkill(
     fun setBuffSkill(buffSkillSlotId: BuffSkillSlotId, buffSkill: BuffSkill) =
 
         slots.setBuffSkill(buffSkillSlotId, buffSkill)
-
-    fun isOpenedBy(buffSkillSlotId: BuffSkillSlotId, buffSkillTemplate: BuffSkillTemplate): Boolean =
-
-        slots.getBuffSkills().none { it.templateId == buffSkillTemplate.id } &&
-        slots.isBuffSkillOpenedBy(buffSkillSlotId, buffSkillTemplate)
 
     // UPGRADES:
     //--------------------------------------------------------------------------------------------------------

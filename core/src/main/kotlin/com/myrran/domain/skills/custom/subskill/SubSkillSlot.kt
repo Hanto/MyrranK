@@ -31,6 +31,10 @@ data class SubSkillSlot(
 
         content.ifIs(SubSkill::class)
 
+    fun isSubSkillOpenedBy(subSkillTemplate: SubSkillTemplate): Boolean =
+
+        lock.isOpenedBy(subSkillTemplate.keys)
+
     fun removeSubSkill(): SubSkill? =
 
         content.ifIs(SubSkill::class).also { content = NoSubSkill }
@@ -43,16 +47,16 @@ data class SubSkillSlot(
             false -> Unit
         }
 
-    fun isSubSkillOpenedBy(subSkillTemplate: SubSkillTemplate): Boolean =
-
-        lock.isOpenedBy(subSkillTemplate.keys)
-
     // BUFFKILLS:
     //--------------------------------------------------------------------------------------------------------
 
     fun getBuffSkill(buffSkillSlotId: BuffSkillSlotId): BuffSkill? =
 
         content.ifIs(SubSkill::class)?.getBuffSkill(buffSkillSlotId)
+
+    fun isBuffSkillOpenedBy(buffSkillSlotId: BuffSkillSlotId, buffSkillTemplate: BuffSkillTemplate): Boolean =
+
+        content.ifIs(SubSkill::class)?.isOpenedBy(buffSkillSlotId, buffSkillTemplate) ?: false
 
     fun removeBuffSkill(buffSkillSlotId: BuffSkillSlotId): BuffSkill? =
 
@@ -65,10 +69,6 @@ data class SubSkillSlot(
     fun setBuffSkill(buffSkillSlotId: BuffSkillSlotId, buffSkill: BuffSkill) =
 
         content.ifIs(SubSkill::class)?.setBuffSkill(buffSkillSlotId, buffSkill)
-
-    fun isBuffSkillOpenedBy(buffSkillSlotId: BuffSkillSlotId, buffSkillTemplate: BuffSkillTemplate): Boolean =
-
-        content.ifIs(SubSkill::class)?.isOpenedBy(buffSkillSlotId, buffSkillTemplate) ?: false
 
     // UPGRADES:
     //--------------------------------------------------------------------------------------------------------

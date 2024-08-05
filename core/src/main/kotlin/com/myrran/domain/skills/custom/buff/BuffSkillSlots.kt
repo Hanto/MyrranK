@@ -26,6 +26,10 @@ data class BuffSkillSlots(
 
         bySlotId.values.map { it.content }.filterIsInstance<BuffSkill>()
 
+    fun isBuffSkillOpenedBy(buffSkillSlotId: BuffSkillSlotId, buffSkillTemplate: BuffSkillTemplate): Boolean =
+
+        bySlotId[buffSkillSlotId]?.isOpenedBy(buffSkillTemplate.keys) ?: false
+
     fun removeBuffSkill(buffSkillSlotId: BuffSkillSlotId): BuffSkill? =
 
         bySlotId[buffSkillSlotId]?.removeBuffSkill()
@@ -37,10 +41,6 @@ data class BuffSkillSlots(
     fun setBuffSkill(buffSkillSlotId: BuffSkillSlotId, buffSkill: BuffSkill) =
 
         bySlotId[buffSkillSlotId]?.setBuffSkill(buffSkill)
-
-    fun isBuffSkillOpenedBy(buffSkillSlotId: BuffSkillSlotId, buffSkillTemplate: BuffSkillTemplate): Boolean =
-
-        bySlotId[buffSkillSlotId]?.isOpenedBy(buffSkillTemplate.keys) ?: false
 
     // UPGRADES:
     //--------------------------------------------------------------------------------------------------------

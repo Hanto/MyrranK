@@ -32,13 +32,13 @@ class BuffSkillSlotView(
     init {
 
         right()
-        buffSlotKeyView.addListener(ActorClickListener(Buttons.RIGHT) { controller.removeBuffSkill(); update() })
+        buffSlotKeyView.addListener(ActorClickListener(Buttons.RIGHT) { controller.removeBuffSkill() })
         rebuildTable()
     }
 
     private fun rebuildTable() {
 
-        clear()
+        clearChildren()
 
         if (model.content is BuffSkill)
             add(stats).right()

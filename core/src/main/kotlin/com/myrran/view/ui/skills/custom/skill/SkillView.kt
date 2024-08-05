@@ -7,7 +7,14 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table
 import com.badlogic.gdx.utils.Disposable
 import com.myrran.controller.SkillController
 import com.myrran.domain.Identifiable
+import com.myrran.domain.events.BuffSkillChangedEvent
+import com.myrran.domain.events.BuffSkillRemovedEvent
+import com.myrran.domain.events.BuffSkillStatUpgradedEvent
 import com.myrran.domain.events.SkillEvent
+import com.myrran.domain.events.SkillStatUpgradedEvent
+import com.myrran.domain.events.SubSkillChangedEvent
+import com.myrran.domain.events.SubSkillRemovedEvent
+import com.myrran.domain.events.SubSkillStatUpgradedEvent
 import com.myrran.domain.skills.custom.Skill
 import com.myrran.domain.skills.custom.subskill.SubSkillSlotId
 import com.myrran.domain.utils.observer.Observer
@@ -71,21 +78,28 @@ class SkillView(
     // UPDATE:
     //--------------------------------------------------------------------------------------------------------
 
-    override fun propertyChange(event: SkillEvent) {
+    private fun update() {
 
         skillHeader = SkillHeader(model, assets)
         skillStats = StatsView( { model.getStats() }, assets, controller)
         subSlots = createSubSkillSlotViews()
         rebuildTable()
+    }
 
-        /*when (event) {
+    override fun propertyChange(event: SkillEvent) {
+
+        when (event) {
 
             is SkillStatUpgradedEvent ->  { skillStats.update(event.statId); skillHeader.update() }
-            is SubSkillStatUpgradedEvent -> { subSlots[event.subId]?.update(event); skillHeader.update() }
-            is BuffSkillStatUpgradedEvent -> { subSlots[event.subId]?.buffSlots?.get(event.buffId)?.update(event.statId); skillHeader.update() }
-            is SubSkillChangedEvent -> subSlots[event.subId]?.update()
-            is BuffSkillChangedEvent -> subSlots[event.subId]?.buffSlots?.get(event.buffId)?.update()
-        }*/
+
+            is SubSkillStatUpgradedEvent -> { subSlots[event.subSlot]?.update(event); skillHeader.update() }
+            is SubSkillChangedEvent -> subSlots[event.subSlot]?.update()
+            is SubSkillRemovedEvent -> update()
+
+            is BuffSkillStatUpgradedEvent -> { subSlots[event.subSlot]?.buffSlots?.get(event.buffSlot)?.update(event.statId); skillHeader.update() }
+            is BuffSkillChangedEvent -> subSlots[event.subSlot]?.buffSlots?.get(event.buffSlot)?.update()
+            is BuffSkillRemovedEvent -> update()
+        }
     }
 
     // HELPER:

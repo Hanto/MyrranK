@@ -41,6 +41,8 @@ class SubSkillSlotView(
 
     private fun rebuildTable() {
 
+        clearChildren()
+
         val keyAndStatsTable = Table().left()
         if (model.content is SubSkill)
             keyAndStatsTable.add(stats).left()

@@ -33,7 +33,7 @@
         "id" : "RADIUS",
         "name" : "radius",
         "baseBonus" : 10.0,
-        "actual" : 19,
+        "actual" : 10,
         "maximum" : 20,
         "upgradeCost" : 2.0,
         "bonusPerUpgrade" : 1.0
@@ -43,7 +43,7 @@
         "name" : "Debuff 1",
         "lock" : [ "c", "e" ],
         "content" : {
-          "id" : "bbb66bd6-92b2-4db5-b0d7-879d7b2b1520",
+          "id" : "0cd46650-33b0-4fa1-8b20-645794b9a4ac",
           "templateId" : "BOMB_1",
           "type" : "BOMB",
           "name" : "Bomb",
@@ -51,7 +51,7 @@
             "id" : "DAMAGE",
             "name" : "damage",
             "baseBonus" : 10.0,
-            "actual" : 0,
+            "actual" : 11,
             "maximum" : 20,
             "upgradeCost" : 2.0,
             "bonusPerUpgrade" : 1.0
@@ -71,7 +71,7 @@
         "name" : "Debuff 2",
         "lock" : [ "b", "c" ],
         "content" : {
-          "id" : "06a79e8d-2aa5-4c69-aa95-3642bed82e40",
+          "id" : "b2f705a9-732c-41ec-a715-704316835091",
           "templateId" : "FIRE_1",
           "type" : "FIRE",
           "name" : "Fire",

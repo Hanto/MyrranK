@@ -2,10 +2,12 @@ package com.myrran.domain.skills.custom
 
 import com.myrran.domain.Identifiable
 import com.myrran.domain.events.BuffSkillChangedEvent
+import com.myrran.domain.events.BuffSkillRemovedEvent
 import com.myrran.domain.events.BuffSkillStatUpgradedEvent
 import com.myrran.domain.events.SkillEvent
 import com.myrran.domain.events.SkillStatUpgradedEvent
 import com.myrran.domain.events.SubSkillChangedEvent
+import com.myrran.domain.events.SubSkillRemovedEvent
 import com.myrran.domain.events.SubSkillStatUpgradedEvent
 import com.myrran.domain.skills.custom.buff.BuffSkillSlotId
 import com.myrran.domain.skills.custom.skill.SkillId
@@ -48,6 +50,10 @@ data class Skill(
 
         slots.getSubSkill(subSkillSlotId)
 
+    fun isSubSkillOpenedBy(subSkillSlotId: SubSkillSlotId, subSkillTemplate: SubSkillTemplate): Boolean =
+
+        slots.isSubSkillOpenedBy(subSkillSlotId, subSkillTemplate)
+
     fun removeSubSkill(subSkillSlotId: SubSkillSlotId): Collection<SubBuffSkill> =
 
         slots.removeSubSkill(subSkillSlotId)?.let { subSkill -> subSkill.removeAllBuffSkills() + subSkill } ?: emptyList()
@@ -55,15 +61,12 @@ data class Skill(
     fun removeAllSubSkills(): Collection<SubBuffSkill> =
 
         slots.removeAllSubSkills().let { subSkills -> subSkills.flatMap { it.removeAllBuffSkills() } + subSkills }
+            .also { if (it.isNotEmpty()) notify(SubSkillRemovedEvent(id, it)) }
 
     fun setSubSkill(subSkillSlotId: SubSkillSlotId, subSkill: SubSkill) =
 
         slots.setSubSkill(subSkillSlotId, subSkill)
-            .also { notify(SubSkillChangedEvent(subSkillSlotId)) }
-
-    fun isSubSkillOpenedBy(subSkillSlotId: SubSkillSlotId, subSkillTemplate: SubSkillTemplate): Boolean =
-
-        slots.isSubSkillOpenedBy(subSkillSlotId, subSkillTemplate)
+            .also { notify(SubSkillChangedEvent(id, subSkillSlotId, subSkill)) }
 
     // BUFFSKILL
     //--------------------------------------------------------------------------------------------------------
@@ -72,22 +75,19 @@ data class Skill(
 
         slots.getBuffSkill(subSkillSlotId, buffSkillSlotId)
 
+    fun isBuffSkillOpenedBy(subSkillSlotId: SubSkillSlotId, buffSkillSlotId: BuffSkillSlotId, buffSkillTemplate: BuffSkillTemplate): Boolean =
+
+        slots.isBuffSkillOpenedBy(subSkillSlotId, buffSkillSlotId, buffSkillTemplate)
+
     fun removeBuffSkill(subSkillSlotId: SubSkillSlotId, buffSkillSlotId: BuffSkillSlotId): BuffSkill? =
 
         slots.removeBuffSKill(subSkillSlotId, buffSkillSlotId)
-
-    fun removeAllBuffSkills(): Collection<BuffSkill> =
-
-        slots.removeAllBuffSkills()
+            ?.also { notify(BuffSkillRemovedEvent(id, it)) }
 
     fun setBuffSkill(subSkillSlotId: SubSkillSlotId, buffSkillSlotId: BuffSkillSlotId, buffSkill: BuffSkill) =
 
         slots.setBuffSkill(subSkillSlotId, buffSkillSlotId, buffSkill)
-            .also { notify(BuffSkillChangedEvent(subSkillSlotId, buffSkillSlotId)) }
-
-    fun isBuffSkillOpenedBy(subSkillSlotId: SubSkillSlotId, buffSkillSlotId: BuffSkillSlotId, buffSkillTemplate: BuffSkillTemplate): Boolean =
-
-        slots.isBuffSkillOpenedBy(subSkillSlotId, buffSkillSlotId, buffSkillTemplate)
+            .also { notify(BuffSkillChangedEvent(id, subSkillSlotId, buffSkillSlotId, buffSkill)) }
 
     // UPGRADES:
     //--------------------------------------------------------------------------------------------------------
