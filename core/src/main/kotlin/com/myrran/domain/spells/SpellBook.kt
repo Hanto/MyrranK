@@ -1,4 +1,4 @@
-package com.myrran.domain.skills.book
+package com.myrran.domain.spells
 
 import com.myrran.domain.skills.custom.BuffSkill
 import com.myrran.domain.skills.custom.SubSkill
@@ -7,15 +7,17 @@ import com.myrran.domain.skills.custom.skill.SkillId
 import com.myrran.domain.skills.custom.stat.NumUpgrades
 import com.myrran.domain.skills.custom.stat.StatId
 import com.myrran.domain.skills.custom.subskill.SubSkillSlotId
+import com.myrran.domain.skills.templates.BuffSkillTemplate
 import com.myrran.domain.skills.templates.buff.BuffSkillTemplateId
 import com.myrran.domain.skills.templates.skill.SkillTemplateId
 import com.myrran.domain.skills.templates.subskill.SubSkillTemplateId
+import com.myrran.domain.utils.Quantity
 import com.myrran.domain.utils.QuantityMap
 import com.myrran.infraestructure.learned.LearnedRepository
 import com.myrran.infraestructure.skill.SkillRepository
 import com.myrran.infraestructure.skilltemplate.SkillTemplateRepository
 
-data class PlayerSkillBook(
+data class SpellBook(
 
     private val skillTemplateRepository: SkillTemplateRepository,
     private val learnedRepository: LearnedRepository,
@@ -55,6 +57,12 @@ data class PlayerSkillBook(
             learnedRepository.saveLearnedBuffSkills(learnedBuffSkillsTemplates)
         }
     }
+
+    fun learnedBuffSkillTemplates(): Collection<QuantityItem<BuffSkillTemplate>> =
+
+        skillTemplateRepository.findAllBuffSkillTemplates()
+            .filter { learnedBuffSkillsTemplates.contains(it.id) }
+            .map { QuantityItem(it, learnedBuffSkillsTemplates[it.id]!!) }
 
     // ADD:
     //--------------------------------------------------------------------------------------------------------
@@ -212,3 +220,8 @@ data class PlayerSkillBook(
             ?.also { createdSkillsRepository.save(skill) }
     }
 }
+
+data class QuantityItem<T>(
+    val item: T,
+    val quantity: Quantity
+)

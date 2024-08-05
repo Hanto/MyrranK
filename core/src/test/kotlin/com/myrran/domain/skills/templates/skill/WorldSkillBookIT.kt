@@ -1,8 +1,5 @@
 package com.myrran.domain.skills.templates.skill
 
-import com.fasterxml.jackson.databind.ObjectMapper
-import com.fasterxml.jackson.module.kotlin.KotlinModule
-import com.myrran.domain.skills.book.WorldSkillBook
 import com.myrran.domain.skills.custom.buff.BuffSkillName
 import com.myrran.domain.skills.custom.buff.BuffSkillSlotId
 import com.myrran.domain.skills.custom.buff.BuffSkillSlotName
@@ -126,15 +123,5 @@ class WorldSkillBookIT {
             ),
             keys = listOf(LockType.C)
         )
-
-        val originalDomain = WorldSkillBook(
-            listOf(bolt).associateBy { it.id },
-            listOf(explosion).associateBy { it.id },
-            listOf(fire).associateBy { it.id },
-        )
-
-        val objectMapper = ObjectMapper().registerModule(KotlinModule.Builder().build())
     }
-
-
 }

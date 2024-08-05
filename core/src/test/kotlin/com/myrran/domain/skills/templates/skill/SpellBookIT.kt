@@ -1,8 +1,5 @@
 package com.myrran.domain.skills.templates.skill
 
-import com.fasterxml.jackson.databind.ObjectMapper
-import com.fasterxml.jackson.module.kotlin.KotlinModule
-import com.myrran.domain.skills.book.WorldSkillBook
 import com.myrran.domain.skills.custom.buff.BuffSkillName
 import com.myrran.domain.skills.custom.buff.BuffSkillSlotId
 import com.myrran.domain.skills.custom.buff.BuffSkillSlotName
@@ -31,7 +28,7 @@ import com.myrran.domain.spells.spell.SkillType
 import com.myrran.domain.spells.subspell.SubSkillType
 import org.junit.jupiter.api.Test
 
-class PlayerSkillBookIT {
+class SpellBookIT {
 
     @Test
     fun `playerSkillBook can be saved and loaded`() {
@@ -125,16 +122,5 @@ class PlayerSkillBookIT {
             ),
             keys = listOf(LockType.C)
         )
-
-        val worldSkill = WorldSkillBook(
-            listOf(bolt).associateBy { it.id },
-            listOf(explosion).associateBy { it.id },
-            listOf(fire).associateBy { it.id },
-        )
-
-        val boltSkill = worldSkill.createSkill(SkillTemplateId("FIREBOLT_1"))
-        val explosionSkill = worldSkill.createSubSkill(SubSkillTemplateId("EXPLOSION_1"))
-        val fireSkill = worldSkill.createBuffSkill(BuffSkillTemplateId("FIRE_1"))
-        val objectMapper = ObjectMapper().registerModule(KotlinModule.Builder().build())
     }
 }

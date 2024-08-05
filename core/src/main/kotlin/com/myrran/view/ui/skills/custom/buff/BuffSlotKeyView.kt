@@ -24,7 +24,7 @@ class BuffSlotKeyView(
 
 ): Table()
 {
-    private val runesLabel: TextView<String> = TextView("${model.getName()}:", assets.font10, model.getColor())
+    private val runesLabel: TextView<String> = TextView("${model.toName()}:", assets.font10, model.toColor())
     private var keys: List<TextView<String>> = getKeys()
 
     // LAYOUT:
@@ -52,7 +52,7 @@ class BuffSlotKeyView(
 
     fun dontHighlight() {
 
-        runesLabel.setTextColor(model.getColor())
+        runesLabel.setTextColor(model.toColor())
         runesLabel.clearActions()
         runesLabel.addAction(Actions.fadeIn(0.4f))
     }
@@ -71,8 +71,8 @@ class BuffSlotKeyView(
 
     fun update() {
 
-        runesLabel.setText("${model.getName()}:")
-        runesLabel.setTextColor(model.getColor())
+        runesLabel.setText("${model.toName()}:")
+        runesLabel.setTextColor(model.toColor())
         keys = getKeys()
         rebuildTable()
     }
@@ -83,9 +83,9 @@ class BuffSlotKeyView(
     private fun getKeys() =
 
         model.lock.openedBy
-            .map { TextView("${it.value} ", assets.font10, it.getColor(), 1f) }
+            .map { TextView("${it.value} ", assets.font10, it.toColor(), 1f) }
 
-    private fun BuffSkillSlot.getName(): String =
+    private fun BuffSkillSlot.toName(): String =
 
         when (val buffSkill = model.content) {
 
@@ -93,7 +93,7 @@ class BuffSlotKeyView(
             is BuffSkill -> buffSkill.name.value
         }
 
-    private fun BuffSkillSlot.getColor(): Color =
+    private fun BuffSkillSlot.toColor(): Color =
 
         when (model.content) {
 
@@ -101,7 +101,7 @@ class BuffSlotKeyView(
             is BuffSkill -> ORANGE
         }
 
-    private fun LockType.getColor(): Color =
+    private fun LockType.toColor(): Color =
 
         when (val buffSkill = model.content)
         {

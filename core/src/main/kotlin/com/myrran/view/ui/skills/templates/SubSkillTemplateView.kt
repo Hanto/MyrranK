@@ -1,6 +1,5 @@
 package com.myrran.view.ui.skills.templates
 
-import com.badlogic.gdx.Input
 import com.badlogic.gdx.scenes.scene2d.Touchable
 import com.badlogic.gdx.scenes.scene2d.ui.Container
 import com.badlogic.gdx.scenes.scene2d.ui.Table
@@ -27,7 +26,7 @@ class SubSkillTemplateView(
 
         header.touchable = Touchable.enabled
         header.addListener(ActorMoveListener(this))
-        addListener(ActorClickListener(Input.Buttons.LEFT) { toFront() } )
+        addListener(ActorClickListener { toFront() } )
 
         val table = Table()
         table.touchable = Touchable.enabled

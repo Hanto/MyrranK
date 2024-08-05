@@ -1,6 +1,5 @@
 package com.myrran.view.ui.skills.custom.buff
 
-import com.badlogic.gdx.Input.Buttons
 import com.badlogic.gdx.scenes.scene2d.ui.Table
 import com.myrran.controller.BuffSKillController
 import com.myrran.domain.Identifiable
@@ -10,6 +9,7 @@ import com.myrran.domain.skills.custom.buff.BuffSkillSlot
 import com.myrran.domain.skills.custom.stat.Stat
 import com.myrran.domain.skills.custom.stat.StatId
 import com.myrran.view.ui.misc.ActorClickListener
+import com.myrran.view.ui.misc.Button.RIGHT_BUTTON
 import com.myrran.view.ui.skills.SkillViewId
 import com.myrran.view.ui.skills.assets.SkillViewAssets
 import com.myrran.view.ui.skills.custom.stat.StatsView
@@ -32,7 +32,7 @@ class BuffSkillSlotView(
     init {
 
         right()
-        buffSlotKeyView.addListener(ActorClickListener(Buttons.RIGHT) { controller.removeBuffSkill() })
+        buffSlotKeyView.addListener(ActorClickListener(RIGHT_BUTTON) { controller.removeBuffSkill() })
         rebuildTable()
     }
 

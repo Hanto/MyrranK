@@ -44,11 +44,11 @@ data class Skill(
 
     fun getSubSkillSlots(): Collection<SubSkillSlot> =
 
-        slots.getSubSkillSlots()
+        slots.getSubSkillSlots().map { it.copy() }
 
     fun getSubSkill(subSkillSlotId: SubSkillSlotId): SubSkill? =
 
-        slots.getSubSkill(subSkillSlotId)
+        slots.getSubSkill(subSkillSlotId)?.copy()
 
     fun isSubSkillOpenedBy(subSkillSlotId: SubSkillSlotId, subSkillTemplate: SubSkillTemplate): Boolean =
 
@@ -57,7 +57,7 @@ data class Skill(
 
     fun removeSubSkill(subSkillSlotId: SubSkillSlotId): Collection<SubBuffSkill> =
 
-        (slots.removeSubSkill(subSkillSlotId)?.let { subSkill -> subSkill.removeAllBuffSkills() + subSkill } ?: emptyList<SubBuffSkill>())
+        (slots.removeSubSkill(subSkillSlotId)?.let { subSkill -> subSkill.removeAllBuffSkills().map { it.copy() } + subSkill.copy() } ?: emptyList<SubBuffSkill>())
             .also { if (it.isNotEmpty()) notify(SubSkillRemovedEvent(id, it)) }
 
     fun removeAllSubSkills(): Collection<SubBuffSkill> =
@@ -75,7 +75,7 @@ data class Skill(
 
     fun getBuffSkill(subSkillSlotId: SubSkillSlotId, buffSkillSlotId: BuffSkillSlotId): BuffSkill? =
 
-        slots.getBuffSkill(subSkillSlotId, buffSkillSlotId)
+        slots.getBuffSkill(subSkillSlotId, buffSkillSlotId)?.copy()
 
     fun isBuffSkillOpenedBy(subSkillSlotId: SubSkillSlotId, buffSkillSlotId: BuffSkillSlotId, buffSkillTemplate: BuffSkillTemplate): Boolean =
 
@@ -83,7 +83,7 @@ data class Skill(
 
     fun removeBuffSkill(subSkillSlotId: SubSkillSlotId, buffSkillSlotId: BuffSkillSlotId): BuffSkill? =
 
-        slots.removeBuffSKill(subSkillSlotId, buffSkillSlotId)
+        slots.removeBuffSKill(subSkillSlotId, buffSkillSlotId)?.copy()
             ?.also { notify(BuffSkillRemovedEvent(id, it)) }
 
     fun setBuffSkill(subSkillSlotId: SubSkillSlotId, buffSkillSlotId: BuffSkillSlotId, buffSkill: BuffSkill) =

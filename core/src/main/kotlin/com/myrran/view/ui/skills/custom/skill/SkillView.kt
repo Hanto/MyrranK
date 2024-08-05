@@ -1,6 +1,5 @@
 package com.myrran.view.ui.skills.custom.skill
 
-import com.badlogic.gdx.Input.Buttons
 import com.badlogic.gdx.scenes.scene2d.Touchable
 import com.badlogic.gdx.scenes.scene2d.ui.Container
 import com.badlogic.gdx.scenes.scene2d.ui.Table
@@ -47,7 +46,7 @@ class SkillView(
     init {
 
         model.addObserver(this)
-        addListener(ActorClickListener(Buttons.LEFT) { toFront() } )
+        addListener(ActorClickListener { toFront() } )
 
         top().left()
         rebuildTable()

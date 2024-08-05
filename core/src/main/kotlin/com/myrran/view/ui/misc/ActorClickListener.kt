@@ -1,20 +1,30 @@
 package com.myrran.view.ui.misc
 
+import com.badlogic.gdx.Input
 import com.badlogic.gdx.scenes.scene2d.InputEvent
 import com.badlogic.gdx.scenes.scene2d.InputListener
 
 class ActorClickListener(
 
-    private val buttonClicked: Int,
-    private val action: () -> Unit
-
+    private vararg val buttons: Button,
+    private val action: () -> Unit,
 
 ): InputListener() {
 
     override fun touchDown(event: InputEvent?, x: Float, y: Float, pointer: Int, button: Int): Boolean {
 
-        if (buttonClicked == button)
+        if (buttons.any { it.gdxButton == button } || buttons.isEmpty() )
             action.invoke()
         return true
     }
+}
+
+enum class Button(val gdxButton: Int?) {
+
+    RIGHT_BUTTON(Input.Buttons.RIGHT),
+    LEFT_BUTTON(Input.Buttons.LEFT),
+    MIDDLE_BUTTON(Input.Buttons.BACK),
+    BACK_BUTTON(Input.Buttons.BACK),
+    FORWARD_BUTTON(Input.Buttons.FORWARD),
+
 }

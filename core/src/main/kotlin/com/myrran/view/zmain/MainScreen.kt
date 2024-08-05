@@ -10,10 +10,9 @@ import com.badlogic.gdx.scenes.scene2d.Stage
 import com.myrran.badlogic.DaD
 import com.myrran.controller.DragAndDropManager
 import com.myrran.controller.SkillController
-import com.myrran.domain.skills.book.PlayerSkillBook
 import com.myrran.domain.skills.custom.skill.SkillId
-import com.myrran.domain.skills.templates.buff.BuffSkillTemplateId
 import com.myrran.domain.skills.templates.subskill.SubSkillTemplateId
+import com.myrran.domain.spells.SpellBook
 import com.myrran.domain.utils.DeSerializer
 import com.myrran.infraestructure.assetsconfig.AssetsConfigRepository
 import com.myrran.infraestructure.learned.LearnedRepository
@@ -25,6 +24,7 @@ import com.myrran.view.atlas.Atlas
 import com.myrran.view.ui.misc.TextView
 import com.myrran.view.ui.skills.SkillViewFactory
 import com.myrran.view.ui.skills.assets.SkillViewAssets
+import com.myrran.view.ui.skills.book.BuffSkillTemplateViews
 import ktx.app.KtxScreen
 
 class MainScreen(
@@ -42,7 +42,7 @@ class MainScreen(
     private val skillTemplateRepository: SkillTemplateRepository
     private val skillRepository: SkillRepository
     private val learnedRepository: LearnedRepository
-    private val playerSkillBook: PlayerSkillBook
+    private val spellBook: SpellBook
 
     private val fpsText: TextView<String>
 
@@ -65,14 +65,14 @@ class MainScreen(
         val skillAdapter = SkillAdapter()
         skillRepository = SkillRepository(skillAdapter, deSerializer)
         learnedRepository = LearnedRepository(deSerializer)
-        playerSkillBook = PlayerSkillBook(skillTemplateRepository, learnedRepository, skillRepository)
+        spellBook = SpellBook(skillTemplateRepository, learnedRepository, skillRepository)
 
         fpsText = TextView("FPS: ?", atlas.getFont("20.fnt"), shadowTickness = 2f, formater = {it})
         uiStage.addActor(fpsText)
 
         //playerSkillBook.addSubSkillTo(SkillId.from("95a1bfb2-a2bd-47d3-920b-e7f9ad798b76"), SubSkillSlotId("IMPACT"), SubSkillTemplateId("EXPLOSION_1"))
         //val controller = SkillController(skill.id, playerSkillBook)
-        val controller = SkillController(SkillId.from("95a1bfb2-a2bd-47d3-920b-e7f9ad798b76"), playerSkillBook)
+        val controller = SkillController(SkillId.from("95a1bfb2-a2bd-47d3-920b-e7f9ad798b76"), spellBook)
 
 
         val assets = SkillViewAssets(
@@ -91,26 +91,30 @@ class MainScreen(
         val dragAndDropManager = DragAndDropManager(DaD(), DaD())
         val skillViewFactory = SkillViewFactory(dragAndDropManager, assets)
 
-        val skill = playerSkillBook.createdSkillsRepository.findBy(SkillId.from("95a1bfb2-a2bd-47d3-920b-e7f9ad798b76"))!!
+        val skill = spellBook.createdSkillsRepository.findBy(SkillId.from("95a1bfb2-a2bd-47d3-920b-e7f9ad798b76"))!!
         val skillView = skillViewFactory.createSkillView(skill, controller)
         uiStage.addActor(skillView)
         skillView.setPosition(350f, 100f)
 
-        val fireTemplate = skillTemplateRepository.findBy( BuffSkillTemplateId("FIRE_1") )!!
-        val fireTemplateView = skillViewFactory.createBuffTemplateView(fireTemplate)
-        uiStage.addActor(fireTemplateView)
-        fireTemplateView.setPosition(50f, 50f)
+        //val fireTemplate = skillTemplateRepository.findBy( BuffSkillTemplateId("FIRE_1") )!!
+        //val fireTemplateView = skillViewFactory.createBuffTemplateView(fireTemplate)
+        //uiStage.addActor(fireTemplateView)
+        //fireTemplateView.setPosition(50f, 50f)
 
-        val bombTemplate = skillTemplateRepository.findBy( BuffSkillTemplateId("BOMB_1") )!!
-        val bombTemplateView = skillViewFactory.createBuffTemplateView(bombTemplate)
-        uiStage.addActor(bombTemplateView)
-        bombTemplateView.setPosition(50f, 150f)
+        //val bombTemplate = skillTemplateRepository.findBy( BuffSkillTemplateId("BOMB_1") )!!
+        //val bombTemplateView = skillViewFactory.createBuffTemplateView(bombTemplate)
+        //uiStage.addActor(bombTemplateView)
+        //bombTemplateView.setPosition(50f, 150f)
 
         val explosionTemplate = skillTemplateRepository.findBy( SubSkillTemplateId("EXPLOSION_1") )!!
         val explosionTemplateView = skillViewFactory.createSubTemplateView(explosionTemplate)
         uiStage.addActor(explosionTemplateView)
-        explosionTemplateView.setPosition(50f, 250f)
+        explosionTemplateView.setPosition(30f, 10f)
 
+
+        val templateList = BuffSkillTemplateViews(spellBook, assets,skillViewFactory)
+        uiStage.addActor(templateList)
+        templateList.setPosition(30f, 100f)
 
         //playerSkillBook.learn(BuffSkillTemplateId("BOMB_1"))
         //skillView.setDebug(true, true)
@@ -137,7 +141,7 @@ class MainScreen(
 
     private fun renderUI(delta: Float) {
 
-        fpsText.setText("Hola Mundo: ${Gdx.graphics.framesPerSecond}")
+        fpsText.setText(Gdx.graphics.framesPerSecond)
     }
 
     private fun clearScreen() {

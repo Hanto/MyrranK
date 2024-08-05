@@ -1,6 +1,5 @@
 package com.myrran.controller
 
-import com.myrran.domain.skills.book.PlayerSkillBook
 import com.myrran.domain.skills.custom.buff.BuffSkillSlot
 import com.myrran.domain.skills.custom.buff.BuffSkillSlotId
 import com.myrran.domain.skills.custom.skill.SkillId
@@ -10,12 +9,13 @@ import com.myrran.domain.skills.custom.subskill.SubSkillSlot
 import com.myrran.domain.skills.custom.subskill.SubSkillSlotId
 import com.myrran.domain.skills.templates.buff.BuffSkillTemplateId
 import com.myrran.domain.skills.templates.subskill.SubSkillTemplateId
+import com.myrran.domain.spells.SpellBook
 
 // BOOK
 //------------------------------------------------------------------------------------------------------------
 
 class BookSkillController(
-    private val book: PlayerSkillBook,
+    private val book: SpellBook,
 )
 {
     fun toSkillController(skillId: SkillId): SkillController =
@@ -31,7 +31,7 @@ class BookSkillController(
 class SkillController(
 
     private val skillId: SkillId,
-    private val book: PlayerSkillBook,
+    private val book: SpellBook,
 
 ): StatController
 {
@@ -54,7 +54,7 @@ class SubSkillController(
 
     private val skillId: SkillId,
     private val subSlotId: SubSkillSlotId,
-    private val book: PlayerSkillBook,
+    private val book: SpellBook,
 
 ): StatController
 {
@@ -91,7 +91,7 @@ class BuffSKillController(
     private val skillId: SkillId,
     private val subSlotId: SubSkillSlotId,
     private val buffSlotId: BuffSkillSlotId,
-    private val book: PlayerSkillBook,
+    private val book: SpellBook,
 
 ): StatController
 {

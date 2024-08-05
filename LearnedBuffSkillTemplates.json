@@ -6,4 +6,8 @@
   "id" : "BOMB_1",
   "avaiable" : 0,
   "total" : 1
-} ]
+}, {
+    "id" : "SLOW_1",
+    "avaiable" : 1,
+    "total" : 1 }
+]

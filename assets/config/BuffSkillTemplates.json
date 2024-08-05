@@ -50,5 +50,39 @@
         "keys": [
             "a", "b", "c", "d", "e"
         ]
+    },
+    {
+        "id": "SLOW_1",
+        "type": "BOMB",
+        "name": "Slow",
+        "stats": [
+            {
+                "id": "DURATION",
+                "name": "duration",
+                "baseBonus": 10.0,
+                "maximum": 20,
+                "upgradeCost": 2.0,
+                "bonusPerUpgrade": 1.0
+            },
+            {
+                "id": "MAGNITUDE",
+                "name": "slow magnitude",
+                "baseBonus": 10.0,
+                "maximum": 20,
+                "upgradeCost": 2.0,
+                "bonusPerUpgrade": -1.0
+            },
+            {
+                "id": "ROOT",
+                "name": "root time",
+                "baseBonus": 10.0,
+                "maximum": 20,
+                "upgradeCost": 2.0,
+                "bonusPerUpgrade": -1.0
+            }
+        ],
+        "keys": [
+            "a", "b", "c", "d", "e"
+        ]
     }
 ]

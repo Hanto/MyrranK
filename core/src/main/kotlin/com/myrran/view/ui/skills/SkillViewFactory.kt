@@ -12,6 +12,7 @@ import com.myrran.domain.skills.custom.buff.BuffSkillSlot
 import com.myrran.domain.skills.custom.subskill.SubSkillSlot
 import com.myrran.domain.skills.templates.BuffSkillTemplate
 import com.myrran.domain.skills.templates.SubSkillTemplate
+import com.myrran.domain.utils.Quantity
 import com.myrran.view.ui.skills.assets.SkillViewAssets
 import com.myrran.view.ui.skills.custom.buff.BuffSkillSlotView
 import com.myrran.view.ui.skills.custom.skill.SkillView
@@ -50,10 +51,10 @@ class SkillViewFactory(
     // BUFF TEMPLATE:
     //--------------------------------------------------------------------------------------------------------
 
-    fun createBuffTemplateView(model: BuffSkillTemplate): BuffTemplateView {
+    fun createBuffTemplateView(model: BuffSkillTemplate, quantity: Quantity): BuffTemplateView {
 
         val id = SkillViewId()
-        val view = BuffTemplateView(id, model, assets)
+        val view = BuffTemplateView(id, model, quantity, assets)
         val dadSource = BuffDaDSource(model, view, assets)
         dragAndDropManager.addSource(dadSource)
 

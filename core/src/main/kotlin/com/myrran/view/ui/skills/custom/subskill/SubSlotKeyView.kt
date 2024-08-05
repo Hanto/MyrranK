@@ -24,7 +24,7 @@ class SubSlotKeyView(
 
 ): Table()
 {
-    private val runesLabel: TextView<String> = TextView("${model.getName()}:", assets.font10, model.getColor())
+    private val runesLabel: TextView<String> = TextView("${model.toName()}:", assets.font10, model.toColor())
     private var keys: List<TextView<String>> = getKeys()
 
     // LAYOUT:
@@ -52,7 +52,7 @@ class SubSlotKeyView(
 
     fun dontHighlight() {
 
-        runesLabel.setTextColor(model.getColor())
+        runesLabel.setTextColor(model.toColor())
         runesLabel.clearActions()
         runesLabel.addAction(Actions.fadeIn(0.4f))
     }
@@ -81,9 +81,9 @@ class SubSlotKeyView(
     private fun getKeys() =
 
         model.lock.openedBy
-            .map { TextView("${it.value} ", assets.font10, it.getColor(), 1f) }
+            .map { TextView("${it.value} ", assets.font10, it.toColor(), 1f) }
 
-    private fun SubSkillSlot.getName(): String =
+    private fun SubSkillSlot.toName(): String =
 
         when (val subSkill = model.content) {
 
@@ -91,7 +91,7 @@ class SubSlotKeyView(
             is SubSkill -> subSkill.name.value
         }
 
-    private fun SubSkillSlot.getColor(): Color =
+    private fun SubSkillSlot.toColor(): Color =
 
         when (model.content) {
 
@@ -99,7 +99,7 @@ class SubSlotKeyView(
             is SubSkill -> ORANGE
         }
 
-    private fun LockType.getColor(): Color =
+    private fun LockType.toColor(): Color =
 
         when (val subSkill = model.content) {
 
