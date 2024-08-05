@@ -23,7 +23,7 @@ class LearnedRepository(
     // MAIN:
     //--------------------------------------------------------------------------------------------------------
 
-    fun findLearnedSkillTemplates(): QuantityMap<SkillTemplateId> =
+    fun findAllLearnedSkillTemplates(): QuantityMap<SkillTemplateId> =
 
         runCatching {
 
@@ -35,7 +35,7 @@ class LearnedRepository(
 
         }.getOrElse { QuantityMap() }
 
-    fun findLearnedSubSkillTemplates(): QuantityMap<SubSkillTemplateId> =
+    fun findAllLearnedSubSkillTemplates(): QuantityMap<SubSkillTemplateId> =
 
         runCatching {
 
@@ -47,7 +47,7 @@ class LearnedRepository(
 
         }.getOrElse { QuantityMap() }
 
-    fun findLearnedBuffSkillTemplates(): QuantityMap<BuffSkillTemplateId> =
+    fun findAllLearnedBuffSkillTemplates(): QuantityMap<BuffSkillTemplateId> =
 
         runCatching {
 
@@ -59,21 +59,21 @@ class LearnedRepository(
 
         }.getOrElse { QuantityMap() }
 
-    fun saveLearnedSkillTemplates(learnedSkillTemplates: QuantityMap<SkillTemplateId>) {
+    fun save(learnedSkillTemplates: QuantityMap<SkillTemplateId>) {
 
         val entities = learnedSkillTemplates.entries.map { LearnedEntity(it.key.value, it.value.available, it.value.total) }
         val json = deSerializer.serialize(entities)
         Gdx.files.local(LEARNED_SKILL_TEMPLATES_JSON).writeString(json, false)
     }
 
-    fun saveLearnedSubSkillTemplates(learnedSkillTemplates: QuantityMap<SubSkillTemplateId>) {
+    fun save(learnedSkillTemplates: QuantityMap<SubSkillTemplateId>) {
 
         val entities = learnedSkillTemplates.entries.map { LearnedEntity(it.key.value, it.value.available, it.value.total) }
         val json = deSerializer.serialize(entities)
         Gdx.files.local(LEARNED_SUBSKILL_TEMPLATES_JSON).writeString(json, false)
     }
 
-    fun saveLearnedBuffSkillTemplates(learnedSkillTemplates: QuantityMap<BuffSkillTemplateId>) {
+    fun save(learnedSkillTemplates: QuantityMap<BuffSkillTemplateId>) {
 
         val entities = learnedSkillTemplates.entries.map { LearnedEntity(it.key.value, it.value.available, it.value.total) }
         val json = deSerializer.serialize(entities)

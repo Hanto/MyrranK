@@ -33,27 +33,27 @@ class SkillTemplateRepository(
     // MAIN:
     //--------------------------------------------------------------------------------------------------------
 
-    fun findSkillTemplateById(id: SkillTemplateId): SkillTemplate? =
+    fun findBy(id: SkillTemplateId): SkillTemplate? =
 
         skillTemplates[id]
 
-    fun findSkillTemplates(): Collection<SkillTemplate> =
-
-        skillTemplates.values
-
-    fun findBySubSkillTemplateById(id: SubSkillTemplateId): SubSkillTemplate? =
+    fun findBy(id: SubSkillTemplateId): SubSkillTemplate? =
 
         subSkillTemplates[id]
 
-    fun findSubSkillTemplates(): Collection<SubSkillTemplate> =
-
-        subSkillTemplates.values
-
-    fun findByBuffSkillTemplatesById(id: BuffSkillTemplateId): BuffSkillTemplate? =
+    fun findBy(id: BuffSkillTemplateId): BuffSkillTemplate? =
 
         buffSkillTemplates[id]
 
-    fun findBuffSkillTemplates(): Collection<BuffSkillTemplate> =
+    fun findAllSkillTemplates(): Collection<SkillTemplate> =
+
+        skillTemplates.values
+
+    fun findAllSubSkillTemplates(): Collection<SubSkillTemplate> =
+
+        subSkillTemplates.values
+
+    fun findAllBuffSkillTemplates(): Collection<BuffSkillTemplate> =
 
         buffSkillTemplates.values
 

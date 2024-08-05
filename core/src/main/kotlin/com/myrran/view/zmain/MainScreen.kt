@@ -69,7 +69,7 @@ class MainScreen(
         fpsText = TextView("FPS: ?", atlas.getFont("20.fnt"), shadowTickness = 2f, formater = {it})
         uiStage.addActor(fpsText)
 
-        val fireTemplate = skillTemplateRepository.findByBuffSkillTemplatesById( BuffSkillTemplateId("FIRE_1") )!!
+        val fireTemplate = skillTemplateRepository.findBy( BuffSkillTemplateId("FIRE_1") )!!
         //playerSkillBook.addSubSkillTo(SkillId.from("95a1bfb2-a2bd-47d3-920b-e7f9ad798b76"), SubSkillSlotId("IMPACT"), SubSkillTemplateId("EXPLOSION_1"))
         //val controller = SkillController(skill.id, playerSkillBook)
         val controller = SkillController(SkillId.from("95a1bfb2-a2bd-47d3-920b-e7f9ad798b76"), playerSkillBook)
@@ -91,7 +91,7 @@ class MainScreen(
         val dragAndDropManager = DragAndDropManager(DaD())
         val skillViewFactory = SkillViewFactory(dragAndDropManager, assets)
 
-        val skill = playerSkillBook.createdSkillsRepository.findSkillById(SkillId.from("95a1bfb2-a2bd-47d3-920b-e7f9ad798b76"))!!
+        val skill = playerSkillBook.createdSkillsRepository.findBy(SkillId.from("95a1bfb2-a2bd-47d3-920b-e7f9ad798b76"))!!
         val skillView = skillViewFactory.createSkillView(skill, controller)
         uiStage.addActor(skillView)
         skillView.setPosition(200f, 100f)

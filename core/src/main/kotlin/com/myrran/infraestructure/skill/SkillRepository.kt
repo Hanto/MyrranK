@@ -21,15 +21,15 @@ class SkillRepository(
     // MAIN:
     //--------------------------------------------------------------------------------------------------------
 
-    fun findSkillById(skillId: SkillId): Skill? =
+    fun findBy(skillId: SkillId): Skill? =
 
         createdSkills[skillId]
 
-    fun findSkills(): Collection<Skill> =
+    fun findAll(): Collection<Skill> =
 
         createdSkills.values
 
-    fun saveSkill(skill: Skill) {
+    fun save(skill: Skill) {
 
         createdSkills[skill.id] = skill
 
@@ -39,7 +39,7 @@ class SkillRepository(
         Gdx.files.local("Skill.json").writeString(json, false)
     }
 
-    fun saveSkills(skills: Collection<Skill>) {
+    fun save(skills: Collection<Skill>) {
 
         createdSkills = skills.associateBy { it.id }.toMutableMap()
 
