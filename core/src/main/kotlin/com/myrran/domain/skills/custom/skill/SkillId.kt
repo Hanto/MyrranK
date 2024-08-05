@@ -10,5 +10,6 @@ data class SkillId(
 
         @JvmStatic
         fun new(): SkillId = SkillId(UUID.randomUUID())
+        fun from(string: String) = SkillId(UUID.fromString(string))
     }
 }

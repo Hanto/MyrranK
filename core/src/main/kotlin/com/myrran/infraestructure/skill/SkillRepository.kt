@@ -33,8 +33,9 @@ class SkillRepository(
 
         createdSkills[skill.id] = skill
 
-        val skills = loadSkills() + skill
-        val json = deSerializer.serialize(skills)
+        val domains = createdSkills.values
+        val entities = domains.map { skillAdapter.fromDomain(it) }
+        val json = deSerializer.serialize(entities)
         Gdx.files.local("Skill.json").writeString(json, false)
     }
 
@@ -42,7 +43,9 @@ class SkillRepository(
 
         createdSkills = skills.associateBy { it.id }.toMutableMap()
 
-        val json = deSerializer.serialize(createdSkills)
+        val domains = createdSkills.values
+        val entities = domains.map { skillAdapter.fromDomain(it) }
+        val json = deSerializer.serialize(entities)
         Gdx.files.local("Skill.json").writeString(json, false)
     }
 
@@ -57,5 +60,8 @@ class SkillRepository(
             val entities = deSerializer.deserialize(json, Array<SkillEntity>::class.java).toList()
             entities.map { skillAdapter.toDomain(it) }
 
-        }.getOrElse { emptyList() }
+        }.getOrElse {
+
+            println(it)
+            emptyList() }
 }

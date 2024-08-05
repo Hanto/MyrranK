@@ -11,39 +11,11 @@ import com.myrran.badlogic.DaD
 import com.myrran.controller.DragAndDropManager
 import com.myrran.controller.SkillController
 import com.myrran.domain.skills.book.PlayerSkillBook
-import com.myrran.domain.skills.custom.buff.BuffSkillName
-import com.myrran.domain.skills.custom.buff.BuffSkillSlotId
-import com.myrran.domain.skills.custom.buff.BuffSkillSlotName
-import com.myrran.domain.skills.custom.skill.Skill
-import com.myrran.domain.skills.custom.skill.SkillName
-import com.myrran.domain.skills.custom.stat.BonusPerUpgrade
-import com.myrran.domain.skills.custom.stat.NumUpgrades
-import com.myrran.domain.skills.custom.stat.StatBonus
-import com.myrran.domain.skills.custom.stat.StatId
-import com.myrran.domain.skills.custom.stat.StatName
-import com.myrran.domain.skills.custom.stat.UpgradeCost
-import com.myrran.domain.skills.custom.subskill.SubSkillName
-import com.myrran.domain.skills.custom.subskill.SubSkillSlotId
-import com.myrran.domain.skills.custom.subskill.SubSkillSlotName
-import com.myrran.domain.skills.templates.Lock
-import com.myrran.domain.skills.templates.LockType
-import com.myrran.domain.skills.templates.buff.BuffSkillSlotTemplate
-import com.myrran.domain.skills.templates.buff.BuffSkillTemplate
+import com.myrran.domain.skills.custom.skill.SkillId
 import com.myrran.domain.skills.templates.buff.BuffSkillTemplateId
-import com.myrran.domain.skills.templates.skill.SkillTemplate
-import com.myrran.domain.skills.templates.skill.SkillTemplateId
-import com.myrran.domain.skills.templates.stat.StatFixedTemplate
-import com.myrran.domain.skills.templates.stat.StatUpgradeableTemplate
-import com.myrran.domain.skills.templates.subskill.SubSkillSlotTemplate
-import com.myrran.domain.skills.templates.subskill.SubSkillTemplate
-import com.myrran.domain.skills.templates.subskill.SubSkillTemplateId
-import com.myrran.domain.spells.buff.BuffType
-import com.myrran.domain.spells.spell.SkillType
-import com.myrran.domain.spells.subspell.SubSkillType
 import com.myrran.domain.utils.DeSerializer
-import com.myrran.domain.utils.QuantityMap
-import com.myrran.infraestructure.Repository
-import com.myrran.infraestructure.SkillBookAdapter
+import com.myrran.infraestructure.assetsconfig.AssetsConfigRepository
+import com.myrran.infraestructure.learned.LearnedRepository
 import com.myrran.infraestructure.skill.SkillAdapter
 import com.myrran.infraestructure.skill.SkillRepository
 import com.myrran.infraestructure.skilltemplate.SkillTemplateAdapter
@@ -62,20 +34,16 @@ class MainScreen(
     private val atlas: Atlas = Atlas(
         assetManager = AssetManager()),
 
-    private val repository: Repository = Repository(
-        skillBookAdapter = SkillBookAdapter(
-            skillAdapter = SkillAdapter(),
-            skillTemplateAdapter = SkillTemplateAdapter()
-        ),
-        deSerializer =  DeSerializer()),
+    private val assetsConfigRepository: AssetsConfigRepository = AssetsConfigRepository(DeSerializer()),
 
 ): KtxScreen
 {
     private val skillTemplateRepository: SkillTemplateRepository
     private val skillRepository: SkillRepository
+    private val learnedRepository: LearnedRepository
+    private val playerSkillBook: PlayerSkillBook
 
     private val fpsText: TextView<String>
-    private val boltSkill: Skill
 
     // INIT:
     //--------------------------------------------------------------------------------------------------------
@@ -85,152 +53,27 @@ class MainScreen(
         inputMultiplexer.addProcessor(uiStage)
         Gdx.input.inputProcessor = inputMultiplexer
 
-        val initialAssets = repository.loadAssetCollection("InitialAssets.json")
+        val initialAssets = assetsConfigRepository.loadAssetCollection("UIAssets.json")
         atlas.load(initialAssets)
         atlas.finishLoading()
 
         val deSerializer = DeSerializer()
         val skillTemplateAdapter = SkillTemplateAdapter()
         skillTemplateRepository = SkillTemplateRepository(skillTemplateAdapter, deSerializer)
+
         val skillAdapter = SkillAdapter()
         skillRepository = SkillRepository(skillAdapter, deSerializer)
+        learnedRepository = LearnedRepository(deSerializer)
+        playerSkillBook = PlayerSkillBook(skillTemplateRepository, learnedRepository, skillRepository)
 
-
-        fpsText = TextView("FPS: ?", atlas.getFont("20.fnt"), shadowTickness = 2f, formater = {it.toString()})
+        fpsText = TextView("FPS: ?", atlas.getFont("20.fnt"), shadowTickness = 2f, formater = {it})
         uiStage.addActor(fpsText)
 
-        val bolt = SkillTemplate(
-            id = SkillTemplateId("FIREBOLT_1"),
-            type = SkillType.BOLT,
-            name = SkillName("Fire Bolt"),
-            stats = listOf(
-                StatUpgradeableTemplate(
-                    id = StatId("1:SPEED"),
-                    name = StatName("Speed"),
-                    baseBonus = StatBonus(100.0f),
-                    maximum = NumUpgrades(50),
-                    upgradeCost = UpgradeCost(2.0f),
-                    bonusPerUpgrade = BonusPerUpgrade(1.0f)
-                ),
-                StatUpgradeableTemplate(
-                    id = StatId("2:COOLDOWN"),
-                    name = StatName("Cooldown"),
-                    baseBonus = StatBonus(20.0f),
-                    maximum = NumUpgrades(25),
-                    upgradeCost = UpgradeCost(1.0f),
-                    bonusPerUpgrade = BonusPerUpgrade(1.5f)
-                ),
-                StatUpgradeableTemplate(
-                    id = StatId("3:DAMAGE"),
-                    name = StatName("Damage"),
-                    baseBonus = StatBonus(30.0f),
-                    maximum = NumUpgrades(20),
-                    upgradeCost = UpgradeCost(3.0f),
-                    bonusPerUpgrade = BonusPerUpgrade(2.5f)
-                )
-            ),
-            slots = listOf(
-                SubSkillSlotTemplate(
-                    id = SubSkillSlotId("IMPACT"),
-                    name = SubSkillSlotName("Impact"),
-                    lock = Lock(listOf(LockType.ALPHA, LockType.BETA, LockType.GAMMA, LockType.EPSILON, LockType.OMEGA))
-                ),
-                SubSkillSlotTemplate(
-                    id = SubSkillSlotId("TRAIL"),
-                    name = SubSkillSlotName("Trail"),
-                    lock = Lock(listOf(LockType.ALPHA, LockType.BETA))
-                ),
-            )
-        )
+        val fireTemplate = skillTemplateRepository.findByBuffSkillTemplatesById( BuffSkillTemplateId("FIRE_1") )!!
+        //playerSkillBook.addSubSkillTo(SkillId.from("95a1bfb2-a2bd-47d3-920b-e7f9ad798b76"), SubSkillSlotId("IMPACT"), SubSkillTemplateId("EXPLOSION_1"))
+        //val controller = SkillController(skill.id, playerSkillBook)
+        val controller = SkillController(SkillId.from("95a1bfb2-a2bd-47d3-920b-e7f9ad798b76"), playerSkillBook)
 
-        val explosion = SubSkillTemplate(
-            id = SubSkillTemplateId("EXPLOSION_1"),
-            type = SubSkillType.EXPLOSION,
-            name = SubSkillName("Explosion"),
-            stats = listOf(
-                StatUpgradeableTemplate(
-                    id = StatId("RADIUS"),
-                    name = StatName("Radius"),
-                    baseBonus = StatBonus(10.0f),
-                    maximum = NumUpgrades(20),
-                    upgradeCost = UpgradeCost(2.0f),
-                    bonusPerUpgrade = BonusPerUpgrade(1.0f)
-                )
-            ),
-            slots = listOf(
-                BuffSkillSlotTemplate(
-                    id = BuffSkillSlotId("DEBUFF_1"),
-                    name = BuffSkillSlotName("Debuff 1"),
-                    lock = Lock(listOf(LockType.C, LockType.D)),
-                ),
-                BuffSkillSlotTemplate(
-                    id = BuffSkillSlotId("DEBUFF_2"),
-                    name = BuffSkillSlotName("Debuff 2"),
-                    lock = Lock(listOf(LockType.C, LockType.F)),
-                ),
-                BuffSkillSlotTemplate(
-                    id = BuffSkillSlotId("DEBUFF_3"),
-                    name = BuffSkillSlotName("Debuff 3"),
-                    lock = Lock(listOf(LockType.A, LockType.B, LockType.D, LockType.E)),
-                )
-            ),
-            keys = listOf(LockType.BETA, LockType.GAMMA)
-        )
-
-        val fire = BuffSkillTemplate(
-            id = BuffSkillTemplateId("FIRE_1"),
-            type = BuffType.FIRE,
-            name = BuffSkillName("Fire"),
-            stats = listOf(
-                StatUpgradeableTemplate(
-                    id = StatId("1:DAMAGE"),
-                    name = StatName("Damage per tick"),
-                    baseBonus = StatBonus(10.0f),
-                    maximum = NumUpgrades(20),
-                    upgradeCost = UpgradeCost(2.0f),
-                    bonusPerUpgrade = BonusPerUpgrade(1.0f)
-                ),
-                StatUpgradeableTemplate(
-                    id = StatId("2:DURATION"),
-                    name = StatName("Duration"),
-                    baseBonus = StatBonus(10.0f),
-                    maximum = NumUpgrades(20),
-                    upgradeCost = UpgradeCost(2.0f),
-                    bonusPerUpgrade = BonusPerUpgrade(1.0f)
-                ),
-                StatUpgradeableTemplate(
-                    id = StatId("3:SPEED"),
-                    name = StatName("Speed"),
-                    baseBonus = StatBonus(10.0f),
-                    maximum = NumUpgrades(20),
-                    upgradeCost = UpgradeCost(2.0f),
-                    bonusPerUpgrade = BonusPerUpgrade(1.0f)
-                ),
-                StatFixedTemplate(
-                    id = StatId("4:INITIAL_DAMAGE"),
-                    name = StatName("Initial damage"),
-                    baseBonus = StatBonus(10.0f),
-                )
-            ),
-            keys = listOf(LockType.A, LockType.B, LockType.E, LockType.D)
-        )
-
-        skillRepository.saveSkill(bolt.toSkill())
-
-        boltSkill = bolt.toSkill()
-        val explosionSkill = explosion.toSubSkill()
-        val fireBuff = fire.toBuffSkill()
-
-        val playerSkillBook = PlayerSkillBook(QuantityMap(), QuantityMap(), QuantityMap(), mutableMapOf())
-        playerSkillBook.learn(bolt.id)
-        playerSkillBook.addSkill(boltSkill)
-        playerSkillBook.learn(explosion.id)
-        playerSkillBook.addSubSkillTo(boltSkill.id, SubSkillSlotId("IMPACT"), explosionSkill)
-        playerSkillBook.learn(fire.id)
-        //playerSkillBook.addBuffSKillTo(boltSkill.id, SubSkillSlotId("IMPACT"), BuffSkillSlotId("DEBUFF_1"), fireBuff)
-        //playerSkillBook.upgrade(boltSkill.id, StatId("1:SPEED"), NumUpgrades(15))
-
-        val controller = SkillController(boltSkill.id, playerSkillBook)
 
         val assets = SkillViewAssets(
             skillIcon = atlas.getTextureRegion("Atlas.atlas", "TexturasIconos/FireBall"),
@@ -248,11 +91,12 @@ class MainScreen(
         val dragAndDropManager = DragAndDropManager(DaD())
         val skillViewFactory = SkillViewFactory(dragAndDropManager, assets)
 
-        val skillView = skillViewFactory.createSkillView(boltSkill, controller)
+        val skill = playerSkillBook.createdSkillsRepository.findSkillById(SkillId.from("95a1bfb2-a2bd-47d3-920b-e7f9ad798b76"))!!
+        val skillView = skillViewFactory.createSkillView(skill, controller)
         uiStage.addActor(skillView)
         skillView.setPosition(200f, 100f)
 
-        val templateView = skillViewFactory.createBuffTemplateView(fire)
+        val templateView = skillViewFactory.createBuffTemplateView(fireTemplate)
         uiStage.addActor(templateView)
         templateView.setPosition(50f, 50f)
 

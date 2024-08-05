@@ -8,7 +8,6 @@ import com.myrran.domain.skills.custom.stat.NumUpgrades
 import com.myrran.domain.skills.custom.stat.StatId
 import com.myrran.domain.skills.custom.subskill.SubSkill
 import com.myrran.domain.skills.custom.subskill.SubSkillSlotId
-import com.myrran.domain.skills.templates.buff.BuffSkillTemplate
 import com.myrran.domain.skills.templates.buff.BuffSkillTemplateId
 import com.myrran.domain.skills.templates.skill.SkillTemplateId
 import com.myrran.domain.skills.templates.subskill.SubSkillTemplateId
@@ -22,7 +21,7 @@ data class PlayerSkillBook(
 
     private val skillTemplateRepository: SkillTemplateRepository,
     private val learnedRepository: LearnedRepository,
-    private val createdSkillsRepository: SkillRepository
+    val createdSkillsRepository: SkillRepository
 )
 {
     private val learnedSkillTemplates: QuantityMap<SkillTemplateId> = learnedRepository.findLearnedSkillTemplates()
@@ -32,9 +31,23 @@ data class PlayerSkillBook(
     // MAIN:
     //--------------------------------------------------------------------------------------------------------
 
-    fun learn(templateId: SkillTemplateId) = learnedSkillTemplates.add(templateId)
-    fun learn(templateId: SubSkillTemplateId) = learnedSubSkillsTemplates.add(templateId)
-    fun learn(templateId: BuffSkillTemplateId) = learnedBuffSkillsTemplates.add(templateId)
+    fun learn(templateId: SkillTemplateId) {
+
+        learnedSkillTemplates.add(templateId)
+        learnedRepository.saveLearnedSkillTemplates(learnedSkillTemplates)
+    }
+
+    fun learn(templateId: SubSkillTemplateId) {
+
+        learnedSubSkillsTemplates.add(templateId)
+        learnedRepository.saveLearnedSubSkillTemplates(learnedSubSkillsTemplates)
+    }
+
+    fun learn(templateId: BuffSkillTemplateId) {
+
+        learnedBuffSkillsTemplates.add(templateId)
+        learnedRepository.saveLearnedBuffSkillTemplates(learnedBuffSkillsTemplates)
+    }
 
     // ADD:
     //--------------------------------------------------------------------------------------------------------
@@ -58,7 +71,7 @@ data class PlayerSkillBook(
         val subSkillTemplate = skillTemplateRepository.findBySubSkillTemplateById(subSkillTemplateId)!!
         val subSkill = subSkillTemplate.toSubSkill()
 
-        if (skill.isSubSkillOpenedBy(subSkillSlotId, subSkillTemplate)) {
+        if (skill.isSubSkillOpenedBy(subSkillSlotId, subSkillTemplate) && learnedSubSkillsTemplates.isAvailable(subSkillTemplateId)) {
 
             learnedSubSkillsTemplates.borrow(subSkillTemplateId)
             removeSubSkill(skillId, subSkillSlotId)
@@ -75,7 +88,7 @@ data class PlayerSkillBook(
         val buffSkillTemplate = skillTemplateRepository.findByBuffSkillTemplatesById(buffSkillTemplateId)!!
         val buffSkill = buffSkillTemplate.toBuffSkill()
 
-        if (skill.isBuffSkillOpenedBy(subSkillSlotId, buffSkillSlotId, buffSkillTemplate)) {
+        if (skill.isBuffSkillOpenedBy(subSkillSlotId, buffSkillSlotId, buffSkillTemplate) && learnedBuffSkillsTemplates.isAvailable(buffSkillTemplateId)) {
 
             learnedBuffSkillsTemplates.borrow(buffSkillTemplateId)
             removeBuffSkill(skillId, subSkillSlotId, buffSkillSlotId)
@@ -123,9 +136,13 @@ data class PlayerSkillBook(
     // IS OPENED:
     //--------------------------------------------------------------------------------------------------------
 
-    fun isBuffSkillOpenedBy(skillId: SkillId, subSkillSlotId: SubSkillSlotId, buffSkillSlotId: BuffSkillSlotId, buffSkillTemplate: BuffSkillTemplate): Boolean =
 
-        createdSkillsRepository.findSkillById(skillId)?.isBuffSkillOpenedBy(subSkillSlotId, buffSkillSlotId, buffSkillTemplate) ?: false
+    fun isBuffSkillOpenedBy(skillId: SkillId, subSkillSlotId: SubSkillSlotId, buffSkillSlotId: BuffSkillSlotId, buffSkillTemplateId: BuffSkillTemplateId): Boolean =
+
+        createdSkillsRepository.findSkillById(skillId)
+            ?.let { skill -> skillTemplateRepository.findByBuffSkillTemplatesById(buffSkillTemplateId)
+                ?.let { buffTemplate -> skill.isBuffSkillOpenedBy(subSkillSlotId, buffSkillSlotId, buffTemplate) } } ?: false
+
 
     // UPGRADE:
     //--------------------------------------------------------------------------------------------------------

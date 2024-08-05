@@ -8,7 +8,7 @@ import com.myrran.domain.skills.custom.stat.NumUpgrades
 import com.myrran.domain.skills.custom.stat.StatId
 import com.myrran.domain.skills.custom.subskill.SubSkillSlot
 import com.myrran.domain.skills.custom.subskill.SubSkillSlotId
-import com.myrran.domain.skills.templates.buff.BuffSkillTemplate
+import com.myrran.domain.skills.templates.buff.BuffSkillTemplateId
 
 // BOOK
 //------------------------------------------------------------------------------------------------------------
@@ -86,13 +86,13 @@ class BuffSKillController(
 
         book.upgrade(skillId, subSlotId, buffSlotId, stat, numUpgrades)
 
-    fun isOpenedBy(buffSkillTemplate: BuffSkillTemplate) =
+    fun isOpenedBy(buffSkillTemplateId: BuffSkillTemplateId) =
 
-        book.isBuffSkillOpenedBy(skillId, subSlotId, buffSlotId, buffSkillTemplate)
+        book.isBuffSkillOpenedBy(skillId, subSlotId, buffSlotId, buffSkillTemplateId)
 
-    fun addBuffSkill(buffSkillTemplate: BuffSkillTemplate) {
+    fun addBuffSkill(buffSkillTemplateId: BuffSkillTemplateId) {
 
-        book.addBuffSKillTo(skillId, subSlotId, buffSlotId, buffSkillTemplate.id)
+        book.addBuffSKillTo(skillId, subSlotId, buffSlotId, buffSkillTemplateId)
     }
 }
 

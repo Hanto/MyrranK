@@ -28,12 +28,12 @@ class BuffDaDTarget(
 
         val template = payload.`object` as BuffSkillTemplate
 
-        controller.addBuffSkill(template)
+        controller.addBuffSkill(template.id)
     }
 
     override fun notifyNewPayload(payload: Payload) =
 
-        when (controller.isOpenedBy(payload.`object` as BuffSkillTemplate)) {
+        when (controller.isOpenedBy((payload.`object` as BuffSkillTemplate).id)) {
             true -> view.buffSlotKeyView.highlightWithColor(Color.GREEN)
             false -> view.buffSlotKeyView.highlightWithColor(Color.RED)
         }
