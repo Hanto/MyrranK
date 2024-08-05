@@ -65,18 +65,10 @@ class SubSkillSlotView(
         stats.update(statId)
     }
 
-    fun update() {
-
-        subSlotKeyView.update()
-        buffSlots.values.forEach { factory.disposeSkillView(it.id) }
-        buffSlots = createBuffSkillSlotViews()
-        rebuildTable()
-    }
-
     fun dispose() {
 
-        factory.disposeSkillView(id)
-        buffSlots.values.forEach { factory.disposeSkillView(it.id) }
+        factory.disposeView(id)
+        buffSlots.values.forEach { factory.disposeView(it.id) }
     }
 
     // HELPER:

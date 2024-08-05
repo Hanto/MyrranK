@@ -24,8 +24,13 @@
     "id" : "IMPACT",
     "name" : "impact",
     "lock" : [ "A", "B" ],
+    "content" : null
+  }, {
+    "id" : "TRAIL",
+    "name" : "trail",
+    "lock" : [ "A", "B" ],
     "content" : {
-      "id" : "4dcc7317-da14-4b2f-8f64-6ffda905f102",
+      "id" : "563c7da7-8619-40db-84e1-5b4ea6ce9376",
       "templateId" : "EXPLOSION_1",
       "type" : "EXPLOSION",
       "name" : "Explosion",
@@ -43,7 +48,7 @@
         "name" : "Debuff 1",
         "lock" : [ "c", "d" ],
         "content" : {
-          "id" : "d9801cfa-08a9-4549-98dc-5b59c3168bed",
+          "id" : "2c7cc327-41ee-47f6-9c0a-8c3efb362313",
           "templateId" : "BOMB_1",
           "type" : "BOMB",
           "name" : "Bomb",
@@ -71,7 +76,7 @@
         "name" : "Debuff 2",
         "lock" : [ "c", "d" ],
         "content" : {
-          "id" : "c7065d6a-d212-45b9-a6a0-4ba29fd6c4ee",
+          "id" : "67dc2ef2-7d8a-4de5-8151-86358aa5f769",
           "templateId" : "FIRE_1",
           "type" : "FIRE",
           "name" : "Fire",
@@ -97,10 +102,5 @@
       } ],
       "keys" : [ "A" ]
     }
-  }, {
-    "id" : "TRAIL",
-    "name" : "trail",
-    "lock" : [ "A", "B" ],
-    "content" : null
   } ]
 } ]

@@ -28,7 +28,7 @@ class SkillViewFactory(
     // DISPOSE:
     //--------------------------------------------------------------------------------------------------------
 
-    fun disposeSkillView(id: SkillViewId) {
+    fun disposeView(id: SkillViewId) {
 
         dragAndDropManager.removeSource(id)
         dragAndDropManager.removeTarget(id)

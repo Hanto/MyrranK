@@ -24,7 +24,7 @@ class BuffSkillSlotView(
 ): Table(), Identifiable<SkillViewId>
 {
     val buffSlotKeyView: BuffSlotKeyView = BuffSlotKeyView(model, assets)
-    private var stats: StatsView = getStatsView()
+    private var stats: StatsView = createStatsView()
 
     // LAYOUT:
     //--------------------------------------------------------------------------------------------------------
@@ -57,14 +57,14 @@ class BuffSkillSlotView(
     fun update() {
 
         buffSlotKeyView.update()
-        stats = getStatsView()
+        stats = createStatsView()
         rebuildTable()
     }
 
     // HELPER:
     //--------------------------------------------------------------------------------------------------------
 
-    private fun getStatsView(): StatsView =
+    private fun createStatsView(): StatsView =
 
         StatsView( { getStats() }, assets, controller )
 

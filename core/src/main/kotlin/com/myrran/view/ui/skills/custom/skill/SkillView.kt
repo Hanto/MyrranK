@@ -80,7 +80,7 @@ class SkillView(
 
     private fun update() {
 
-        factory.disposeSkillView(id)
+        factory.disposeView(id)
         subSlots.values.forEach { it.dispose() }
         subSlots = createSubSkillSlotViews()
         rebuildTable()
@@ -104,7 +104,7 @@ class SkillView(
 
     override fun dispose() {
 
-        factory.disposeSkillView(id)
+        factory.disposeView(id)
         subSlots.values.forEach { it.dispose() }
         model.removeAllObservers()
     }

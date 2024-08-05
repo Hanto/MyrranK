@@ -52,6 +52,7 @@ data class Skill(
 
     fun isSubSkillOpenedBy(subSkillSlotId: SubSkillSlotId, subSkillTemplate: SubSkillTemplate): Boolean =
 
+        slots.getSubSkillSlots().none { it.getSubSkill()?.templateId == subSkillTemplate.id } &&
         slots.isSubSkillOpenedBy(subSkillSlotId, subSkillTemplate)
 
     fun removeSubSkill(subSkillSlotId: SubSkillSlotId): Collection<SubBuffSkill> =
