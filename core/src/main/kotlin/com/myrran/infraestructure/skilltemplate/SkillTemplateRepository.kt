@@ -57,6 +57,18 @@ class SkillTemplateRepository(
 
         buffSkillTemplates.values
 
+    fun exists(id: SkillTemplateId): Boolean =
+
+        skillTemplates.containsKey(id)
+
+    fun exists(id: SubSkillTemplateId): Boolean =
+
+        subSkillTemplates.containsKey(id)
+
+    fun exists(id: BuffSkillTemplateId): Boolean =
+
+        buffSkillTemplates.containsKey(id)
+
     // HELPER:
     //--------------------------------------------------------------------------------------------------------
 

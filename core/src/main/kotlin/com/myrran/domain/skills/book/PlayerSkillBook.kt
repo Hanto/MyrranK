@@ -31,20 +31,29 @@ data class PlayerSkillBook(
 
     fun learn(templateId: SkillTemplateId) {
 
-        learnedSkillTemplates.add(templateId)
-        learnedRepository.saveLearnedSkills(learnedSkillTemplates)
+        if (skillTemplateRepository.exists(templateId)) {
+
+            learnedSkillTemplates.add(templateId)
+            learnedRepository.saveLearnedSkills(learnedSkillTemplates)
+        }
     }
 
     fun learn(templateId: SubSkillTemplateId) {
 
-        learnedSubSkillsTemplates.add(templateId)
-        learnedRepository.saveLearnedSubSkills(learnedSubSkillsTemplates)
+        if (skillTemplateRepository.exists(templateId)) {
+
+            learnedSubSkillsTemplates.add(templateId)
+            learnedRepository.saveLearnedSubSkills(learnedSubSkillsTemplates)
+        }
     }
 
     fun learn(templateId: BuffSkillTemplateId) {
 
-        learnedBuffSkillsTemplates.add(templateId)
-        learnedRepository.saveLearnedBuffSkills(learnedBuffSkillsTemplates)
+        if (skillTemplateRepository.exists(templateId)) {
+
+            learnedBuffSkillsTemplates.add(templateId)
+            learnedRepository.saveLearnedBuffSkills(learnedBuffSkillsTemplates)
+        }
     }
 
     // ADD:

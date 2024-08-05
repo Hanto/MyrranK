@@ -69,7 +69,6 @@ class MainScreen(
         fpsText = TextView("FPS: ?", atlas.getFont("20.fnt"), shadowTickness = 2f, formater = {it})
         uiStage.addActor(fpsText)
 
-        val fireTemplate = skillTemplateRepository.findBy( BuffSkillTemplateId("FIRE_1") )!!
         //playerSkillBook.addSubSkillTo(SkillId.from("95a1bfb2-a2bd-47d3-920b-e7f9ad798b76"), SubSkillSlotId("IMPACT"), SubSkillTemplateId("EXPLOSION_1"))
         //val controller = SkillController(skill.id, playerSkillBook)
         val controller = SkillController(SkillId.from("95a1bfb2-a2bd-47d3-920b-e7f9ad798b76"), playerSkillBook)
@@ -96,12 +95,18 @@ class MainScreen(
         uiStage.addActor(skillView)
         skillView.setPosition(200f, 100f)
 
-        val templateView = skillViewFactory.createBuffTemplateView(fireTemplate)
-        uiStage.addActor(templateView)
-        templateView.setPosition(50f, 50f)
+        val fireTemplate = skillTemplateRepository.findBy( BuffSkillTemplateId("FIRE_1") )!!
+        val fireTemplateView = skillViewFactory.createBuffTemplateView(fireTemplate)
+        uiStage.addActor(fireTemplateView)
+        fireTemplateView.setPosition(50f, 50f)
+
+        val bombTemplate = skillTemplateRepository.findBy( BuffSkillTemplateId("BOMB_1") )!!
+        val bombTemplateView = skillViewFactory.createBuffTemplateView(bombTemplate)
+        uiStage.addActor(bombTemplateView)
+        bombTemplateView.setPosition(70f, 70f)
 
 
-
+        //playerSkillBook.learn(BuffSkillTemplateId("BOMB_1"))
         //skillView.setDebug(true, true)
         //templateView.setDebug(true, true)
         //uiStage.setDebugUnderMouse(true)

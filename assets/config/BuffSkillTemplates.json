@@ -24,5 +24,31 @@
         "keys": [
             "a", "b", "c", "d", "e"
         ]
+    },
+    {
+        "id": "BOMB_1",
+        "type": "BOMB",
+        "name": "Bomb",
+        "stats": [
+            {
+                "id": "DAMAGE",
+                "name": "damage",
+                "baseBonus": 10.0,
+                "maximum": 20,
+                "upgradeCost": 2.0,
+                "bonusPerUpgrade": 1.0
+            },
+            {
+                "id": "DETONATION TIME",
+                "name": "detonation time",
+                "baseBonus": 10.0,
+                "maximum": 20,
+                "upgradeCost": 2.0,
+                "bonusPerUpgrade": -1.0
+            }
+        ],
+        "keys": [
+            "a", "b", "c", "d", "e"
+        ]
     }
 ]

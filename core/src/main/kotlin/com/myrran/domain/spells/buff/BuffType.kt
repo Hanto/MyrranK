@@ -4,5 +4,6 @@ import com.myrran.domain.skills.custom.BuffSkill
 
 enum class BuffType(val builder: (buffSkill: BuffSkill) -> Buff)
 {
-    FIRE( builder = { buffSkill ->  FireDot(buffSkill) } )
+    FIRE( builder = { buffSkill ->  FireDot(buffSkill) } ),
+    BOMB( builder = { buffSkill ->  FireDot(buffSkill) } )
 }

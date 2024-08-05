@@ -42,13 +42,36 @@
         "id" : "DEBUFF_1",
         "name" : "Debuff 1",
         "lock" : [ "c", "e" ],
-        "content" : null
+        "content" : {
+          "id" : "bbb66bd6-92b2-4db5-b0d7-879d7b2b1520",
+          "templateId" : "BOMB_1",
+          "type" : "BOMB",
+          "name" : "Bomb",
+          "stats" : [ {
+            "id" : "DAMAGE",
+            "name" : "damage",
+            "baseBonus" : 10.0,
+            "actual" : 0,
+            "maximum" : 20,
+            "upgradeCost" : 2.0,
+            "bonusPerUpgrade" : 1.0
+          }, {
+            "id" : "DETONATION TIME",
+            "name" : "detonation time",
+            "baseBonus" : 10.0,
+            "actual" : 0,
+            "maximum" : 20,
+            "upgradeCost" : 2.0,
+            "bonusPerUpgrade" : -1.0
+          } ],
+          "keys" : [ "a", "b", "c", "d", "e" ]
+        }
       }, {
         "id" : "DEBUFF_2",
         "name" : "Debuff 2",
         "lock" : [ "b", "c" ],
         "content" : {
-          "id" : "cba0974d-01c6-4c74-9ede-f09619a96305",
+          "id" : "06a79e8d-2aa5-4c69-aa95-3642bed82e40",
           "templateId" : "FIRE_1",
           "type" : "FIRE",
           "name" : "Fire",
