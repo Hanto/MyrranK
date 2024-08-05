@@ -28,7 +28,7 @@ class BuffDaDTarget(
 
         val template = payload.`object` as BuffSkillTemplate
 
-        controller.addBuffSkill(template.id)
+        controller.setBuffSkill(template.id)
     }
 
     override fun notifyNewPayload(payload: Payload) =

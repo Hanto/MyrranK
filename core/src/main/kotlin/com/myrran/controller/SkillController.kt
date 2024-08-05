@@ -90,9 +90,9 @@ class BuffSKillController(
 
         book.isBuffSkillOpenedBy(skillId, subSlotId, buffSlotId, buffSkillTemplateId)
 
-    fun addBuffSkill(buffSkillTemplateId: BuffSkillTemplateId) =
+    fun setBuffSkill(buffSkillTemplateId: BuffSkillTemplateId) =
 
-        book.addBuffSKillTo(skillId, subSlotId, buffSlotId, buffSkillTemplateId)
+        book.setBuffSKillTo(skillId, subSlotId, buffSlotId, buffSkillTemplateId)
 
     fun removeBuffSkill() =
 

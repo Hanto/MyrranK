@@ -80,10 +80,8 @@ class SkillView(
 
     private fun update() {
 
-        skillHeader = SkillHeader(model, assets)
-        skillStats = StatsView( { model.getStats() }, assets, controller)
-        subSlots = createSubSkillSlotViews()
-        rebuildTable()
+        skillHeader.update()
+        subSlots.values.forEach { it.update() }
     }
 
     override fun propertyChange(event: SkillEvent) {
@@ -92,7 +90,7 @@ class SkillView(
 
             is SkillStatUpgradedEvent ->  { skillStats.update(event.statId); skillHeader.update() }
 
-            is SubSkillStatUpgradedEvent -> { subSlots[event.subSlot]?.update(event); skillHeader.update() }
+            is SubSkillStatUpgradedEvent -> { subSlots[event.subSlot]?.update(event.statId); skillHeader.update() }
             is SubSkillChangedEvent -> subSlots[event.subSlot]?.update()
             is SubSkillRemovedEvent -> update()
 
@@ -102,6 +100,17 @@ class SkillView(
         }
     }
 
+    override fun dispose() {
+
+        model.removeAllObservers()
+        subSlots.values.map { subSlot -> subSlot.id }
+            .forEach { factory.disposeSkillView(it) }
+
+        subSlots.values
+            .flatMap { subSlot -> subSlot.buffSlots.values.map { buffSlot -> buffSlot.id } }
+            .forEach { factory.disposeSkillView(it) }
+    }
+
     // HELPER:
     //--------------------------------------------------------------------------------------------------------
 
@@ -109,8 +118,4 @@ class SkillView(
 
         model.getSubSkillSlots()
             .associate { it.id to factory.createSubSlotView(it, controller)  }
-
-    override fun dispose() =
-
-        model.removeAllObservers()
 }

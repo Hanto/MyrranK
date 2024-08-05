@@ -73,7 +73,7 @@ data class PlayerSkillBook(
         }
     }
 
-    fun addSubSkillTo(skillId: SkillId, subSkillSlotId: SubSkillSlotId, subSkillTemplateId: SubSkillTemplateId) {
+    fun setSubSkillTo(skillId: SkillId, subSkillSlotId: SubSkillSlotId, subSkillTemplateId: SubSkillTemplateId) {
 
         val skill = createdSkillsRepository.findBy(skillId)!!
         val subSkillTemplate = skillTemplateRepository.findBy(subSkillTemplateId)!!
@@ -91,7 +91,7 @@ data class PlayerSkillBook(
         }
     }
 
-    fun addBuffSKillTo(skillId: SkillId, subSkillSlotId: SubSkillSlotId, buffSkillSlotId: BuffSkillSlotId, buffSkillTemplateId: BuffSkillTemplateId) {
+    fun setBuffSKillTo(skillId: SkillId, subSkillSlotId: SubSkillSlotId, buffSkillSlotId: BuffSkillSlotId, buffSkillTemplateId: BuffSkillTemplateId) {
 
         val skill = createdSkillsRepository.findBy(skillId)!!
         val buffSkillTemplate = skillTemplateRepository.findBy(buffSkillTemplateId)!!

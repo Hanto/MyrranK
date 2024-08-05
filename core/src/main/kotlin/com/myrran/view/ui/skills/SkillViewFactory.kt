@@ -21,6 +21,15 @@ class SkillViewFactory(
     private val assets: SkillViewAssets,
 )
 {
+    // DISPOSE:
+    //--------------------------------------------------------------------------------------------------------
+
+    fun disposeSkillView(id: SkillViewId) {
+
+        dragAndDropManager.removeSource(id)
+        dragAndDropManager.removeTarget(id)
+    }
+
     // BUFF TEMPLATE:
     //--------------------------------------------------------------------------------------------------------
 
@@ -33,10 +42,6 @@ class SkillViewFactory(
 
         return view
     }
-
-    fun disposeBuffTemplateView(view: BuffTemplateView) =
-
-        dragAndDropManager.removeSource(view.id)
 
     // SKILL:
     //--------------------------------------------------------------------------------------------------------
@@ -69,10 +74,5 @@ class SkillViewFactory(
         dragAndDropManager.addTarget(dadTarget)
 
         return view;
-    }
-
-    fun disposeBuffSlotView(view: BuffSkillSlotView) {
-
-        dragAndDropManager.removeTarget(view.id)
     }
 }

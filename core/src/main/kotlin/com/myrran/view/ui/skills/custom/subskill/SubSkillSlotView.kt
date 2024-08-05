@@ -3,11 +3,11 @@ package com.myrran.view.ui.skills.custom.subskill
 import com.badlogic.gdx.scenes.scene2d.ui.Table
 import com.myrran.controller.SubSkillController
 import com.myrran.domain.Identifiable
-import com.myrran.domain.events.SubSkillStatUpgradedEvent
 import com.myrran.domain.skills.custom.SubSkill
 import com.myrran.domain.skills.custom.SubSkillSlotContent.NoSubSkill
 import com.myrran.domain.skills.custom.buff.BuffSkillSlotId
 import com.myrran.domain.skills.custom.stat.Stat
+import com.myrran.domain.skills.custom.stat.StatId
 import com.myrran.domain.skills.custom.subskill.SubSkillSlot
 import com.myrran.view.ui.skills.SkillViewFactory
 import com.myrran.view.ui.skills.SkillViewId
@@ -57,15 +57,15 @@ class SubSkillSlotView(
     // UPDATE:
     //--------------------------------------------------------------------------------------------------------
 
-    fun update(event: SubSkillStatUpgradedEvent) {
+    fun update(statId: StatId) {
 
-        stats.update(event.statId)
+        stats.update(statId)
     }
 
     fun update() {
 
         subSlotKeyView.update()
-        buffSlots.values.forEach{ factory.disposeBuffSlotView(it) }
+        buffSlots.values.forEach{ factory.disposeSkillView(it.id) }
         buffSlots = createBuffSkillSlotViews()
         rebuildTable()
     }

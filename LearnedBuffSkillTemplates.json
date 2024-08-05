@@ -1,9 +1,9 @@
 [ {
   "id" : "FIRE_1",
-  "avaiable" : 0,
+  "avaiable" : 1,
   "total" : 1
 }, {
   "id" : "BOMB_1",
-  "avaiable" : 0,
+  "avaiable" : 1,
   "total" : 1
 } ]

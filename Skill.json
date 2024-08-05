@@ -42,58 +42,12 @@
         "id" : "DEBUFF_1",
         "name" : "Debuff 1",
         "lock" : [ "c", "e" ],
-        "content" : {
-          "id" : "0cd46650-33b0-4fa1-8b20-645794b9a4ac",
-          "templateId" : "BOMB_1",
-          "type" : "BOMB",
-          "name" : "Bomb",
-          "stats" : [ {
-            "id" : "DAMAGE",
-            "name" : "damage",
-            "baseBonus" : 10.0,
-            "actual" : 11,
-            "maximum" : 20,
-            "upgradeCost" : 2.0,
-            "bonusPerUpgrade" : 1.0
-          }, {
-            "id" : "DETONATION TIME",
-            "name" : "detonation time",
-            "baseBonus" : 10.0,
-            "actual" : 0,
-            "maximum" : 20,
-            "upgradeCost" : 2.0,
-            "bonusPerUpgrade" : -1.0
-          } ],
-          "keys" : [ "a", "b", "c", "d", "e" ]
-        }
+        "content" : null
       }, {
         "id" : "DEBUFF_2",
         "name" : "Debuff 2",
         "lock" : [ "b", "c" ],
-        "content" : {
-          "id" : "b2f705a9-732c-41ec-a715-704316835091",
-          "templateId" : "FIRE_1",
-          "type" : "FIRE",
-          "name" : "Fire",
-          "stats" : [ {
-            "id" : "DAMAGE",
-            "name" : "damage per tick",
-            "baseBonus" : 10.0,
-            "actual" : 0,
-            "maximum" : 20,
-            "upgradeCost" : 2.0,
-            "bonusPerUpgrade" : 1.0
-          }, {
-            "id" : "DURATION",
-            "name" : "duration",
-            "baseBonus" : 10.0,
-            "actual" : 0,
-            "maximum" : 20,
-            "upgradeCost" : 2.0,
-            "bonusPerUpgrade" : 1.0
-          } ],
-          "keys" : [ "a", "b", "c", "d", "e" ]
-        }
+        "content" : null
       } ],
       "keys" : [ "a" ]
     }
