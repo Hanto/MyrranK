@@ -13,6 +13,7 @@ import com.myrran.controller.SkillController
 import com.myrran.domain.skills.book.PlayerSkillBook
 import com.myrran.domain.skills.custom.skill.SkillId
 import com.myrran.domain.skills.templates.buff.BuffSkillTemplateId
+import com.myrran.domain.skills.templates.subskill.SubSkillTemplateId
 import com.myrran.domain.utils.DeSerializer
 import com.myrran.infraestructure.assetsconfig.AssetsConfigRepository
 import com.myrran.infraestructure.learned.LearnedRepository
@@ -87,7 +88,7 @@ class MainScreen(
             statBarFront = atlas.getTextureRegion("Atlas.atlas", "TexturasMisc/CasillaTalento"),
         )
 
-        val dragAndDropManager = DragAndDropManager(DaD())
+        val dragAndDropManager = DragAndDropManager(DaD(), DaD())
         val skillViewFactory = SkillViewFactory(dragAndDropManager, assets)
 
         val skill = playerSkillBook.createdSkillsRepository.findBy(SkillId.from("95a1bfb2-a2bd-47d3-920b-e7f9ad798b76"))!!
@@ -104,6 +105,11 @@ class MainScreen(
         val bombTemplateView = skillViewFactory.createBuffTemplateView(bombTemplate)
         uiStage.addActor(bombTemplateView)
         bombTemplateView.setPosition(50f, 150f)
+
+        val explosionTemplate = skillTemplateRepository.findBy( SubSkillTemplateId("EXPLOSION_1") )!!
+        val explosionTemplateView = skillViewFactory.createSubTemplateView(explosionTemplate)
+        uiStage.addActor(explosionTemplateView)
+        explosionTemplateView.setPosition(50f, 250f)
 
 
         //playerSkillBook.learn(BuffSkillTemplateId("BOMB_1"))

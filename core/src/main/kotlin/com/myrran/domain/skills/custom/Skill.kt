@@ -56,7 +56,8 @@ data class Skill(
 
     fun removeSubSkill(subSkillSlotId: SubSkillSlotId): Collection<SubBuffSkill> =
 
-        slots.removeSubSkill(subSkillSlotId)?.let { subSkill -> subSkill.removeAllBuffSkills() + subSkill } ?: emptyList()
+        (slots.removeSubSkill(subSkillSlotId)?.let { subSkill -> subSkill.removeAllBuffSkills() + subSkill } ?: emptyList<SubBuffSkill>())
+            .also { if (it.isNotEmpty()) notify(SubSkillRemovedEvent(id, it)) }
 
     fun removeAllSubSkills(): Collection<SubBuffSkill> =
 

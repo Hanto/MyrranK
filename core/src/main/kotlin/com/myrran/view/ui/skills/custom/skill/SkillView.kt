@@ -51,6 +51,9 @@ class SkillView(
 
         top().left()
         rebuildTable()
+
+        actor = table
+        setSize(prefWidth, prefHeight)
     }
 
     private fun rebuildTable() {
@@ -70,9 +73,6 @@ class SkillView(
 
         table.add(skillHeader).left().minWidth(336f).padBottom(0f).padLeft(4f).row()
         table.add(bodyTable)
-
-        actor = table
-        setSize(prefWidth, prefHeight)
     }
 
     // UPDATE:
@@ -80,8 +80,10 @@ class SkillView(
 
     private fun update() {
 
-        skillHeader.update()
-        subSlots.values.forEach { it.update() }
+        factory.disposeSkillView(id)
+        subSlots.values.forEach { it.dispose() }
+        subSlots = createSubSkillSlotViews()
+        rebuildTable()
     }
 
     override fun propertyChange(event: SkillEvent) {
@@ -91,7 +93,7 @@ class SkillView(
             is SkillStatUpgradedEvent ->  { skillStats.update(event.statId); skillHeader.update() }
 
             is SubSkillStatUpgradedEvent -> { subSlots[event.subSlot]?.update(event.statId); skillHeader.update() }
-            is SubSkillChangedEvent -> subSlots[event.subSlot]?.update()
+            is SubSkillChangedEvent -> update()
             is SubSkillRemovedEvent -> update()
 
             is BuffSkillStatUpgradedEvent -> { subSlots[event.subSlot]?.buffSlots?.get(event.buffSlot)?.update(event.statId); skillHeader.update() }
@@ -102,13 +104,9 @@ class SkillView(
 
     override fun dispose() {
 
+        factory.disposeSkillView(id)
+        subSlots.values.forEach { it.dispose() }
         model.removeAllObservers()
-        subSlots.values.map { subSlot -> subSlot.id }
-            .forEach { factory.disposeSkillView(it) }
-
-        subSlots.values
-            .flatMap { subSlot -> subSlot.buffSlots.values.map { buffSlot -> buffSlot.id } }
-            .forEach { factory.disposeSkillView(it) }
     }
 
     // HELPER:

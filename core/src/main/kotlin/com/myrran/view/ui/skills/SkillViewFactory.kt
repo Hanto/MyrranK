@@ -4,16 +4,20 @@ import com.myrran.controller.BuffDaDSource
 import com.myrran.controller.BuffDaDTarget
 import com.myrran.controller.DragAndDropManager
 import com.myrran.controller.SkillController
+import com.myrran.controller.SubDaDSource
+import com.myrran.controller.SubDaDTarget
 import com.myrran.controller.SubSkillController
 import com.myrran.domain.skills.custom.Skill
 import com.myrran.domain.skills.custom.buff.BuffSkillSlot
 import com.myrran.domain.skills.custom.subskill.SubSkillSlot
 import com.myrran.domain.skills.templates.BuffSkillTemplate
+import com.myrran.domain.skills.templates.SubSkillTemplate
 import com.myrran.view.ui.skills.assets.SkillViewAssets
 import com.myrran.view.ui.skills.custom.buff.BuffSkillSlotView
 import com.myrran.view.ui.skills.custom.skill.SkillView
 import com.myrran.view.ui.skills.custom.subskill.SubSkillSlotView
 import com.myrran.view.ui.skills.templates.BuffTemplateView
+import com.myrran.view.ui.skills.templates.SubSkillTemplateView
 
 class SkillViewFactory(
 
@@ -28,6 +32,19 @@ class SkillViewFactory(
 
         dragAndDropManager.removeSource(id)
         dragAndDropManager.removeTarget(id)
+    }
+
+    // SUBSKILL TEMPLATE:
+    //--------------------------------------------------------------------------------------------------------
+
+    fun createSubTemplateView(model: SubSkillTemplate): SubSkillTemplateView {
+
+        val id = SkillViewId()
+        val view = SubSkillTemplateView(id, model, assets)
+        val dadSource = SubDaDSource(model, view, assets)
+        dragAndDropManager.addSource(dadSource)
+
+        return view
     }
 
     // BUFF TEMPLATE:
@@ -59,7 +76,11 @@ class SkillViewFactory(
 
         val id = SkillViewId()
         val subController = controller.toSubSkillController(model)
-        return SubSkillSlotView(id, model, assets, subController, this)
+        val view = SubSkillSlotView(id, model, assets, subController, this)
+        val dadTarget = SubDaDTarget(view, assets, subController)
+        dragAndDropManager.addTarget(dadTarget)
+
+        return view
     }
 
     // BUFFSKILL:
@@ -73,6 +94,6 @@ class SkillViewFactory(
         val dadTarget = BuffDaDTarget(view, assets, buffController)
         dragAndDropManager.addTarget(dadTarget)
 
-        return view;
+        return view
     }
 }

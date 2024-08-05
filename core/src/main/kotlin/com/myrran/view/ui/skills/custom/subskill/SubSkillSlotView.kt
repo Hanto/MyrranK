@@ -1,5 +1,6 @@
 package com.myrran.view.ui.skills.custom.subskill
 
+import com.badlogic.gdx.Input
 import com.badlogic.gdx.scenes.scene2d.ui.Table
 import com.myrran.controller.SubSkillController
 import com.myrran.domain.Identifiable
@@ -9,6 +10,7 @@ import com.myrran.domain.skills.custom.buff.BuffSkillSlotId
 import com.myrran.domain.skills.custom.stat.Stat
 import com.myrran.domain.skills.custom.stat.StatId
 import com.myrran.domain.skills.custom.subskill.SubSkillSlot
+import com.myrran.view.ui.misc.ActorClickListener
 import com.myrran.view.ui.skills.SkillViewFactory
 import com.myrran.view.ui.skills.SkillViewId
 import com.myrran.view.ui.skills.assets.SkillViewAssets
@@ -25,7 +27,7 @@ class SubSkillSlotView(
 
 ): Table(), Identifiable<SkillViewId>
 {
-    private val subSlotKeyView: SubSlotKeyView = SubSlotKeyView(model, assets)
+    val subSlotKeyView: SubSlotKeyView = SubSlotKeyView(model, assets)
     private var stats: StatsView = StatsView( { getStats() }, assets, controller)
     var buffSlots: Map<BuffSkillSlotId, BuffSkillSlotView> = createBuffSkillSlotViews()
 
@@ -35,6 +37,7 @@ class SubSkillSlotView(
     init {
 
         right()
+        subSlotKeyView.addListener(ActorClickListener(Input.Buttons.RIGHT) { controller.removeSubSkill() })
         setBackground(assets.tableBackgroundDark)
         rebuildTable()
     }
@@ -65,9 +68,15 @@ class SubSkillSlotView(
     fun update() {
 
         subSlotKeyView.update()
-        buffSlots.values.forEach{ factory.disposeSkillView(it.id) }
+        buffSlots.values.forEach { factory.disposeSkillView(it.id) }
         buffSlots = createBuffSkillSlotViews()
         rebuildTable()
+    }
+
+    fun dispose() {
+
+        factory.disposeSkillView(id)
+        buffSlots.values.forEach { factory.disposeSkillView(it.id) }
     }
 
     // HELPER:

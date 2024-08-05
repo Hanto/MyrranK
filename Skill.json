@@ -25,7 +25,7 @@
     "name" : "impact",
     "lock" : [ "A", "B" ],
     "content" : {
-      "id" : "52d9ae51-ec26-4a20-85d8-4b638d053322",
+      "id" : "f6a7346c-b938-448e-bb72-023fb0cc0eb2",
       "templateId" : "EXPLOSION_1",
       "type" : "EXPLOSION",
       "name" : "Explosion",
@@ -33,7 +33,7 @@
         "id" : "RADIUS",
         "name" : "radius",
         "baseBonus" : 10.0,
-        "actual" : 10,
+        "actual" : 0,
         "maximum" : 20,
         "upgradeCost" : 2.0,
         "bonusPerUpgrade" : 1.0
@@ -41,15 +41,61 @@
       "slots" : [ {
         "id" : "DEBUFF_1",
         "name" : "Debuff 1",
-        "lock" : [ "c", "e" ],
-        "content" : null
+        "lock" : [ "c", "d" ],
+        "content" : {
+          "id" : "142aeb6e-a7c3-4304-8a1f-cd436df72408",
+          "templateId" : "BOMB_1",
+          "type" : "BOMB",
+          "name" : "Bomb",
+          "stats" : [ {
+            "id" : "DAMAGE",
+            "name" : "damage",
+            "baseBonus" : 10.0,
+            "actual" : 0,
+            "maximum" : 20,
+            "upgradeCost" : 2.0,
+            "bonusPerUpgrade" : 1.0
+          }, {
+            "id" : "DETONATION TIME",
+            "name" : "detonation time",
+            "baseBonus" : 10.0,
+            "actual" : 0,
+            "maximum" : 20,
+            "upgradeCost" : 2.0,
+            "bonusPerUpgrade" : -1.0
+          } ],
+          "keys" : [ "a", "b", "c", "d", "e" ]
+        }
       }, {
         "id" : "DEBUFF_2",
         "name" : "Debuff 2",
-        "lock" : [ "b", "c" ],
-        "content" : null
+        "lock" : [ "c", "d" ],
+        "content" : {
+          "id" : "e86ad866-95d3-49a5-89c1-8a17023615e8",
+          "templateId" : "FIRE_1",
+          "type" : "FIRE",
+          "name" : "Fire",
+          "stats" : [ {
+            "id" : "DAMAGE",
+            "name" : "damage per tick",
+            "baseBonus" : 10.0,
+            "actual" : 0,
+            "maximum" : 20,
+            "upgradeCost" : 2.0,
+            "bonusPerUpgrade" : 1.0
+          }, {
+            "id" : "DURATION",
+            "name" : "duration",
+            "baseBonus" : 10.0,
+            "actual" : 0,
+            "maximum" : 20,
+            "upgradeCost" : 2.0,
+            "bonusPerUpgrade" : 1.0
+          } ],
+          "keys" : [ "a", "b", "c", "d", "e" ]
+        }
       } ],
-      "keys" : [ "a" ]
+      "keys" : [ "A" ]
     }
   }, {
     "id" : "TRAIL",

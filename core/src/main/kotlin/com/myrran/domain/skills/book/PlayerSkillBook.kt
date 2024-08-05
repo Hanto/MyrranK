@@ -178,6 +178,12 @@ data class PlayerSkillBook(
             ?.let { skill -> skillTemplateRepository.findBy(buffSkillTemplateId)
                 ?.let { buffTemplate -> skill.isBuffSkillOpenedBy(subSkillSlotId, buffSkillSlotId, buffTemplate) } } ?: false
 
+    fun isSubSkillOpenedBy(skillId: SkillId, subSkillSlotId: SubSkillSlotId, subSkillTemplateId: SubSkillTemplateId): Boolean =
+
+        createdSkillsRepository.findBy(skillId)
+            ?.let { skill -> skillTemplateRepository.findBy(subSkillTemplateId)
+                ?.let { subSkillTemplate -> skill.isSubSkillOpenedBy(subSkillSlotId, subSkillTemplate) } } ?: false
+
 
     // UPGRADE:
     //--------------------------------------------------------------------------------------------------------

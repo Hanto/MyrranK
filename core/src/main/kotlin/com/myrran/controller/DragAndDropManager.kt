@@ -7,31 +7,53 @@ import com.myrran.view.ui.skills.SkillViewId
 class DragAndDropManager(
 
     private val buffDaDs: DaD,
-    private val sources: MutableMapOfLists<SkillViewId, DaDSource<SkillViewId>> = MutableMapOfLists({ mutableMapOf() }, { mutableListOf() }),
-    private val targets: MutableMapOfLists<SkillViewId, DaDTarget<SkillViewId>> = MutableMapOfLists({ mutableMapOf() }, { mutableListOf() }),
+    private val subDaDs: DaD,
+    private val buffSources: MutableMapOfLists<SkillViewId, BuffDaDSource> = MutableMapOfLists({ mutableMapOf() }, { mutableListOf() }),
+    private val buffTargets: MutableMapOfLists<SkillViewId, BuffDaDTarget> = MutableMapOfLists({ mutableMapOf() }, { mutableListOf() }),
+    private val subSources: MutableMapOfLists<SkillViewId, SubDaDSource> = MutableMapOfLists({ mutableMapOf() }, { mutableListOf() }),
+    private val subTargets: MutableMapOfLists<SkillViewId, SubDaDTarget> = MutableMapOfLists({ mutableMapOf() }, { mutableListOf() }),
 )
 {
-    fun addSource(dadSource: DaDSource<SkillViewId>) {
+    fun addSource(dadSource: BuffDaDSource) {
 
         buffDaDs.addSource(dadSource.getSource())
-        sources[dadSource.id] = dadSource
+        buffSources[dadSource.id] = dadSource
+    }
+
+    fun addSource(dadSource: SubDaDSource) {
+
+        subDaDs.addSource(dadSource.getSource())
+        subSources[dadSource.id] = dadSource
     }
 
     fun removeSource(id: SkillViewId) {
 
-        sources.remove(id)
+        buffSources.remove(id)
             ?.forEach { buffDaDs.removeSource(it.getSource()) }
+
+        subSources.remove(id)
+            ?.forEach { subDaDs.removeSource(it.getSource()) }
     }
 
-    fun addTarget(dadTarget: DaDTarget<SkillViewId>) {
+    fun addTarget(dadTarget: BuffDaDTarget) {
 
         buffDaDs.addTarget(dadTarget.getTarget())
-        targets[dadTarget.id] = dadTarget
+        buffTargets[dadTarget.id] = dadTarget
+    }
+
+    fun addTarget(dadTarget: SubDaDTarget) {
+
+        subDaDs.addTarget(dadTarget.getTarget())
+        subTargets[dadTarget.id] = dadTarget
     }
 
     fun removeTarget(id: SkillViewId) {
 
-        targets.remove(id)
+        buffTargets.remove(id)
             ?.forEach { buffDaDs.removeTarget(it.getTarget()) }
+
+        subTargets.remove(id)
+            ?.forEach { subDaDs.removeTarget(it.getTarget()) }
+
     }
 }
