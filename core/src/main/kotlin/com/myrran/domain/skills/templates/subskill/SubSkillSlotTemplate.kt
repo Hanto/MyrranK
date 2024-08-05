@@ -4,7 +4,7 @@ import com.myrran.domain.skills.custom.SubSkillSlotContent.NoSubSkill
 import com.myrran.domain.skills.custom.subskill.SubSkillSlot
 import com.myrran.domain.skills.custom.subskill.SubSkillSlotId
 import com.myrran.domain.skills.custom.subskill.SubSkillSlotName
-import com.myrran.domain.skills.templates.Lock
+import com.myrran.domain.skills.lock.Lock
 
 data class SubSkillSlotTemplate(
 

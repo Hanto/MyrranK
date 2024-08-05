@@ -13,17 +13,17 @@ import com.myrran.domain.skills.custom.stat.UpgradeCost
 import com.myrran.domain.skills.custom.subskill.SubSkillName
 import com.myrran.domain.skills.custom.subskill.SubSkillSlotId
 import com.myrran.domain.skills.custom.subskill.SubSkillSlotName
-import com.myrran.domain.skills.templates.Lock
+import com.myrran.domain.skills.lock.Lock
+import com.myrran.domain.skills.templates.BuffSkillTemplate
+import com.myrran.domain.skills.templates.SkillTemplate
+import com.myrran.domain.skills.templates.SubSkillTemplate
 import com.myrran.domain.skills.templates.buff.BuffSkillSlotTemplate
-import com.myrran.domain.skills.templates.buff.BuffSkillTemplate
 import com.myrran.domain.skills.templates.buff.BuffSkillTemplateId
-import com.myrran.domain.skills.templates.skill.SkillTemplate
 import com.myrran.domain.skills.templates.skill.SkillTemplateId
 import com.myrran.domain.skills.templates.stat.StatFixedTemplate
 import com.myrran.domain.skills.templates.stat.StatTemplate
 import com.myrran.domain.skills.templates.stat.StatUpgradeableTemplate
 import com.myrran.domain.skills.templates.subskill.SubSkillSlotTemplate
-import com.myrran.domain.skills.templates.subskill.SubSkillTemplate
 import com.myrran.domain.skills.templates.subskill.SubSkillTemplateId
 
 class SkillTemplateAdapter {

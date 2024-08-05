@@ -1,4 +1,4 @@
-package com.myrran.view.ui.skills.templates
+package com.myrran.view.ui.skills.templates.stat
 
 import com.badlogic.gdx.graphics.Color.ORANGE
 import com.badlogic.gdx.graphics.Color.WHITE

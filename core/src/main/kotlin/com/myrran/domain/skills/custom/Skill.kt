@@ -18,9 +18,9 @@ import com.myrran.domain.skills.custom.stat.UpgradeCost
 import com.myrran.domain.skills.custom.subskill.SubSkillSlot
 import com.myrran.domain.skills.custom.subskill.SubSkillSlotId
 import com.myrran.domain.skills.custom.subskill.SubSkillSlots
-import com.myrran.domain.skills.templates.buff.BuffSkillTemplate
+import com.myrran.domain.skills.templates.BuffSkillTemplate
+import com.myrran.domain.skills.templates.SubSkillTemplate
 import com.myrran.domain.skills.templates.skill.SkillTemplateId
-import com.myrran.domain.skills.templates.subskill.SubSkillTemplate
 import com.myrran.domain.spells.spell.SkillType
 import com.myrran.domain.utils.observer.JavaObservable
 import com.myrran.domain.utils.observer.Observable
@@ -50,13 +50,11 @@ data class Skill(
 
     fun removeSubSkill(subSkillSlotId: SubSkillSlotId): Collection<SubBuffSkill> =
 
-        slots.removeSubSkill(subSkillSlotId)
-            ?.let { subSkill -> subSkill.removeAllBuffSkills() + subSkill } ?: emptyList()
+        slots.removeSubSkill(subSkillSlotId)?.let { subSkill -> subSkill.removeAllBuffSkills() + subSkill } ?: emptyList()
 
     fun removeAllSubSkills(): Collection<SubBuffSkill> =
 
-        slots.removeAllSubSkills()
-            .let { subSkills -> subSkills.flatMap { it.removeAllBuffSkills() } + subSkills }
+        slots.removeAllSubSkills().let { subSkills -> subSkills.flatMap { it.removeAllBuffSkills() } + subSkills }
 
     fun setSubSkill(subSkillSlotId: SubSkillSlotId, subSkill: SubSkill) =
 

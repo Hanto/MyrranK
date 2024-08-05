@@ -10,8 +10,8 @@ import com.myrran.domain.skills.custom.stat.StatsI
 import com.myrran.domain.skills.custom.stat.UpgradeCost
 import com.myrran.domain.skills.custom.subskill.SubSkillId
 import com.myrran.domain.skills.custom.subskill.SubSkillName
-import com.myrran.domain.skills.templates.LockType
-import com.myrran.domain.skills.templates.buff.BuffSkillTemplate
+import com.myrran.domain.skills.lock.LockType
+import com.myrran.domain.skills.templates.BuffSkillTemplate
 import com.myrran.domain.skills.templates.subskill.SubSkillTemplateId
 import com.myrran.domain.spells.subspell.SubSkillType
 import com.myrran.domain.spells.subspell.SubSpell

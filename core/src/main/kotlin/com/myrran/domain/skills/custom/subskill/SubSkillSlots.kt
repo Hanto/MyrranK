@@ -6,8 +6,8 @@ import com.myrran.domain.skills.custom.buff.BuffSkillSlotId
 import com.myrran.domain.skills.custom.stat.NumUpgrades
 import com.myrran.domain.skills.custom.stat.StatId
 import com.myrran.domain.skills.custom.stat.UpgradeCost
-import com.myrran.domain.skills.templates.buff.BuffSkillTemplate
-import com.myrran.domain.skills.templates.subskill.SubSkillTemplate
+import com.myrran.domain.skills.templates.BuffSkillTemplate
+import com.myrran.domain.skills.templates.SubSkillTemplate
 
 data class SubSkillSlots(
 

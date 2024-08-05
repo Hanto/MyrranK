@@ -7,8 +7,8 @@ import com.myrran.domain.skills.custom.stat.NumUpgrades
 import com.myrran.domain.skills.custom.stat.StatId
 import com.myrran.domain.skills.custom.stat.UpgradeCost
 import com.myrran.domain.skills.custom.stat.UpgradeCost.Companion.ZERO
-import com.myrran.domain.skills.templates.Lock
-import com.myrran.domain.skills.templates.LockI
+import com.myrran.domain.skills.lock.Lock
+import com.myrran.domain.skills.lock.LockI
 import kotlin.reflect.KClass
 
 data class BuffSkillSlot(

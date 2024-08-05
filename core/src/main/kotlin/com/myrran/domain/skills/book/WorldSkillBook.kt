@@ -3,11 +3,11 @@ package com.myrran.domain.skills.book
 import com.myrran.domain.skills.custom.BuffSkill
 import com.myrran.domain.skills.custom.Skill
 import com.myrran.domain.skills.custom.SubSkill
-import com.myrran.domain.skills.templates.buff.BuffSkillTemplate
+import com.myrran.domain.skills.templates.BuffSkillTemplate
+import com.myrran.domain.skills.templates.SkillTemplate
+import com.myrran.domain.skills.templates.SubSkillTemplate
 import com.myrran.domain.skills.templates.buff.BuffSkillTemplateId
-import com.myrran.domain.skills.templates.skill.SkillTemplate
 import com.myrran.domain.skills.templates.skill.SkillTemplateId
-import com.myrran.domain.skills.templates.subskill.SubSkillTemplate
 import com.myrran.domain.skills.templates.subskill.SubSkillTemplateId
 
 data class WorldSkillBook(

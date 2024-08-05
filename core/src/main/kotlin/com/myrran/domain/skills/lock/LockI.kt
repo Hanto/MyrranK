@@ -1,4 +1,4 @@
-package com.myrran.domain.skills.templates
+package com.myrran.domain.skills.lock
 
 interface LockI
 {

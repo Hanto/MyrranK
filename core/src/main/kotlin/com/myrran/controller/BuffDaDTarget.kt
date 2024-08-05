@@ -4,7 +4,7 @@ import com.badlogic.gdx.graphics.Color
 import com.myrran.badlogic.Payload
 import com.myrran.badlogic.Source
 import com.myrran.badlogic.Target
-import com.myrran.domain.skills.templates.buff.BuffSkillTemplate
+import com.myrran.domain.skills.templates.BuffSkillTemplate
 import com.myrran.view.ui.skills.SkillViewId
 import com.myrran.view.ui.skills.assets.SkillViewAssets
 import com.myrran.view.ui.skills.custom.buff.BuffSkillSlotView

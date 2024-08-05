@@ -1,4 +1,4 @@
-package com.myrran.domain.skills.templates
+package com.myrran.domain.skills.lock
 
 enum class LockType(val value: String, val order: Int) {
 

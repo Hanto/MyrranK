@@ -11,7 +11,7 @@ import com.badlogic.gdx.utils.Align
 import com.myrran.domain.skills.custom.BuffSkill
 import com.myrran.domain.skills.custom.BuffSkillSlotContent.NoBuffSkill
 import com.myrran.domain.skills.custom.buff.BuffSkillSlot
-import com.myrran.domain.skills.templates.LockType
+import com.myrran.domain.skills.lock.LockType
 import com.myrran.view.ui.misc.TextView
 import com.myrran.view.ui.skills.assets.PURPLE_LIGHT
 import com.myrran.view.ui.skills.assets.SkillViewAssets

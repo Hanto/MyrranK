@@ -1,10 +1,11 @@
-package com.myrran.domain.skills.templates.buff
+package com.myrran.domain.skills.templates
 
 import com.myrran.domain.skills.custom.BuffSkill
 import com.myrran.domain.skills.custom.buff.BuffSkillId
 import com.myrran.domain.skills.custom.buff.BuffSkillName
 import com.myrran.domain.skills.custom.stat.Stats
-import com.myrran.domain.skills.templates.LockType
+import com.myrran.domain.skills.lock.LockType
+import com.myrran.domain.skills.templates.buff.BuffSkillTemplateId
 import com.myrran.domain.skills.templates.stat.StatTemplate
 import com.myrran.domain.spells.buff.BuffType
 

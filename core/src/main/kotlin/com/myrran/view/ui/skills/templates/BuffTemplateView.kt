@@ -5,11 +5,13 @@ import com.badlogic.gdx.scenes.scene2d.Touchable
 import com.badlogic.gdx.scenes.scene2d.ui.Container
 import com.badlogic.gdx.scenes.scene2d.ui.Table
 import com.myrran.domain.Identifiable
-import com.myrran.domain.skills.templates.buff.BuffSkillTemplate
+import com.myrran.domain.skills.templates.BuffSkillTemplate
 import com.myrran.view.ui.misc.ActorClickListener
 import com.myrran.view.ui.misc.ActorMoveListener
 import com.myrran.view.ui.skills.SkillViewId
 import com.myrran.view.ui.skills.assets.SkillViewAssets
+import com.myrran.view.ui.skills.templates.buff.BuffTemplateHeaderView
+import com.myrran.view.ui.skills.templates.stat.StatsTemplateView
 
 class BuffTemplateView(
 

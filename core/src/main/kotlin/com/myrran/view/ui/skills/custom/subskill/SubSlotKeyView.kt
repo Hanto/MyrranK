@@ -8,7 +8,7 @@ import com.badlogic.gdx.utils.Align
 import com.myrran.domain.skills.custom.SubSkill
 import com.myrran.domain.skills.custom.SubSkillSlotContent.NoSubSkill
 import com.myrran.domain.skills.custom.subskill.SubSkillSlot
-import com.myrran.domain.skills.templates.LockType
+import com.myrran.domain.skills.lock.LockType
 import com.myrran.view.ui.misc.TextView
 import com.myrran.view.ui.skills.assets.PURPLE_LIGHT
 import com.myrran.view.ui.skills.assets.SkillViewAssets
