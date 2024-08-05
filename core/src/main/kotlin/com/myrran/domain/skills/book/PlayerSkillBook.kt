@@ -14,7 +14,6 @@ import com.myrran.domain.utils.QuantityMap
 import com.myrran.infraestructure.learned.LearnedRepository
 import com.myrran.infraestructure.skill.SkillRepository
 import com.myrran.infraestructure.skilltemplate.SkillTemplateRepository
-import kotlin.reflect.KClass
 
 data class PlayerSkillBook(
 
@@ -89,7 +88,8 @@ data class PlayerSkillBook(
         val buffSkillTemplate = skillTemplateRepository.findBy(buffSkillTemplateId)!!
         val buffSkill = buffSkillTemplate.toBuffSkill()
 
-        if (skill.isBuffSkillOpenedBy(subSkillSlotId, buffSkillSlotId, buffSkillTemplate) && learnedBuffSkillsTemplates.isAvailable(buffSkillTemplateId)) {
+        if (skill.isBuffSkillOpenedBy(subSkillSlotId, buffSkillSlotId, buffSkillTemplate) &&
+            learnedBuffSkillsTemplates.isAvailable(buffSkillTemplateId)) {
 
             learnedBuffSkillsTemplates.borrow(buffSkillTemplateId)
             removeBuffSkill(skillId, subSkillSlotId, buffSkillSlotId)
@@ -196,8 +196,4 @@ data class PlayerSkillBook(
         skill?.upgrade(subSkillSlotId, buffSkillSlotId, statId, upgradeBy)
             ?.also { createdSkillsRepository.save(skill) }
     }
-
-    private inline fun <reified T: Any> Any.ifIs(classz: KClass<T>): T? =
-
-        if (this is T) this else null
 }
