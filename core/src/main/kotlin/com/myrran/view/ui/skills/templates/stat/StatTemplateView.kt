@@ -50,7 +50,7 @@ class StatTemplateView(
         add(name.align(Align.left)).minWidth(NAME_SIZE)
 
         add(upgradeCost?.align(Align.center or Align.bottom)).minWidth(BONUS_PER_UPGRADE_SIZE)
-        add(bonusPerUpgrade?.align(Align.center or Align.bottom)).minWidth(UPGRADECOST_SIZE)
+        add(bonusPerUpgrade?.align(Align.right or Align.bottom)).minWidth(UPGRADECOST_SIZE)
         add(maximum?.align(Align.center)).minWidth(UPGRADES_SIZE)
 
         add(baseBonus?.align(Align.right)).minWidth(BASE_BONUS_SIZE)

@@ -8,8 +8,8 @@ import com.myrran.domain.skills.custom.BuffSkillSlotContent.NoBuffSkill
 import com.myrran.domain.skills.custom.buff.BuffSkillSlot
 import com.myrran.domain.skills.custom.stat.Stat
 import com.myrran.domain.skills.custom.stat.StatId
-import com.myrran.view.ui.misc.ActorClickListener
-import com.myrran.view.ui.misc.Button.RIGHT_BUTTON
+import com.myrran.view.ui.misc.UIClickListener
+import com.myrran.view.ui.misc.UIClickListener.Button.RIGHT_BUTTON
 import com.myrran.view.ui.skills.SkillViewId
 import com.myrran.view.ui.skills.assets.SkillViewAssets
 import com.myrran.view.ui.skills.custom.stat.StatsView
@@ -32,7 +32,7 @@ class BuffSkillSlotView(
     init {
 
         right()
-        buffSlotKeyView.addListener(ActorClickListener(RIGHT_BUTTON) { controller.removeBuffSkill() })
+        buffSlotKeyView.addListener(UIClickListener(RIGHT_BUTTON) { controller.removeBuffSkill() })
         rebuildTable()
     }
 

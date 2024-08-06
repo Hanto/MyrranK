@@ -6,7 +6,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table
 import com.myrran.domain.Identifiable
 import com.myrran.domain.skills.templates.BuffSkillTemplate
 import com.myrran.domain.utils.Quantity
-import com.myrran.view.ui.misc.ActorClickListener
+import com.myrran.view.ui.misc.UIClickListener
 import com.myrran.view.ui.skills.SkillViewId
 import com.myrran.view.ui.skills.assets.SkillViewAssets
 import com.myrran.view.ui.skills.templates.buff.BuffTemplateHeaderView
@@ -26,7 +26,7 @@ class BuffTemplateView(
     init {
 
         header.touchable = Touchable.enabled
-        addListener(ActorClickListener { toFront() } )
+        addListener(UIClickListener { toFront() } )
 
         val table = Table()
         table.touchable = Touchable.enabled

@@ -26,16 +26,16 @@ class SubSkillTemplateHeaderView(
         left()
         setBackground(assets.tableBackgroundLightToDark.tint(Color(0.6f, 0.6f, 0.6f, 0.90f)))
 
-        val nameKeys = Table().bottom().left()
-        nameKeys.add(name.align(Align.left)).left()
-        nameKeys.add(keys.align(Align.right)).bottom().right().expandX().fillX().padLeft(3f)
+        val lowerTable = Table().bottom().left()
+        lowerTable.add(name.align(Align.left)).left()
+        lowerTable.add(keys.align(Align.right)).bottom().right().expandX().fillX().padLeft(3f)
 
-        val descriptionNameKeysTable = Table().bottom().left()
-        descriptionNameKeysTable.padLeft(3f)
-        descriptionNameKeysTable.add(description.align(Align.left)).left().padBottom(-4f).padBottom(-2f).row()
-        descriptionNameKeysTable.add(nameKeys).expandX().fillX().padTop(-4f)
+        val mainTable = Table().bottom().left()
+        mainTable.padLeft(3f)
+        mainTable.add(description.align(Align.left)).left().padBottom(-4f).padBottom(-2f).row()
+        mainTable.add(lowerTable).expandX().fillX().padTop(-4f)
 
         add(icon).left()
-        add(descriptionNameKeysTable).right().expandX().fillX().padTop(-2f).padBottom(-2f).padRight(3f).row()
+        add(mainTable).right().expandX().fillX().padTop(-2f).padBottom(-2f).padRight(3f).row()
     }
 }

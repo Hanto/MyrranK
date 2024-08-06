@@ -7,7 +7,15 @@
   "avaiable" : 0,
   "total" : 1
 }, {
-    "id" : "SLOW_1",
-    "avaiable" : 1,
-    "total" : 1 }
-]
+  "id" : "SLOW_1",
+  "avaiable" : 1,
+  "total" : 1
+}, {
+  "id" : "SILENCE_1",
+  "avaiable" : 1,
+  "total" : 1
+}, {
+  "id" : "ROOT_1",
+  "avaiable" : 1,
+  "total" : 1
+} ]

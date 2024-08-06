@@ -9,8 +9,8 @@ import com.myrran.domain.skills.custom.buff.BuffSkillSlotId
 import com.myrran.domain.skills.custom.stat.Stat
 import com.myrran.domain.skills.custom.stat.StatId
 import com.myrran.domain.skills.custom.subskill.SubSkillSlot
-import com.myrran.view.ui.misc.ActorClickListener
-import com.myrran.view.ui.misc.Button.RIGHT_BUTTON
+import com.myrran.view.ui.misc.UIClickListener
+import com.myrran.view.ui.misc.UIClickListener.Button.RIGHT_BUTTON
 import com.myrran.view.ui.skills.SkillViewFactory
 import com.myrran.view.ui.skills.SkillViewId
 import com.myrran.view.ui.skills.assets.SkillViewAssets
@@ -37,7 +37,7 @@ class SubSkillSlotView(
     init {
 
         right()
-        subSlotKeyView.addListener(ActorClickListener(RIGHT_BUTTON) { controller.removeSubSkill() })
+        subSlotKeyView.addListener(UIClickListener(RIGHT_BUTTON) { controller.removeSubSkill() })
         setBackground(assets.tableBackgroundDark)
         rebuildTable()
     }

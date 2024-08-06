@@ -1,5 +1,13 @@
 package com.myrran.domain.spells
 
+import com.myrran.domain.events.BuffSkillChangedEvent
+import com.myrran.domain.events.BuffSkillRemovedEvent
+import com.myrran.domain.events.BuffSkillStatUpgradedEvent
+import com.myrran.domain.events.SkillEvent
+import com.myrran.domain.events.SkillStatUpgradedEvent
+import com.myrran.domain.events.SubSkillChangedEvent
+import com.myrran.domain.events.SubSkillRemovedEvent
+import com.myrran.domain.events.SubSkillStatUpgradedEvent
 import com.myrran.domain.skills.custom.BuffSkill
 import com.myrran.domain.skills.custom.SubSkill
 import com.myrran.domain.skills.custom.buff.BuffSkillSlotId
@@ -13,6 +21,8 @@ import com.myrran.domain.skills.templates.skill.SkillTemplateId
 import com.myrran.domain.skills.templates.subskill.SubSkillTemplateId
 import com.myrran.domain.utils.Quantity
 import com.myrran.domain.utils.QuantityMap
+import com.myrran.domain.utils.observer.JavaObservable
+import com.myrran.domain.utils.observer.Observable
 import com.myrran.infraestructure.learned.LearnedRepository
 import com.myrran.infraestructure.skill.SkillRepository
 import com.myrran.infraestructure.skilltemplate.SkillTemplateRepository
@@ -21,8 +31,10 @@ data class SpellBook(
 
     private val skillTemplateRepository: SkillTemplateRepository,
     private val learnedRepository: LearnedRepository,
-    val createdSkillsRepository: SkillRepository
-)
+    val createdSkillsRepository: SkillRepository,
+    private val observable: Observable<SkillEvent> = JavaObservable()
+
+): Observable<SkillEvent> by observable
 {
     private val learnedSkillTemplates: QuantityMap<SkillTemplateId> = learnedRepository.findAllLearnedSkillTemplates()
     private val learnedSubSkillsTemplates: QuantityMap<SubSkillTemplateId> = learnedRepository.findAllLearnedSubSkillTemplates()
@@ -96,6 +108,7 @@ data class SpellBook(
 
             createdSkillsRepository.save(skill)
             learnedRepository.saveLearnedSubSkills(learnedSubSkillsTemplates)
+            notify(SubSkillChangedEvent(skillId, subSkillSlotId, subSkill))
         }
     }
 
@@ -114,6 +127,7 @@ data class SpellBook(
 
             createdSkillsRepository.save(skill)
             learnedRepository.saveLearnedBuffSkills(learnedBuffSkillsTemplates)
+            notify(BuffSkillChangedEvent(skillId, subSkillSlotId, buffSkillSlotId, buffSkill))
         }
     }
 
@@ -127,7 +141,9 @@ data class SpellBook(
             val subBuffSKills = skill.removeAllSubSkills()
 
             subBuffSKills.forEach {
+
                 when(it) {
+
                     is SubSkill -> learnedSubSkillsTemplates.returnBack(it.templateId)
                     is BuffSkill -> learnedBuffSkillsTemplates.returnBack(it.templateId)
                 }
@@ -138,8 +154,8 @@ data class SpellBook(
                 learnedRepository.saveLearnedSubSkills(learnedSubSkillsTemplates)
             if (subBuffSKills.any { it is BuffSkill })
                 learnedRepository.saveLearnedBuffSkills(learnedBuffSkillsTemplates)
-
-            learnedRepository.saveLearnedSkills(learnedSkillTemplates)
+            if (subBuffSKills.isNotEmpty())
+                learnedRepository.saveLearnedSkills(learnedSkillTemplates)
         }
 
     fun removeSubSkill(skillId: SkillId, subSkillSlotId: SubSkillSlotId) =
@@ -149,7 +165,9 @@ data class SpellBook(
             val subBuffSkills = skill.removeSubSkill(subSkillSlotId)
 
             subBuffSkills.forEach {
+
                 when(it) {
+
                     is SubSkill -> learnedSubSkillsTemplates.returnBack(it.templateId)
                     is BuffSkill -> learnedBuffSkillsTemplates.returnBack(it.templateId)
                 }
@@ -159,22 +177,27 @@ data class SpellBook(
                 learnedRepository.saveLearnedSubSkills(learnedSubSkillsTemplates)
             if (subBuffSkills.any { it is BuffSkill })
                 learnedRepository.saveLearnedBuffSkills(learnedBuffSkillsTemplates)
+            if (subBuffSkills.isNotEmpty()) {
 
-            createdSkillsRepository.save(skill)
+                createdSkillsRepository.save(skill)
+                notify(SubSkillRemovedEvent(skillId, subBuffSkills))
+            }
         }
 
     fun removeBuffSkill(skillId: SkillId, subSkillSlotId: SubSkillSlotId, buffSkillSlotId: BuffSkillSlotId) =
 
         createdSkillsRepository.findBy(skillId)?.also { skill ->
 
-            skill.removeBuffSkill(subSkillSlotId, buffSkillSlotId)?.also {
+            val buffSkill = skill.removeBuffSkill(subSkillSlotId, buffSkillSlotId)
+
+            buffSkill?.also {
 
                 learnedBuffSkillsTemplates.returnBack(it.templateId)
 
                 learnedRepository.saveLearnedBuffSkills(learnedBuffSkillsTemplates)
+                createdSkillsRepository.save(skill)
+                notify(BuffSkillRemovedEvent(skillId, buffSkill))
             }
-
-            createdSkillsRepository.save(skill)
         }
 
     // IS OPENED:
@@ -202,6 +225,7 @@ data class SpellBook(
 
         skill?.upgrade(statId, upgradeBy)
             ?.also { createdSkillsRepository.save(skill) }
+            ?.also { notify(SkillStatUpgradedEvent(skillId, statId, upgradeBy)) }
     }
 
     fun upgrade(skillId: SkillId, subSkillSlotId: SubSkillSlotId, statId: StatId, upgradeBy: NumUpgrades) {
@@ -210,6 +234,7 @@ data class SpellBook(
 
         skill?.upgrade(subSkillSlotId, statId, upgradeBy)
             ?.also { createdSkillsRepository.save(skill) }
+            ?.also { notify(SubSkillStatUpgradedEvent(skillId, subSkillSlotId, statId, upgradeBy)) }
     }
 
     fun upgrade(skillId: SkillId, subSkillSlotId: SubSkillSlotId, buffSkillSlotId: BuffSkillSlotId, statId: StatId, upgradeBy: NumUpgrades) {
@@ -218,6 +243,7 @@ data class SpellBook(
 
         skill?.upgrade(subSkillSlotId, buffSkillSlotId, statId, upgradeBy)
             ?.also { createdSkillsRepository.save(skill) }
+            ?.also { notify(BuffSkillStatUpgradedEvent(skillId, subSkillSlotId, buffSkillSlotId, statId, upgradeBy)) }
     }
 }
 

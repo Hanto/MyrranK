@@ -17,8 +17,8 @@ import com.myrran.domain.events.SubSkillStatUpgradedEvent
 import com.myrran.domain.skills.custom.Skill
 import com.myrran.domain.skills.custom.subskill.SubSkillSlotId
 import com.myrran.domain.utils.observer.Observer
-import com.myrran.view.ui.misc.ActorClickListener
-import com.myrran.view.ui.misc.ActorMoveListener
+import com.myrran.view.ui.misc.UIClickListener
+import com.myrran.view.ui.misc.UIMoveListener
 import com.myrran.view.ui.skills.SkillViewFactory
 import com.myrran.view.ui.skills.SkillViewId
 import com.myrran.view.ui.skills.assets.SkillViewAssets
@@ -46,7 +46,7 @@ class SkillView(
     init {
 
         model.addObserver(this)
-        addListener(ActorClickListener { toFront() } )
+        addListener(UIClickListener { toFront() } )
 
         top().left()
         rebuildTable()
@@ -59,7 +59,7 @@ class SkillView(
 
         table.clearChildren()
         skillHeader.touchable = Touchable.enabled
-        skillHeader.addListener(ActorMoveListener(this))
+        skillHeader.addListener(UIMoveListener(this))
 
         val bodyTable = Table()
         val skillStatsTable = Table()
@@ -90,11 +90,9 @@ class SkillView(
         when (event) {
 
             is SkillStatUpgradedEvent ->  { skillStats.update(event.statId); skillHeader.update() }
-
             is SubSkillStatUpgradedEvent -> { subSlots[event.subSlot]?.update(event.statId); skillHeader.update() }
             is SubSkillChangedEvent -> update()
             is SubSkillRemovedEvent -> update()
-
             is BuffSkillStatUpgradedEvent -> { subSlots[event.subSlot]?.buffSlots?.get(event.buffSlot)?.update(event.statId); skillHeader.update() }
             is BuffSkillChangedEvent -> subSlots[event.subSlot]?.buffSlots?.get(event.buffSlot)?.update()
             is BuffSkillRemovedEvent -> update()

@@ -8,7 +8,7 @@
                 "id": "DAMAGE",
                 "name": "damage per tick",
                 "baseBonus": 10.0,
-                "maximum": 20,
+                "maximum": 50,
                 "upgradeCost": 2.0,
                 "bonusPerUpgrade": 1.0
             },
@@ -16,7 +16,7 @@
                 "id": "DURATION",
                 "name": "duration",
                 "baseBonus": 10.0,
-                "maximum": 20,
+                "maximum": 50,
                 "upgradeCost": 2.0,
                 "bonusPerUpgrade": 1.0
             }
@@ -34,7 +34,7 @@
                 "id": "DAMAGE",
                 "name": "damage",
                 "baseBonus": 10.0,
-                "maximum": 20,
+                "maximum": 50,
                 "upgradeCost": 2.0,
                 "bonusPerUpgrade": 1.0
             },
@@ -42,7 +42,7 @@
                 "id": "DETONATION TIME",
                 "name": "detonation time",
                 "baseBonus": 10.0,
-                "maximum": 20,
+                "maximum": 50,
                 "upgradeCost": 2.0,
                 "bonusPerUpgrade": -1.0
             }
@@ -60,7 +60,7 @@
                 "id": "DURATION",
                 "name": "duration",
                 "baseBonus": 10.0,
-                "maximum": 20,
+                "maximum": 50,
                 "upgradeCost": 2.0,
                 "bonusPerUpgrade": 1.0
             },
@@ -68,13 +68,65 @@
                 "id": "MAGNITUDE",
                 "name": "slow magnitude",
                 "baseBonus": 10.0,
-                "maximum": 20,
+                "maximum": 50,
                 "upgradeCost": 2.0,
                 "bonusPerUpgrade": -1.0
             },
             {
                 "id": "ROOT",
                 "name": "root time",
+                "baseBonus": 10.0,
+                "maximum": 50,
+                "upgradeCost": 2.0,
+                "bonusPerUpgrade": -1.0
+            }
+        ],
+        "keys": [
+            "a", "b", "c", "d", "e"
+        ]
+    },
+    {
+        "id": "SILENCE_1",
+        "type": "BOMB",
+        "name": "Silence",
+        "stats": [
+            {
+                "id": "DURATION",
+                "name": "duration",
+                "baseBonus": 10.0,
+                "maximum": 20,
+                "upgradeCost": 2.0,
+                "bonusPerUpgrade": 1.0
+            },
+            {
+                "id": "MAGNITUDE",
+                "name": "silence power",
+                "baseBonus": 10.0,
+                "maximum": 20,
+                "upgradeCost": 2.0,
+                "bonusPerUpgrade": -1.0
+            }
+        ],
+        "keys": [
+            "a", "b", "c", "d", "e"
+        ]
+    },
+    {
+        "id": "ROOT_1",
+        "type": "BOMB",
+        "name": "Root",
+        "stats": [
+            {
+                "id": "DURATION",
+                "name": "duration",
+                "baseBonus": 10.0,
+                "maximum": 20,
+                "upgradeCost": 2.0,
+                "bonusPerUpgrade": 1.0
+            },
+            {
+                "id": "MAGNITUDE",
+                "name": "silence power",
                 "baseBonus": 10.0,
                 "maximum": 20,
                 "upgradeCost": 2.0,

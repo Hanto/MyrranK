@@ -6,7 +6,7 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent
 import com.badlogic.gdx.scenes.scene2d.utils.DragListener
 import ktx.math.minus
 
-class ActorMoveListener(
+class UIMoveListener(
 
     private val parent: Actor
 

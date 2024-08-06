@@ -5,8 +5,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.Container
 import com.badlogic.gdx.scenes.scene2d.ui.Table
 import com.myrran.domain.Identifiable
 import com.myrran.domain.skills.templates.SubSkillTemplate
-import com.myrran.view.ui.misc.ActorClickListener
-import com.myrran.view.ui.misc.ActorMoveListener
+import com.myrran.view.ui.misc.UIClickListener
+import com.myrran.view.ui.misc.UIMoveListener
 import com.myrran.view.ui.skills.SkillViewId
 import com.myrran.view.ui.skills.assets.SkillViewAssets
 import com.myrran.view.ui.skills.templates.stat.StatsTemplateView
@@ -25,8 +25,8 @@ class SubSkillTemplateView(
     init {
 
         header.touchable = Touchable.enabled
-        header.addListener(ActorMoveListener(this))
-        addListener(ActorClickListener { toFront() } )
+        header.addListener(UIMoveListener(this))
+        addListener(UIClickListener { toFront() } )
 
         val table = Table()
         table.touchable = Touchable.enabled

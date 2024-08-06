@@ -23,9 +23,11 @@ import com.myrran.infraestructure.skilltemplate.SkillTemplateRepository
 import com.myrran.view.atlas.Atlas
 import com.myrran.view.ui.misc.TextView
 import com.myrran.view.ui.skills.SkillViewFactory
+import com.myrran.view.ui.skills.SkillViewId
 import com.myrran.view.ui.skills.assets.SkillViewAssets
 import com.myrran.view.ui.skills.book.BuffSkillTemplateViews
 import ktx.app.KtxScreen
+import java.util.UUID
 
 class MainScreen(
 
@@ -112,7 +114,7 @@ class MainScreen(
         explosionTemplateView.setPosition(30f, 10f)
 
 
-        val templateList = BuffSkillTemplateViews(spellBook, assets,skillViewFactory)
+        val templateList = BuffSkillTemplateViews(SkillViewId(UUID.randomUUID()), spellBook, assets,skillViewFactory)
         uiStage.addActor(templateList)
         templateList.setPosition(30f, 100f)
 
