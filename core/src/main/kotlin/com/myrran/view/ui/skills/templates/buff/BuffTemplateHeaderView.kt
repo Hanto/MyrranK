@@ -21,7 +21,7 @@ class BuffTemplateHeaderView(
 {
     val icon = Image(assets.skillIcon)
     private val name = TextView(buff.name, assets.font20, ORANGE, 2f) { it.value }
-    val available = TextView(quantity, assets.font14, quantity.toColor(), 2f) { "${it.available}/${it.total}" }
+    private val available = TextView(quantity, assets.font14, quantity.toColor(), 2f) { "${it.available}/${it.total}" }
     private val description = TextView("DEBUFF", assets.font14, Color.WHITE, 1f)
     private val keys = TextView(buff.keys.map { it.value }, assets.font14, PURPLE_LIGHT, 2f) { it.joinToString( " ") }
 
@@ -42,6 +42,12 @@ class BuffTemplateHeaderView(
 
         add(icon).left()
         add(mainTable).right().expandX().fillX().padTop(-2f).padBottom(-2f).padRight(3f).row()
+    }
+
+    fun setAvailable(quantity: Quantity) {
+
+        available.setText(quantity)
+        available.setTextColor(quantity.toColor())
     }
 
     // HELPER:

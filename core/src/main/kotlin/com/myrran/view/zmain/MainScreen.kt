@@ -98,23 +98,12 @@ class MainScreen(
         uiStage.addActor(skillView)
         skillView.setPosition(350f, 100f)
 
-        //val fireTemplate = skillTemplateRepository.findBy( BuffSkillTemplateId("FIRE_1") )!!
-        //val fireTemplateView = skillViewFactory.createBuffTemplateView(fireTemplate)
-        //uiStage.addActor(fireTemplateView)
-        //fireTemplateView.setPosition(50f, 50f)
-
-        //val bombTemplate = skillTemplateRepository.findBy( BuffSkillTemplateId("BOMB_1") )!!
-        //val bombTemplateView = skillViewFactory.createBuffTemplateView(bombTemplate)
-        //uiStage.addActor(bombTemplateView)
-        //bombTemplateView.setPosition(50f, 150f)
-
         val explosionTemplate = skillTemplateRepository.findBy( SubSkillTemplateId("EXPLOSION_1") )!!
         val explosionTemplateView = skillViewFactory.createSubTemplateView(explosionTemplate)
         uiStage.addActor(explosionTemplateView)
         explosionTemplateView.setPosition(30f, 10f)
 
-
-        val templateList = BuffSkillTemplateViews(SkillViewId(UUID.randomUUID()), spellBook, assets,skillViewFactory)
+        val templateList = BuffSkillTemplateViews(SkillViewId(UUID.randomUUID()), spellBook, assets, skillViewFactory)
         uiStage.addActor(templateList)
         templateList.setPosition(30f, 100f)
 
@@ -123,7 +112,6 @@ class MainScreen(
         //templateView.setDebug(true, true)
         //uiStage.setDebugUnderMouse(true)
         //uiStage.setDebugAll(true)
-
     }
 
     // RENDER:

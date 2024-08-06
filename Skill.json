@@ -25,7 +25,7 @@
     "name" : "impact",
     "lock" : [ "A", "B" ],
     "content" : {
-      "id" : "838111ea-ac03-46ee-beac-331146bd38eb",
+      "id" : "bba035a1-6c4e-4129-8f58-1ee1ce66e43c",
       "templateId" : "EXPLOSION_1",
       "type" : "EXPLOSION",
       "name" : "Explosion",
@@ -43,7 +43,7 @@
         "name" : "Debuff 1",
         "lock" : [ "c", "d" ],
         "content" : {
-          "id" : "c9b74877-f70b-46cd-98bb-69b68ae40295",
+          "id" : "847a0bc3-e7e8-4043-9212-a771c41b3a41",
           "templateId" : "BOMB_1",
           "type" : "BOMB",
           "name" : "Bomb",
@@ -71,26 +71,26 @@
         "name" : "Debuff 2",
         "lock" : [ "c", "d" ],
         "content" : {
-          "id" : "caa58079-f0d2-495b-8cb2-6c3236b6c0ab",
-          "templateId" : "FIRE_1",
-          "type" : "FIRE",
-          "name" : "Fire",
+          "id" : "11923c5a-feb4-4a11-aa13-2b0a7c2ab11e",
+          "templateId" : "ROOT_1",
+          "type" : "BOMB",
+          "name" : "Root",
           "stats" : [ {
-            "id" : "DAMAGE",
-            "name" : "damage per tick",
-            "baseBonus" : 10.0,
-            "actual" : 0,
-            "maximum" : 50,
-            "upgradeCost" : 2.0,
-            "bonusPerUpgrade" : 1.0
-          }, {
             "id" : "DURATION",
             "name" : "duration",
             "baseBonus" : 10.0,
             "actual" : 0,
-            "maximum" : 50,
+            "maximum" : 20,
             "upgradeCost" : 2.0,
             "bonusPerUpgrade" : 1.0
+          }, {
+            "id" : "MAGNITUDE",
+            "name" : "silence power",
+            "baseBonus" : 10.0,
+            "actual" : 0,
+            "maximum" : 20,
+            "upgradeCost" : 2.0,
+            "bonusPerUpgrade" : -1.0
           } ],
           "keys" : [ "a", "b", "c", "d", "e" ]
         }

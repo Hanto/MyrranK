@@ -16,7 +16,7 @@ class BuffTemplateView(
 
     override val id: SkillViewId,
     val model: BuffSkillTemplate,
-    private val quantity: Quantity,
+    quantity: Quantity,
     private val assets: SkillViewAssets,
 
 ): Container<Table>(), Identifiable<SkillViewId>
@@ -35,5 +35,10 @@ class BuffTemplateView(
 
         actor = table
         setSize(prefWidth, prefHeight)
+    }
+
+    fun setAvailable(quantity: Quantity) {
+
+        header.setAvailable(quantity)
     }
 }

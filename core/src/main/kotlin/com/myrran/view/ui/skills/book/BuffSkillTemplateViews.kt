@@ -1,6 +1,5 @@
 package com.myrran.view.ui.skills.book
 
-import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.scenes.scene2d.Touchable
 import com.badlogic.gdx.scenes.scene2d.ui.Container
 import com.badlogic.gdx.scenes.scene2d.ui.Table
@@ -63,7 +62,7 @@ class BuffSkillTemplateViews(
         scrollPane.setScrollbarsVisible(true)
 
         val scrollTable = Table().top().left()
-        scrollTable.background = assets.tableBackgroundDark.tint(Color(0.8f, 0.8f, 0.8f, 0.45f))
+        scrollTable.background = assets.tableBackgroundLight
         scrollTable.add(scrollPane)
 
         rootTable.add(header).expand().fillX().row()
@@ -73,12 +72,9 @@ class BuffSkillTemplateViews(
     // UPDATE:
     //--------------------------------------------------------------------------------------------------------
 
-    private fun update() {
+    private fun updateQuantities() {
 
-        factory.disposeView(id)
-        views.values.forEach { factory.disposeView(it.id) }
-        views = createBuffSkillTemplateViews()
-        rebuildTable()
+        model.learnedBuffSkillTemplates().forEach { views[it.item.id]?.setAvailable(it.quantity) }
     }
 
     override fun propertyChange(event: SkillEvent) {
@@ -87,11 +83,11 @@ class BuffSkillTemplateViews(
 
             is SkillStatUpgradedEvent ->  Unit
             is SubSkillStatUpgradedEvent -> Unit
-            is SubSkillChangedEvent -> update()
-            is SubSkillRemovedEvent -> update()
+            is SubSkillChangedEvent -> updateQuantities()
+            is SubSkillRemovedEvent -> updateQuantities()
             is BuffSkillStatUpgradedEvent -> Unit
-            is BuffSkillChangedEvent -> update()
-            is BuffSkillRemovedEvent -> update()
+            is BuffSkillChangedEvent -> updateQuantities()
+            is BuffSkillRemovedEvent -> updateQuantities()
         }
     }
 
