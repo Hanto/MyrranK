@@ -36,7 +36,7 @@ class SubSkillSlotView(
 
     init {
 
-        right()
+        left()
         subSlotKeyView.addListener(UIClickListener(RIGHT_BUTTON) { controller.removeSubSkill() })
         setBackground(assets.tableBackgroundDark)
         rebuildTable()
@@ -46,15 +46,15 @@ class SubSkillSlotView(
 
         clearChildren()
 
-        val keyAndStatsTable = Table().left()
+        val keyAndStatsTable = Table()
+        keyAndStatsTable.add(subSlotKeyView).expandY().fillY()
         if (model.content is SubSkill)
-            keyAndStatsTable.add(stats).left()
+            keyAndStatsTable.add(stats)
 
-        keyAndStatsTable.add(subSlotKeyView.left())
         keyAndStatsTable.row()
 
-        add(keyAndStatsTable).left().row()
-        buffSlots.values.forEach{ add(it).right().row() }
+        add(keyAndStatsTable).row()
+        buffSlots.values.forEach{ add(it).left().row() }
     }
 
     // UPDATE:

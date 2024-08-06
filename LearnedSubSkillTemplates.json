@@ -1,9 +1,13 @@
 [ {
   "id" : "EXPLOSION_1",
-  "avaiable" : 0,
+  "avaiable" : 1,
   "total" : 1
 }, {
   "id" : "TRAIL_1",
+  "avaiable" : 0,
+  "total" : 1
+}, {
+  "id" : "CONE_1",
   "avaiable" : 0,
   "total" : 1
 } ]

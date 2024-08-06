@@ -31,7 +31,7 @@ class BuffSkillSlotView(
 
     init {
 
-        right()
+        left()
         buffSlotKeyView.addListener(UIClickListener(RIGHT_BUTTON) { controller.removeBuffSkill() })
         rebuildTable()
     }
@@ -40,10 +40,9 @@ class BuffSkillSlotView(
 
         clearChildren()
 
+        add(buffSlotKeyView).expandY().fillY()
         if (model.content is BuffSkill)
-            add(stats).right()
-
-        add(buffSlotKeyView).expandY().fillY().right()
+            add(stats)
     }
 
     // UPDATE:

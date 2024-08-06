@@ -8,11 +8,11 @@ import com.badlogic.gdx.graphics.GL20
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import com.badlogic.gdx.scenes.scene2d.Stage
 import com.myrran.application.LearnedSkillTemplates
+import com.myrran.application.SpellBook
 import com.myrran.badlogic.DaD
 import com.myrran.controller.DragAndDropManager
 import com.myrran.controller.SkillController
 import com.myrran.domain.skills.custom.skill.SkillId
-import com.myrran.domain.spells.SpellBook
 import com.myrran.domain.utils.DeSerializer
 import com.myrran.infraestructure.assetsconfig.AssetsConfigRepository
 import com.myrran.infraestructure.learnedskilltemplate.LearnedSkillTemplateRepository

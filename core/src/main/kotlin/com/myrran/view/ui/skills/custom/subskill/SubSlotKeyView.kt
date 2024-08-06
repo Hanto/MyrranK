@@ -24,7 +24,7 @@ class SubSlotKeyView(
 
 ): Table()
 {
-    private val runesLabel: TextView<String> = TextView("${model.toName()}:", assets.font10, model.toColor())
+    private val runesLabel: TextView<String> = TextView(model.toName(), assets.font12, model.toColor(), 1f)
     private var keys: List<TextView<String>> = getKeys()
 
     // LAYOUT:
@@ -33,7 +33,7 @@ class SubSlotKeyView(
     init {
 
         touchable = Touchable.enabled
-        top().left()
+        top().center()
         setBackground(assets.tableBackgroundLight)
         rebuildTable()
     }
@@ -43,8 +43,8 @@ class SubSlotKeyView(
         clearChildren()
         val runesRow = Table()
         keys.forEach{ runesRow.add(it) }
-        add(runesLabel.align(Align.left)).padLeft(1f).padTop(-3f).row()
-        add(runesRow).left().padLeft(1f).padTop(-6f).padBottom(-1f)
+        add(runesLabel.align(Align.center)).padLeft(1f).padTop(-3f).row()
+        add(runesRow).padLeft(1f).padTop(-6f).padBottom(-1f)
     }
 
     // DRAG AND DROP NOTIFICATIONS
@@ -81,7 +81,7 @@ class SubSlotKeyView(
     private fun getKeys() =
 
         model.lock.openedBy
-            .map { TextView("${it.value} ", assets.font10, it.toColor(), 1f) }
+            .map { TextView(it.value, assets.font12, it.toColor(), 1f) }
 
     private fun SubSkillSlot.toName(): String =
 

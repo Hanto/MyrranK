@@ -20,7 +20,7 @@ class SubSkillTemplateHeaderView(
     val icon = Image(assets.skillIcon)
     private val name = TextView(model.value.name, assets.font20, Color.ORANGE, 2f) { it.value }
     private val available = TextView(model, assets.font14, model.toColor(), 2f) { "${it.available}/${it.total}" }
-    private val description = TextView("DEBUFF", assets.font14, Color.WHITE, 1f)
+    private val description = TextView("SUBFORM", assets.font14, Color.WHITE, 1f)
     private val keys = TextView(model.value.keys.map { it.value }, assets.font14, PURPLE_LIGHT, 2f) { it.joinToString( " ") }
 
     init {

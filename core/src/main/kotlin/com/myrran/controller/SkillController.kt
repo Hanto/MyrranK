@@ -1,5 +1,6 @@
 package com.myrran.controller
 
+import com.myrran.application.SpellBook
 import com.myrran.domain.skills.custom.buff.BuffSkillSlot
 import com.myrran.domain.skills.custom.buff.BuffSkillSlotId
 import com.myrran.domain.skills.custom.skill.SkillId
@@ -9,7 +10,6 @@ import com.myrran.domain.skills.custom.subskill.SubSkillSlot
 import com.myrran.domain.skills.custom.subskill.SubSkillSlotId
 import com.myrran.domain.skills.templates.buff.BuffSkillTemplateId
 import com.myrran.domain.skills.templates.subskill.SubSkillTemplateId
-import com.myrran.domain.spells.SpellBook
 
 // BOOK
 //------------------------------------------------------------------------------------------------------------

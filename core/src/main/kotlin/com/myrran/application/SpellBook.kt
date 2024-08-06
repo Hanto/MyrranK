@@ -1,6 +1,5 @@
-package com.myrran.domain.spells
+package com.myrran.application
 
-import com.myrran.application.LearnedSkillTemplates
 import com.myrran.domain.Quantity
 import com.myrran.domain.events.BuffSkillChangedEvent
 import com.myrran.domain.events.BuffSkillRemovedEvent

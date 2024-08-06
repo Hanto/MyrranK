@@ -38,6 +38,7 @@ class SkillView(
     private var skillHeader: SkillHeaderView = SkillHeaderView(model, assets)
     private var skillStats: StatsView = StatsView( { model.getStats() }, assets, controller)
     private var subSlots: Map<SubSkillSlotId, SubSkillSlotView> = createSubSkillSlotViews()
+    private val skillKey: SkillSlotKeyView = SkillSlotKeyView(model, assets)
     private val table = Table().top().left()
 
     // LAYOUT:
@@ -64,13 +65,15 @@ class SkillView(
         val bodyTable = Table()
         val skillStatsTable = Table()
         skillStatsTable.touchable = Touchable.enabled
+        skillStatsTable.setBackground(assets.tableBackgroundLight)
         subSlots.values.forEach { it.touchable = Touchable.enabled }
 
+        skillStatsTable.add(skillKey).fillY()
         skillStatsTable.add(skillStats)
-        bodyTable.add(skillStatsTable).top().left().padBottom(0f).padLeft(4f).padBottom(4f).row()
-        subSlots.values.forEach { bodyTable.add(it).top().right().expand().fillX().padBottom(4f).row() }
+        bodyTable.add(skillStatsTable).top().right().padBottom(0f).padBottom(2f).row()
+        subSlots.values.forEach { bodyTable.add(it).top().right().expand().fillX().padBottom(2f).row() }
 
-        table.add(skillHeader).left().minWidth(336f).padBottom(0f).padLeft(4f).row()
+        table.add(skillHeader).left().fillX().padBottom(0f).row()
         table.add(bodyTable)
     }
 
