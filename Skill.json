@@ -25,31 +25,15 @@
     "name" : "impact",
     "lock" : [ "A", "B" ],
     "content" : {
-      "id" : "4ff15503-9d4b-48fa-b6c1-19f76a8bf3d5",
-      "templateId" : "CONE_1",
+      "id" : "034a191b-d2e5-4f0d-882b-f242e30fc8b8",
+      "templateId" : "EXPLOSION_1",
       "type" : "EXPLOSION",
-      "name" : "Cone",
+      "name" : "Explosion",
       "stats" : [ {
-        "id" : "WIDE",
-        "name" : "wide",
+        "id" : "RADIUS",
+        "name" : "radius",
         "baseBonus" : 10.0,
-        "actual" : 20,
-        "maximum" : 20,
-        "upgradeCost" : 2.0,
-        "bonusPerUpgrade" : 1.0
-      }, {
-        "id" : "RANGE",
-        "name" : "range",
-        "baseBonus" : 10.0,
-        "actual" : 20,
-        "maximum" : 20,
-        "upgradeCost" : 2.0,
-        "bonusPerUpgrade" : 1.0
-      }, {
-        "id" : "SPEED",
-        "name" : "speed",
-        "baseBonus" : 10.0,
-        "actual" : 20,
+        "actual" : 0,
         "maximum" : 20,
         "upgradeCost" : 2.0,
         "bonusPerUpgrade" : 1.0
@@ -57,122 +41,9 @@
       "slots" : [ {
         "id" : "DEBUFF_1",
         "name" : "Debuff 1",
-        "lock" : [ "a", "b", "e" ],
+        "lock" : [ "c", "d" ],
         "content" : {
-          "id" : "991cc142-2b36-4bbe-9e61-21daaa93f0e7",
-          "templateId" : "SLOW_1",
-          "type" : "BOMB",
-          "name" : "Slow",
-          "stats" : [ {
-            "id" : "DURATION",
-            "name" : "duration",
-            "baseBonus" : 10.0,
-            "actual" : 16,
-            "maximum" : 50,
-            "upgradeCost" : 2.0,
-            "bonusPerUpgrade" : 1.0
-          }, {
-            "id" : "MAGNITUDE",
-            "name" : "slow magnitude",
-            "baseBonus" : 10.0,
-            "actual" : 8,
-            "maximum" : 50,
-            "upgradeCost" : 2.0,
-            "bonusPerUpgrade" : -1.0
-          }, {
-            "id" : "ROOT",
-            "name" : "root time",
-            "baseBonus" : 10.0,
-            "actual" : 6,
-            "maximum" : 50,
-            "upgradeCost" : 2.0,
-            "bonusPerUpgrade" : -1.0
-          } ],
-          "keys" : [ "a", "b", "c", "d", "e" ]
-        }
-      }, {
-        "id" : "DEBUFF_2",
-        "name" : "Debuff 2",
-        "lock" : [ "c", "d", "e" ],
-        "content" : {
-          "id" : "6d8d03fb-3599-4b15-a8b4-a0f1c4a17e6d",
-          "templateId" : "BOMB_1",
-          "type" : "BOMB",
-          "name" : "Bomb",
-          "stats" : [ {
-            "id" : "DAMAGE",
-            "name" : "damage",
-            "baseBonus" : 10.0,
-            "actual" : 24,
-            "maximum" : 50,
-            "upgradeCost" : 2.0,
-            "bonusPerUpgrade" : 1.0
-          }, {
-            "id" : "DETONATION TIME",
-            "name" : "detonation time",
-            "baseBonus" : 10.0,
-            "actual" : 8,
-            "maximum" : 50,
-            "upgradeCost" : 2.0,
-            "bonusPerUpgrade" : -1.0
-          } ],
-          "keys" : [ "a", "b", "c", "d", "e" ]
-        }
-      } ],
-      "keys" : [ "A", "B", "C", "D" ]
-    }
-  }, {
-    "id" : "TRAIL",
-    "name" : "trail",
-    "lock" : [ "A", "B" ],
-    "content" : {
-      "id" : "2f012fff-fa85-4e2e-b2b4-e533020246d6",
-      "templateId" : "TRAIL_1",
-      "type" : "EXPLOSION",
-      "name" : "Trail",
-      "stats" : [ {
-        "id" : "WIDE",
-        "name" : "wide",
-        "baseBonus" : 10.0,
-        "actual" : 20,
-        "maximum" : 20,
-        "upgradeCost" : 2.0,
-        "bonusPerUpgrade" : 1.0
-      } ],
-      "slots" : [ {
-        "id" : "DEBUFF_1",
-        "name" : "Debuff 1",
-        "lock" : [ "a", "b", "e" ],
-        "content" : {
-          "id" : "4dee866d-8193-4aec-94b7-89c75c32b458",
-          "templateId" : "ROOT_1",
-          "type" : "BOMB",
-          "name" : "Root",
-          "stats" : [ {
-            "id" : "DURATION",
-            "name" : "duration",
-            "baseBonus" : 10.0,
-            "actual" : 20,
-            "maximum" : 20,
-            "upgradeCost" : 2.0,
-            "bonusPerUpgrade" : 1.0
-          }, {
-            "id" : "MAGNITUDE",
-            "name" : "silence power",
-            "baseBonus" : 10.0,
-            "actual" : 20,
-            "maximum" : 20,
-            "upgradeCost" : 2.0,
-            "bonusPerUpgrade" : -1.0
-          } ],
-          "keys" : [ "a", "b", "c", "d", "e" ]
-        }
-      }, {
-        "id" : "DEBUFF_2",
-        "name" : "Debuff 2",
-        "lock" : [ "c", "d", "e" ],
-        "content" : {
-          "id" : "7c615588-1959-42fe-8c0d-fd78d95e54f3",
+          "id" : "598b7ca2-ff70-4672-8d6f-5f132ca78568",
           "templateId" : "FIRE_1",
           "type" : "FIRE",
           "name" : "Fire",
@@ -180,7 +51,7 @@
             "id" : "DAMAGE",
             "name" : "damage per tick",
             "baseBonus" : 10.0,
-            "actual" : 30,
+            "actual" : 0,
             "maximum" : 50,
             "upgradeCost" : 2.0,
             "bonusPerUpgrade" : 1.0
@@ -188,15 +59,25 @@
             "id" : "DURATION",
             "name" : "duration",
             "baseBonus" : 10.0,
-            "actual" : 24,
+            "actual" : 0,
             "maximum" : 50,
             "upgradeCost" : 2.0,
             "bonusPerUpgrade" : 1.0
           } ],
           "keys" : [ "a", "b", "c", "d", "e" ]
         }
+      }, {
+        "id" : "DEBUFF_2",
+        "name" : "Debuff 2",
+        "lock" : [ "c", "d" ],
+        "content" : null
       } ],
       "keys" : [ "A", "B", "C", "D" ]
     }
+  }, {
+    "id" : "TRAIL",
+    "name" : "trail",
+    "lock" : [ "A", "B" ],
+    "content" : null
   } ]
 } ]

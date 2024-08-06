@@ -17,7 +17,6 @@ class LearnedSkillTemplates(
 
     private val learnedRepository: LearnedSkillTemplateRepository,
     private val templateRepository: SkillTemplateRepository
-
 )
 {
     fun learnedSkillTemplates(): Collection<Quantity<SkillTemplate>> =

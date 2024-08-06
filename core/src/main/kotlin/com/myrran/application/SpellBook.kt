@@ -34,7 +34,6 @@ data class SpellBook(
 
 ): Observable<SkillEvent> by observable
 {
-
     // MAIN:
     //--------------------------------------------------------------------------------------------------------
 
@@ -163,28 +162,28 @@ data class SpellBook(
 
     fun upgrade(skillId: SkillId, statId: StatId, upgradeBy: NumUpgrades) {
 
-        val skill = created.findBy(skillId)
+        val skill = created.findBy(skillId)!!
 
-        skill?.upgrade(statId, upgradeBy)
-            ?.also { created.save(skill) }
-            ?.also { notify(SkillStatUpgradedEvent(skillId, statId, upgradeBy)) }
+        skill.upgrade(statId, upgradeBy)
+        created.save(skill)
+        notify(SkillStatUpgradedEvent(skillId, statId, upgradeBy))
     }
 
     fun upgrade(skillId: SkillId, subSkillSlotId: SubSkillSlotId, statId: StatId, upgradeBy: NumUpgrades) {
 
-        val skill = created.findBy(skillId)
+        val skill = created.findBy(skillId)!!
 
-        skill?.upgrade(subSkillSlotId, statId, upgradeBy)
-            ?.also { created.save(skill) }
-            ?.also { notify(SubSkillStatUpgradedEvent(skillId, subSkillSlotId, statId, upgradeBy)) }
+        skill.upgrade(subSkillSlotId, statId, upgradeBy)
+        created.save(skill)
+        notify(SubSkillStatUpgradedEvent(skillId, subSkillSlotId, statId, upgradeBy))
     }
 
     fun upgrade(skillId: SkillId, subSkillSlotId: SubSkillSlotId, buffSkillSlotId: BuffSkillSlotId, statId: StatId, upgradeBy: NumUpgrades) {
 
-        val skill = created.findBy(skillId)
+        val skill = created.findBy(skillId)!!
 
-        skill?.upgrade(subSkillSlotId, buffSkillSlotId, statId, upgradeBy)
-            ?.also { created.save(skill) }
-            ?.also { notify(BuffSkillStatUpgradedEvent(skillId, subSkillSlotId, buffSkillSlotId, statId, upgradeBy)) }
+        skill.upgrade(subSkillSlotId, buffSkillSlotId, statId, upgradeBy)
+        created.save(skill)
+        notify(BuffSkillStatUpgradedEvent(skillId, subSkillSlotId, buffSkillSlotId, statId, upgradeBy))
     }
 }

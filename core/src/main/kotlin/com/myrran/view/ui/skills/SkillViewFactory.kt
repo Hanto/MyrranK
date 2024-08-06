@@ -67,7 +67,9 @@ class SkillViewFactory(
     fun createSkillView(model: Skill, controller: SkillController): SkillView {
 
         val id = SkillViewId()
-        return SkillView(id, model, assets, controller, this)
+        val view = SkillView(id, model, assets, controller, this)
+
+        return view
     }
 
     // SUBSKILL:
