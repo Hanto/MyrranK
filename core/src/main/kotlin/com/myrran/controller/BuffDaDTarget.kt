@@ -6,6 +6,7 @@ import com.myrran.badlogic.DaDSource
 import com.myrran.badlogic.DaDTarget
 import com.myrran.badlogic.Payload
 import com.myrran.domain.Identifiable
+import com.myrran.domain.Quantity
 import com.myrran.domain.skills.templates.BuffSkillTemplate
 import com.myrran.view.ui.skills.SkillViewId
 import com.myrran.view.ui.skills.assets.SkillViewAssets
@@ -28,14 +29,14 @@ class BuffDaDTarget(
 
     override fun drop(source: DaDSource, payload: Payload, x: Float, y: Float, pointer: Int) {
 
-        val template = payload.`object` as BuffSkillTemplate
+        val template = payload.`object` as Quantity<BuffSkillTemplate>
 
-        controller.setBuffSkill(template.id)
+        controller.setBuffSkill(template.value.id)
     }
 
     override fun notifyNewPayload(payload: Payload) =
 
-        when (controller.isOpenedBy((payload.`object` as BuffSkillTemplate).id)) {
+        when (controller.isOpenedBy((payload.`object` as Quantity<BuffSkillTemplate>).value.id)) {
             true -> view.buffSlotKeyView.highlightWithColor(Color.GREEN)
             false -> view.buffSlotKeyView.highlightWithColor(Color.RED)
         }

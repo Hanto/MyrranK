@@ -6,6 +6,7 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent
 import com.myrran.badlogic.DaDSource
 import com.myrran.badlogic.Payload
 import com.myrran.domain.Identifiable
+import com.myrran.domain.Quantity
 import com.myrran.domain.skills.templates.BuffSkillTemplate
 import com.myrran.view.ui.misc.TextView
 import com.myrran.view.ui.skills.SkillViewId
@@ -14,7 +15,7 @@ import com.myrran.view.ui.skills.templates.BuffTemplateView
 
 class BuffDaDSource(
 
-    private val model: BuffSkillTemplate,
+    private val model: Quantity<BuffSkillTemplate>,
     private val view: BuffTemplateView,
     private val assets: SkillViewAssets
 
@@ -26,7 +27,7 @@ class BuffDaDSource(
 
         val payload = Payload()
         payload.`object` = model
-        payload.dragActor = TextView(model.name, assets.font20, ORANGE, 2f) { it.value }
+        payload.dragActor = TextView(model.value.name, assets.font20, ORANGE, 2f) { it.value }
         return payload
     }
 }

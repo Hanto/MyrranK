@@ -6,6 +6,7 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent
 import com.myrran.badlogic.DaDSource
 import com.myrran.badlogic.Payload
 import com.myrran.domain.Identifiable
+import com.myrran.domain.Quantity
 import com.myrran.domain.skills.templates.SubSkillTemplate
 import com.myrran.view.ui.misc.TextView
 import com.myrran.view.ui.skills.SkillViewId
@@ -14,7 +15,7 @@ import com.myrran.view.ui.skills.templates.SubSkillTemplateView
 
 class SubDaDSource(
 
-    private val model: SubSkillTemplate,
+    private val model: Quantity<SubSkillTemplate>,
     private val view: SubSkillTemplateView,
     private val assets: SkillViewAssets
 
@@ -26,7 +27,7 @@ class SubDaDSource(
 
         val payload = Payload()
         payload.`object` = model
-        payload.dragActor = TextView(model.name, assets.font20, Color.ORANGE, 2f) { it.value }
+        payload.dragActor = TextView(model.value.name, assets.font20, Color.ORANGE, 2f) { it.value }
         return payload
     }
 }

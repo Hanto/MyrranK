@@ -20,6 +20,7 @@ class SkillTemplateRepository(
     private val buffSkillTemplates: Map<BuffSkillTemplateId, BuffSkillTemplate>
 
     companion object {
+
         const val CONFIG_FOLDER = "config/"
         private const val SKILL_TEMPLATES = "SkillTemplates.json"
         private const val SUBSKILL_TEMPLATES = "SubSkillTemplates.json"

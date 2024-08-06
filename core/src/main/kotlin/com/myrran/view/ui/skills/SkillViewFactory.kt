@@ -7,12 +7,12 @@ import com.myrran.controller.SkillController
 import com.myrran.controller.SubDaDSource
 import com.myrran.controller.SubDaDTarget
 import com.myrran.controller.SubSkillController
+import com.myrran.domain.Quantity
 import com.myrran.domain.skills.custom.Skill
 import com.myrran.domain.skills.custom.buff.BuffSkillSlot
 import com.myrran.domain.skills.custom.subskill.SubSkillSlot
 import com.myrran.domain.skills.templates.BuffSkillTemplate
 import com.myrran.domain.skills.templates.SubSkillTemplate
-import com.myrran.domain.utils.Quantity
 import com.myrran.view.ui.skills.assets.SkillViewAssets
 import com.myrran.view.ui.skills.custom.buff.BuffSkillSlotView
 import com.myrran.view.ui.skills.custom.skill.SkillView
@@ -38,10 +38,10 @@ class SkillViewFactory(
     // SUBSKILL TEMPLATE:
     //--------------------------------------------------------------------------------------------------------
 
-    fun createSubTemplateView(model: SubSkillTemplate, quantity: Quantity): SubSkillTemplateView {
+    fun createSubTemplateView(model: Quantity<SubSkillTemplate>): SubSkillTemplateView {
 
         val id = SkillViewId()
-        val view = SubSkillTemplateView(id, model, quantity, assets)
+        val view = SubSkillTemplateView(id, model, assets)
         val dadSource = SubDaDSource(model, view, assets)
         dragAndDropManager.addSource(dadSource)
 
@@ -51,10 +51,10 @@ class SkillViewFactory(
     // BUFF TEMPLATE:
     //--------------------------------------------------------------------------------------------------------
 
-    fun createBuffTemplateView(model: BuffSkillTemplate, quantity: Quantity): BuffTemplateView {
+    fun createBuffTemplateView(model: Quantity<BuffSkillTemplate>): BuffTemplateView {
 
         val id = SkillViewId()
-        val view = BuffTemplateView(id, model, quantity, assets)
+        val view = BuffTemplateView(id, model, assets)
         val dadSource = BuffDaDSource(model, view, assets)
         dragAndDropManager.addSource(dadSource)
 

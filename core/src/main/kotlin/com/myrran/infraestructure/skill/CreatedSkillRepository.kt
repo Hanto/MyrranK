@@ -5,7 +5,7 @@ import com.myrran.domain.skills.custom.Skill
 import com.myrran.domain.skills.custom.skill.SkillId
 import com.myrran.domain.utils.DeSerializer
 
-class SkillRepository(
+class CreatedSkillRepository(
 
     private val skillAdapter: SkillAdapter,
     private val deSerializer: DeSerializer

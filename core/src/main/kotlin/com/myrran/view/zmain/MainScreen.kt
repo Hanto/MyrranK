@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.graphics.GL20
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import com.badlogic.gdx.scenes.scene2d.Stage
+import com.myrran.application.LearnedSkillTemplates
 import com.myrran.badlogic.DaD
 import com.myrran.controller.DragAndDropManager
 import com.myrran.controller.SkillController
@@ -14,9 +15,9 @@ import com.myrran.domain.skills.custom.skill.SkillId
 import com.myrran.domain.spells.SpellBook
 import com.myrran.domain.utils.DeSerializer
 import com.myrran.infraestructure.assetsconfig.AssetsConfigRepository
-import com.myrran.infraestructure.learned.LearnedRepository
+import com.myrran.infraestructure.learnedskilltemplate.LearnedSkillTemplateRepository
+import com.myrran.infraestructure.skill.CreatedSkillRepository
 import com.myrran.infraestructure.skill.SkillAdapter
-import com.myrran.infraestructure.skill.SkillRepository
 import com.myrran.infraestructure.skilltemplate.SkillTemplateAdapter
 import com.myrran.infraestructure.skilltemplate.SkillTemplateRepository
 import com.myrran.view.atlas.Atlas
@@ -42,8 +43,9 @@ class MainScreen(
 ): KtxScreen
 {
     private val skillTemplateRepository: SkillTemplateRepository
-    private val skillRepository: SkillRepository
-    private val learnedRepository: LearnedRepository
+    private val skillRepository: CreatedSkillRepository
+    private val learnedRepository: LearnedSkillTemplateRepository
+    private val learnedTemplates: LearnedSkillTemplates
     private val spellBook: SpellBook
 
     private val fpsText: TextView<String>
@@ -61,13 +63,13 @@ class MainScreen(
         atlas.finishLoading()
 
         val deSerializer = DeSerializer()
+        val skillAdapter = SkillAdapter()
+        skillRepository = CreatedSkillRepository(skillAdapter, deSerializer)
+        learnedRepository = LearnedSkillTemplateRepository(deSerializer)
         val skillTemplateAdapter = SkillTemplateAdapter()
         skillTemplateRepository = SkillTemplateRepository(skillTemplateAdapter, deSerializer)
-
-        val skillAdapter = SkillAdapter()
-        skillRepository = SkillRepository(skillAdapter, deSerializer)
-        learnedRepository = LearnedRepository(deSerializer)
-        spellBook = SpellBook(skillTemplateRepository, learnedRepository, skillRepository)
+        learnedTemplates = LearnedSkillTemplates(learnedRepository, skillTemplateRepository)
+        spellBook = SpellBook(skillRepository, learnedTemplates)
 
         fpsText = TextView("FPS: ?", atlas.getFont("20.fnt"), shadowTickness = 2f, formater = {it})
         uiStage.addActor(fpsText)
@@ -93,7 +95,7 @@ class MainScreen(
         val dragAndDropManager = DragAndDropManager(DaD(), DaD())
         val skillViewFactory = SkillViewFactory(dragAndDropManager, assets)
 
-        val skill = spellBook.createdSkillsRepository.findBy(SkillId.from("95a1bfb2-a2bd-47d3-920b-e7f9ad798b76"))!!
+        val skill = spellBook.created.findBy(SkillId.from("95a1bfb2-a2bd-47d3-920b-e7f9ad798b76"))!!
         val skillView = skillViewFactory.createSkillView(skill, controller)
         uiStage.addActor(skillView)
         skillView.setPosition(550f, 200f)

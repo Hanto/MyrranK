@@ -57,7 +57,7 @@ class SubSkillTemplateViews(
         rootTable.clearChildren()
 
         val templatesTable = Table().top().left()
-        views.values.sortedBy { it.model.name.value }.forEach { templatesTable.add(it).left().row() }
+        views.values.sortedBy { it.model.value.name.value }.forEach { templatesTable.add(it).left().row() }
         val scrollPane = AutoFocusScrollPane(templatesTable)
         scrollPane.setScrollbarsVisible(true)
 
@@ -74,7 +74,7 @@ class SubSkillTemplateViews(
 
     private fun updateQuantities() {
 
-        model.learnedSubSkillTemplates().forEach { views[it.item.id]?.setAvailable(it.quantity) }
+        model.learnedSubSkillTemplates().forEach { views[it.value.id]?.setAvailable(it) }
     }
 
     override fun propertyChange(event: SkillEvent) {
@@ -104,5 +104,5 @@ class SubSkillTemplateViews(
     private fun createSubSkillTemplateViews(): Map<SubSkillTemplateId, SubSkillTemplateView> =
 
         model.learnedSubSkillTemplates()
-            .associate { it.item.id to factory.createSubTemplateView(it.item, it.quantity) }
+            .associate { it.value.id to factory.createSubTemplateView(it) }
 }

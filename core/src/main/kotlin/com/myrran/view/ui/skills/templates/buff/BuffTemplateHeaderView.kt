@@ -5,25 +5,24 @@ import com.badlogic.gdx.graphics.Color.ORANGE
 import com.badlogic.gdx.scenes.scene2d.ui.Image
 import com.badlogic.gdx.scenes.scene2d.ui.Table
 import com.badlogic.gdx.utils.Align
+import com.myrran.domain.Quantity
 import com.myrran.domain.skills.templates.BuffSkillTemplate
-import com.myrran.domain.utils.Quantity
 import com.myrran.view.ui.misc.TextView
 import com.myrran.view.ui.skills.assets.PURPLE_LIGHT
 import com.myrran.view.ui.skills.assets.SkillViewAssets
 
 class BuffTemplateHeaderView(
 
-    private val buff: BuffSkillTemplate,
-    private val quantity: Quantity,
+    private val model: Quantity<BuffSkillTemplate>,
     private val assets: SkillViewAssets,
 
     ): Table()
 {
     val icon = Image(assets.skillIcon)
-    private val name = TextView(buff.name, assets.font20, ORANGE, 2f) { it.value }
-    private val available = TextView(quantity, assets.font14, quantity.toColor(), 2f) { "${it.available}/${it.total}" }
+    private val name = TextView(model.value.name, assets.font20, ORANGE, 2f) { it.value }
+    private val available = TextView(model, assets.font14, model.toColor(), 2f) { "${it.available}/${it.total}" }
     private val description = TextView("DEBUFF", assets.font14, Color.WHITE, 1f)
-    private val keys = TextView(buff.keys.map { it.value }, assets.font14, PURPLE_LIGHT, 2f) { it.joinToString( " ") }
+    private val keys = TextView(model.value.keys.map { it.value }, assets.font14, PURPLE_LIGHT, 2f) { it.joinToString( " ") }
 
     init {
 
@@ -44,7 +43,7 @@ class BuffTemplateHeaderView(
         add(mainTable).right().expandX().fillX().padTop(-2f).padBottom(-2f).padRight(3f).row()
     }
 
-    fun setAvailable(quantity: Quantity) {
+    fun setAvailable(quantity: Quantity<BuffSkillTemplate>) {
 
         available.setText(quantity)
         available.setTextColor(quantity.toColor())
@@ -53,9 +52,9 @@ class BuffTemplateHeaderView(
     // HELPER:
     //--------------------------------------------------------------------------------------------------------
 
-    private fun Quantity.toColor() =
+    private fun Quantity<BuffSkillTemplate>.toColor() =
 
-        when (this.available > 0) {
+        when (this.isAvailable()) {
             true -> Color.GREEN
             false ->  Color.RED
         }

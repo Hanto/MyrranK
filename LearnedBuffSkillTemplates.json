@@ -8,11 +8,11 @@
   "total" : 1
 }, {
   "id" : "SLOW_1",
-  "avaiable" : 1,
+  "avaiable" : 0,
   "total" : 1
 }, {
   "id" : "SILENCE_1",
-  "avaiable" : 0,
+  "avaiable" : 1,
   "total" : 1
 }, {
   "id" : "ROOT_1",
