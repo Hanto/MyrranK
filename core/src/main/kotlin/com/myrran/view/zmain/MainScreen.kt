@@ -11,7 +11,6 @@ import com.myrran.badlogic.DaD
 import com.myrran.controller.DragAndDropManager
 import com.myrran.controller.SkillController
 import com.myrran.domain.skills.custom.skill.SkillId
-import com.myrran.domain.skills.templates.subskill.SubSkillTemplateId
 import com.myrran.domain.spells.SpellBook
 import com.myrran.domain.utils.DeSerializer
 import com.myrran.infraestructure.assetsconfig.AssetsConfigRepository
@@ -26,6 +25,7 @@ import com.myrran.view.ui.skills.SkillViewFactory
 import com.myrran.view.ui.skills.SkillViewId
 import com.myrran.view.ui.skills.assets.SkillViewAssets
 import com.myrran.view.ui.skills.book.BuffSkillTemplateViews
+import com.myrran.view.ui.skills.book.SubSkillTemplateViews
 import ktx.app.KtxScreen
 import java.util.UUID
 
@@ -96,16 +96,15 @@ class MainScreen(
         val skill = spellBook.createdSkillsRepository.findBy(SkillId.from("95a1bfb2-a2bd-47d3-920b-e7f9ad798b76"))!!
         val skillView = skillViewFactory.createSkillView(skill, controller)
         uiStage.addActor(skillView)
-        skillView.setPosition(350f, 100f)
+        skillView.setPosition(550f, 250f)
 
-        val explosionTemplate = skillTemplateRepository.findBy( SubSkillTemplateId("EXPLOSION_1") )!!
-        val explosionTemplateView = skillViewFactory.createSubTemplateView(explosionTemplate)
-        uiStage.addActor(explosionTemplateView)
-        explosionTemplateView.setPosition(30f, 10f)
+        val buffList = BuffSkillTemplateViews(SkillViewId(UUID.randomUUID()), spellBook, assets, skillViewFactory)
+        uiStage.addActor(buffList)
+        buffList.setPosition(0f, 157f)
 
-        val templateList = BuffSkillTemplateViews(SkillViewId(UUID.randomUUID()), spellBook, assets, skillViewFactory)
-        uiStage.addActor(templateList)
-        templateList.setPosition(30f, 100f)
+        val subList = SubSkillTemplateViews(SkillViewId(UUID.randomUUID()), spellBook, assets, skillViewFactory)
+        uiStage.addActor(subList)
+        subList.setPosition(264f, 157f)
 
         //playerSkillBook.learn(BuffSkillTemplateId("BOMB_1"))
         //skillView.setDebug(true, true)

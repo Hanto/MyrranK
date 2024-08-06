@@ -12,7 +12,7 @@ import com.myrran.view.ui.misc.TextView
 import com.myrran.view.ui.skills.assets.MAGENTA_EPIC
 import com.myrran.view.ui.skills.assets.SkillViewAssets
 
-class SkillHeader(
+class SkillHeaderView(
 
     val skill: Skill,
     val assets: SkillViewAssets,

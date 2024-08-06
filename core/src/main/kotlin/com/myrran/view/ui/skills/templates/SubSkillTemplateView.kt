@@ -5,8 +5,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.Container
 import com.badlogic.gdx.scenes.scene2d.ui.Table
 import com.myrran.domain.Identifiable
 import com.myrran.domain.skills.templates.SubSkillTemplate
+import com.myrran.domain.utils.Quantity
 import com.myrran.view.ui.misc.UIClickListener
-import com.myrran.view.ui.misc.UIMoveListener
 import com.myrran.view.ui.skills.SkillViewId
 import com.myrran.view.ui.skills.assets.SkillViewAssets
 import com.myrran.view.ui.skills.templates.stat.StatsTemplateView
@@ -15,17 +15,17 @@ import com.myrran.view.ui.skills.templates.subskill.SubSkillTemplateHeaderView
 class SubSkillTemplateView(
 
     override val id: SkillViewId,
-    private val model: SubSkillTemplate,
+    val model: SubSkillTemplate,
+    quantity: Quantity,
     private val assets: SkillViewAssets,
 
 ): Container<Table>(), Identifiable<SkillViewId>
 {
-    val header = SubSkillTemplateHeaderView(model, assets)
+    val header = SubSkillTemplateHeaderView(model, quantity, assets)
 
     init {
 
         header.touchable = Touchable.enabled
-        header.addListener(UIMoveListener(this))
         addListener(UIClickListener { toFront() } )
 
         val table = Table()
@@ -35,5 +35,10 @@ class SubSkillTemplateView(
 
         actor = table
         setSize(prefWidth, prefHeight)
+    }
+
+    fun setAvailable(quantity: Quantity) {
+
+        header.setAvailable(quantity)
     }
 }

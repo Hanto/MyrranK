@@ -30,7 +30,7 @@ class UIMoveListener(
     override fun drag(event: InputEvent, x: Float, y: Float, pointer: Int) {
 
         val scroll = Vector2(dragX - touchDownX, dragY - touchDownY)
-        val screenSize = Vector2(800f, 600f)
+        val screenSize = Vector2(event.stage.width, event.stage.height)
 
         parent.moveBy(scroll.x, scroll.y)
 

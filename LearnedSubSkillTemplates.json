@@ -2,4 +2,8 @@
   "id" : "EXPLOSION_1",
   "avaiable" : 0,
   "total" : 1
+}, {
+  "id" : "TRAIL_1",
+  "avaiable" : 0,
+  "total" : 1
 } ]

@@ -96,7 +96,7 @@ public class DaD<SOURCE extends DaDSource, TARGET extends DaDTarget> {
                 dragActor = actor;
                 if (actor == null) return;
                 stage.addActor(actor);
-                float actorX = event.getStageX() - actor.getWidth() + dragActorX;
+                float actorX = event.getStageX() - actor.getWidth()/2 + dragActorX;
                 float actorY = event.getStageY() + dragActorY;
                 if (keepWithinStage) {
                     if (actorX < 0) actorX = 0;

@@ -16,6 +16,7 @@ import com.myrran.domain.skills.custom.stat.NumUpgrades
 import com.myrran.domain.skills.custom.stat.StatId
 import com.myrran.domain.skills.custom.subskill.SubSkillSlotId
 import com.myrran.domain.skills.templates.BuffSkillTemplate
+import com.myrran.domain.skills.templates.SubSkillTemplate
 import com.myrran.domain.skills.templates.buff.BuffSkillTemplateId
 import com.myrran.domain.skills.templates.skill.SkillTemplateId
 import com.myrran.domain.skills.templates.subskill.SubSkillTemplateId
@@ -76,6 +77,12 @@ data class SpellBook(
             .filter { learnedBuffSkillsTemplates.contains(it.id) }
             .map { QuantityItem(it, learnedBuffSkillsTemplates[it.id]!!) }
 
+    fun learnedSubSkillTemplates(): Collection<QuantityItem<SubSkillTemplate>> =
+
+        skillTemplateRepository.findAllSubSkillTemplates()
+            .filter { learnedSubSkillsTemplates.contains(it.id) }
+            .map { QuantityItem(it, learnedSubSkillsTemplates[it.id]!!) }
+
     // ADD:
     //--------------------------------------------------------------------------------------------------------
 
@@ -134,71 +141,71 @@ data class SpellBook(
     // REMOVE:
     //--------------------------------------------------------------------------------------------------------
 
-    fun removeSkill(skillId: SkillId) =
+    fun removeSkill(skillId: SkillId) {
 
-        createdSkillsRepository.findBy(skillId)?.also { skill ->
+        val skill = createdSkillsRepository.findBy(skillId)!!
 
-            val subBuffSKills = skill.removeAllSubSkills()
+        val subBuffSKills = skill.removeAllSubSkills()
 
-            subBuffSKills.forEach {
+        subBuffSKills.forEach {
 
-                when(it) {
+            when (it) {
 
-                    is SubSkill -> learnedSubSkillsTemplates.returnBack(it.templateId)
-                    is BuffSkill -> learnedBuffSkillsTemplates.returnBack(it.templateId)
-                }
+                is SubSkill -> learnedSubSkillsTemplates.returnBack(it.templateId)
+                is BuffSkill -> learnedBuffSkillsTemplates.returnBack(it.templateId)
             }
-            learnedSkillTemplates.returnBack(skill.templateId)
-
-            if (subBuffSKills.any { it is SubSkill })
-                learnedRepository.saveLearnedSubSkills(learnedSubSkillsTemplates)
-            if (subBuffSKills.any { it is BuffSkill })
-                learnedRepository.saveLearnedBuffSkills(learnedBuffSkillsTemplates)
-            if (subBuffSKills.isNotEmpty())
-                learnedRepository.saveLearnedSkills(learnedSkillTemplates)
         }
+        learnedSkillTemplates.returnBack(skill.templateId)
 
-    fun removeSubSkill(skillId: SkillId, subSkillSlotId: SubSkillSlotId) =
+        if (subBuffSKills.any { it is SubSkill })
+            learnedRepository.saveLearnedSubSkills(learnedSubSkillsTemplates)
+        if (subBuffSKills.any { it is BuffSkill })
+            learnedRepository.saveLearnedBuffSkills(learnedBuffSkillsTemplates)
+        if (subBuffSKills.isNotEmpty())
+            learnedRepository.saveLearnedSkills(learnedSkillTemplates)
+    }
 
-        createdSkillsRepository.findBy(skillId)?.also { skill ->
+    fun removeSubSkill(skillId: SkillId, subSkillSlotId: SubSkillSlotId) {
 
-            val subBuffSkills = skill.removeSubSkill(subSkillSlotId)
+        val skill = createdSkillsRepository.findBy(skillId)!!
 
-            subBuffSkills.forEach {
+        val subBuffSkills = skill.removeSubSkill(subSkillSlotId)
 
-                when(it) {
+        subBuffSkills.forEach {
 
-                    is SubSkill -> learnedSubSkillsTemplates.returnBack(it.templateId)
-                    is BuffSkill -> learnedBuffSkillsTemplates.returnBack(it.templateId)
-                }
-            }
+            when (it) {
 
-            if (subBuffSkills.any { it is SubSkill })
-                learnedRepository.saveLearnedSubSkills(learnedSubSkillsTemplates)
-            if (subBuffSkills.any { it is BuffSkill })
-                learnedRepository.saveLearnedBuffSkills(learnedBuffSkillsTemplates)
-            if (subBuffSkills.isNotEmpty()) {
-
-                createdSkillsRepository.save(skill)
-                notify(SubSkillRemovedEvent(skillId, subBuffSkills))
+                is SubSkill -> learnedSubSkillsTemplates.returnBack(it.templateId)
+                is BuffSkill -> learnedBuffSkillsTemplates.returnBack(it.templateId)
             }
         }
 
-    fun removeBuffSkill(skillId: SkillId, subSkillSlotId: SubSkillSlotId, buffSkillSlotId: BuffSkillSlotId) =
+        if (subBuffSkills.any { it is SubSkill })
+            learnedRepository.saveLearnedSubSkills(learnedSubSkillsTemplates)
+        if (subBuffSkills.any { it is BuffSkill })
+            learnedRepository.saveLearnedBuffSkills(learnedBuffSkillsTemplates)
+        if (subBuffSkills.isNotEmpty()) {
 
-        createdSkillsRepository.findBy(skillId)?.also { skill ->
-
-            val buffSkill = skill.removeBuffSkill(subSkillSlotId, buffSkillSlotId)
-
-            buffSkill?.also {
-
-                learnedBuffSkillsTemplates.returnBack(it.templateId)
-
-                learnedRepository.saveLearnedBuffSkills(learnedBuffSkillsTemplates)
-                createdSkillsRepository.save(skill)
-                notify(BuffSkillRemovedEvent(skillId, buffSkill))
-            }
+            createdSkillsRepository.save(skill)
+            notify(SubSkillRemovedEvent(skillId, subBuffSkills))
         }
+    }
+
+    fun removeBuffSkill(skillId: SkillId, subSkillSlotId: SubSkillSlotId, buffSkillSlotId: BuffSkillSlotId) {
+
+        val skill = createdSkillsRepository.findBy(skillId)!!
+
+        val buffSkill = skill.removeBuffSkill(subSkillSlotId, buffSkillSlotId)
+
+        buffSkill?.also {
+
+            learnedBuffSkillsTemplates.returnBack(it.templateId)
+
+            learnedRepository.saveLearnedBuffSkills(learnedBuffSkillsTemplates)
+            createdSkillsRepository.save(skill)
+            notify(BuffSkillRemovedEvent(skillId, buffSkill))
+        }
+    }
 
     // IS OPENED:
     //--------------------------------------------------------------------------------------------------------

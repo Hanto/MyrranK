@@ -32,7 +32,45 @@
             }
         ],
         "keys": [
-            "A"
+            "A", "B", "C", "D"
+        ]
+    },
+    {
+        "id": "TRAIL_1",
+        "type": "EXPLOSION",
+        "name": "Trail",
+        "stats": [
+            {
+                "id": "WIDE",
+                "name": "wide",
+                "baseBonus": 10.0,
+                "maximum": 20,
+                "upgradeCost": 2.0,
+                "bonusPerUpgrade": 1.0
+            }
+        ],
+        "slots": [
+            {
+                "id": "DEBUFF_1",
+                "name": "Debuff 1",
+                "lock": [
+                    "a",
+                    "b",
+                    "e"
+                ]
+            },
+            {
+                "id": "DEBUFF_2",
+                "name": "Debuff 2",
+                "lock": [
+                    "c",
+                    "d",
+                    "e"
+                ]
+            }
+        ],
+        "keys": [
+            "A", "B", "C", "D"
         ]
     }
 ]

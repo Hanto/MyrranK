@@ -38,10 +38,10 @@ class SkillViewFactory(
     // SUBSKILL TEMPLATE:
     //--------------------------------------------------------------------------------------------------------
 
-    fun createSubTemplateView(model: SubSkillTemplate): SubSkillTemplateView {
+    fun createSubTemplateView(model: SubSkillTemplate, quantity: Quantity): SubSkillTemplateView {
 
         val id = SkillViewId()
-        val view = SubSkillTemplateView(id, model, assets)
+        val view = SubSkillTemplateView(id, model, quantity, assets)
         val dadSource = SubDaDSource(model, view, assets)
         dragAndDropManager.addSource(dadSource)
 

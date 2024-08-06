@@ -21,7 +21,7 @@ class BuffSkillTemplateViewsHeader(
         touchable = Touchable.enabled
         top().left()
 
-        background = assets.tableBackgroundDark.tint(Color(0.6f, 0.6f, 0.6f, 0.90f))
+        setBackground(assets.tableBackgroundLightToDark.tint(Color(0.6f, 0.6f, 0.6f, 0.90f)))
         add(headerName.align(Align.left)).minHeight(33f).padLeft(8f).left()
     }
 }
