@@ -21,6 +21,9 @@ class SkillTemplateRepository(
 
     companion object {
         const val CONFIG_FOLDER = "config/"
+        private const val SKILL_TEMPLATES = "SkillTemplates.json"
+        private const val SUBSKILL_TEMPLATES = "SubSkillTemplates.json"
+        private const val BUFFSKILL_TEMPLATES = "BuffSkillTemplates.json"
     }
 
     init {
@@ -74,21 +77,21 @@ class SkillTemplateRepository(
 
     private fun loadSkillTemplates(): Collection<SkillTemplate> {
 
-        val skillJson = Gdx.files.internal("${CONFIG_FOLDER}SkillTemplates.json").readString()
+        val skillJson = Gdx.files.internal("${CONFIG_FOLDER}${SKILL_TEMPLATES}").readString()
         val skillEntities = deSerializer.deserialize(skillJson, Array<SkillTemplateEntity>::class.java ).toList()
         return skillEntities.map { skillTemplateAdapter.toDomain(it) }
     }
 
     private fun loadSubSkillTemplates(): Collection<SubSkillTemplate> {
 
-        val subSkillJson = Gdx.files.internal("${CONFIG_FOLDER}SubSkillTemplates.json").readString()
+        val subSkillJson = Gdx.files.internal("${CONFIG_FOLDER}${SUBSKILL_TEMPLATES}").readString()
         val subSkillEntities = deSerializer.deserialize(subSkillJson, Array<SubSkillTemplateEntity>::class.java ).toList()
         return subSkillEntities.map { skillTemplateAdapter.toDomain(it) }
     }
 
     private fun loadBuffSkillTemplates(): Collection<BuffSkillTemplate> {
 
-        val buffSkillJson = Gdx.files.internal("${CONFIG_FOLDER}BuffSkillTemplates.json").readString()
+        val buffSkillJson = Gdx.files.internal("${CONFIG_FOLDER}${BUFFSKILL_TEMPLATES}").readString()
         val buffSkillEntities = deSerializer.deserialize(buffSkillJson, Array<BuffSKillTemplateEntity>::class.java ).toList()
         return buffSkillEntities.map { skillTemplateAdapter.toDomain(it) }
     }

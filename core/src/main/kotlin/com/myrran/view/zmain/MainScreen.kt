@@ -96,7 +96,7 @@ class MainScreen(
         val skill = spellBook.createdSkillsRepository.findBy(SkillId.from("95a1bfb2-a2bd-47d3-920b-e7f9ad798b76"))!!
         val skillView = skillViewFactory.createSkillView(skill, controller)
         uiStage.addActor(skillView)
-        skillView.setPosition(550f, 250f)
+        skillView.setPosition(550f, 200f)
 
         val buffList = BuffSkillTemplateViews(SkillViewId(UUID.randomUUID()), spellBook, assets, skillViewFactory)
         uiStage.addActor(buffList)
