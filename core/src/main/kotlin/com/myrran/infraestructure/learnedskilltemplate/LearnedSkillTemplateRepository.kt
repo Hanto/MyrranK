@@ -40,39 +40,39 @@ class LearnedSkillTemplateRepository(
     fun findAllSubSkillTemplates() = subSkillsTemplates.values
     fun findAllBuffSkillTemplates() = buffSkillsTemplates.values
 
-    fun saveSkill(quantity: Quantity<SkillTemplateId>) {
+    fun saveSkill(id: Quantity<SkillTemplateId>) {
 
-        skillTemplates[quantity.value] = quantity
+        skillTemplates[id.value] = id
         saveSkillTemplates()
     }
 
-    fun saveSkills(quantityList: Collection<Quantity<SkillTemplateId>>) {
+    fun saveSkills(list: Collection<Quantity<SkillTemplateId>>) {
 
-        quantityList.forEach { skillTemplates[it.value] = it }
+        list.forEach { skillTemplates[it.value] = it }
         saveSkillTemplates()
     }
 
-    fun saveSub(quantity: Quantity<SubSkillTemplateId>) {
+    fun saveSub(id: Quantity<SubSkillTemplateId>) {
 
-        subSkillsTemplates[quantity.value] = quantity
+        subSkillsTemplates[id.value] = id
         saveSubSkillTemplates()
     }
 
-    fun saveSubs(quantityList: Collection<Quantity<SubSkillTemplateId>>) {
+    fun saveSubs(list: Collection<Quantity<SubSkillTemplateId>>) {
 
-        quantityList.forEach { subSkillsTemplates[it.value] = it }
+        list.forEach { subSkillsTemplates[it.value] = it }
         saveSubSkillTemplates()
     }
 
-    fun saveBuff(quantity: Quantity<BuffSkillTemplateId>) {
+    fun saveBuff(id: Quantity<BuffSkillTemplateId>) {
 
-        buffSkillsTemplates[quantity.value] = quantity
+        buffSkillsTemplates[id.value] = id
         saveBuffSkillTemplates()
     }
 
-    fun saveBuffs(quantityList: Collection<Quantity<BuffSkillTemplateId>>) {
+    fun saveBuffs(list: Collection<Quantity<BuffSkillTemplateId>>) {
 
-        quantityList.forEach { buffSkillsTemplates[it.value] = it }
+        list.forEach { buffSkillsTemplates[it.value] = it }
         saveBuffSkillTemplates()
     }
 

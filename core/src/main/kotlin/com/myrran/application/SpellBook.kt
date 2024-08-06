@@ -110,7 +110,7 @@ data class SpellBook(
         learned.increaseAndSave(skill)
         learned.increaseAndSaveSubs(removedSubSkills)
         learned.increaseAndSaveBuffs(removedBuffSkills)
-        TODO() // remove skill
+        created.removeBy(skill.id)
     }
 
     fun removeSubSkill(skillId: SkillId, subSkillSlotId: SubSkillSlotId) {

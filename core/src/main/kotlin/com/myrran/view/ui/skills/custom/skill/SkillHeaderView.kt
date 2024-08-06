@@ -22,7 +22,7 @@ class SkillHeaderView(
     private val icon = Image(assets.skillIcon)
     private val name = TextView(skill.name, assets.font20, ORANGE, 2f) { it.value }
     private val templateId = TextView(skill.templateId, assets.font14, WHITE, 1f) { it.value }
-    private val cost = TextView(skill.totalCost(), assets.font14, MAGENTA_EPIC, 2f) { it.value.format(0) }
+    private val cost = TextView(skill.totalCost(), assets.font20, MAGENTA_EPIC, 2f) { it.value.format(0) }
 
     init {
 

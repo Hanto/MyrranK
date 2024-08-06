@@ -25,5 +25,6 @@ class StatsTemplateView(
         statList
             .sortedBy { it.stat.id.value }
             .forEach { add(it).left().bottom().row() }
+        padBottom(9f)
     }
 }

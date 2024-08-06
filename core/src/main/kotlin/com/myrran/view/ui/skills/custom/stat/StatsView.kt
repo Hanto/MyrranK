@@ -30,6 +30,7 @@ class StatsView(
         statsViews.values
             .sortedBy { it.model.id.value }
             .forEach { add(it).left().bottom().row() }
+        padBottom(9f)
     }
 
     // UPDATE:

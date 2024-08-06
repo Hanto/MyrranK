@@ -98,7 +98,7 @@ class MainScreen(
         val skill = spellBook.created.findBy(SkillId.from("95a1bfb2-a2bd-47d3-920b-e7f9ad798b76"))!!
         val skillView = skillViewFactory.createSkillView(skill, controller)
         uiStage.addActor(skillView)
-        skillView.setPosition(550f, 200f)
+        skillView.setPosition(550f, 100f)
 
         val buffList = BuffSkillTemplateViews(SkillViewId(UUID.randomUUID()), spellBook, assets, skillViewFactory)
         uiStage.addActor(buffList)
@@ -137,7 +137,7 @@ class MainScreen(
 
     private fun clearScreen() {
 
-        Gdx.gl.glClearColor(0.1f, 0.1f, 0.10f, 1f)
+        Gdx.gl.glClearColor(0.3f, 0.3f, 0.3f, 1f)
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT)
     }
 

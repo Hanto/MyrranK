@@ -33,7 +33,7 @@
         "id" : "WIDE",
         "name" : "wide",
         "baseBonus" : 10.0,
-        "actual" : 0,
+        "actual" : 20,
         "maximum" : 20,
         "upgradeCost" : 2.0,
         "bonusPerUpgrade" : 1.0
@@ -41,7 +41,7 @@
         "id" : "RANGE",
         "name" : "range",
         "baseBonus" : 10.0,
-        "actual" : 0,
+        "actual" : 20,
         "maximum" : 20,
         "upgradeCost" : 2.0,
         "bonusPerUpgrade" : 1.0
@@ -49,7 +49,7 @@
         "id" : "SPEED",
         "name" : "speed",
         "baseBonus" : 10.0,
-        "actual" : 0,
+        "actual" : 20,
         "maximum" : 20,
         "upgradeCost" : 2.0,
         "bonusPerUpgrade" : 1.0
@@ -67,7 +67,7 @@
             "id" : "DURATION",
             "name" : "duration",
             "baseBonus" : 10.0,
-            "actual" : 0,
+            "actual" : 16,
             "maximum" : 50,
             "upgradeCost" : 2.0,
             "bonusPerUpgrade" : 1.0
@@ -75,7 +75,7 @@
             "id" : "MAGNITUDE",
             "name" : "slow magnitude",
             "baseBonus" : 10.0,
-            "actual" : 0,
+            "actual" : 8,
             "maximum" : 50,
             "upgradeCost" : 2.0,
             "bonusPerUpgrade" : -1.0
@@ -83,7 +83,7 @@
             "id" : "ROOT",
             "name" : "root time",
             "baseBonus" : 10.0,
-            "actual" : 0,
+            "actual" : 6,
             "maximum" : 50,
             "upgradeCost" : 2.0,
             "bonusPerUpgrade" : -1.0
@@ -103,7 +103,7 @@
             "id" : "DAMAGE",
             "name" : "damage",
             "baseBonus" : 10.0,
-            "actual" : 0,
+            "actual" : 24,
             "maximum" : 50,
             "upgradeCost" : 2.0,
             "bonusPerUpgrade" : 1.0
@@ -111,7 +111,7 @@
             "id" : "DETONATION TIME",
             "name" : "detonation time",
             "baseBonus" : 10.0,
-            "actual" : 0,
+            "actual" : 8,
             "maximum" : 50,
             "upgradeCost" : 2.0,
             "bonusPerUpgrade" : -1.0
@@ -134,7 +134,7 @@
         "id" : "WIDE",
         "name" : "wide",
         "baseBonus" : 10.0,
-        "actual" : 0,
+        "actual" : 20,
         "maximum" : 20,
         "upgradeCost" : 2.0,
         "bonusPerUpgrade" : 1.0
@@ -152,7 +152,7 @@
             "id" : "DURATION",
             "name" : "duration",
             "baseBonus" : 10.0,
-            "actual" : 0,
+            "actual" : 20,
             "maximum" : 20,
             "upgradeCost" : 2.0,
             "bonusPerUpgrade" : 1.0
@@ -160,7 +160,7 @@
             "id" : "MAGNITUDE",
             "name" : "silence power",
             "baseBonus" : 10.0,
-            "actual" : 0,
+            "actual" : 20,
             "maximum" : 20,
             "upgradeCost" : 2.0,
             "bonusPerUpgrade" : -1.0
@@ -180,7 +180,7 @@
             "id" : "DAMAGE",
             "name" : "damage per tick",
             "baseBonus" : 10.0,
-            "actual" : 0,
+            "actual" : 30,
             "maximum" : 50,
             "upgradeCost" : 2.0,
             "bonusPerUpgrade" : 1.0
@@ -188,7 +188,7 @@
             "id" : "DURATION",
             "name" : "duration",
             "baseBonus" : 10.0,
-            "actual" : 0,
+            "actual" : 24,
             "maximum" : 50,
             "upgradeCost" : 2.0,
             "bonusPerUpgrade" : 1.0

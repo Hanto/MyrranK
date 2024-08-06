@@ -11,6 +11,11 @@ class CreatedSkillRepository(
     private val deSerializer: DeSerializer
 )
 {
+    companion object {
+
+        const val SKILLS_JSON = "Skill.json"
+    }
+
     private var createdSkills: MutableMap<SkillId, Skill>
 
     init {
@@ -29,24 +34,22 @@ class CreatedSkillRepository(
 
         createdSkills.values
 
+    fun removeBy(id: SkillId) {
+
+        createdSkills.remove(id)
+        saveSkills()
+    }
+
     fun save(skill: Skill) {
 
         createdSkills[skill.id] = skill
-
-        val domains = createdSkills.values
-        val entities = domains.map { skillAdapter.fromDomain(it) }
-        val json = deSerializer.serialize(entities)
-        Gdx.files.local("Skill.json").writeString(json, false)
+        saveSkills()
     }
 
     fun save(skills: Collection<Skill>) {
 
         createdSkills = skills.associateBy { it.id }.toMutableMap()
-
-        val domains = createdSkills.values
-        val entities = domains.map { skillAdapter.fromDomain(it) }
-        val json = deSerializer.serialize(entities)
-        Gdx.files.local("Skill.json").writeString(json, false)
+        saveSkills()
     }
 
     // HELPER:
@@ -56,12 +59,17 @@ class CreatedSkillRepository(
 
         runCatching {
 
-            val json = Gdx.files.local("Skill.json").readString()
+            val json = Gdx.files.local(SKILLS_JSON).readString()
             val entities = deSerializer.deserialize(json, Array<SkillEntity>::class.java).toList()
             entities.map { skillAdapter.toDomain(it) }
 
-        }.getOrElse {
+        }.getOrElse { emptyList() }
 
-            println(it)
-            emptyList() }
+    private fun saveSkills() {
+
+        val domains = createdSkills.values
+        val entities = domains.map { skillAdapter.fromDomain(it) }
+        val json = deSerializer.serialize(entities)
+        Gdx.files.local(SKILLS_JSON).writeString(json, false)
+    }
 }
