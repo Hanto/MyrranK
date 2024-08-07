@@ -13,12 +13,14 @@ import com.myrran.domain.skills.created.Skill
 import com.myrran.domain.skills.created.buff.BuffSkillSlot
 import com.myrran.domain.skills.created.subskill.SubSkillSlot
 import com.myrran.domain.skills.templates.BuffSkillTemplate
+import com.myrran.domain.skills.templates.SkillTemplate
 import com.myrran.domain.skills.templates.SubSkillTemplate
 import com.myrran.view.ui.skills.assets.SkillViewAssets
 import com.myrran.view.ui.skills.created.buff.BuffSkillSlotView
 import com.myrran.view.ui.skills.created.skill.SkillView
 import com.myrran.view.ui.skills.created.subskill.SubSkillSlotView
 import com.myrran.view.ui.skills.templates.buff.BuffTemplateView
+import com.myrran.view.ui.skills.templates.skill.SkillTemplateView
 import com.myrran.view.ui.skills.templates.subskill.SubSkillTemplateView
 
 class SkillViewFactory(
@@ -34,6 +36,18 @@ class SkillViewFactory(
 
         dragAndDropManager.removeSource(id)
         dragAndDropManager.removeTarget(id)
+    }
+
+    // SKILL TEMPLATE:
+    //--------------------------------------------------------------------------------------------------------
+
+    fun createSkillTemplateView(model: Quantity<SkillTemplate>, controller: BookSkillController): SkillTemplateView {
+
+        val id = SkillViewId()
+        val skillTemplateController = controller.toSkillTemplateController()
+        val view = SkillTemplateView(id, model, assets, skillTemplateController)
+
+        return view
     }
 
     // SUBSKILL TEMPLATE:

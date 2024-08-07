@@ -27,7 +27,7 @@ import com.myrran.view.ui.skills.SkillViewId
 import com.myrran.view.ui.skills.assets.SkillViewAssets
 import com.myrran.view.ui.skills.templates.TemplatesHeaderView
 
-class SkillsView(
+class SkillViews(
 
     override val id: SkillViewId,
     private val model: SpellBook,
@@ -88,7 +88,7 @@ class SkillsView(
         when (event) {
 
             is SkillCreatedEvent -> update()
-            is SkillRemovedEvent -> update()
+            is SkillRemovedEvent -> { views[event.skillId]?.dispose(); this.update() }
             is SkillStatUpgradedEvent ->  views[event.skillId]?.propertyChange(event)
             is SubSkillStatUpgradedEvent -> views[event.skillId]?.propertyChange(event)
             is SubSkillChangedEvent -> views[event.skillId]?.propertyChange(event)

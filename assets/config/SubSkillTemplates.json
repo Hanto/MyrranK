@@ -25,9 +25,9 @@
         ]
     },
     {
-        "id": "EXPLOSION_1",
+        "id": "CIRCLE_1",
         "type": "EXPLOSION",
-        "name": "Explosion",
+        "name": "Circle",
         "stats": [
             {
                 "id": "RADIUS",
@@ -42,14 +42,6 @@
             {
                 "id": "DEBUFF_1",
                 "name": "Debuff 1",
-                "lock": [
-                    "c",
-                    "d"
-                ]
-            },
-            {
-                "id": "DEBUFF_2",
-                "name": "Debuff 2",
                 "lock": [
                     "c",
                     "d"

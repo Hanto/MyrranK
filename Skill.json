@@ -1,5 +1,5 @@
 [ {
-  "id" : "b8e6dbad-b3b2-4a87-8c12-f5cbbd2c2297",
+  "id" : "c4782a07-1007-4847-a832-610513432cc4",
   "templateId" : "BOLT_1",
   "type" : "BOLT",
   "name" : "Bolt",
@@ -7,7 +7,7 @@
     "id" : "SPEED",
     "name" : "speed",
     "baseBonus" : 10.0,
-    "actual" : 19,
+    "actual" : 0,
     "maximum" : 20,
     "upgradeCost" : 2.0,
     "bonusPerUpgrade" : 1.0
@@ -21,11 +21,11 @@
     "bonusPerUpgrade" : 1.0
   } ],
   "slots" : [ {
-    "id" : "IMPACT",
-    "name" : "impact",
+    "id" : "IMPACT:1",
+    "name" : "Impact",
     "lock" : [ "A", "B", "C", "D" ],
     "content" : {
-      "id" : "06d0d1fc-5eca-4d8f-8a04-f2de1d96f9c8",
+      "id" : "2f672752-d74b-4690-b23a-e0874f4b7fbd",
       "templateId" : "POINT_1",
       "type" : "EXPLOSION",
       "name" : "Point",
@@ -43,15 +43,15 @@
         "name" : "Debuff 1",
         "lock" : [ "a", "b" ],
         "content" : {
-          "id" : "d806f59e-905a-4481-9161-3e6f6a63ce69",
-          "templateId" : "IMPACT_1",
+          "id" : "731712f2-6520-4f36-9ae5-f300b3b12aa2",
+          "templateId" : "DAMAGE_1",
           "type" : "BOMB",
-          "name" : "Impact",
+          "name" : "Damage",
           "stats" : [ {
             "id" : "DAMAGE",
             "name" : "damage",
             "baseBonus" : 10.0,
-            "actual" : 21,
+            "actual" : 0,
             "maximum" : 50,
             "upgradeCost" : 4.0,
             "bonusPerUpgrade" : 5.0
@@ -63,7 +63,7 @@
     }
   } ]
 }, {
-  "id" : "2cfa4cbe-e101-402a-b29a-861fbd0a89e0",
+  "id" : "5f96dc9a-80d0-48fb-9d91-c87dc71f0439",
   "templateId" : "BOLT_1",
   "type" : "BOLT",
   "name" : "Bolt",
@@ -71,7 +71,7 @@
     "id" : "SPEED",
     "name" : "speed",
     "baseBonus" : 10.0,
-    "actual" : 14,
+    "actual" : 0,
     "maximum" : 20,
     "upgradeCost" : 2.0,
     "bonusPerUpgrade" : 1.0
@@ -85,19 +85,19 @@
     "bonusPerUpgrade" : 1.0
   } ],
   "slots" : [ {
-    "id" : "IMPACT",
-    "name" : "impact",
+    "id" : "IMPACT:1",
+    "name" : "Impact",
     "lock" : [ "A", "B", "C", "D" ],
     "content" : {
-      "id" : "a03fd15c-a86d-4ae8-8ad9-47fd058b66e7",
-      "templateId" : "EXPLOSION_1",
+      "id" : "25a21229-f47f-43e7-831e-ab7cf7bae5a6",
+      "templateId" : "CIRCLE_1",
       "type" : "EXPLOSION",
-      "name" : "Explosion",
+      "name" : "Circle",
       "stats" : [ {
         "id" : "RADIUS",
         "name" : "radius",
         "baseBonus" : 10.0,
-        "actual" : 8,
+        "actual" : 0,
         "maximum" : 20,
         "upgradeCost" : 2.0,
         "bonusPerUpgrade" : 1.0
@@ -107,10 +107,10 @@
         "name" : "Debuff 1",
         "lock" : [ "c", "d" ],
         "content" : {
-          "id" : "58341a38-8336-4134-b7b4-7a4341d4183d",
-          "templateId" : "IMPACT_1",
+          "id" : "88993c6b-8895-4004-a1d2-a938451b4af6",
+          "templateId" : "DAMAGE_1",
           "type" : "BOMB",
-          "name" : "Impact",
+          "name" : "Damage",
           "stats" : [ {
             "id" : "DAMAGE",
             "name" : "damage",
@@ -122,20 +122,64 @@
           } ],
           "keys" : [ "a", "b", "c", "d", "e" ]
         }
-      }, {
-        "id" : "DEBUFF_2",
-        "name" : "Debuff 2",
-        "lock" : [ "c", "d" ],
+      } ],
+      "keys" : [ "A", "B", "C", "D" ]
+    }
+  } ]
+}, {
+  "id" : "a5fb5cbe-4705-4d7a-bdf9-8c88d6c25081",
+  "templateId" : "BOLT_1",
+  "type" : "BOLT",
+  "name" : "Bolt",
+  "stats" : [ {
+    "id" : "SPEED",
+    "name" : "speed",
+    "baseBonus" : 10.0,
+    "actual" : 0,
+    "maximum" : 20,
+    "upgradeCost" : 2.0,
+    "bonusPerUpgrade" : 1.0
+  }, {
+    "id" : "Cooldown",
+    "name" : "cooldown",
+    "baseBonus" : 10.0,
+    "actual" : 0,
+    "maximum" : 20,
+    "upgradeCost" : 2.0,
+    "bonusPerUpgrade" : 1.0
+  } ],
+  "slots" : [ {
+    "id" : "IMPACT:1",
+    "name" : "Impact",
+    "lock" : [ "A", "B", "C", "D" ],
+    "content" : {
+      "id" : "1b57ae84-3514-4136-9247-5c57ce85973d",
+      "templateId" : "POINT_1",
+      "type" : "EXPLOSION",
+      "name" : "Point",
+      "stats" : [ {
+        "id" : "RADIUS",
+        "name" : "radius",
+        "baseBonus" : 1.0,
+        "actual" : null,
+        "maximum" : null,
+        "upgradeCost" : null,
+        "bonusPerUpgrade" : null
+      } ],
+      "slots" : [ {
+        "id" : "DEBUFF_1",
+        "name" : "Debuff 1",
+        "lock" : [ "a", "b" ],
         "content" : {
-          "id" : "24f10823-e78e-4351-a47c-f810e3784dd0",
-          "templateId" : "FIRE_1",
+          "id" : "45ece116-d9b5-498c-aaf7-e724a5e4bfd4",
+          "templateId" : "DOT_1",
           "type" : "FIRE",
-          "name" : "Fire",
+          "name" : "Dot",
           "stats" : [ {
             "id" : "DAMAGE",
             "name" : "damage per tick",
             "baseBonus" : 10.0,
-            "actual" : 25,
+            "actual" : 15,
             "maximum" : 50,
             "upgradeCost" : 2.0,
             "bonusPerUpgrade" : 1.0
@@ -143,9 +187,17 @@
             "id" : "DURATION",
             "name" : "duration",
             "baseBonus" : 10.0,
-            "actual" : 14,
+            "actual" : 0,
             "maximum" : 50,
             "upgradeCost" : 2.0,
+            "bonusPerUpgrade" : 1.0
+          }, {
+            "id" : "MAX_STACKS",
+            "name" : "max stacks",
+            "baseBonus" : 1.0,
+            "actual" : 3,
+            "maximum" : 3,
+            "upgradeCost" : 40.0,
             "bonusPerUpgrade" : 1.0
           } ],
           "keys" : [ "a", "b", "c", "d", "e" ]
@@ -153,5 +205,146 @@
       } ],
       "keys" : [ "A", "B", "C", "D" ]
     }
+  } ]
+}, {
+  "id" : "c4b2744b-bf4b-4239-a169-afd4509d41db",
+  "templateId" : "BOLT_1",
+  "type" : "BOLT",
+  "name" : "Bolt",
+  "stats" : [ {
+    "id" : "SPEED",
+    "name" : "speed",
+    "baseBonus" : 10.0,
+    "actual" : 0,
+    "maximum" : 20,
+    "upgradeCost" : 2.0,
+    "bonusPerUpgrade" : 1.0
+  }, {
+    "id" : "Cooldown",
+    "name" : "cooldown",
+    "baseBonus" : 10.0,
+    "actual" : 0,
+    "maximum" : 20,
+    "upgradeCost" : 2.0,
+    "bonusPerUpgrade" : 1.0
+  } ],
+  "slots" : [ {
+    "id" : "IMPACT:1",
+    "name" : "Impact",
+    "lock" : [ "A", "B", "C", "D" ],
+    "content" : {
+      "id" : "c35692bf-bdd4-408e-90a0-5fb05f320a0b",
+      "templateId" : "CIRCLE_1",
+      "type" : "EXPLOSION",
+      "name" : "Circle",
+      "stats" : [ {
+        "id" : "RADIUS",
+        "name" : "radius",
+        "baseBonus" : 10.0,
+        "actual" : 0,
+        "maximum" : 20,
+        "upgradeCost" : 2.0,
+        "bonusPerUpgrade" : 1.0
+      } ],
+      "slots" : [ {
+        "id" : "DEBUFF_1",
+        "name" : "Debuff 1",
+        "lock" : [ "c", "d" ],
+        "content" : {
+          "id" : "1571f716-1d1f-4777-a7d2-995d737898ff",
+          "templateId" : "DOT_1",
+          "type" : "FIRE",
+          "name" : "Dot",
+          "stats" : [ {
+            "id" : "DAMAGE",
+            "name" : "damage per tick",
+            "baseBonus" : 10.0,
+            "actual" : 0,
+            "maximum" : 50,
+            "upgradeCost" : 2.0,
+            "bonusPerUpgrade" : 1.0
+          }, {
+            "id" : "DURATION",
+            "name" : "duration",
+            "baseBonus" : 10.0,
+            "actual" : 0,
+            "maximum" : 50,
+            "upgradeCost" : 2.0,
+            "bonusPerUpgrade" : 1.0
+          }, {
+            "id" : "MAX_STACKS",
+            "name" : "max stacks",
+            "baseBonus" : 1.0,
+            "actual" : 0,
+            "maximum" : 3,
+            "upgradeCost" : 40.0,
+            "bonusPerUpgrade" : 1.0
+          } ],
+          "keys" : [ "a", "b", "c", "d", "e" ]
+        }
+      } ],
+      "keys" : [ "A", "B", "C", "D" ]
+    }
+  } ]
+}, {
+  "id" : "aa4431f5-bdbc-4e83-80a4-ae99f341de41",
+  "templateId" : "BOLT_1",
+  "type" : "BOLT",
+  "name" : "Bolt",
+  "stats" : [ {
+    "id" : "SPEED",
+    "name" : "speed",
+    "baseBonus" : 10.0,
+    "actual" : 0,
+    "maximum" : 20,
+    "upgradeCost" : 2.0,
+    "bonusPerUpgrade" : 1.0
+  }, {
+    "id" : "Cooldown",
+    "name" : "cooldown",
+    "baseBonus" : 10.0,
+    "actual" : 0,
+    "maximum" : 20,
+    "upgradeCost" : 2.0,
+    "bonusPerUpgrade" : 1.0
+  } ],
+  "slots" : [ {
+    "id" : "IMPACT:1",
+    "name" : "Impact",
+    "lock" : [ "A", "B", "C", "D" ],
+    "content" : null
+  } ]
+}, {
+  "id" : "cc97ba9b-4dca-41d1-9266-aee4251b2c7c",
+  "templateId" : "DUALBOLT_1",
+  "type" : "BOLT",
+  "name" : "Dual Bolt",
+  "stats" : [ {
+    "id" : "SPEED",
+    "name" : "speed",
+    "baseBonus" : 10.0,
+    "actual" : 0,
+    "maximum" : 50,
+    "upgradeCost" : 2.0,
+    "bonusPerUpgrade" : 1.0
+  }, {
+    "id" : "Cooldown",
+    "name" : "cooldown",
+    "baseBonus" : 10.0,
+    "actual" : 0,
+    "maximum" : 50,
+    "upgradeCost" : 2.0,
+    "bonusPerUpgrade" : 1.0
+  } ],
+  "slots" : [ {
+    "id" : "IMPACT:1",
+    "name" : "Impact 1",
+    "lock" : [ "A", "B" ],
+    "content" : null
+  }, {
+    "id" : "IMPACT:2",
+    "name" : "Impact 2",
+    "lock" : [ "A", "B" ],
+    "content" : null
   } ]
 } ]

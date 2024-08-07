@@ -1,14 +1,14 @@
 [
     {
-        "id": "FIREBOLT_1",
+        "id": "DUALBOLT_1",
         "type": "BOLT",
-        "name": "Fire bolt",
+        "name": "Dual Bolt",
         "stats": [
             {
                 "id": "SPEED",
                 "name": "speed",
                 "baseBonus": 10.0,
-                "maximum": 20,
+                "maximum": 50,
                 "upgradeCost": 2.0,
                 "bonusPerUpgrade": 1.0
             },
@@ -16,23 +16,23 @@
                 "id": "Cooldown",
                 "name": "cooldown",
                 "baseBonus": 10.0,
-                "maximum": 20,
+                "maximum": 50,
                 "upgradeCost": 2.0,
                 "bonusPerUpgrade": 1.0
             }
         ],
         "slots": [
             {
-                "id": "IMPACT",
-                "name": "impact",
+                "id": "IMPACT:1",
+                "name": "Impact 1",
                 "lock": [
                     "A",
                     "B"
                 ]
             },
             {
-                "id": "TRAIL",
-                "name": "trail",
+                "id": "IMPACT:2",
+                "name": "Impact 2",
                 "lock": [
                     "A",
                     "B"
@@ -49,7 +49,7 @@
                 "id": "SPEED",
                 "name": "speed",
                 "baseBonus": 10.0,
-                "maximum": 20,
+                "maximum": 50,
                 "upgradeCost": 2.0,
                 "bonusPerUpgrade": 1.0
             },
@@ -57,15 +57,58 @@
                 "id": "Cooldown",
                 "name": "cooldown",
                 "baseBonus": 10.0,
-                "maximum": 20,
+                "maximum": 50,
                 "upgradeCost": 2.0,
                 "bonusPerUpgrade": 1.0
             }
         ],
         "slots": [
             {
-                "id": "IMPACT",
-                "name": "impact",
+                "id": "IMPACT:1",
+                "name": "Impact",
+                "lock": [
+                    "A",
+                    "B",
+                    "C",
+                    "D"
+                ]
+            }
+        ]
+    },
+    {
+        "id": "GRENADE_1",
+        "type": "BOLT",
+        "name": "Grenade",
+        "stats": [
+            {
+                "id": "SPEED",
+                "name": "speed",
+                "baseBonus": 10.0,
+                "maximum": 50,
+                "upgradeCost": 2.0,
+                "bonusPerUpgrade": 1.0
+            },
+            {
+                "id": "Cooldown",
+                "name": "cooldown",
+                "baseBonus": 10.0,
+                "maximum": 50,
+                "upgradeCost": 2.0,
+                "bonusPerUpgrade": 1.0
+            },
+            {
+                "id": "Range",
+                "name": "range",
+                "baseBonus": 10.0,
+                "maximum": 50,
+                "upgradeCost": 2.0,
+                "bonusPerUpgrade": 1.0
+            }
+        ],
+        "slots": [
+            {
+                "id": "IMPACT:1",
+                "name": "Impact",
                 "lock": [
                     "A",
                     "B",

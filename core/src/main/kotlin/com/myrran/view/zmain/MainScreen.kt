@@ -24,8 +24,9 @@ import com.myrran.view.ui.misc.TextView
 import com.myrran.view.ui.skills.SkillViewFactory
 import com.myrran.view.ui.skills.SkillViewId
 import com.myrran.view.ui.skills.assets.SkillViewAssets
-import com.myrran.view.ui.skills.created.skill.SkillsView
+import com.myrran.view.ui.skills.created.skill.SkillViews
 import com.myrran.view.ui.skills.templates.buff.BuffTemplateViews
+import com.myrran.view.ui.skills.templates.skill.SkillTemplateViews
 import com.myrran.view.ui.skills.templates.subskill.SubSkillTemplateViews
 import ktx.app.KtxScreen
 import java.util.UUID
@@ -99,18 +100,24 @@ class MainScreen(
         uiStage.addActor(skillView)
         skillView.setPosition(550f, 100f)
         */
+
+        val bookController = BookSkillController(spellBook)
+
         val buffList = BuffTemplateViews(SkillViewId(UUID.randomUUID()), spellBook, assets, skillViewFactory)
         uiStage.addActor(buffList)
-        buffList.setPosition(3f, 154f)
+        buffList.setPosition(533f, 154f)
 
         val subList = SubSkillTemplateViews(SkillViewId(UUID.randomUUID()), spellBook, assets, skillViewFactory)
         uiStage.addActor(subList)
         subList.setPosition(268f, 154f)
 
-        val bookController = BookSkillController(spellBook)
-        val skillList = SkillsView(SkillViewId(UUID.randomUUID()), spellBook, assets, bookController, skillViewFactory)
+        val skillTemplateList = SkillTemplateViews(SkillViewId(UUID.randomUUID()), spellBook, assets, bookController, skillViewFactory)
+        uiStage.addActor(skillTemplateList)
+        skillTemplateList.setPosition(3f, 154f)
+
+        val skillList = SkillViews(SkillViewId(UUID.randomUUID()), spellBook, assets, bookController, skillViewFactory)
         uiStage.addActor(skillList)
-        skillList.setPosition(560f, 20f)
+        skillList.setPosition(860f, 154f)
 
         //spellBook.removeSkill(SkillId.from("3e4d0937-2a1a-45cc-a793-649130461dc0"))
         //spellBook.addSkill(SkillTemplateId("BOLT_1"))

@@ -10,6 +10,7 @@ import com.myrran.domain.skills.created.stat.StatId
 import com.myrran.domain.skills.created.subskill.SubSkillSlot
 import com.myrran.domain.skills.created.subskill.SubSkillSlotId
 import com.myrran.domain.skills.templates.buff.BuffSkillTemplateId
+import com.myrran.domain.skills.templates.skill.SkillTemplateId
 import com.myrran.domain.skills.templates.subskill.SubSkillTemplateId
 
 // BOOK
@@ -24,6 +25,11 @@ class BookSkillController(
         SkillController(
             skillId = skill.id,
             book = book,)
+
+    fun toSkillTemplateController(): SkillTemplateController =
+
+        SkillTemplateController(
+            book = book)
 }
 
 // SKILL:
@@ -120,4 +126,17 @@ class BuffSKillController(
 interface StatController {
 
     fun upgrade(stat: StatId, numUpgrades: NumUpgrades): Unit?
+}
+
+// SKILLTEMPLATE:
+//------------------------------------------------------------------------------------------------------------
+
+class SkillTemplateController(
+
+    private val book: SpellBook
+)
+{
+    fun addSkill(id: SkillTemplateId) =
+
+        book.addSkill(id)
 }

@@ -1,6 +1,6 @@
 [ {
-  "id" : "FIRE_1",
-  "avaiable" : 1,
+  "id" : "DOT_1",
+  "avaiable" : 0,
   "total" : 2
 }, {
   "id" : "BOMB_1",
@@ -19,7 +19,7 @@
   "avaiable" : 2,
   "total" : 2
 }, {
-  "id" : "IMPACT_1",
+  "id" : "DAMAGE_1",
   "avaiable" : 0,
   "total" : 2
 } ]

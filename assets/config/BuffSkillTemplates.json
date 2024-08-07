@@ -1,8 +1,8 @@
 [
     {
-        "id": "FIRE_1",
+        "id": "DOT_1",
         "type": "FIRE",
-        "name": "Fire",
+        "name": "Dot",
         "stats": [
             {
                 "id": "DAMAGE",
@@ -18,6 +18,14 @@
                 "baseBonus": 10.0,
                 "maximum": 50,
                 "upgradeCost": 2.0,
+                "bonusPerUpgrade": 1.0
+            },
+            {
+                "id": "MAX_STACKS",
+                "name": "max stacks",
+                "baseBonus": 1.0,
+                "maximum": 3,
+                "upgradeCost": 40.0,
                 "bonusPerUpgrade": 1.0
             }
         ],
@@ -138,9 +146,9 @@
         ]
     },
     {
-        "id": "IMPACT_1",
+        "id": "DAMAGE_1",
         "type": "BOMB",
-        "name": "Impact",
+        "name": "Damage",
         "stats": [
             {
                 "id": "DAMAGE",
