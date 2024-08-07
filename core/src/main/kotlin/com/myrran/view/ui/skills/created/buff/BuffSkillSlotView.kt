@@ -8,8 +8,8 @@ import com.myrran.domain.skills.created.BuffSkillSlotContent.NoBuffSkill
 import com.myrran.domain.skills.created.buff.BuffSkillSlot
 import com.myrran.domain.skills.created.stat.Stat
 import com.myrran.domain.skills.created.stat.StatId
+import com.myrran.infraestructure.assets.SkillViewAssets
 import com.myrran.view.ui.skills.SkillViewId
-import com.myrran.view.ui.skills.assets.SkillViewAssets
 import com.myrran.view.ui.skills.created.stat.StatsView
 
 class BuffSkillSlotView(

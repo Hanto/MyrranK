@@ -2,7 +2,7 @@ package com.myrran.infraestructure.repositories.assetsconfig
 
 import com.badlogic.gdx.Gdx
 import com.myrran.domain.misc.DeSerializer
-import com.myrran.view.atlas.AssetsCollection
+import com.myrran.infraestructure.assets.AssetsCollection
 
 class AssetsConfigRepository(
 

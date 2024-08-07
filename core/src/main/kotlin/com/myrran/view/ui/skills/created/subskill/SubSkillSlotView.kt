@@ -9,9 +9,9 @@ import com.myrran.domain.skills.created.buff.BuffSkillSlotId
 import com.myrran.domain.skills.created.stat.Stat
 import com.myrran.domain.skills.created.stat.StatId
 import com.myrran.domain.skills.created.subskill.SubSkillSlot
+import com.myrran.infraestructure.assets.SkillViewAssets
 import com.myrran.view.ui.skills.SkillViewFactory
 import com.myrran.view.ui.skills.SkillViewId
-import com.myrran.view.ui.skills.assets.SkillViewAssets
 import com.myrran.view.ui.skills.created.buff.BuffSkillSlotView
 import com.myrran.view.ui.skills.created.stat.StatsView
 

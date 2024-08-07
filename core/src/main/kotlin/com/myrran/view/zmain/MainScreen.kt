@@ -13,17 +13,17 @@ import com.myrran.badlogic.DaD
 import com.myrran.controller.BookSkillController
 import com.myrran.controller.DragAndDropManager
 import com.myrran.domain.misc.DeSerializer
+import com.myrran.infraestructure.assets.AssetStorage
+import com.myrran.infraestructure.assets.SkillViewAssets
 import com.myrran.infraestructure.repositories.assetsconfig.AssetsConfigRepository
 import com.myrran.infraestructure.repositories.learnedskilltemplate.LearnedSkillTemplateRepository
 import com.myrran.infraestructure.repositories.skill.SkillAdapter
 import com.myrran.infraestructure.repositories.skill.SkillRepository
 import com.myrran.infraestructure.repositories.skilltemplate.SkillTemplateAdapter
 import com.myrran.infraestructure.repositories.skilltemplate.SkillTemplateRepository
-import com.myrran.view.atlas.Atlas
-import com.myrran.view.ui.misc.TextView
+import com.myrran.infraestructure.view.ui.misc.TextView
 import com.myrran.view.ui.skills.SkillViewFactory
 import com.myrran.view.ui.skills.SkillViewId
-import com.myrran.view.ui.skills.assets.SkillViewAssets
 import com.myrran.view.ui.skills.created.skill.SkillViews
 import com.myrran.view.ui.skills.templates.buff.BuffTemplateViews
 import com.myrran.view.ui.skills.templates.skill.SkillTemplateViews
@@ -36,7 +36,7 @@ class MainScreen(
     private val inputMultiplexer: InputMultiplexer = InputMultiplexer(),
     private val batch: SpriteBatch = SpriteBatch(),
     private val uiStage: Stage = Stage(),
-    private val atlas: Atlas = Atlas(
+    private val assetStorage: AssetStorage = AssetStorage(
         assetManager = AssetManager()),
 
     private val assetsConfigRepository: AssetsConfigRepository = AssetsConfigRepository(DeSerializer()),
@@ -60,8 +60,8 @@ class MainScreen(
         Gdx.input.inputProcessor = inputMultiplexer
 
         val initialAssets = assetsConfigRepository.loadAssetCollection("UIAssets.json")
-        atlas.load(initialAssets)
-        atlas.finishLoading()
+        assetStorage.load(initialAssets)
+        assetStorage.finishLoading()
 
         val deSerializer = DeSerializer()
         val skillAdapter = SkillAdapter()
@@ -72,23 +72,23 @@ class MainScreen(
         learnedTemplates = LearnedSkillTemplates(learnedRepository, skillTemplateRepository)
         spellBook = SpellBook(skillRepository, learnedTemplates)
 
-        fpsText = TextView("FPS: ?", atlas.getFont("20.fnt"), shadowTickness = 2f, formater = {it})
+        fpsText = TextView("FPS: ?", assetStorage.getFont("20.fnt"), shadowTickness = 2f, formater = {it})
         uiStage.addActor(fpsText)
 
         //playerSkillBook.addSubSkillTo(SkillId.from("95a1bfb2-a2bd-47d3-920b-e7f9ad798b76"), SubSkillSlotId("IMPACT"), SubSkillTemplateId("EXPLOSION_1"))
         //val controller = SkillController(skill.id, playerSkillBook)
 
         val assets = SkillViewAssets(
-            skillIcon = atlas.getTextureRegion("Atlas.atlas", "TexturasIconos/FireBall"),
-            tableBackgroundLightToDark = atlas.getNinePatchDrawable("Atlas.atlas", "TexturasIconos/NineLightToDark", Color.WHITE, 1f),
-            tableBackgroundLight = atlas.getNinePatchDrawable("Atlas.atlas","TexturasIconos/NineLight", Color.WHITE, 0.90f),
-            tableBackgroundDark = atlas.getNinePatchDrawable("Atlas.atlas","TexturasIconos/NineDark", Color.WHITE, 0.90f),
-            font20 = atlas.getFont("20.fnt"),
-            font14 = atlas.getFont("14.fnt"),
-            font12 = atlas.getFont("14.fnt"),
-            font10 =  atlas.getFont("14.fnt"),
-            statBarBack = atlas.getTextureRegion("Atlas.atlas", "TexturasMisc/CasillaTalentoFondo"),
-            statBarFront = atlas.getTextureRegion("Atlas.atlas", "TexturasMisc/CasillaTalento"),
+            skillIcon = assetStorage.getTextureRegion("Atlas.atlas", "TexturasIconos/FireBall"),
+            tableBackgroundLightToDark = assetStorage.getNinePatchDrawable("Atlas.atlas", "TexturasIconos/NineLightToDark", Color.WHITE, 1f),
+            tableBackgroundLight = assetStorage.getNinePatchDrawable("Atlas.atlas","TexturasIconos/NineLight", Color.WHITE, 0.90f),
+            tableBackgroundDark = assetStorage.getNinePatchDrawable("Atlas.atlas","TexturasIconos/NineDark", Color.WHITE, 0.90f),
+            font20 = assetStorage.getFont("20.fnt"),
+            font14 = assetStorage.getFont("14.fnt"),
+            font12 = assetStorage.getFont("14.fnt"),
+            font10 =  assetStorage.getFont("14.fnt"),
+            statBarBack = assetStorage.getTextureRegion("Atlas.atlas", "TexturasMisc/CasillaTalentoFondo"),
+            statBarFront = assetStorage.getTextureRegion("Atlas.atlas", "TexturasMisc/CasillaTalento"),
         )
 
         val dragAndDropManager = DragAndDropManager(DaD(), DaD())
@@ -164,6 +164,6 @@ class MainScreen(
 
         batch.dispose()
         uiStage.dispose()
-        atlas.dispose()
+        assetStorage.dispose()
     }
 }

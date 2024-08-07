@@ -1,4 +1,4 @@
-package com.myrran.view.atlas
+package com.myrran.infraestructure.assets
 
 data class AssetsCollection(
 

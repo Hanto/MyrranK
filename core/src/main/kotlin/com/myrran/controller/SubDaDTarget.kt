@@ -8,8 +8,8 @@ import com.myrran.badlogic.Payload
 import com.myrran.domain.misc.Identifiable
 import com.myrran.domain.misc.Quantity
 import com.myrran.domain.skills.templates.SubSkillTemplate
+import com.myrran.infraestructure.assets.SkillViewAssets
 import com.myrran.view.ui.skills.SkillViewId
-import com.myrran.view.ui.skills.assets.SkillViewAssets
 import com.myrran.view.ui.skills.created.subskill.SubSkillSlotView
 
 class SubDaDTarget(

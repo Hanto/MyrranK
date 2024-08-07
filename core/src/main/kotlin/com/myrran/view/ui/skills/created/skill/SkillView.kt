@@ -19,10 +19,10 @@ import com.myrran.domain.misc.Identifiable
 import com.myrran.domain.misc.observer.Observer
 import com.myrran.domain.skills.created.Skill
 import com.myrran.domain.skills.created.subskill.SubSkillSlotId
-import com.myrran.view.ui.misc.UIClickListener
+import com.myrran.infraestructure.assets.SkillViewAssets
+import com.myrran.infraestructure.view.ui.misc.UIClickListener
 import com.myrran.view.ui.skills.SkillViewFactory
 import com.myrran.view.ui.skills.SkillViewId
-import com.myrran.view.ui.skills.assets.SkillViewAssets
 import com.myrran.view.ui.skills.created.stat.StatsView
 import com.myrran.view.ui.skills.created.subskill.SubSkillSlotView
 

@@ -3,15 +3,15 @@ package com.myrran.view.ui.skills.created.stat
 import com.badlogic.gdx.graphics.Color.LIGHT_GRAY
 import com.badlogic.gdx.scenes.scene2d.ui.Table
 import com.badlogic.gdx.utils.Align
-import com.myrran.view.ui.misc.TextView
-import com.myrran.view.ui.skills.assets.BASE_BONUS_SIZE
-import com.myrran.view.ui.skills.assets.BONUS_PER_UPGRADE_SIZE
-import com.myrran.view.ui.skills.assets.NAME_SIZE
-import com.myrran.view.ui.skills.assets.SkillViewAssets
-import com.myrran.view.ui.skills.assets.TOTAL_BONUS_SIZE
-import com.myrran.view.ui.skills.assets.UPGRADECOST_SIZE
-import com.myrran.view.ui.skills.assets.UPGRADES_SIZE
-import com.myrran.view.ui.skills.assets.UPGRADE_BAR_SIZE
+import com.myrran.infraestructure.assets.BASE_BONUS_SIZE
+import com.myrran.infraestructure.assets.BONUS_PER_UPGRADE_SIZE
+import com.myrran.infraestructure.assets.NAME_SIZE
+import com.myrran.infraestructure.assets.SkillViewAssets
+import com.myrran.infraestructure.assets.TOTAL_BONUS_SIZE
+import com.myrran.infraestructure.assets.UPGRADECOST_SIZE
+import com.myrran.infraestructure.assets.UPGRADES_SIZE
+import com.myrran.infraestructure.assets.UPGRADE_BAR_SIZE
+import com.myrran.infraestructure.view.ui.misc.TextView
 
 class StatHeaderView(
 

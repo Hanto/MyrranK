@@ -1,4 +1,4 @@
-package com.myrran.view.ui.skills.assets
+package com.myrran.infraestructure.assets
 
 import com.badlogic.gdx.graphics.g2d.BitmapFont
 import com.badlogic.gdx.graphics.g2d.TextureRegion

@@ -1,4 +1,4 @@
-package com.myrran.view.ui.misc
+package com.myrran.infraestructure.view.ui.misc
 
 import com.badlogic.gdx.Input
 import com.badlogic.gdx.scenes.scene2d.InputEvent

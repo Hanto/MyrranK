@@ -13,11 +13,11 @@ import com.myrran.domain.skills.created.BuffSkill
 import com.myrran.domain.skills.created.BuffSkillSlotContent.NoBuffSkill
 import com.myrran.domain.skills.created.buff.BuffSkillSlot
 import com.myrran.domain.skills.lock.LockType
-import com.myrran.view.ui.misc.TextView
-import com.myrran.view.ui.misc.UIClickListener
-import com.myrran.view.ui.misc.UIClickListener.Button.RIGHT_BUTTON
-import com.myrran.view.ui.skills.assets.PURPLE_LIGHT
-import com.myrran.view.ui.skills.assets.SkillViewAssets
+import com.myrran.infraestructure.assets.PURPLE_LIGHT
+import com.myrran.infraestructure.assets.SkillViewAssets
+import com.myrran.infraestructure.view.ui.misc.TextView
+import com.myrran.infraestructure.view.ui.misc.UIClickListener
+import com.myrran.infraestructure.view.ui.misc.UIClickListener.Button.RIGHT_BUTTON
 
 @Suppress("DuplicatedCode")
 class BuffSlotKeyView(

@@ -7,9 +7,9 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table
 import com.badlogic.gdx.utils.Align
 import com.myrran.domain.misc.Quantity
 import com.myrran.domain.skills.templates.BuffSkillTemplate
-import com.myrran.view.ui.misc.TextView
-import com.myrran.view.ui.skills.assets.PURPLE_LIGHT
-import com.myrran.view.ui.skills.assets.SkillViewAssets
+import com.myrran.infraestructure.assets.PURPLE_LIGHT
+import com.myrran.infraestructure.assets.SkillViewAssets
+import com.myrran.infraestructure.view.ui.misc.TextView
 
 class BuffTemplateHeaderView(
 

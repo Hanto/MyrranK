@@ -1,4 +1,4 @@
-package com.myrran.view.atlas
+package com.myrran.infraestructure.assets
 
 import com.badlogic.gdx.assets.AssetManager
 import com.badlogic.gdx.graphics.Color
@@ -12,7 +12,7 @@ import com.myrran.domain.misc.ElapsedTime.Companion.of
 import com.myrran.domain.misc.mapttl.MapMapTTL
 import java.util.concurrent.TimeUnit.MINUTES
 
-class Atlas(
+class AssetStorage(
 
     private val assetManager: AssetManager,
     private val textureRegions: MapMapTTL<String, String, TextureRegion> = MapMapTTL(defaultTTL = of(10, MINUTES)),

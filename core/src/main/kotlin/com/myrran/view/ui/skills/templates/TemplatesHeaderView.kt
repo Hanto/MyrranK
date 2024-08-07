@@ -4,8 +4,8 @@ import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.scenes.scene2d.Touchable
 import com.badlogic.gdx.scenes.scene2d.ui.Table
 import com.badlogic.gdx.utils.Align
-import com.myrran.view.ui.misc.TextView
-import com.myrran.view.ui.skills.assets.SkillViewAssets
+import com.myrran.infraestructure.assets.SkillViewAssets
+import com.myrran.infraestructure.view.ui.misc.TextView
 
 class TemplatesHeaderView(
 

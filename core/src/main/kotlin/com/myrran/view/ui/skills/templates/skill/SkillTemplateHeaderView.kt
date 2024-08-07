@@ -9,9 +9,9 @@ import com.badlogic.gdx.utils.Align
 import com.myrran.controller.SkillTemplateController
 import com.myrran.domain.misc.Quantity
 import com.myrran.domain.skills.templates.SkillTemplate
-import com.myrran.view.ui.misc.TextView
-import com.myrran.view.ui.misc.UIClickListener
-import com.myrran.view.ui.skills.assets.SkillViewAssets
+import com.myrran.infraestructure.assets.SkillViewAssets
+import com.myrran.infraestructure.view.ui.misc.TextView
+import com.myrran.infraestructure.view.ui.misc.UIClickListener
 
 class SkillTemplateHeaderView(
 
