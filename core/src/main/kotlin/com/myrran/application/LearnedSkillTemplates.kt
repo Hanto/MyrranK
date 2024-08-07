@@ -1,9 +1,9 @@
 package com.myrran.application
 
 import com.myrran.domain.Quantity
-import com.myrran.domain.skills.custom.BuffSkill
-import com.myrran.domain.skills.custom.Skill
-import com.myrran.domain.skills.custom.SubSkill
+import com.myrran.domain.skills.created.BuffSkill
+import com.myrran.domain.skills.created.Skill
+import com.myrran.domain.skills.created.SubSkill
 import com.myrran.domain.skills.templates.BuffSkillTemplate
 import com.myrran.domain.skills.templates.SkillTemplate
 import com.myrran.domain.skills.templates.SubSkillTemplate

@@ -11,7 +11,7 @@ import com.myrran.domain.skills.templates.BuffSkillTemplate
 import com.myrran.view.ui.misc.TextView
 import com.myrran.view.ui.skills.SkillViewId
 import com.myrran.view.ui.skills.assets.SkillViewAssets
-import com.myrran.view.ui.skills.templates.BuffTemplateView
+import com.myrran.view.ui.skills.templates.buff.BuffTemplateView
 
 class BuffDaDSource(
 

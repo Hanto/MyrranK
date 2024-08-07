@@ -1,9 +1,9 @@
 package com.myrran.domain.skills.templates.subskill
 
-import com.myrran.domain.skills.custom.SubSkillSlotContent.NoSubSkill
-import com.myrran.domain.skills.custom.subskill.SubSkillSlot
-import com.myrran.domain.skills.custom.subskill.SubSkillSlotId
-import com.myrran.domain.skills.custom.subskill.SubSkillSlotName
+import com.myrran.domain.skills.created.SubSkillSlotContent.NoSubSkill
+import com.myrran.domain.skills.created.subskill.SubSkillSlot
+import com.myrran.domain.skills.created.subskill.SubSkillSlotId
+import com.myrran.domain.skills.created.subskill.SubSkillSlotName
 import com.myrran.domain.skills.lock.Lock
 
 data class SubSkillSlotTemplate(

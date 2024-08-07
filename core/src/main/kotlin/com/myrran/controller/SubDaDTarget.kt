@@ -10,7 +10,7 @@ import com.myrran.domain.Quantity
 import com.myrran.domain.skills.templates.SubSkillTemplate
 import com.myrran.view.ui.skills.SkillViewId
 import com.myrran.view.ui.skills.assets.SkillViewAssets
-import com.myrran.view.ui.skills.custom.subskill.SubSkillSlotView
+import com.myrran.view.ui.skills.created.subskill.SubSkillSlotView
 
 class SubDaDTarget(
 

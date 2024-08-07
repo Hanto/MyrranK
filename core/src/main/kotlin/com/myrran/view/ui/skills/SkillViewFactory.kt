@@ -9,17 +9,17 @@ import com.myrran.controller.SubDaDSource
 import com.myrran.controller.SubDaDTarget
 import com.myrran.controller.SubSkillController
 import com.myrran.domain.Quantity
-import com.myrran.domain.skills.custom.Skill
-import com.myrran.domain.skills.custom.buff.BuffSkillSlot
-import com.myrran.domain.skills.custom.subskill.SubSkillSlot
+import com.myrran.domain.skills.created.Skill
+import com.myrran.domain.skills.created.buff.BuffSkillSlot
+import com.myrran.domain.skills.created.subskill.SubSkillSlot
 import com.myrran.domain.skills.templates.BuffSkillTemplate
 import com.myrran.domain.skills.templates.SubSkillTemplate
 import com.myrran.view.ui.skills.assets.SkillViewAssets
-import com.myrran.view.ui.skills.custom.buff.BuffSkillSlotView
-import com.myrran.view.ui.skills.custom.skill.SkillView
-import com.myrran.view.ui.skills.custom.subskill.SubSkillSlotView
-import com.myrran.view.ui.skills.templates.BuffTemplateView
-import com.myrran.view.ui.skills.templates.SubSkillTemplateView
+import com.myrran.view.ui.skills.created.buff.BuffSkillSlotView
+import com.myrran.view.ui.skills.created.skill.SkillView
+import com.myrran.view.ui.skills.created.subskill.SubSkillSlotView
+import com.myrran.view.ui.skills.templates.buff.BuffTemplateView
+import com.myrran.view.ui.skills.templates.subskill.SubSkillTemplateView
 
 class SkillViewFactory(
 

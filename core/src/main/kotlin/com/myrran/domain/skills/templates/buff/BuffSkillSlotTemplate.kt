@@ -1,9 +1,9 @@
 package com.myrran.domain.skills.templates.buff
 
-import com.myrran.domain.skills.custom.BuffSkillSlotContent.NoBuffSkill
-import com.myrran.domain.skills.custom.buff.BuffSkillSlot
-import com.myrran.domain.skills.custom.buff.BuffSkillSlotId
-import com.myrran.domain.skills.custom.buff.BuffSkillSlotName
+import com.myrran.domain.skills.created.BuffSkillSlotContent.NoBuffSkill
+import com.myrran.domain.skills.created.buff.BuffSkillSlot
+import com.myrran.domain.skills.created.buff.BuffSkillSlotId
+import com.myrran.domain.skills.created.buff.BuffSkillSlotName
 import com.myrran.domain.skills.lock.Lock
 
 data class BuffSkillSlotTemplate(

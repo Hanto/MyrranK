@@ -1,13 +1,13 @@
 package com.myrran.domain.events
 
-import com.myrran.domain.skills.custom.BuffSkill
-import com.myrran.domain.skills.custom.SubBuffSkill
-import com.myrran.domain.skills.custom.SubSkill
-import com.myrran.domain.skills.custom.buff.BuffSkillSlotId
-import com.myrran.domain.skills.custom.skill.SkillId
-import com.myrran.domain.skills.custom.stat.NumUpgrades
-import com.myrran.domain.skills.custom.stat.StatId
-import com.myrran.domain.skills.custom.subskill.SubSkillSlotId
+import com.myrran.domain.skills.created.BuffSkill
+import com.myrran.domain.skills.created.SubBuffSkill
+import com.myrran.domain.skills.created.SubSkill
+import com.myrran.domain.skills.created.buff.BuffSkillSlotId
+import com.myrran.domain.skills.created.skill.SkillId
+import com.myrran.domain.skills.created.stat.NumUpgrades
+import com.myrran.domain.skills.created.stat.StatId
+import com.myrran.domain.skills.created.subskill.SubSkillSlotId
 
 sealed interface SkillEvent: Event
 {

@@ -1,9 +1,9 @@
 package com.myrran.domain.skills.templates
 
-import com.myrran.domain.skills.custom.BuffSkill
-import com.myrran.domain.skills.custom.buff.BuffSkillId
-import com.myrran.domain.skills.custom.buff.BuffSkillName
-import com.myrran.domain.skills.custom.stat.Stats
+import com.myrran.domain.skills.created.BuffSkill
+import com.myrran.domain.skills.created.buff.BuffSkillId
+import com.myrran.domain.skills.created.buff.BuffSkillName
+import com.myrran.domain.skills.created.stat.Stats
 import com.myrran.domain.skills.lock.LockType
 import com.myrran.domain.skills.templates.buff.BuffSkillTemplateId
 import com.myrran.domain.skills.templates.stat.StatTemplate

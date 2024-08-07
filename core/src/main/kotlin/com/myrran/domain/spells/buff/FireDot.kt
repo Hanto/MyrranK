@@ -1,6 +1,6 @@
 package com.myrran.domain.spells.buff
 
-import com.myrran.domain.skills.custom.BuffSkill
+import com.myrran.domain.skills.created.BuffSkill
 
 class FireDot(
 

@@ -24,9 +24,9 @@ import com.myrran.view.ui.misc.TextView
 import com.myrran.view.ui.skills.SkillViewFactory
 import com.myrran.view.ui.skills.SkillViewId
 import com.myrran.view.ui.skills.assets.SkillViewAssets
-import com.myrran.view.ui.skills.book.BuffSkillTemplateViews
-import com.myrran.view.ui.skills.book.SkillsView
-import com.myrran.view.ui.skills.book.SubSkillTemplateViews
+import com.myrran.view.ui.skills.created.skill.SkillsView
+import com.myrran.view.ui.skills.templates.buff.BuffTemplateViews
+import com.myrran.view.ui.skills.templates.subskill.SubSkillTemplateViews
 import ktx.app.KtxScreen
 import java.util.UUID
 
@@ -99,7 +99,7 @@ class MainScreen(
         uiStage.addActor(skillView)
         skillView.setPosition(550f, 100f)
         */
-        val buffList = BuffSkillTemplateViews(SkillViewId(UUID.randomUUID()), spellBook, assets, skillViewFactory)
+        val buffList = BuffTemplateViews(SkillViewId(UUID.randomUUID()), spellBook, assets, skillViewFactory)
         uiStage.addActor(buffList)
         buffList.setPosition(3f, 154f)
 

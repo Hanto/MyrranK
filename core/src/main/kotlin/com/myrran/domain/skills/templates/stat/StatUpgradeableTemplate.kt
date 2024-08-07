@@ -1,14 +1,14 @@
 package com.myrran.domain.skills.templates.stat
 
-import com.myrran.domain.skills.custom.stat.BonusPerUpgrade
-import com.myrran.domain.skills.custom.stat.NumUpgrades
-import com.myrran.domain.skills.custom.stat.Stat
-import com.myrran.domain.skills.custom.stat.StatBonus
-import com.myrran.domain.skills.custom.stat.StatId
-import com.myrran.domain.skills.custom.stat.StatName
-import com.myrran.domain.skills.custom.stat.StatUpgradeable
-import com.myrran.domain.skills.custom.stat.UpgradeCost
-import com.myrran.domain.skills.custom.stat.Upgrades
+import com.myrran.domain.skills.created.stat.BonusPerUpgrade
+import com.myrran.domain.skills.created.stat.NumUpgrades
+import com.myrran.domain.skills.created.stat.Stat
+import com.myrran.domain.skills.created.stat.StatBonus
+import com.myrran.domain.skills.created.stat.StatId
+import com.myrran.domain.skills.created.stat.StatName
+import com.myrran.domain.skills.created.stat.StatUpgradeable
+import com.myrran.domain.skills.created.stat.UpgradeCost
+import com.myrran.domain.skills.created.stat.Upgrades
 
 data class StatUpgradeableTemplate(
 

@@ -1,14 +1,14 @@
 package com.myrran.controller
 
 import com.myrran.application.SpellBook
-import com.myrran.domain.skills.custom.Skill
-import com.myrran.domain.skills.custom.buff.BuffSkillSlot
-import com.myrran.domain.skills.custom.buff.BuffSkillSlotId
-import com.myrran.domain.skills.custom.skill.SkillId
-import com.myrran.domain.skills.custom.stat.NumUpgrades
-import com.myrran.domain.skills.custom.stat.StatId
-import com.myrran.domain.skills.custom.subskill.SubSkillSlot
-import com.myrran.domain.skills.custom.subskill.SubSkillSlotId
+import com.myrran.domain.skills.created.Skill
+import com.myrran.domain.skills.created.buff.BuffSkillSlot
+import com.myrran.domain.skills.created.buff.BuffSkillSlotId
+import com.myrran.domain.skills.created.skill.SkillId
+import com.myrran.domain.skills.created.stat.NumUpgrades
+import com.myrran.domain.skills.created.stat.StatId
+import com.myrran.domain.skills.created.subskill.SubSkillSlot
+import com.myrran.domain.skills.created.subskill.SubSkillSlotId
 import com.myrran.domain.skills.templates.buff.BuffSkillTemplateId
 import com.myrran.domain.skills.templates.subskill.SubSkillTemplateId
 
