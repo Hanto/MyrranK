@@ -26,11 +26,11 @@ import com.myrran.domain.skills.templates.SubSkillTemplate
 import com.myrran.domain.skills.templates.buff.BuffSkillTemplateId
 import com.myrran.domain.skills.templates.skill.SkillTemplateId
 import com.myrran.domain.skills.templates.subskill.SubSkillTemplateId
-import com.myrran.infraestructure.skill.CreatedSkillRepository
+import com.myrran.infraestructure.repositories.skill.SkillRepository
 
 data class SpellBook(
 
-    val created: CreatedSkillRepository,
+    val created: SkillRepository,
     private val learned: LearnedSkillTemplates,
     private val observable: Observable<SkillEvent> = JavaObservable()
 

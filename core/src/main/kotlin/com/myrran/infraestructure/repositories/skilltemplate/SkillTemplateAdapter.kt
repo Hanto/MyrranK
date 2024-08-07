@@ -1,4 +1,4 @@
-package com.myrran.infraestructure.skilltemplate
+package com.myrran.infraestructure.repositories.skilltemplate
 
 import com.myrran.domain.skills.created.buff.BuffSkillName
 import com.myrran.domain.skills.created.buff.BuffSkillSlotId

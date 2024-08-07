@@ -10,8 +10,8 @@ import com.myrran.domain.skills.templates.SubSkillTemplate
 import com.myrran.domain.skills.templates.buff.BuffSkillTemplateId
 import com.myrran.domain.skills.templates.skill.SkillTemplateId
 import com.myrran.domain.skills.templates.subskill.SubSkillTemplateId
-import com.myrran.infraestructure.learnedskilltemplate.LearnedSkillTemplateRepository
-import com.myrran.infraestructure.skilltemplate.SkillTemplateRepository
+import com.myrran.infraestructure.repositories.learnedskilltemplate.LearnedSkillTemplateRepository
+import com.myrran.infraestructure.repositories.skilltemplate.SkillTemplateRepository
 
 class LearnedSkillTemplates(
 

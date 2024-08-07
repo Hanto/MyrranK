@@ -13,12 +13,12 @@ import com.myrran.badlogic.DaD
 import com.myrran.controller.BookSkillController
 import com.myrran.controller.DragAndDropManager
 import com.myrran.domain.misc.DeSerializer
-import com.myrran.infraestructure.assetsconfig.AssetsConfigRepository
-import com.myrran.infraestructure.learnedskilltemplate.LearnedSkillTemplateRepository
-import com.myrran.infraestructure.skill.CreatedSkillRepository
-import com.myrran.infraestructure.skill.SkillAdapter
-import com.myrran.infraestructure.skilltemplate.SkillTemplateAdapter
-import com.myrran.infraestructure.skilltemplate.SkillTemplateRepository
+import com.myrran.infraestructure.repositories.assetsconfig.AssetsConfigRepository
+import com.myrran.infraestructure.repositories.learnedskilltemplate.LearnedSkillTemplateRepository
+import com.myrran.infraestructure.repositories.skill.SkillAdapter
+import com.myrran.infraestructure.repositories.skill.SkillRepository
+import com.myrran.infraestructure.repositories.skilltemplate.SkillTemplateAdapter
+import com.myrran.infraestructure.repositories.skilltemplate.SkillTemplateRepository
 import com.myrran.view.atlas.Atlas
 import com.myrran.view.ui.misc.TextView
 import com.myrran.view.ui.skills.SkillViewFactory
@@ -44,7 +44,7 @@ class MainScreen(
 ): KtxScreen
 {
     private val skillTemplateRepository: SkillTemplateRepository
-    private val skillRepository: CreatedSkillRepository
+    private val skillRepository: SkillRepository
     private val learnedRepository: LearnedSkillTemplateRepository
     private val learnedTemplates: LearnedSkillTemplates
     private val spellBook: SpellBook
@@ -65,7 +65,7 @@ class MainScreen(
 
         val deSerializer = DeSerializer()
         val skillAdapter = SkillAdapter()
-        skillRepository = CreatedSkillRepository(skillAdapter, deSerializer)
+        skillRepository = SkillRepository(skillAdapter, deSerializer)
         learnedRepository = LearnedSkillTemplateRepository(deSerializer)
         val skillTemplateAdapter = SkillTemplateAdapter()
         skillTemplateRepository = SkillTemplateRepository(skillTemplateAdapter, deSerializer)

@@ -1,4 +1,4 @@
-package com.myrran.infraestructure.learnedskilltemplate
+package com.myrran.infraestructure.repositories.learnedskilltemplate
 
 import com.badlogic.gdx.Gdx
 import com.myrran.domain.misc.DeSerializer

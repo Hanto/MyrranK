@@ -1,4 +1,4 @@
-package com.myrran.infraestructure.learnedskilltemplate
+package com.myrran.infraestructure.repositories.learnedskilltemplate
 
 data class LearnedSkillTemplateEntity(
     val id: String,

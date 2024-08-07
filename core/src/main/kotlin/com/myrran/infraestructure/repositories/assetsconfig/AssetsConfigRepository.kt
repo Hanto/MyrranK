@@ -1,4 +1,4 @@
-package com.myrran.infraestructure.assetsconfig
+package com.myrran.infraestructure.repositories.assetsconfig
 
 import com.badlogic.gdx.Gdx
 import com.myrran.domain.misc.DeSerializer

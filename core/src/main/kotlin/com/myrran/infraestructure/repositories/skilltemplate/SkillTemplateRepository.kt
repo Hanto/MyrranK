@@ -1,4 +1,4 @@
-package com.myrran.infraestructure.skilltemplate
+package com.myrran.infraestructure.repositories.skilltemplate
 
 import com.badlogic.gdx.Gdx
 import com.myrran.domain.misc.DeSerializer
@@ -78,21 +78,21 @@ class SkillTemplateRepository(
 
     private fun loadSkillTemplates(): Collection<SkillTemplate> {
 
-        val skillJson = Gdx.files.internal("${CONFIG_FOLDER}${SKILL_TEMPLATES}").readString()
+        val skillJson = Gdx.files.internal("$CONFIG_FOLDER$SKILL_TEMPLATES").readString()
         val skillEntities = deSerializer.deserialize(skillJson, Array<SkillTemplateEntity>::class.java ).toList()
         return skillEntities.map { skillTemplateAdapter.toDomain(it) }
     }
 
     private fun loadSubSkillTemplates(): Collection<SubSkillTemplate> {
 
-        val subSkillJson = Gdx.files.internal("${CONFIG_FOLDER}${SUBSKILL_TEMPLATES}").readString()
+        val subSkillJson = Gdx.files.internal("$CONFIG_FOLDER$SUBSKILL_TEMPLATES").readString()
         val subSkillEntities = deSerializer.deserialize(subSkillJson, Array<SubSkillTemplateEntity>::class.java ).toList()
         return subSkillEntities.map { skillTemplateAdapter.toDomain(it) }
     }
 
     private fun loadBuffSkillTemplates(): Collection<BuffSkillTemplate> {
 
-        val buffSkillJson = Gdx.files.internal("${CONFIG_FOLDER}${BUFFSKILL_TEMPLATES}").readString()
+        val buffSkillJson = Gdx.files.internal("$CONFIG_FOLDER$BUFFSKILL_TEMPLATES").readString()
         val buffSkillEntities = deSerializer.deserialize(buffSkillJson, Array<BuffSKillTemplateEntity>::class.java ).toList()
         return buffSkillEntities.map { skillTemplateAdapter.toDomain(it) }
     }

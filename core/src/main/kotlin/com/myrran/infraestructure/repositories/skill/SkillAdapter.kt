@@ -1,4 +1,4 @@
-package com.myrran.infraestructure.skill
+package com.myrran.infraestructure.repositories.skill
 
 import com.myrran.domain.skills.created.BuffSkill
 import com.myrran.domain.skills.created.BuffSkillSlotContent.NoBuffSkill
