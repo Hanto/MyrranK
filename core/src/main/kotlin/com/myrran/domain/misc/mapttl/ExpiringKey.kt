@@ -1,8 +1,8 @@
-package com.myrran.domain.utils.mapttl
+package com.myrran.domain.misc.mapttl
 
-import com.myrran.domain.utils.Clock
-import com.myrran.domain.utils.ElapsedTime
-import com.myrran.domain.utils.Time
+import com.myrran.domain.misc.Clock
+import com.myrran.domain.misc.ElapsedTime
+import com.myrran.domain.misc.Time
 import java.util.concurrent.Delayed
 import java.util.concurrent.TimeUnit
 

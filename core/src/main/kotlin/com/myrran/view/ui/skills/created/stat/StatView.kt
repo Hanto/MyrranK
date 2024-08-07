@@ -8,10 +8,10 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener
 import com.badlogic.gdx.utils.Align
 import com.myrran.controller.StatController
+import com.myrran.domain.misc.format
 import com.myrran.domain.skills.created.stat.NumUpgrades
 import com.myrran.domain.skills.created.stat.Stat
 import com.myrran.domain.skills.created.stat.StatUpgradeable
-import com.myrran.domain.utils.format
 import com.myrran.view.ui.misc.TextView
 import com.myrran.view.ui.skills.assets.BASE_BONUS_SIZE
 import com.myrran.view.ui.skills.assets.BONUS_PER_UPGRADE_SIZE

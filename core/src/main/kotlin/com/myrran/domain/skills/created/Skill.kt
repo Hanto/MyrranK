@@ -1,6 +1,5 @@
 package com.myrran.domain.skills.created
 
-import com.myrran.domain.Identifiable
 import com.myrran.domain.events.BuffSkillChangedEvent
 import com.myrran.domain.events.BuffSkillRemovedEvent
 import com.myrran.domain.events.BuffSkillStatUpgradedEvent
@@ -9,6 +8,9 @@ import com.myrran.domain.events.SkillStatUpgradedEvent
 import com.myrran.domain.events.SubSkillChangedEvent
 import com.myrran.domain.events.SubSkillRemovedEvent
 import com.myrran.domain.events.SubSkillStatUpgradedEvent
+import com.myrran.domain.misc.Identifiable
+import com.myrran.domain.misc.observer.JavaObservable
+import com.myrran.domain.misc.observer.Observable
 import com.myrran.domain.skills.created.buff.BuffSkillSlotId
 import com.myrran.domain.skills.created.skill.SkillId
 import com.myrran.domain.skills.created.skill.SkillName
@@ -24,8 +26,6 @@ import com.myrran.domain.skills.templates.BuffSkillTemplate
 import com.myrran.domain.skills.templates.SubSkillTemplate
 import com.myrran.domain.skills.templates.skill.SkillTemplateId
 import com.myrran.domain.spells.spell.SkillType
-import com.myrran.domain.utils.observer.JavaObservable
-import com.myrran.domain.utils.observer.Observable
 
 data class Skill(
 

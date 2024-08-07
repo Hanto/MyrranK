@@ -1,4 +1,4 @@
-package com.myrran.domain.utils
+package com.myrran.domain.misc
 
 import java.time.Instant
 import java.time.LocalDateTime

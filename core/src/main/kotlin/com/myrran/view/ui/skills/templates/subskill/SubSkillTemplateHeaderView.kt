@@ -4,7 +4,7 @@ import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.scenes.scene2d.ui.Image
 import com.badlogic.gdx.scenes.scene2d.ui.Table
 import com.badlogic.gdx.utils.Align
-import com.myrran.domain.Quantity
+import com.myrran.domain.misc.Quantity
 import com.myrran.domain.skills.templates.SubSkillTemplate
 import com.myrran.view.ui.misc.TextView
 import com.myrran.view.ui.skills.assets.PURPLE_LIGHT

@@ -3,8 +3,8 @@ package com.myrran.view.ui.skills.templates.subskill
 import com.badlogic.gdx.scenes.scene2d.Touchable
 import com.badlogic.gdx.scenes.scene2d.ui.Container
 import com.badlogic.gdx.scenes.scene2d.ui.Table
-import com.myrran.domain.Identifiable
-import com.myrran.domain.Quantity
+import com.myrran.domain.misc.Identifiable
+import com.myrran.domain.misc.Quantity
 import com.myrran.domain.skills.templates.SubSkillTemplate
 import com.myrran.view.ui.misc.UIClickListener
 import com.myrran.view.ui.skills.SkillViewId

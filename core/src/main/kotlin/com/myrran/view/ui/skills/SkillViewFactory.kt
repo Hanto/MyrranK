@@ -8,7 +8,7 @@ import com.myrran.controller.SkillController
 import com.myrran.controller.SubDaDSource
 import com.myrran.controller.SubDaDTarget
 import com.myrran.controller.SubSkillController
-import com.myrran.domain.Quantity
+import com.myrran.domain.misc.Quantity
 import com.myrran.domain.skills.created.Skill
 import com.myrran.domain.skills.created.buff.BuffSkillSlot
 import com.myrran.domain.skills.created.subskill.SubSkillSlot

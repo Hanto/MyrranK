@@ -2,7 +2,7 @@ package com.myrran.view.ui.skills.created.buff
 
 import com.badlogic.gdx.scenes.scene2d.ui.Table
 import com.myrran.controller.BuffSKillController
-import com.myrran.domain.Identifiable
+import com.myrran.domain.misc.Identifiable
 import com.myrran.domain.skills.created.BuffSkill
 import com.myrran.domain.skills.created.BuffSkillSlotContent.NoBuffSkill
 import com.myrran.domain.skills.created.buff.BuffSkillSlot

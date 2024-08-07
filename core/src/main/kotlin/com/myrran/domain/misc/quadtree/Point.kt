@@ -1,4 +1,4 @@
-package com.myrran.domain.utils.quadtree
+package com.myrran.domain.misc.quadtree
 
 import kotlin.math.abs
 import kotlin.math.pow

@@ -6,8 +6,8 @@ import com.badlogic.gdx.graphics.Color.ORANGE
 import com.badlogic.gdx.scenes.scene2d.ui.Table
 import com.badlogic.gdx.utils.Align
 import com.myrran.domain.events.SkillEvent
+import com.myrran.domain.misc.format
 import com.myrran.domain.skills.created.Skill
-import com.myrran.domain.utils.format
 import com.myrran.view.ui.misc.TextView
 import com.myrran.view.ui.skills.assets.SkillViewAssets
 

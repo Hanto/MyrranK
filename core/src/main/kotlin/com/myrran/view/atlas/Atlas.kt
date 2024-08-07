@@ -8,8 +8,8 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas
 import com.badlogic.gdx.graphics.g2d.TextureRegion
 import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable
 import com.badlogic.gdx.utils.Disposable
-import com.myrran.domain.utils.ElapsedTime.Companion.of
-import com.myrran.domain.utils.mapttl.MapMapTTL
+import com.myrran.domain.misc.ElapsedTime.Companion.of
+import com.myrran.domain.misc.mapttl.MapMapTTL
 import java.util.concurrent.TimeUnit.MINUTES
 
 class Atlas(

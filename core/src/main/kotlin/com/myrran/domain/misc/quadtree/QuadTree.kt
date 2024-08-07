@@ -1,4 +1,4 @@
-package com.myrran.domain.utils.quadtree
+package com.myrran.domain.misc.quadtree
 
 class QuadNode<V>(
 

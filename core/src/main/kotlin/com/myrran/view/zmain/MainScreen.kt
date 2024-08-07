@@ -12,7 +12,7 @@ import com.myrran.application.SpellBook
 import com.myrran.badlogic.DaD
 import com.myrran.controller.BookSkillController
 import com.myrran.controller.DragAndDropManager
-import com.myrran.domain.utils.DeSerializer
+import com.myrran.domain.misc.DeSerializer
 import com.myrran.infraestructure.assetsconfig.AssetsConfigRepository
 import com.myrran.infraestructure.learnedskilltemplate.LearnedSkillTemplateRepository
 import com.myrran.infraestructure.skill.CreatedSkillRepository

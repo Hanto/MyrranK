@@ -1,6 +1,5 @@
 package com.myrran.application
 
-import com.myrran.domain.Quantity
 import com.myrran.domain.events.BuffSkillChangedEvent
 import com.myrran.domain.events.BuffSkillRemovedEvent
 import com.myrran.domain.events.BuffSkillStatUpgradedEvent
@@ -11,6 +10,9 @@ import com.myrran.domain.events.SkillStatUpgradedEvent
 import com.myrran.domain.events.SubSkillChangedEvent
 import com.myrran.domain.events.SubSkillRemovedEvent
 import com.myrran.domain.events.SubSkillStatUpgradedEvent
+import com.myrran.domain.misc.Quantity
+import com.myrran.domain.misc.observer.JavaObservable
+import com.myrran.domain.misc.observer.Observable
 import com.myrran.domain.skills.created.BuffSkill
 import com.myrran.domain.skills.created.SubSkill
 import com.myrran.domain.skills.created.buff.BuffSkillSlotId
@@ -24,8 +26,6 @@ import com.myrran.domain.skills.templates.SubSkillTemplate
 import com.myrran.domain.skills.templates.buff.BuffSkillTemplateId
 import com.myrran.domain.skills.templates.skill.SkillTemplateId
 import com.myrran.domain.skills.templates.subskill.SubSkillTemplateId
-import com.myrran.domain.utils.observer.JavaObservable
-import com.myrran.domain.utils.observer.Observable
 import com.myrran.infraestructure.skill.CreatedSkillRepository
 
 data class SpellBook(

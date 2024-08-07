@@ -1,7 +1,7 @@
 package com.myrran.controller
 
 import com.myrran.badlogic.DaD
-import com.myrran.domain.utils.MutableMapOfLists
+import com.myrran.domain.misc.MutableMapOfLists
 import com.myrran.view.ui.skills.SkillViewId
 
 class DragAndDropManager(

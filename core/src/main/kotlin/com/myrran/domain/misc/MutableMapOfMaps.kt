@@ -1,4 +1,4 @@
-package com.myrran.domain.utils
+package com.myrran.domain.misc
 
 class MutableMapOfMaps<KEY1, KEY2, VALUE>(
 

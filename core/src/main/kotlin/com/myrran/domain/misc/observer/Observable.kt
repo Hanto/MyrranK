@@ -1,4 +1,4 @@
-package com.myrran.domain.utils.observer
+package com.myrran.domain.misc.observer
 
 interface Observable<EVENT> {
 

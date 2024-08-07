@@ -1,6 +1,6 @@
-package com.myrran.domain.utils.mapttl
+package com.myrran.domain.misc.mapttl
 
-import com.myrran.domain.utils.ElapsedTime
+import com.myrran.domain.misc.ElapsedTime
 import java.util.concurrent.TimeUnit
 
 class MapMapTTL<KEY1, KEY2, VALUE>(

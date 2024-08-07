@@ -1,9 +1,9 @@
 package com.myrran.infraestructure.skill
 
 import com.badlogic.gdx.Gdx
+import com.myrran.domain.misc.DeSerializer
 import com.myrran.domain.skills.created.Skill
 import com.myrran.domain.skills.created.skill.SkillId
-import com.myrran.domain.utils.DeSerializer
 
 class CreatedSkillRepository(
 

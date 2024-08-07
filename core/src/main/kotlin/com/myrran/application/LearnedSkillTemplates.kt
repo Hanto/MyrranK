@@ -1,6 +1,6 @@
 package com.myrran.application
 
-import com.myrran.domain.Quantity
+import com.myrran.domain.misc.Quantity
 import com.myrran.domain.skills.created.BuffSkill
 import com.myrran.domain.skills.created.Skill
 import com.myrran.domain.skills.created.SubSkill

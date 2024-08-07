@@ -5,7 +5,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.Container
 import com.badlogic.gdx.scenes.scene2d.ui.Table
 import com.badlogic.gdx.utils.Disposable
 import com.myrran.controller.SkillController
-import com.myrran.domain.Identifiable
 import com.myrran.domain.events.BuffSkillChangedEvent
 import com.myrran.domain.events.BuffSkillRemovedEvent
 import com.myrran.domain.events.BuffSkillStatUpgradedEvent
@@ -16,11 +15,11 @@ import com.myrran.domain.events.SkillStatUpgradedEvent
 import com.myrran.domain.events.SubSkillChangedEvent
 import com.myrran.domain.events.SubSkillRemovedEvent
 import com.myrran.domain.events.SubSkillStatUpgradedEvent
+import com.myrran.domain.misc.Identifiable
+import com.myrran.domain.misc.observer.Observer
 import com.myrran.domain.skills.created.Skill
 import com.myrran.domain.skills.created.subskill.SubSkillSlotId
-import com.myrran.domain.utils.observer.Observer
 import com.myrran.view.ui.misc.UIClickListener
-import com.myrran.view.ui.misc.UIMoveListener
 import com.myrran.view.ui.skills.SkillViewFactory
 import com.myrran.view.ui.skills.SkillViewId
 import com.myrran.view.ui.skills.assets.SkillViewAssets
@@ -60,8 +59,6 @@ class SkillView(
     private fun rebuildTable() {
 
         table.clearChildren()
-        skillHeader.touchable = Touchable.enabled
-        skillHeader.addListener(UIMoveListener(this))
 
         val bodyTable = Table()
         val skillStatsTable = Table()

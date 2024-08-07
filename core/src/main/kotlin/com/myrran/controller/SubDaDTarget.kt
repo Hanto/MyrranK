@@ -5,8 +5,8 @@ import com.badlogic.gdx.scenes.scene2d.Actor
 import com.myrran.badlogic.DaDSource
 import com.myrran.badlogic.DaDTarget
 import com.myrran.badlogic.Payload
-import com.myrran.domain.Identifiable
-import com.myrran.domain.Quantity
+import com.myrran.domain.misc.Identifiable
+import com.myrran.domain.misc.Quantity
 import com.myrran.domain.skills.templates.SubSkillTemplate
 import com.myrran.view.ui.skills.SkillViewId
 import com.myrran.view.ui.skills.assets.SkillViewAssets

@@ -5,7 +5,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.Container
 import com.badlogic.gdx.scenes.scene2d.ui.Table
 import com.badlogic.gdx.utils.Disposable
 import com.myrran.application.SpellBook
-import com.myrran.domain.Identifiable
 import com.myrran.domain.events.BuffSkillChangedEvent
 import com.myrran.domain.events.BuffSkillRemovedEvent
 import com.myrran.domain.events.BuffSkillStatUpgradedEvent
@@ -16,8 +15,9 @@ import com.myrran.domain.events.SkillStatUpgradedEvent
 import com.myrran.domain.events.SubSkillChangedEvent
 import com.myrran.domain.events.SubSkillRemovedEvent
 import com.myrran.domain.events.SubSkillStatUpgradedEvent
+import com.myrran.domain.misc.Identifiable
+import com.myrran.domain.misc.observer.Observer
 import com.myrran.domain.skills.templates.buff.BuffSkillTemplateId
-import com.myrran.domain.utils.observer.Observer
 import com.myrran.view.ui.misc.AutoFocusScrollPane
 import com.myrran.view.ui.misc.UIClickListener
 import com.myrran.view.ui.misc.UIMoveListener

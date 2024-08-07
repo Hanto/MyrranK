@@ -2,7 +2,7 @@ package com.myrran.view.ui.skills.created.subskill
 
 import com.badlogic.gdx.scenes.scene2d.ui.Table
 import com.myrran.controller.SubSkillController
-import com.myrran.domain.Identifiable
+import com.myrran.domain.misc.Identifiable
 import com.myrran.domain.skills.created.SubSkill
 import com.myrran.domain.skills.created.SubSkillSlotContent.NoSubSkill
 import com.myrran.domain.skills.created.buff.BuffSkillSlotId

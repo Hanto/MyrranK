@@ -1,4 +1,4 @@
-package com.myrran.domain.utils.observer
+package com.myrran.domain.misc.observer
 
 import java.beans.PropertyChangeEvent
 import java.beans.PropertyChangeListener

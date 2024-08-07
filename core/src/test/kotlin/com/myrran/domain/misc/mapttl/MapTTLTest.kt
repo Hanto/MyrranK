@@ -1,6 +1,6 @@
-package com.myrran.domain.utils.mapttl
+package com.myrran.domain.misc.mapttl
 
-import com.myrran.domain.utils.ElapsedTime
+import com.myrran.domain.misc.ElapsedTime
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 import java.util.concurrent.TimeUnit
