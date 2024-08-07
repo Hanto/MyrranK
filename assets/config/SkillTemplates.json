@@ -39,5 +39,40 @@
                 ]
             }
         ]
+    },
+    {
+        "id": "BOLT_1",
+        "type": "BOLT",
+        "name": "Bolt",
+        "stats": [
+            {
+                "id": "SPEED",
+                "name": "speed",
+                "baseBonus": 10.0,
+                "maximum": 20,
+                "upgradeCost": 2.0,
+                "bonusPerUpgrade": 1.0
+            },
+            {
+                "id": "Cooldown",
+                "name": "cooldown",
+                "baseBonus": 10.0,
+                "maximum": 20,
+                "upgradeCost": 2.0,
+                "bonusPerUpgrade": 1.0
+            }
+        ],
+        "slots": [
+            {
+                "id": "IMPACT",
+                "name": "impact",
+                "lock": [
+                    "A",
+                    "B",
+                    "C",
+                    "D"
+                ]
+            }
+        ]
     }
 ]

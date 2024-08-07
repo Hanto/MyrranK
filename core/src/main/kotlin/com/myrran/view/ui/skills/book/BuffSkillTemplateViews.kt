@@ -9,7 +9,9 @@ import com.myrran.domain.Identifiable
 import com.myrran.domain.events.BuffSkillChangedEvent
 import com.myrran.domain.events.BuffSkillRemovedEvent
 import com.myrran.domain.events.BuffSkillStatUpgradedEvent
+import com.myrran.domain.events.SkillCreatedEvent
 import com.myrran.domain.events.SkillEvent
+import com.myrran.domain.events.SkillRemovedEvent
 import com.myrran.domain.events.SkillStatUpgradedEvent
 import com.myrran.domain.events.SubSkillChangedEvent
 import com.myrran.domain.events.SubSkillRemovedEvent
@@ -22,7 +24,6 @@ import com.myrran.view.ui.misc.UIMoveListener
 import com.myrran.view.ui.skills.SkillViewFactory
 import com.myrran.view.ui.skills.SkillViewId
 import com.myrran.view.ui.skills.assets.SkillViewAssets
-import com.myrran.view.ui.skills.book.buff.BuffSkillTemplateViewsHeader
 import com.myrran.view.ui.skills.templates.BuffTemplateView
 
 class BuffSkillTemplateViews(
@@ -34,7 +35,7 @@ class BuffSkillTemplateViews(
 
 ): Container<Table>(), Identifiable<SkillViewId>, Observer<SkillEvent>, Disposable
 {
-    private val header: BuffSkillTemplateViewsHeader = BuffSkillTemplateViewsHeader("Debuffs", assets)
+    private val header: TemplatesHeaderView = TemplatesHeaderView("Debuffs", assets)
     private var views: Map<BuffSkillTemplateId, BuffTemplateView> = createBuffSkillTemplateViews()
     private val rootTable = Table()
 
@@ -81,6 +82,8 @@ class BuffSkillTemplateViews(
 
         when (event) {
 
+            is SkillCreatedEvent -> Unit
+            is SkillRemovedEvent -> Unit
             is SkillStatUpgradedEvent ->  Unit
             is SubSkillStatUpgradedEvent -> Unit
             is SubSkillChangedEvent -> updateQuantities()

@@ -4,7 +4,9 @@ import com.myrran.domain.Quantity
 import com.myrran.domain.events.BuffSkillChangedEvent
 import com.myrran.domain.events.BuffSkillRemovedEvent
 import com.myrran.domain.events.BuffSkillStatUpgradedEvent
+import com.myrran.domain.events.SkillCreatedEvent
 import com.myrran.domain.events.SkillEvent
+import com.myrran.domain.events.SkillRemovedEvent
 import com.myrran.domain.events.SkillStatUpgradedEvent
 import com.myrran.domain.events.SubSkillChangedEvent
 import com.myrran.domain.events.SubSkillRemovedEvent
@@ -58,6 +60,7 @@ data class SpellBook(
 
             created.save(skill)
             learned.decreaseAndSaveSkill(skillTemplate)
+            notify(SkillCreatedEvent(skill.id))
         }
     }
 
@@ -110,6 +113,7 @@ data class SpellBook(
         learned.increaseAndSaveSubs(removedSubSkills)
         learned.increaseAndSaveBuffs(removedBuffSkills)
         created.removeBy(skill.id)
+        notify(SkillRemovedEvent(skillId))
     }
 
     fun removeSubSkill(skillId: SkillId, subSkillSlotId: SubSkillSlotId) {

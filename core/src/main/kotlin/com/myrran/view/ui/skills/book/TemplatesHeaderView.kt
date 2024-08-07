@@ -1,4 +1,4 @@
-package com.myrran.view.ui.skills.book.buff
+package com.myrran.view.ui.skills.book
 
 import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.scenes.scene2d.Touchable
@@ -7,7 +7,7 @@ import com.badlogic.gdx.utils.Align
 import com.myrran.view.ui.misc.TextView
 import com.myrran.view.ui.skills.assets.SkillViewAssets
 
-class BuffSkillTemplateViewsHeader(
+class TemplatesHeaderView(
 
     private val name: String,
     private val assets: SkillViewAssets,

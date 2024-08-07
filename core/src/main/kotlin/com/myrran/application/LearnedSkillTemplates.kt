@@ -22,37 +22,46 @@ class LearnedSkillTemplates(
     fun learnedSkillTemplates(): Collection<Quantity<SkillTemplate>> =
 
         learnedRepository.findAllSkillTemplates()
-            .map { Quantity(templateRepository.findBy(it.value)!!, it.available, it.total) }
+            .map { it.toQuantityOf(templateRepository.findBy(it.value)!!) }
 
     fun learnedSubSkillTemplates(): Collection<Quantity<SubSkillTemplate>> =
 
         learnedRepository.findAllSubSkillTemplates()
-            .map { Quantity(templateRepository.findBy(it.value)!!, it.available, it.total) }
+            .map { it.toQuantityOf(templateRepository.findBy(it.value)!!) }
 
     fun learnedBuffSkillTemplates(): Collection<Quantity<BuffSkillTemplate>> =
 
         learnedRepository.findAllBuffSkillTemplates()
-            .map { Quantity(templateRepository.findBy(it.value)!!, it.available, it.total) }
+            .map { it.toQuantityOf(templateRepository.findBy(it.value)!!) }
 
     // LEARN:
     //--------------------------------------------------------------------------------------------------------
 
     fun learn(id: SkillTemplateId) {
 
-        val quantity = learnedRepository.findBy(id).increaseAvailableAndTotal()
-        learnedRepository.saveSkill(quantity)
+        if (templateRepository.exists(id)) {
+
+            val quantity = learnedRepository.findBy(id).increaseAvailableAndTotal()
+            learnedRepository.saveSkill(quantity)
+        }
     }
 
     fun learn(id: SubSkillTemplateId) {
 
-        val quantity = learnedRepository.findBy(id).increaseAvailableAndTotal()
-        learnedRepository.saveSub(quantity)
+        if (templateRepository.exists(id)) {
+
+            val quantity = learnedRepository.findBy(id).increaseAvailableAndTotal()
+            learnedRepository.saveSub(quantity)
+        }
     }
 
     fun learn(id: BuffSkillTemplateId) {
 
-        val quantity = learnedRepository.findBy(id).increaseAvailableAndTotal()
-        learnedRepository.saveBuff(quantity)
+        if (templateRepository.exists(id)) {
+
+            val quantity = learnedRepository.findBy(id).increaseAvailableAndTotal()
+            learnedRepository.saveBuff(quantity)
+        }
     }
 
     // MAIN:

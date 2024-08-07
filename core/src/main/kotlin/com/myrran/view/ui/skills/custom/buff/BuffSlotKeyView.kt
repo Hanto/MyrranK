@@ -8,11 +8,14 @@ import com.badlogic.gdx.scenes.scene2d.Touchable
 import com.badlogic.gdx.scenes.scene2d.actions.Actions
 import com.badlogic.gdx.scenes.scene2d.ui.Table
 import com.badlogic.gdx.utils.Align
+import com.myrran.controller.BuffSKillController
 import com.myrran.domain.skills.custom.BuffSkill
 import com.myrran.domain.skills.custom.BuffSkillSlotContent.NoBuffSkill
 import com.myrran.domain.skills.custom.buff.BuffSkillSlot
 import com.myrran.domain.skills.lock.LockType
 import com.myrran.view.ui.misc.TextView
+import com.myrran.view.ui.misc.UIClickListener
+import com.myrran.view.ui.misc.UIClickListener.Button.RIGHT_BUTTON
 import com.myrran.view.ui.skills.assets.PURPLE_LIGHT
 import com.myrran.view.ui.skills.assets.SkillViewAssets
 
@@ -21,6 +24,7 @@ class BuffSlotKeyView(
 
     private val model: BuffSkillSlot,
     private val assets: SkillViewAssets,
+    private val controller: BuffSKillController
 
 ): Table()
 {
@@ -33,6 +37,7 @@ class BuffSlotKeyView(
     init {
 
         touchable = Touchable.enabled
+        addListener(UIClickListener(RIGHT_BUTTON) { controller.removeBuffSkill() })
         top().center()
         setBackground(assets.tableBackgroundLight)
         rebuildTable()

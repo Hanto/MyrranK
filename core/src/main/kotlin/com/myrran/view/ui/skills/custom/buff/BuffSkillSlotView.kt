@@ -8,8 +8,6 @@ import com.myrran.domain.skills.custom.BuffSkillSlotContent.NoBuffSkill
 import com.myrran.domain.skills.custom.buff.BuffSkillSlot
 import com.myrran.domain.skills.custom.stat.Stat
 import com.myrran.domain.skills.custom.stat.StatId
-import com.myrran.view.ui.misc.UIClickListener
-import com.myrran.view.ui.misc.UIClickListener.Button.RIGHT_BUTTON
 import com.myrran.view.ui.skills.SkillViewId
 import com.myrran.view.ui.skills.assets.SkillViewAssets
 import com.myrran.view.ui.skills.custom.stat.StatsView
@@ -23,7 +21,7 @@ class BuffSkillSlotView(
 
 ): Table(), Identifiable<SkillViewId>
 {
-    val buffSlotKeyView: BuffSlotKeyView = BuffSlotKeyView(model, assets)
+    val buffSlotKeyView: BuffSlotKeyView = BuffSlotKeyView(model, assets, controller)
     private var stats: StatsView = createStatsView()
 
     // LAYOUT:
@@ -32,7 +30,6 @@ class BuffSkillSlotView(
     init {
 
         left()
-        buffSlotKeyView.addListener(UIClickListener(RIGHT_BUTTON) { controller.removeBuffSkill() })
         rebuildTable()
     }
 

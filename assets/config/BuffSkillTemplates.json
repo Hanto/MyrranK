@@ -136,5 +136,23 @@
         "keys": [
             "a", "b", "c", "d", "e"
         ]
+    },
+    {
+        "id": "IMPACT_1",
+        "type": "BOMB",
+        "name": "Impact",
+        "stats": [
+            {
+                "id": "DAMAGE",
+                "name": "damage",
+                "baseBonus": 10.0,
+                "maximum": 50,
+                "upgradeCost": 2.0,
+                "bonusPerUpgrade": 1.0
+            }
+        ],
+        "keys": [
+            "a", "b", "c", "d", "e"
+        ]
     }
 ]

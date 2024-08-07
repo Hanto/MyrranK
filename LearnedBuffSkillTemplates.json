@@ -1,21 +1,25 @@
 [ {
   "id" : "FIRE_1",
-  "avaiable" : 0,
-  "total" : 1
+  "avaiable" : 1,
+  "total" : 2
 }, {
   "id" : "BOMB_1",
-  "avaiable" : 1,
-  "total" : 1
+  "avaiable" : 2,
+  "total" : 2
 }, {
   "id" : "SLOW_1",
-  "avaiable" : 1,
-  "total" : 1
+  "avaiable" : 2,
+  "total" : 2
 }, {
   "id" : "SILENCE_1",
-  "avaiable" : 1,
-  "total" : 1
+  "avaiable" : 2,
+  "total" : 2
 }, {
   "id" : "ROOT_1",
-  "avaiable" : 1,
-  "total" : 1
+  "avaiable" : 2,
+  "total" : 2
+}, {
+  "id" : "IMPACT_1",
+  "avaiable" : 0,
+  "total" : 2
 } ]

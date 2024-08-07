@@ -9,7 +9,9 @@ import com.myrran.domain.Identifiable
 import com.myrran.domain.events.BuffSkillChangedEvent
 import com.myrran.domain.events.BuffSkillRemovedEvent
 import com.myrran.domain.events.BuffSkillStatUpgradedEvent
+import com.myrran.domain.events.SkillCreatedEvent
 import com.myrran.domain.events.SkillEvent
+import com.myrran.domain.events.SkillRemovedEvent
 import com.myrran.domain.events.SkillStatUpgradedEvent
 import com.myrran.domain.events.SubSkillChangedEvent
 import com.myrran.domain.events.SubSkillRemovedEvent
@@ -28,7 +30,7 @@ import com.myrran.view.ui.skills.custom.subskill.SubSkillSlotView
 class SkillView(
 
     override val id: SkillViewId,
-    private val model: Skill,
+    val model: Skill,
     private val assets: SkillViewAssets,
     private val controller: SkillController,
     private val factory: SkillViewFactory,
@@ -38,7 +40,7 @@ class SkillView(
     private var skillHeader: SkillHeaderView = SkillHeaderView(model, assets)
     private var skillStats: StatsView = StatsView( { model.getStats() }, assets, controller)
     private var subSlots: Map<SubSkillSlotId, SubSkillSlotView> = createSubSkillSlotViews()
-    private val skillKey: SkillSlotKeyView = SkillSlotKeyView(model, assets)
+    private val skillKey: SkillSlotKeyView = SkillSlotKeyView(model, assets, controller)
     private val table = Table().top().left()
 
     // LAYOUT:
@@ -46,7 +48,6 @@ class SkillView(
 
     init {
 
-        model.addObserver(this)
         addListener(UIClickListener { toFront() } )
 
         top().left()
@@ -80,7 +81,7 @@ class SkillView(
     // UPDATE:
     //--------------------------------------------------------------------------------------------------------
 
-    private fun update() {
+    fun update() {
 
         factory.disposeView(id)
         subSlots.values.forEach { it.dispose() }
@@ -92,6 +93,8 @@ class SkillView(
 
         when (event) {
 
+            is SkillCreatedEvent -> Unit
+            is SkillRemovedEvent -> Unit
             is SkillStatUpgradedEvent ->  { skillStats.update(event.statId); skillHeader.update() }
             is SubSkillStatUpgradedEvent -> { subSlots[event.subSlot]?.update(event.statId); skillHeader.update() }
             is SubSkillChangedEvent -> update()
@@ -106,7 +109,6 @@ class SkillView(
 
         factory.disposeView(id)
         subSlots.values.forEach { it.dispose() }
-        model.removeAllObservers()
     }
 
     // HELPER:

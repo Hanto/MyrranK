@@ -4,15 +4,19 @@ import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.scenes.scene2d.Touchable
 import com.badlogic.gdx.scenes.scene2d.ui.Table
 import com.badlogic.gdx.utils.Align
+import com.myrran.controller.SkillController
 import com.myrran.domain.skills.custom.Skill
 import com.myrran.domain.skills.custom.skill.SkillName
 import com.myrran.view.ui.misc.TextView
+import com.myrran.view.ui.misc.UIClickListener
+import com.myrran.view.ui.misc.UIClickListener.Button.RIGHT_BUTTON
 import com.myrran.view.ui.skills.assets.SkillViewAssets
 
 class SkillSlotKeyView(
 
     private val model: Skill,
-    private val assets: SkillViewAssets
+    private val assets: SkillViewAssets,
+    private val controller: SkillController
 
 ): Table()
 {
@@ -21,6 +25,7 @@ class SkillSlotKeyView(
     init {
 
         touchable = Touchable.enabled
+        addListener(UIClickListener(RIGHT_BUTTON) { controller.removeSkill() })
         top().center()
         setBackground(assets.tableBackgroundLight)
         rebuildTable()

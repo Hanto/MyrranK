@@ -1,5 +1,30 @@
 [
     {
+        "id": "POINT_1",
+        "type": "EXPLOSION",
+        "name": "Point",
+        "stats": [
+            {
+                "id": "RADIUS",
+                "name": "radius",
+                "baseBonus": 1.0
+            }
+        ],
+        "slots": [
+            {
+                "id": "DEBUFF_1",
+                "name": "Debuff 1",
+                "lock": [
+                    "a",
+                    "b"
+                ]
+            }
+        ],
+        "keys": [
+            "A", "B", "C", "D"
+        ]
+    },
+    {
         "id": "EXPLOSION_1",
         "type": "EXPLOSION",
         "name": "Explosion",

@@ -1,5 +1,6 @@
 package com.myrran.view.ui.skills
 
+import com.myrran.controller.BookSkillController
 import com.myrran.controller.BuffDaDSource
 import com.myrran.controller.BuffDaDTarget
 import com.myrran.controller.DragAndDropManager
@@ -64,10 +65,11 @@ class SkillViewFactory(
     // SKILL:
     //--------------------------------------------------------------------------------------------------------
 
-    fun createSkillView(model: Skill, controller: SkillController): SkillView {
+    fun createSkillView(model: Skill, controller: BookSkillController): SkillView {
 
         val id = SkillViewId()
-        val view = SkillView(id, model, assets, controller, this)
+        val skillController = controller.toSkillController(model)
+        val view = SkillView(id, model, assets, skillController, this)
 
         return view
     }

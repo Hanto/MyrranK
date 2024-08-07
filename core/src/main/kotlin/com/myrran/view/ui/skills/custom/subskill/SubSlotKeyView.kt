@@ -8,11 +8,14 @@ import com.badlogic.gdx.scenes.scene2d.Touchable
 import com.badlogic.gdx.scenes.scene2d.actions.Actions
 import com.badlogic.gdx.scenes.scene2d.ui.Table
 import com.badlogic.gdx.utils.Align
+import com.myrran.controller.SubSkillController
 import com.myrran.domain.skills.custom.SubSkill
 import com.myrran.domain.skills.custom.SubSkillSlotContent.NoSubSkill
 import com.myrran.domain.skills.custom.subskill.SubSkillSlot
 import com.myrran.domain.skills.lock.LockType
 import com.myrran.view.ui.misc.TextView
+import com.myrran.view.ui.misc.UIClickListener
+import com.myrran.view.ui.misc.UIClickListener.Button.RIGHT_BUTTON
 import com.myrran.view.ui.skills.assets.PURPLE_LIGHT
 import com.myrran.view.ui.skills.assets.SkillViewAssets
 
@@ -20,7 +23,8 @@ import com.myrran.view.ui.skills.assets.SkillViewAssets
 class SubSlotKeyView(
 
     private val model: SubSkillSlot,
-    private val assets: SkillViewAssets
+    private val assets: SkillViewAssets,
+    private val controller: SubSkillController,
 
 ): Table()
 {
@@ -33,6 +37,7 @@ class SubSlotKeyView(
     init {
 
         touchable = Touchable.enabled
+        addListener(UIClickListener(RIGHT_BUTTON) { controller.removeSubSkill() })
         top().center()
         setBackground(assets.tableBackgroundLight)
         rebuildTable()

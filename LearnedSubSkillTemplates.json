@@ -1,13 +1,17 @@
 [ {
   "id" : "EXPLOSION_1",
-  "avaiable" : 0,
-  "total" : 1
+  "avaiable" : 1,
+  "total" : 2
 }, {
   "id" : "TRAIL_1",
-  "avaiable" : 1,
-  "total" : 1
+  "avaiable" : 2,
+  "total" : 2
 }, {
   "id" : "CONE_1",
+  "avaiable" : 2,
+  "total" : 2
+}, {
+  "id" : "POINT_1",
   "avaiable" : 1,
-  "total" : 1
+  "total" : 2
 } ]

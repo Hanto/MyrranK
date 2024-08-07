@@ -1,5 +1,9 @@
 [ {
   "id" : "FIREBOLT_1",
-  "avaiable" : 1,
-  "total" : 1
+  "avaiable" : 3,
+  "total" : 3
+}, {
+  "id" : "BOLT_1",
+  "avaiable" : 0,
+  "total" : 2
 } ]

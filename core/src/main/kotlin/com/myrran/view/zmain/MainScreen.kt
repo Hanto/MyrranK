@@ -10,9 +10,8 @@ import com.badlogic.gdx.scenes.scene2d.Stage
 import com.myrran.application.LearnedSkillTemplates
 import com.myrran.application.SpellBook
 import com.myrran.badlogic.DaD
+import com.myrran.controller.BookSkillController
 import com.myrran.controller.DragAndDropManager
-import com.myrran.controller.SkillController
-import com.myrran.domain.skills.custom.skill.SkillId
 import com.myrran.domain.utils.DeSerializer
 import com.myrran.infraestructure.assetsconfig.AssetsConfigRepository
 import com.myrran.infraestructure.learnedskilltemplate.LearnedSkillTemplateRepository
@@ -26,6 +25,7 @@ import com.myrran.view.ui.skills.SkillViewFactory
 import com.myrran.view.ui.skills.SkillViewId
 import com.myrran.view.ui.skills.assets.SkillViewAssets
 import com.myrran.view.ui.skills.book.BuffSkillTemplateViews
+import com.myrran.view.ui.skills.book.SkillsView
 import com.myrran.view.ui.skills.book.SubSkillTemplateViews
 import ktx.app.KtxScreen
 import java.util.UUID
@@ -76,8 +76,6 @@ class MainScreen(
 
         //playerSkillBook.addSubSkillTo(SkillId.from("95a1bfb2-a2bd-47d3-920b-e7f9ad798b76"), SubSkillSlotId("IMPACT"), SubSkillTemplateId("EXPLOSION_1"))
         //val controller = SkillController(skill.id, playerSkillBook)
-        val controller = SkillController(SkillId.from("95a1bfb2-a2bd-47d3-920b-e7f9ad798b76"), spellBook)
-
 
         val assets = SkillViewAssets(
             skillIcon = atlas.getTextureRegion("Atlas.atlas", "TexturasIconos/FireBall"),
@@ -95,11 +93,12 @@ class MainScreen(
         val dragAndDropManager = DragAndDropManager(DaD(), DaD())
         val skillViewFactory = SkillViewFactory(dragAndDropManager, assets)
 
+        /*
         val skill = spellBook.created.findBy(SkillId.from("95a1bfb2-a2bd-47d3-920b-e7f9ad798b76"))!!
         val skillView = skillViewFactory.createSkillView(skill, controller)
         uiStage.addActor(skillView)
         skillView.setPosition(550f, 100f)
-
+        */
         val buffList = BuffSkillTemplateViews(SkillViewId(UUID.randomUUID()), spellBook, assets, skillViewFactory)
         uiStage.addActor(buffList)
         buffList.setPosition(0f, 157f)
@@ -107,6 +106,14 @@ class MainScreen(
         val subList = SubSkillTemplateViews(SkillViewId(UUID.randomUUID()), spellBook, assets, skillViewFactory)
         uiStage.addActor(subList)
         subList.setPosition(264f, 157f)
+
+        val bookController = BookSkillController(spellBook)
+        val skillList = SkillsView(SkillViewId(UUID.randomUUID()), spellBook, assets, bookController, skillViewFactory)
+        uiStage.addActor(skillList)
+        skillList.setPosition(550f, 20f)
+
+        //spellBook.removeSkill(SkillId.from("3e4d0937-2a1a-45cc-a793-649130461dc0"))
+        //spellBook.addSkill(SkillTemplateId("BOLT_1"))
 
         //playerSkillBook.learn(BuffSkillTemplateId("BOMB_1"))
         //skillView.setDebug(true, true)
@@ -137,7 +144,7 @@ class MainScreen(
 
     private fun clearScreen() {
 
-        Gdx.gl.glClearColor(0.3f, 0.3f, 0.3f, 1f)
+        Gdx.gl.glClearColor(0.1f, 0.1f, 0.1f, 1f)
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT)
     }
 

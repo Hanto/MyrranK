@@ -5,6 +5,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Container
 import com.badlogic.gdx.scenes.scene2d.ui.Table
 import com.badlogic.gdx.utils.Disposable
 import com.myrran.application.SpellBook
+import com.myrran.controller.BookSkillController
 import com.myrran.domain.Identifiable
 import com.myrran.domain.events.BuffSkillChangedEvent
 import com.myrran.domain.events.BuffSkillRemovedEvent
@@ -16,7 +17,7 @@ import com.myrran.domain.events.SkillStatUpgradedEvent
 import com.myrran.domain.events.SubSkillChangedEvent
 import com.myrran.domain.events.SubSkillRemovedEvent
 import com.myrran.domain.events.SubSkillStatUpgradedEvent
-import com.myrran.domain.skills.templates.subskill.SubSkillTemplateId
+import com.myrran.domain.skills.custom.skill.SkillId
 import com.myrran.domain.utils.observer.Observer
 import com.myrran.view.ui.misc.AutoFocusScrollPane
 import com.myrran.view.ui.misc.UIClickListener
@@ -24,19 +25,20 @@ import com.myrran.view.ui.misc.UIMoveListener
 import com.myrran.view.ui.skills.SkillViewFactory
 import com.myrran.view.ui.skills.SkillViewId
 import com.myrran.view.ui.skills.assets.SkillViewAssets
-import com.myrran.view.ui.skills.templates.SubSkillTemplateView
+import com.myrran.view.ui.skills.custom.skill.SkillView
 
-class SubSkillTemplateViews(
+class SkillsView(
 
     override val id: SkillViewId,
     private val model: SpellBook,
     private val assets: SkillViewAssets,
+    private val controller: BookSkillController,
     private val factory: SkillViewFactory,
 
 ): Container<Table>(), Identifiable<SkillViewId>, Observer<SkillEvent>, Disposable {
 
-    private val header: TemplatesHeaderView = TemplatesHeaderView("Subforms", assets)
-    private var views: Map<SubSkillTemplateId, SubSkillTemplateView> = createSubSkillTemplateViews()
+    private val header: TemplatesHeaderView = TemplatesHeaderView("Spells", assets)
+    private var views: Map<SkillId, SkillView> = createSkillViews()
     private val rootTable = Table()
 
     init {
@@ -58,7 +60,7 @@ class SubSkillTemplateViews(
         rootTable.clearChildren()
 
         val templatesTable = Table().top().left()
-        views.values.sortedBy { it.model.value.name.value }.forEach { templatesTable.add(it).left().row() }
+        views.values.sortedBy { it.model.name.value }.forEach { templatesTable.add(it).left().row() }
         val scrollPane = AutoFocusScrollPane(templatesTable)
         scrollPane.setScrollbarsVisible(true)
 
@@ -73,24 +75,27 @@ class SubSkillTemplateViews(
     // UPDATE:
     //--------------------------------------------------------------------------------------------------------
 
-    private fun updateQuantities() {
+    private fun update() {
 
-        model.learnedSubSkillTemplates().forEach { views[it.value.id]?.setAvailable(it) }
+        factory.disposeView(id)
+        views.values.forEach { factory.disposeView(it.id) }
+        views = createSkillViews()
+        rebuildTable()
     }
 
     override fun propertyChange(event: SkillEvent) {
 
         when (event) {
 
-            is SkillCreatedEvent -> Unit
-            is SkillRemovedEvent -> Unit
-            is SkillStatUpgradedEvent ->  Unit
-            is SubSkillStatUpgradedEvent -> Unit
-            is SubSkillChangedEvent -> updateQuantities()
-            is SubSkillRemovedEvent -> updateQuantities()
-            is BuffSkillStatUpgradedEvent -> Unit
-            is BuffSkillChangedEvent -> Unit
-            is BuffSkillRemovedEvent -> Unit
+            is SkillCreatedEvent -> update()
+            is SkillRemovedEvent -> update()
+            is SkillStatUpgradedEvent ->  views[event.skillId]?.propertyChange(event)
+            is SubSkillStatUpgradedEvent -> views[event.skillId]?.propertyChange(event)
+            is SubSkillChangedEvent -> views[event.skillId]?.propertyChange(event)
+            is SubSkillRemovedEvent -> views[event.skillId]?.propertyChange(event)
+            is BuffSkillStatUpgradedEvent -> views[event.skillId]?.propertyChange(event)
+            is BuffSkillChangedEvent -> views[event.skillId]?.propertyChange(event)
+            is BuffSkillRemovedEvent -> views[event.skillId]?.propertyChange(event)
         }
     }
 
@@ -104,8 +109,8 @@ class SubSkillTemplateViews(
     // HELPER:
     //--------------------------------------------------------------------------------------------------------
 
-    private fun createSubSkillTemplateViews(): Map<SubSkillTemplateId, SubSkillTemplateView> =
+    private fun createSkillViews(): Map<SkillId, SkillView> =
 
-        model.learnedSubSkillTemplates()
-            .associate { it.value.id to factory.createSubTemplateView(it) }
+        model.created.findAll()
+            .associate { it.id to factory.createSkillView(it, controller) }
 }

@@ -1,6 +1,7 @@
 package com.myrran.controller
 
 import com.myrran.application.SpellBook
+import com.myrran.domain.skills.custom.Skill
 import com.myrran.domain.skills.custom.buff.BuffSkillSlot
 import com.myrran.domain.skills.custom.buff.BuffSkillSlotId
 import com.myrran.domain.skills.custom.skill.SkillId
@@ -18,10 +19,10 @@ class BookSkillController(
     private val book: SpellBook,
 )
 {
-    fun toSkillController(skillId: SkillId): SkillController =
+    fun toSkillController(skill: Skill): SkillController =
 
         SkillController(
-            skillId = skillId,
+            skillId = skill.id,
             book = book,)
 }
 
@@ -38,6 +39,10 @@ class SkillController(
     override fun upgrade(stat: StatId, numUpgrades: NumUpgrades) =
 
         book.upgrade(skillId, stat, numUpgrades)
+
+    fun removeSkill() =
+
+        book.removeSkill(skillId)
 
     fun toSubSkillController(subSkillSlot: SubSkillSlot): SubSkillController =
 

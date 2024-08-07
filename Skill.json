@@ -1,13 +1,13 @@
 [ {
-  "id" : "95a1bfb2-a2bd-47d3-920b-e7f9ad798b76",
-  "templateId" : "FIREBOLT_1",
+  "id" : "b8e6dbad-b3b2-4a87-8c12-f5cbbd2c2297",
+  "templateId" : "BOLT_1",
   "type" : "BOLT",
-  "name" : "Fire bolt",
+  "name" : "Bolt",
   "stats" : [ {
     "id" : "SPEED",
     "name" : "speed",
     "baseBonus" : 10.0,
-    "actual" : 5,
+    "actual" : 0,
     "maximum" : 20,
     "upgradeCost" : 2.0,
     "bonusPerUpgrade" : 1.0
@@ -15,7 +15,7 @@
     "id" : "Cooldown",
     "name" : "cooldown",
     "baseBonus" : 10.0,
-    "actual" : 20,
+    "actual" : 0,
     "maximum" : 20,
     "upgradeCost" : 2.0,
     "bonusPerUpgrade" : 1.0
@@ -23,9 +23,73 @@
   "slots" : [ {
     "id" : "IMPACT",
     "name" : "impact",
-    "lock" : [ "A", "B" ],
+    "lock" : [ "A", "B", "C", "D" ],
     "content" : {
-      "id" : "034a191b-d2e5-4f0d-882b-f242e30fc8b8",
+      "id" : "06d0d1fc-5eca-4d8f-8a04-f2de1d96f9c8",
+      "templateId" : "POINT_1",
+      "type" : "EXPLOSION",
+      "name" : "Point",
+      "stats" : [ {
+        "id" : "RADIUS",
+        "name" : "radius",
+        "baseBonus" : 1.0,
+        "actual" : null,
+        "maximum" : null,
+        "upgradeCost" : null,
+        "bonusPerUpgrade" : null
+      } ],
+      "slots" : [ {
+        "id" : "DEBUFF_1",
+        "name" : "Debuff 1",
+        "lock" : [ "a", "b" ],
+        "content" : {
+          "id" : "4dbbb976-cf17-4c89-b84d-b4eb973e03a4",
+          "templateId" : "IMPACT_1",
+          "type" : "BOMB",
+          "name" : "Impact",
+          "stats" : [ {
+            "id" : "DAMAGE",
+            "name" : "damage",
+            "baseBonus" : 10.0,
+            "actual" : 0,
+            "maximum" : 50,
+            "upgradeCost" : 2.0,
+            "bonusPerUpgrade" : 1.0
+          } ],
+          "keys" : [ "a", "b", "c", "d", "e" ]
+        }
+      } ],
+      "keys" : [ "A", "B", "C", "D" ]
+    }
+  } ]
+}, {
+  "id" : "2cfa4cbe-e101-402a-b29a-861fbd0a89e0",
+  "templateId" : "BOLT_1",
+  "type" : "BOLT",
+  "name" : "Bolt",
+  "stats" : [ {
+    "id" : "SPEED",
+    "name" : "speed",
+    "baseBonus" : 10.0,
+    "actual" : 0,
+    "maximum" : 20,
+    "upgradeCost" : 2.0,
+    "bonusPerUpgrade" : 1.0
+  }, {
+    "id" : "Cooldown",
+    "name" : "cooldown",
+    "baseBonus" : 10.0,
+    "actual" : 0,
+    "maximum" : 20,
+    "upgradeCost" : 2.0,
+    "bonusPerUpgrade" : 1.0
+  } ],
+  "slots" : [ {
+    "id" : "IMPACT",
+    "name" : "impact",
+    "lock" : [ "A", "B", "C", "D" ],
+    "content" : {
+      "id" : "a03fd15c-a86d-4ae8-8ad9-47fd058b66e7",
       "templateId" : "EXPLOSION_1",
       "type" : "EXPLOSION",
       "name" : "Explosion",
@@ -43,7 +107,27 @@
         "name" : "Debuff 1",
         "lock" : [ "c", "d" ],
         "content" : {
-          "id" : "598b7ca2-ff70-4672-8d6f-5f132ca78568",
+          "id" : "728486be-c8e7-4ee1-8ce9-0a2df3c258cc",
+          "templateId" : "IMPACT_1",
+          "type" : "BOMB",
+          "name" : "Impact",
+          "stats" : [ {
+            "id" : "DAMAGE",
+            "name" : "damage",
+            "baseBonus" : 10.0,
+            "actual" : 0,
+            "maximum" : 50,
+            "upgradeCost" : 2.0,
+            "bonusPerUpgrade" : 1.0
+          } ],
+          "keys" : [ "a", "b", "c", "d", "e" ]
+        }
+      }, {
+        "id" : "DEBUFF_2",
+        "name" : "Debuff 2",
+        "lock" : [ "c", "d" ],
+        "content" : {
+          "id" : "24f10823-e78e-4351-a47c-f810e3784dd0",
           "templateId" : "FIRE_1",
           "type" : "FIRE",
           "name" : "Fire",
@@ -66,18 +150,8 @@
           } ],
           "keys" : [ "a", "b", "c", "d", "e" ]
         }
-      }, {
-        "id" : "DEBUFF_2",
-        "name" : "Debuff 2",
-        "lock" : [ "c", "d" ],
-        "content" : null
       } ],
       "keys" : [ "A", "B", "C", "D" ]
     }
-  }, {
-    "id" : "TRAIL",
-    "name" : "trail",
-    "lock" : [ "A", "B" ],
-    "content" : null
   } ]
 } ]
