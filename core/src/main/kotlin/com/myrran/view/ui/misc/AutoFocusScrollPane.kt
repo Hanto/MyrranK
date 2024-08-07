@@ -12,11 +12,8 @@ class AutoFocusScrollPane(actor: Actor): ScrollPane(actor)
         addListener(object: InputListener() {
 
             override fun enter(event: InputEvent, x: Float, y: Float, pointer: Int, fromActor: Actor?) {
-                stage?.setScrollFocus(this@AutoFocusScrollPane)
-            }
 
-            override fun exit(event: InputEvent, x: Float, y: Float, pointer: Int, toActor: Actor?) {
-                stage?.setScrollFocus(null)
+                stage?.setScrollFocus(this@AutoFocusScrollPane)
             }
         })
     }

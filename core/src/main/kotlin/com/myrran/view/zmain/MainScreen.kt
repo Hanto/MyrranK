@@ -101,16 +101,16 @@ class MainScreen(
         */
         val buffList = BuffSkillTemplateViews(SkillViewId(UUID.randomUUID()), spellBook, assets, skillViewFactory)
         uiStage.addActor(buffList)
-        buffList.setPosition(0f, 157f)
+        buffList.setPosition(3f, 154f)
 
         val subList = SubSkillTemplateViews(SkillViewId(UUID.randomUUID()), spellBook, assets, skillViewFactory)
         uiStage.addActor(subList)
-        subList.setPosition(264f, 157f)
+        subList.setPosition(268f, 154f)
 
         val bookController = BookSkillController(spellBook)
         val skillList = SkillsView(SkillViewId(UUID.randomUUID()), spellBook, assets, bookController, skillViewFactory)
         uiStage.addActor(skillList)
-        skillList.setPosition(550f, 20f)
+        skillList.setPosition(560f, 20f)
 
         //spellBook.removeSkill(SkillId.from("3e4d0937-2a1a-45cc-a793-649130461dc0"))
         //spellBook.addSkill(SkillTemplateId("BOLT_1"))

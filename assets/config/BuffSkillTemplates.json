@@ -147,8 +147,8 @@
                 "name": "damage",
                 "baseBonus": 10.0,
                 "maximum": 50,
-                "upgradeCost": 2.0,
-                "bonusPerUpgrade": 1.0
+                "upgradeCost": 4.0,
+                "bonusPerUpgrade": 5.0
             }
         ],
         "keys": [

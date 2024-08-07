@@ -6,16 +6,17 @@ data class NumUpgrades(
 
 ) {
     companion object {
+
         val ZERO = NumUpgrades(0)
     }
 
-    operator fun plus(upgradeBy: NumUpgrades): NumUpgrades =
+    operator fun plus(other: NumUpgrades): NumUpgrades =
 
-        NumUpgrades((value + upgradeBy.value))
+        NumUpgrades((value + other.value))
 
-    operator fun minus(upgradeBy: NumUpgrades): NumUpgrades =
+    operator fun minus(other: NumUpgrades): NumUpgrades =
 
-        NumUpgrades(value - upgradeBy.value)
+        NumUpgrades(value - other.value)
 
     operator fun times(bonusPerUpgrade: BonusPerUpgrade): StatBonus =
 
@@ -24,6 +25,10 @@ data class NumUpgrades(
     operator fun times(upgradeCost: UpgradeCost): UpgradeCost =
 
         UpgradeCost(value * upgradeCost.value)
+
+    operator fun compareTo(other: NumUpgrades): Int =
+
+        value.compareTo(other.value)
 
     fun atMax(max: NumUpgrades): NumUpgrades =
 

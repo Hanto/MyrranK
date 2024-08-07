@@ -7,7 +7,7 @@
     "id" : "SPEED",
     "name" : "speed",
     "baseBonus" : 10.0,
-    "actual" : 0,
+    "actual" : 19,
     "maximum" : 20,
     "upgradeCost" : 2.0,
     "bonusPerUpgrade" : 1.0
@@ -43,7 +43,7 @@
         "name" : "Debuff 1",
         "lock" : [ "a", "b" ],
         "content" : {
-          "id" : "4dbbb976-cf17-4c89-b84d-b4eb973e03a4",
+          "id" : "d806f59e-905a-4481-9161-3e6f6a63ce69",
           "templateId" : "IMPACT_1",
           "type" : "BOMB",
           "name" : "Impact",
@@ -51,10 +51,10 @@
             "id" : "DAMAGE",
             "name" : "damage",
             "baseBonus" : 10.0,
-            "actual" : 0,
+            "actual" : 21,
             "maximum" : 50,
-            "upgradeCost" : 2.0,
-            "bonusPerUpgrade" : 1.0
+            "upgradeCost" : 4.0,
+            "bonusPerUpgrade" : 5.0
           } ],
           "keys" : [ "a", "b", "c", "d", "e" ]
         }
@@ -71,7 +71,7 @@
     "id" : "SPEED",
     "name" : "speed",
     "baseBonus" : 10.0,
-    "actual" : 0,
+    "actual" : 14,
     "maximum" : 20,
     "upgradeCost" : 2.0,
     "bonusPerUpgrade" : 1.0
@@ -97,7 +97,7 @@
         "id" : "RADIUS",
         "name" : "radius",
         "baseBonus" : 10.0,
-        "actual" : 0,
+        "actual" : 8,
         "maximum" : 20,
         "upgradeCost" : 2.0,
         "bonusPerUpgrade" : 1.0
@@ -107,7 +107,7 @@
         "name" : "Debuff 1",
         "lock" : [ "c", "d" ],
         "content" : {
-          "id" : "728486be-c8e7-4ee1-8ce9-0a2df3c258cc",
+          "id" : "58341a38-8336-4134-b7b4-7a4341d4183d",
           "templateId" : "IMPACT_1",
           "type" : "BOMB",
           "name" : "Impact",
@@ -117,8 +117,8 @@
             "baseBonus" : 10.0,
             "actual" : 0,
             "maximum" : 50,
-            "upgradeCost" : 2.0,
-            "bonusPerUpgrade" : 1.0
+            "upgradeCost" : 4.0,
+            "bonusPerUpgrade" : 5.0
           } ],
           "keys" : [ "a", "b", "c", "d", "e" ]
         }
@@ -135,7 +135,7 @@
             "id" : "DAMAGE",
             "name" : "damage per tick",
             "baseBonus" : 10.0,
-            "actual" : 0,
+            "actual" : 25,
             "maximum" : 50,
             "upgradeCost" : 2.0,
             "bonusPerUpgrade" : 1.0
@@ -143,7 +143,7 @@
             "id" : "DURATION",
             "name" : "duration",
             "baseBonus" : 10.0,
-            "actual" : 0,
+            "actual" : 14,
             "maximum" : 50,
             "upgradeCost" : 2.0,
             "bonusPerUpgrade" : 1.0
