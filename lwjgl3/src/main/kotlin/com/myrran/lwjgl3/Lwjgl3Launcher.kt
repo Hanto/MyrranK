@@ -4,7 +4,7 @@ package com.myrran.lwjgl3
 
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3Application
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3ApplicationConfiguration
-import com.myrran.view.zmain.Main
+import com.myrran.infraestructure.view.screens.Main
 
 /** Launches the desktop (LWJGL3) application. */
 fun main() {

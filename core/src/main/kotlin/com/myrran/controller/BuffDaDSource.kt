@@ -10,8 +10,8 @@ import com.myrran.domain.misc.Quantity
 import com.myrran.domain.skills.templates.BuffSkillTemplate
 import com.myrran.infraestructure.assets.SkillViewAssets
 import com.myrran.infraestructure.view.ui.misc.TextView
-import com.myrran.view.ui.skills.SkillViewId
-import com.myrran.view.ui.skills.templates.buff.BuffTemplateView
+import com.myrran.infraestructure.view.ui.skills.SkillViewId
+import com.myrran.infraestructure.view.ui.skills.templates.buff.BuffTemplateView
 
 class BuffDaDSource(
 
