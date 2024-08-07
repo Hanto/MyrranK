@@ -1,9 +1,9 @@
 package com.myrran.infraestructure.repositories.skill
 
 import com.myrran.domain.skills.lock.LockType
-import com.myrran.domain.spells.buff.BuffType
+import com.myrran.domain.spells.effect.EffectType
+import com.myrran.domain.spells.form.FormSkillType
 import com.myrran.domain.spells.spell.SkillType
-import com.myrran.domain.spells.subspell.SubSkillType
 
 data class SkillEntity(
     val id: String,
@@ -11,37 +11,37 @@ data class SkillEntity(
     val type: SkillType,
     val name: String,
     val stats: List<StatEntity>,
-    val slots: List<SubSkillSlotEntity>
+    val slots: List<FormSkillSlotEntity>
 )
 
-data class SubSkillSlotEntity(
+data class FormSkillSlotEntity(
     val id: String,
     val name: String,
     val lock: List<LockType>,
-    val content: SubSkillEntity?
+    val content: FormSkillEntity?
 )
 
-data class SubSkillEntity(
+data class FormSkillEntity(
     val id: String,
     val templateId: String,
-    val type: SubSkillType,
+    val type: FormSkillType,
     val name: String,
     val stats: List<StatEntity>,
-    val slots: List<BuffSKillSlotEntity>,
+    val slots: List<EffectSKillSlotEntity>,
     val keys: Collection<LockType>
 )
 
-data class BuffSKillSlotEntity(
+data class EffectSKillSlotEntity(
     val id: String,
     val name: String,
     val lock: List<LockType>,
-    val content: BuffSkillEntity?
+    val content: EffectSkillEntity?
 )
 
-data class BuffSkillEntity(
+data class EffectSkillEntity(
     val id: String,
     val templateId: String,
-    val type: BuffType,
+    val type: EffectType,
     val name: String,
     val stats: List<StatEntity>,
     val keys: List<LockType>

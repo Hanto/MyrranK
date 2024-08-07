@@ -1,8 +1,11 @@
 package com.myrran.domain.skills.templates.skill
 
-import com.myrran.domain.skills.created.buff.BuffSkillName
-import com.myrran.domain.skills.created.buff.BuffSkillSlotId
-import com.myrran.domain.skills.created.buff.BuffSkillSlotName
+import com.myrran.domain.skills.created.effect.EffectSkillName
+import com.myrran.domain.skills.created.effect.EffectSkillSlotId
+import com.myrran.domain.skills.created.effect.EffectSkillSlotName
+import com.myrran.domain.skills.created.form.FormSkillName
+import com.myrran.domain.skills.created.form.FormSkillSlotId
+import com.myrran.domain.skills.created.form.FormSkillSlotName
 import com.myrran.domain.skills.created.skill.SkillName
 import com.myrran.domain.skills.created.stat.BonusPerUpgrade
 import com.myrran.domain.skills.created.stat.NumUpgrades
@@ -10,22 +13,18 @@ import com.myrran.domain.skills.created.stat.StatBonus
 import com.myrran.domain.skills.created.stat.StatId
 import com.myrran.domain.skills.created.stat.StatName
 import com.myrran.domain.skills.created.stat.UpgradeCost
-import com.myrran.domain.skills.created.subskill.SubSkillName
-import com.myrran.domain.skills.created.subskill.SubSkillSlotId
-import com.myrran.domain.skills.created.subskill.SubSkillSlotName
 import com.myrran.domain.skills.lock.Lock
 import com.myrran.domain.skills.lock.LockType
-import com.myrran.domain.skills.templates.BuffSkillTemplate
-import com.myrran.domain.skills.templates.SkillTemplate
-import com.myrran.domain.skills.templates.SubSkillTemplate
-import com.myrran.domain.skills.templates.buff.BuffSkillSlotTemplate
-import com.myrran.domain.skills.templates.buff.BuffSkillTemplateId
+import com.myrran.domain.skills.templates.effect.EffectSlotTemplate
+import com.myrran.domain.skills.templates.effect.EffectTemplate
+import com.myrran.domain.skills.templates.effect.EffectTemplateId
+import com.myrran.domain.skills.templates.form.FormSlotTemplate
+import com.myrran.domain.skills.templates.form.FormTemplate
+import com.myrran.domain.skills.templates.form.FormTemplateId
 import com.myrran.domain.skills.templates.stat.StatUpgradeableTemplate
-import com.myrran.domain.skills.templates.subskill.SubSkillSlotTemplate
-import com.myrran.domain.skills.templates.subskill.SubSkillTemplateId
-import com.myrran.domain.spells.buff.BuffType
+import com.myrran.domain.spells.effect.EffectType
+import com.myrran.domain.spells.form.FormSkillType
 import com.myrran.domain.spells.spell.SkillType
-import com.myrran.domain.spells.subspell.SubSkillType
 import org.junit.jupiter.api.Test
 
 class WorldSkillBookIT {
@@ -57,23 +56,23 @@ class WorldSkillBookIT {
                 )
             ),
             slots = listOf(
-                SubSkillSlotTemplate(
-                    id = SubSkillSlotId("IMPACT"),
-                    name = SubSkillSlotName("impact"),
+                FormSlotTemplate(
+                    id = FormSkillSlotId("IMPACT"),
+                    name = FormSkillSlotName("impact"),
                     lock = Lock(listOf(LockType.A, LockType.B))
                 ),
-                SubSkillSlotTemplate(
-                    id = SubSkillSlotId("TRAIL"),
-                    name = SubSkillSlotName("trail"),
+                FormSlotTemplate(
+                    id = FormSkillSlotId("TRAIL"),
+                    name = FormSkillSlotName("trail"),
                     lock = Lock(listOf(LockType.A, LockType.B))
                 )
             )
         )
 
-        val explosion = SubSkillTemplate(
-            id = SubSkillTemplateId("EXPLOSION_1"),
-            type = SubSkillType.EXPLOSION,
-            name = SubSkillName("Explosion"),
+        val explosion = FormTemplate(
+            id = FormTemplateId("EXPLOSION_1"),
+            type = FormSkillType.EXPLOSION,
+            name = FormSkillName("Explosion"),
             stats = listOf(
                 StatUpgradeableTemplate(
                     id = StatId("RADIUS"),
@@ -85,24 +84,24 @@ class WorldSkillBookIT {
                 )
             ),
             slots = listOf(
-                BuffSkillSlotTemplate(
-                    id = BuffSkillSlotId("DEBUFF_1"),
-                    name = BuffSkillSlotName("Debuff 1"),
+                EffectSlotTemplate(
+                    id = EffectSkillSlotId("DEBUFF_1"),
+                    name = EffectSkillSlotName("Debuff 1"),
                     lock = Lock(listOf(LockType.C, LockType.D)),
                 ),
-                BuffSkillSlotTemplate(
-                    id = BuffSkillSlotId("DEBUFF_2"),
-                    name = BuffSkillSlotName("Debuff 2"),
+                EffectSlotTemplate(
+                    id = EffectSkillSlotId("DEBUFF_2"),
+                    name = EffectSkillSlotName("Debuff 2"),
                     lock = Lock(listOf(LockType.C, LockType.D)),
                 )
             ),
             keys = listOf(LockType.A)
         )
 
-        val fire = BuffSkillTemplate(
-            id = BuffSkillTemplateId("FIRE_1"),
-            type = BuffType.FIRE,
-            name = BuffSkillName("Fire"),
+        val fire = EffectTemplate(
+            id = EffectTemplateId("FIRE_1"),
+            type = EffectType.FIRE,
+            name = EffectSkillName("Fire"),
             stats = listOf(
                 StatUpgradeableTemplate(
                     id = StatId("DAMAGE"),

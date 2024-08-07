@@ -18,7 +18,7 @@ class StatTemplateHeaderView(
 
 ): Table()
 {
-    private val name = TextView("Name", assets.font12, Color.LIGHT_GRAY)
+    private val name = TextView("Name", assets.font10, Color.LIGHT_GRAY)
     private val min = TextView("Min", assets.font10, Color.LIGHT_GRAY)
     private val max = TextView("Max", assets.font10, Color.LIGHT_GRAY)
     private val ranks = TextView("ranks", assets.font10, Color.LIGHT_GRAY)

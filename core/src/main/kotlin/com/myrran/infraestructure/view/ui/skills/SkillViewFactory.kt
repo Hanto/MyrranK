@@ -1,27 +1,27 @@
 package com.myrran.infraestructure.view.ui.skills
 
-import com.myrran.controller.BookSkillController
-import com.myrran.controller.BuffDaDSource
-import com.myrran.controller.BuffDaDTarget
-import com.myrran.controller.DragAndDropManager
-import com.myrran.controller.SkillController
-import com.myrran.controller.SubDaDSource
-import com.myrran.controller.SubDaDTarget
-import com.myrran.controller.SubSkillController
 import com.myrran.domain.misc.Quantity
-import com.myrran.domain.skills.created.Skill
-import com.myrran.domain.skills.created.buff.BuffSkillSlot
-import com.myrran.domain.skills.created.subskill.SubSkillSlot
-import com.myrran.domain.skills.templates.BuffSkillTemplate
-import com.myrran.domain.skills.templates.SkillTemplate
-import com.myrran.domain.skills.templates.SubSkillTemplate
+import com.myrran.domain.skills.created.effect.EffectSkillSlot
+import com.myrran.domain.skills.created.form.FormSkillSlot
+import com.myrran.domain.skills.created.skill.Skill
+import com.myrran.domain.skills.templates.effect.EffectTemplate
+import com.myrran.domain.skills.templates.form.FormTemplate
+import com.myrran.domain.skills.templates.skill.SkillTemplate
 import com.myrran.infraestructure.assets.SkillViewAssets
-import com.myrran.infraestructure.view.ui.skills.created.buff.BuffSkillSlotView
+import com.myrran.infraestructure.controller.BookSkillController
+import com.myrran.infraestructure.controller.DragAndDropManager
+import com.myrran.infraestructure.controller.EffectDaDSource
+import com.myrran.infraestructure.controller.EffectDaDTarget
+import com.myrran.infraestructure.controller.FormDaDSource
+import com.myrran.infraestructure.controller.FormDaDTarget
+import com.myrran.infraestructure.controller.FormSkillController
+import com.myrran.infraestructure.controller.SkillController
+import com.myrran.infraestructure.view.ui.skills.created.effect.EffectSkillSlotView
+import com.myrran.infraestructure.view.ui.skills.created.form.FormSkillSlotView
 import com.myrran.infraestructure.view.ui.skills.created.skill.SkillView
-import com.myrran.infraestructure.view.ui.skills.created.subskill.SubSkillSlotView
-import com.myrran.infraestructure.view.ui.skills.templates.buff.BuffTemplateView
+import com.myrran.infraestructure.view.ui.skills.templates.effect.EffectTemplateView
+import com.myrran.infraestructure.view.ui.skills.templates.form.FormTemplateView
 import com.myrran.infraestructure.view.ui.skills.templates.skill.SkillTemplateView
-import com.myrran.infraestructure.view.ui.skills.templates.subskill.SubSkillTemplateView
 
 class SkillViewFactory(
 
@@ -38,7 +38,7 @@ class SkillViewFactory(
         dragAndDropManager.removeTarget(id)
     }
 
-    // SKILL TEMPLATE:
+    // SKILLTEMPLATE:
     //--------------------------------------------------------------------------------------------------------
 
     fun createSkillTemplateView(model: Quantity<SkillTemplate>, controller: BookSkillController): SkillTemplateView {
@@ -50,27 +50,27 @@ class SkillViewFactory(
         return view
     }
 
-    // SUBSKILL TEMPLATE:
+    // FORMTEMPLATE:
     //--------------------------------------------------------------------------------------------------------
 
-    fun createSubTemplateView(model: Quantity<SubSkillTemplate>): SubSkillTemplateView {
+    fun createFormTemplateView(model: Quantity<FormTemplate>): FormTemplateView {
 
         val id = SkillViewId()
-        val view = SubSkillTemplateView(id, model, assets)
-        val dadSource = SubDaDSource(model, view, assets)
+        val view = FormTemplateView(id, model, assets)
+        val dadSource = FormDaDSource(model, view, assets)
         dragAndDropManager.addSource(dadSource)
 
         return view
     }
 
-    // BUFF TEMPLATE:
+    // EFFECTTEMPLATE:
     //--------------------------------------------------------------------------------------------------------
 
-    fun createBuffTemplateView(model: Quantity<BuffSkillTemplate>): BuffTemplateView {
+    fun createEffectTemplateView(model: Quantity<EffectTemplate>): EffectTemplateView {
 
         val id = SkillViewId()
-        val view = BuffTemplateView(id, model, assets)
-        val dadSource = BuffDaDSource(model, view, assets)
+        val view = EffectTemplateView(id, model, assets)
+        val dadSource = EffectDaDSource(model, view, assets)
         dragAndDropManager.addSource(dadSource)
 
         return view
@@ -88,29 +88,29 @@ class SkillViewFactory(
         return view
     }
 
-    // SUBSKILL:
+    // FORMSKILL:
     //--------------------------------------------------------------------------------------------------------
 
-    fun createSubSlotView(model: SubSkillSlot, controller: SkillController): SubSkillSlotView {
+    fun createFormSlotView(model: FormSkillSlot, controller: SkillController): FormSkillSlotView {
 
         val id = SkillViewId()
-        val subController = controller.toSubSkillController(model)
-        val view = SubSkillSlotView(id, model, assets, subController, this)
-        val dadTarget = SubDaDTarget(view, assets, subController)
+        val formController = controller.toFormSkillController(model)
+        val view = FormSkillSlotView(id, model, assets, formController, this)
+        val dadTarget = FormDaDTarget(view, assets, formController)
         dragAndDropManager.addTarget(dadTarget)
 
         return view
     }
 
-    // BUFFSKILL:
+    // EFFECTSKILL:
     //--------------------------------------------------------------------------------------------------------
 
-    fun createBuffSlotView(model: BuffSkillSlot, controller: SubSkillController): BuffSkillSlotView {
+    fun createEffectSlotView(model: EffectSkillSlot, controller: FormSkillController): EffectSkillSlotView {
 
         val id = SkillViewId()
-        val buffController = controller.toBuffSkillController(model)
-        val view = BuffSkillSlotView(id, model, assets, buffController)
-        val dadTarget = BuffDaDTarget(view, assets, buffController)
+        val effectController = controller.toEffectSkillController(model)
+        val view = EffectSkillSlotView(id, model, assets, effectController)
+        val dadTarget = EffectDaDTarget(view, assets, effectController)
         dragAndDropManager.addTarget(dadTarget)
 
         return view

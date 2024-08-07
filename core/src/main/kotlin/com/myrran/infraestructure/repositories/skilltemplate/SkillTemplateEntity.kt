@@ -1,9 +1,9 @@
 package com.myrran.infraestructure.repositories.skilltemplate
 
 import com.myrran.domain.skills.lock.LockType
-import com.myrran.domain.spells.buff.BuffType
+import com.myrran.domain.spells.effect.EffectType
+import com.myrran.domain.spells.form.FormSkillType
 import com.myrran.domain.spells.spell.SkillType
-import com.myrran.domain.spells.subspell.SubSkillType
 
 data class SkillTemplateEntity(
     val id: String,
@@ -13,18 +13,18 @@ data class SkillTemplateEntity(
     val slots: List<SlotTemplateEntity>
 )
 
-data class SubSkillTemplateEntity(
+data class FormTemplateEntity(
     val id: String,
-    val type: SubSkillType,
+    val type: FormSkillType,
     val name: String,
     val stats: List<StatTemplateEntity>,
     val slots: List<SlotTemplateEntity>,
     val keys: List<LockType>
 )
 
-data class BuffSKillTemplateEntity(
+data class EffectTemplateEntity(
     val id: String,
-    val type: BuffType,
+    val type: EffectType,
     val name: String,
     val stats: List<StatTemplateEntity>,
     val keys: Collection<LockType>

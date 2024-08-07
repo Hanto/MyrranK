@@ -19,12 +19,12 @@ class StatHeaderView(
 
 ): Table()
 {
-    private val name = TextView("Name", assets.font12, LIGHT_GRAY)
-    private val min = TextView("Min", assets.font10, LIGHT_GRAY)
-    private val max = TextView("Max", assets.font10, LIGHT_GRAY)
-    private val ranks = TextView("ranks", assets.font10, LIGHT_GRAY)
-    private val cost = TextView("cost", assets.font10, LIGHT_GRAY)
-    private val bon = TextView("bon", assets.font10, LIGHT_GRAY)
+    private val name = TextView("Name", assets.font14, LIGHT_GRAY)
+    private val min = TextView("Min", assets.font14, LIGHT_GRAY)
+    private val max = TextView("Max", assets.font14, LIGHT_GRAY)
+    private val ranks = TextView("ranks", assets.font14, LIGHT_GRAY)
+    private val cost = TextView("cost", assets.font14, LIGHT_GRAY)
+    private val bon = TextView("bon", assets.font14, LIGHT_GRAY)
 
     // LAYOUT:
     //--------------------------------------------------------------------------------------------------------

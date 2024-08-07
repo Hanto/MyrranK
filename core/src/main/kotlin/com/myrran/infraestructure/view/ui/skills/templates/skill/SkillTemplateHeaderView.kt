@@ -6,10 +6,10 @@ import com.badlogic.gdx.graphics.Color.WHITE
 import com.badlogic.gdx.scenes.scene2d.ui.Image
 import com.badlogic.gdx.scenes.scene2d.ui.Table
 import com.badlogic.gdx.utils.Align
-import com.myrran.controller.SkillTemplateController
 import com.myrran.domain.misc.Quantity
-import com.myrran.domain.skills.templates.SkillTemplate
+import com.myrran.domain.skills.templates.skill.SkillTemplate
 import com.myrran.infraestructure.assets.SkillViewAssets
+import com.myrran.infraestructure.controller.SkillTemplateController
 import com.myrran.infraestructure.view.ui.misc.TextView
 import com.myrran.infraestructure.view.ui.misc.UIClickListener
 
@@ -24,7 +24,7 @@ class SkillTemplateHeaderView(
     private val icon = Image(assets.skillIcon)
     private val name = TextView(model.value.name, assets.font20, ORANGE, 2f) { it.value }
     private val available = TextView(model, assets.font14, model.toColor(), 2f) { "${it.available}/${it.total}" }
-    private val description = TextView("SUBFORM", assets.font14, WHITE, 1f)
+    private val description = TextView("SKILL", assets.font14, WHITE, 1f)
     private val createButton = TextView("Create", assets.font14, WHITE, 2f)
 
     init {

@@ -1,15 +1,15 @@
 package com.myrran.application
 
 import com.myrran.domain.misc.Quantity
-import com.myrran.domain.skills.created.BuffSkill
-import com.myrran.domain.skills.created.Skill
-import com.myrran.domain.skills.created.SubSkill
-import com.myrran.domain.skills.templates.BuffSkillTemplate
-import com.myrran.domain.skills.templates.SkillTemplate
-import com.myrran.domain.skills.templates.SubSkillTemplate
-import com.myrran.domain.skills.templates.buff.BuffSkillTemplateId
+import com.myrran.domain.skills.created.effect.EffectSkill
+import com.myrran.domain.skills.created.form.FormSkill
+import com.myrran.domain.skills.created.skill.Skill
+import com.myrran.domain.skills.templates.effect.EffectTemplate
+import com.myrran.domain.skills.templates.effect.EffectTemplateId
+import com.myrran.domain.skills.templates.form.FormTemplate
+import com.myrran.domain.skills.templates.form.FormTemplateId
+import com.myrran.domain.skills.templates.skill.SkillTemplate
 import com.myrran.domain.skills.templates.skill.SkillTemplateId
-import com.myrran.domain.skills.templates.subskill.SubSkillTemplateId
 import com.myrran.infraestructure.repositories.learnedskilltemplate.LearnedSkillTemplateRepository
 import com.myrran.infraestructure.repositories.skilltemplate.SkillTemplateRepository
 
@@ -24,14 +24,14 @@ class LearnedSkillTemplates(
         learnedRepository.findAllSkillTemplates()
             .map { it.toQuantityOf(templateRepository.findBy(it.value)!!) }
 
-    fun learnedSubSkillTemplates(): Collection<Quantity<SubSkillTemplate>> =
+    fun learnedFormTemplates(): Collection<Quantity<FormTemplate>> =
 
-        learnedRepository.findAllSubSkillTemplates()
+        learnedRepository.findAllFormTemplates()
             .map { it.toQuantityOf(templateRepository.findBy(it.value)!!) }
 
-    fun learnedBuffSkillTemplates(): Collection<Quantity<BuffSkillTemplate>> =
+    fun learnedEffectTemplates(): Collection<Quantity<EffectTemplate>> =
 
-        learnedRepository.findAllBuffSkillTemplates()
+        learnedRepository.findAllEffectTemplates()
             .map { it.toQuantityOf(templateRepository.findBy(it.value)!!) }
 
     // LEARN:
@@ -46,21 +46,21 @@ class LearnedSkillTemplates(
         }
     }
 
-    fun learn(id: SubSkillTemplateId) {
+    fun learn(id: FormTemplateId) {
 
         if (templateRepository.exists(id)) {
 
             val quantity = learnedRepository.findBy(id).increaseAvailableAndTotal()
-            learnedRepository.saveSub(quantity)
+            learnedRepository.saveForm(quantity)
         }
     }
 
-    fun learn(id: BuffSkillTemplateId) {
+    fun learn(id: EffectTemplateId) {
 
         if (templateRepository.exists(id)) {
 
             val quantity = learnedRepository.findBy(id).increaseAvailableAndTotal()
-            learnedRepository.saveBuff(quantity)
+            learnedRepository.saveEffect(quantity)
         }
     }
 
@@ -75,7 +75,7 @@ class LearnedSkillTemplates(
         return quantity.toQuantityOf(template)
     }
 
-    fun findBy(id: SubSkillTemplateId): Quantity<SubSkillTemplate> {
+    fun findBy(id: FormTemplateId): Quantity<FormTemplate> {
 
         val quantity = learnedRepository.findBy(id)
         val template = templateRepository.findBy(id)!!
@@ -83,7 +83,7 @@ class LearnedSkillTemplates(
         return quantity.toQuantityOf(template)
     }
 
-    fun findBy(id: BuffSkillTemplateId): Quantity<BuffSkillTemplate> {
+    fun findBy(id: EffectTemplateId): Quantity<EffectTemplate> {
 
         val quantity = learnedRepository.findBy(id)
         val template = templateRepository.findBy(id)!!
@@ -100,16 +100,16 @@ class LearnedSkillTemplates(
         learnedRepository.saveSkill(newQuantity)
     }
 
-    fun decreaseAndSaveSub(template: Quantity<SubSkillTemplate>) {
+    fun decreaseAndSaveForm(template: Quantity<FormTemplate>) {
 
         val newQuantity = learnedRepository.findBy(template.value.id).decreaseAvailable()
-        learnedRepository.saveSub(newQuantity)
+        learnedRepository.saveForm(newQuantity)
     }
 
-    fun decreaseAndSaveBuff(template: Quantity<BuffSkillTemplate>) {
+    fun decreaseAndSaveEffect(template: Quantity<EffectTemplate>) {
 
         val newQuantity = learnedRepository.findBy(template.value.id).decreaseAvailable()
-        learnedRepository.saveBuff(newQuantity)
+        learnedRepository.saveEffect(newQuantity)
     }
 
     // INCREASE AND SAVE:
@@ -121,27 +121,27 @@ class LearnedSkillTemplates(
         learnedRepository.saveSkill(newQuantity)
     }
 
-    fun increaseAndSave(skillTemplate: BuffSkillTemplateId) {
+    fun increaseAndSave(skillTemplate: EffectTemplateId) {
 
         val newQuantity = learnedRepository.findBy(skillTemplate).increaseAvailable()
-        learnedRepository.saveBuff(newQuantity)
+        learnedRepository.saveEffect(newQuantity)
     }
 
-    fun increaseAndSaveSubs(quantityList: Collection<SubSkill>) {
+    fun increaseAndSaveForms(quantityList: Collection<FormSkill>) {
 
         if (quantityList.isNotEmpty()) {
 
             val newQuantities = quantityList.map { learnedRepository.findBy(it.templateId).increaseAvailable() }
-            learnedRepository.saveSubs(newQuantities)
+            learnedRepository.saveForms(newQuantities)
         }
     }
 
-    fun increaseAndSaveBuffs(quantityList: Collection<BuffSkill>) {
+    fun increaseAndSaveEffects(quantityList: Collection<EffectSkill>) {
 
         if (quantityList.isNotEmpty()) {
 
             val newQuantities = quantityList.map { learnedRepository.findBy(it.templateId).increaseAvailable() }
-            learnedRepository.saveBuffs(newQuantities)
+            learnedRepository.saveEffects(newQuantities)
         }
     }
 }

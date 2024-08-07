@@ -1,8 +1,11 @@
 package com.myrran.infraestructure.repositories.skilltemplate
 
-import com.myrran.domain.skills.created.buff.BuffSkillName
-import com.myrran.domain.skills.created.buff.BuffSkillSlotId
-import com.myrran.domain.skills.created.buff.BuffSkillSlotName
+import com.myrran.domain.skills.created.effect.EffectSkillName
+import com.myrran.domain.skills.created.effect.EffectSkillSlotId
+import com.myrran.domain.skills.created.effect.EffectSkillSlotName
+import com.myrran.domain.skills.created.form.FormSkillName
+import com.myrran.domain.skills.created.form.FormSkillSlotId
+import com.myrran.domain.skills.created.form.FormSkillSlotName
 import com.myrran.domain.skills.created.skill.SkillName
 import com.myrran.domain.skills.created.stat.BonusPerUpgrade
 import com.myrran.domain.skills.created.stat.NumUpgrades
@@ -10,21 +13,18 @@ import com.myrran.domain.skills.created.stat.StatBonus
 import com.myrran.domain.skills.created.stat.StatId
 import com.myrran.domain.skills.created.stat.StatName
 import com.myrran.domain.skills.created.stat.UpgradeCost
-import com.myrran.domain.skills.created.subskill.SubSkillName
-import com.myrran.domain.skills.created.subskill.SubSkillSlotId
-import com.myrran.domain.skills.created.subskill.SubSkillSlotName
 import com.myrran.domain.skills.lock.Lock
-import com.myrran.domain.skills.templates.BuffSkillTemplate
-import com.myrran.domain.skills.templates.SkillTemplate
-import com.myrran.domain.skills.templates.SubSkillTemplate
-import com.myrran.domain.skills.templates.buff.BuffSkillSlotTemplate
-import com.myrran.domain.skills.templates.buff.BuffSkillTemplateId
+import com.myrran.domain.skills.templates.effect.EffectSlotTemplate
+import com.myrran.domain.skills.templates.effect.EffectTemplate
+import com.myrran.domain.skills.templates.effect.EffectTemplateId
+import com.myrran.domain.skills.templates.form.FormSlotTemplate
+import com.myrran.domain.skills.templates.form.FormTemplate
+import com.myrran.domain.skills.templates.form.FormTemplateId
+import com.myrran.domain.skills.templates.skill.SkillTemplate
 import com.myrran.domain.skills.templates.skill.SkillTemplateId
 import com.myrran.domain.skills.templates.stat.StatFixedTemplate
 import com.myrran.domain.skills.templates.stat.StatTemplate
 import com.myrran.domain.skills.templates.stat.StatUpgradeableTemplate
-import com.myrran.domain.skills.templates.subskill.SubSkillSlotTemplate
-import com.myrran.domain.skills.templates.subskill.SubSkillTemplateId
 
 class SkillTemplateAdapter {
 
@@ -45,12 +45,12 @@ class SkillTemplateAdapter {
             type = entity.type,
             name = SkillName(entity.name),
             stats = entity.stats.map { toDomain(it) },
-            slots = entity.slots.map { toDomainSubSkillSlot(it) }
+            slots = entity.slots.map { toDomainFormSkillSlot(it) }
         )
 
-    fun fromDomain(domain: SubSkillTemplate): SubSkillTemplateEntity =
+    fun fromDomain(domain: FormTemplate): FormTemplateEntity =
 
-        SubSkillTemplateEntity(
+        FormTemplateEntity(
             id = domain.id.value,
             type = domain.type,
             name = domain.name.value,
@@ -59,20 +59,20 @@ class SkillTemplateAdapter {
             keys = domain.keys.toList()
         )
 
-    fun toDomain(entity: SubSkillTemplateEntity): SubSkillTemplate =
+    fun toDomain(entity: FormTemplateEntity): FormTemplate =
 
-        SubSkillTemplate(
-            id = SubSkillTemplateId(entity.id),
+        FormTemplate(
+            id = FormTemplateId(entity.id),
             type = entity.type,
-            name = SubSkillName(entity.name),
+            name = FormSkillName(entity.name),
             stats = entity.stats.map { toDomain(it) },
-            slots = entity.slots.map { toDomainBuffSkillSlot(it) },
+            slots = entity.slots.map { toDomainEffectSkillSlot(it) },
             keys = entity.keys
         )
 
-    fun fromDomain(domain: BuffSkillTemplate): BuffSKillTemplateEntity =
+    fun fromDomain(domain: EffectTemplate): EffectTemplateEntity =
 
-        BuffSKillTemplateEntity(
+        EffectTemplateEntity(
             id = domain.id.value,
             type = domain.type,
             name = domain.name.value,
@@ -80,17 +80,17 @@ class SkillTemplateAdapter {
             keys = domain.keys.toList()
         )
 
-    fun toDomain(entity: BuffSKillTemplateEntity): BuffSkillTemplate =
+    fun toDomain(entity: EffectTemplateEntity): EffectTemplate =
 
-        BuffSkillTemplate(
-            id = BuffSkillTemplateId(entity.id),
+        EffectTemplate(
+            id = EffectTemplateId(entity.id),
             type = entity.type,
-            name = BuffSkillName(entity.name),
+            name = EffectSkillName(entity.name),
             stats = entity.stats.map { toDomain(it) },
             keys = entity.keys
         )
 
-    private fun fromDomain(domain: SubSkillSlotTemplate): SlotTemplateEntity =
+    private fun fromDomain(domain: FormSlotTemplate): SlotTemplateEntity =
 
         SlotTemplateEntity(
             id = domain.id.value,
@@ -98,7 +98,7 @@ class SkillTemplateAdapter {
             lock = domain.lock.openedBy.toList()
         )
 
-    private fun fromDomain(domain: BuffSkillSlotTemplate): SlotTemplateEntity =
+    private fun fromDomain(domain: EffectSlotTemplate): SlotTemplateEntity =
 
         SlotTemplateEntity(
             id = domain.id.value,
@@ -106,19 +106,19 @@ class SkillTemplateAdapter {
             lock = domain.lock.openedBy.toList()
         )
 
-    private fun toDomainSubSkillSlot(entity: SlotTemplateEntity): SubSkillSlotTemplate =
+    private fun toDomainFormSkillSlot(entity: SlotTemplateEntity): FormSlotTemplate =
 
-        SubSkillSlotTemplate(
-            id = SubSkillSlotId(entity.id),
-            name = SubSkillSlotName(entity.name),
+        FormSlotTemplate(
+            id = FormSkillSlotId(entity.id),
+            name = FormSkillSlotName(entity.name),
             lock = Lock(entity.lock)
         )
 
-    private fun toDomainBuffSkillSlot(entity: SlotTemplateEntity): BuffSkillSlotTemplate =
+    private fun toDomainEffectSkillSlot(entity: SlotTemplateEntity): EffectSlotTemplate =
 
-        BuffSkillSlotTemplate(
-            id = BuffSkillSlotId(entity.id),
-            name = BuffSkillSlotName(entity.name),
+        EffectSlotTemplate(
+            id = EffectSkillSlotId(entity.id),
+            name = EffectSkillSlotName(entity.name),
             lock = Lock(entity.lock)
         )
 

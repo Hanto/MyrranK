@@ -10,11 +10,11 @@ import com.badlogic.gdx.scenes.scene2d.Stage
 import com.myrran.application.LearnedSkillTemplates
 import com.myrran.application.SpellBook
 import com.myrran.badlogic.DaD
-import com.myrran.controller.BookSkillController
-import com.myrran.controller.DragAndDropManager
 import com.myrran.domain.misc.DeSerializer
 import com.myrran.infraestructure.assets.AssetStorage
 import com.myrran.infraestructure.assets.SkillViewAssets
+import com.myrran.infraestructure.controller.BookSkillController
+import com.myrran.infraestructure.controller.DragAndDropManager
 import com.myrran.infraestructure.repositories.assetsconfig.AssetsConfigRepository
 import com.myrran.infraestructure.repositories.learnedskilltemplate.LearnedSkillTemplateRepository
 import com.myrran.infraestructure.repositories.skill.SkillAdapter
@@ -25,9 +25,9 @@ import com.myrran.infraestructure.view.ui.misc.TextView
 import com.myrran.infraestructure.view.ui.skills.SkillViewFactory
 import com.myrran.infraestructure.view.ui.skills.SkillViewId
 import com.myrran.infraestructure.view.ui.skills.created.skill.SkillViews
-import com.myrran.infraestructure.view.ui.skills.templates.buff.BuffTemplateViews
+import com.myrran.infraestructure.view.ui.skills.templates.effect.EffectTemplateViews
+import com.myrran.infraestructure.view.ui.skills.templates.form.FormTemplateViews
 import com.myrran.infraestructure.view.ui.skills.templates.skill.SkillTemplateViews
-import com.myrran.infraestructure.view.ui.skills.templates.subskill.SubSkillTemplateViews
 import ktx.app.KtxScreen
 import java.util.UUID
 
@@ -85,8 +85,8 @@ class MainScreen(
             tableBackgroundDark = assetStorage.getNinePatchDrawable("Atlas.atlas","TexturasIconos/NineDark", Color.WHITE, 0.90f),
             font20 = assetStorage.getFont("20.fnt"),
             font14 = assetStorage.getFont("14.fnt"),
-            font12 = assetStorage.getFont("14.fnt"),
-            font10 =  assetStorage.getFont("14.fnt"),
+            font12 = assetStorage.getFont("Calibri12.fnt"),
+            font10 =  assetStorage.getFont("Calibri10.fnt"),
             statBarBack = assetStorage.getTextureRegion("Atlas.atlas", "TexturasMisc/CasillaTalentoFondo"),
             statBarFront = assetStorage.getTextureRegion("Atlas.atlas", "TexturasMisc/CasillaTalento"),
         )
@@ -103,13 +103,13 @@ class MainScreen(
 
         val bookController = BookSkillController(spellBook)
 
-        val buffList = BuffTemplateViews(SkillViewId(UUID.randomUUID()), spellBook, assets, skillViewFactory)
-        uiStage.addActor(buffList)
-        buffList.setPosition(533f, 154f)
+        val effectList = EffectTemplateViews(SkillViewId(UUID.randomUUID()), spellBook, assets, skillViewFactory)
+        uiStage.addActor(effectList)
+        effectList.setPosition(533f, 154f)
 
-        val subList = SubSkillTemplateViews(SkillViewId(UUID.randomUUID()), spellBook, assets, skillViewFactory)
-        uiStage.addActor(subList)
-        subList.setPosition(268f, 154f)
+        val formList = FormTemplateViews(SkillViewId(UUID.randomUUID()), spellBook, assets, skillViewFactory)
+        uiStage.addActor(formList)
+        formList.setPosition(268f, 154f)
 
         val skillTemplateList = SkillTemplateViews(SkillViewId(UUID.randomUUID()), spellBook, assets, bookController, skillViewFactory)
         uiStage.addActor(skillTemplateList)

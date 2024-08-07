@@ -1,9 +1,9 @@
 package com.myrran.domain.spells.spell
 
-import com.myrran.domain.skills.created.Skill
-import com.myrran.domain.skills.created.SubSkill
+import com.myrran.domain.skills.created.form.FormSkill
+import com.myrran.domain.skills.created.form.FormSkillSlotId
+import com.myrran.domain.skills.created.skill.Skill
 import com.myrran.domain.skills.created.stat.StatId
-import com.myrran.domain.skills.created.subskill.SubSkillSlotId
 
 class SpellBolt(
 
@@ -17,11 +17,11 @@ class SpellBolt(
 
     fun onCollision() {
 
-        val impactSubSkill = skill.getSubSkill(SubSkillSlotId("IMPACT"))
+        val impactFormSkill = skill.getFormSkill(FormSkillSlotId("IMPACT"))
 
-        if (impactSubSkill is SubSkill)
+        if (impactFormSkill is FormSkill)
         {
-            impactSubSkill.createSpell()
+            impactFormSkill.createForm()
         }
     }
 

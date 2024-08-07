@@ -5,21 +5,21 @@ import com.badlogic.gdx.scenes.scene2d.ui.Container
 import com.badlogic.gdx.scenes.scene2d.ui.Table
 import com.badlogic.gdx.utils.Disposable
 import com.myrran.application.SpellBook
-import com.myrran.controller.BookSkillController
-import com.myrran.domain.events.BuffSkillChangedEvent
-import com.myrran.domain.events.BuffSkillRemovedEvent
-import com.myrran.domain.events.BuffSkillStatUpgradedEvent
+import com.myrran.domain.events.EffectSkillChangedEvent
+import com.myrran.domain.events.EffectSkillRemovedEvent
+import com.myrran.domain.events.EffectSkillStatUpgradedEvent
+import com.myrran.domain.events.FormSkillChangedEvent
+import com.myrran.domain.events.FormSkillRemovedEvent
+import com.myrran.domain.events.FormSkillStatUpgradedEvent
 import com.myrran.domain.events.SkillCreatedEvent
 import com.myrran.domain.events.SkillEvent
 import com.myrran.domain.events.SkillRemovedEvent
 import com.myrran.domain.events.SkillStatUpgradedEvent
-import com.myrran.domain.events.SubSkillChangedEvent
-import com.myrran.domain.events.SubSkillRemovedEvent
-import com.myrran.domain.events.SubSkillStatUpgradedEvent
 import com.myrran.domain.misc.Identifiable
 import com.myrran.domain.misc.observer.Observer
 import com.myrran.domain.skills.templates.skill.SkillTemplateId
 import com.myrran.infraestructure.assets.SkillViewAssets
+import com.myrran.infraestructure.controller.BookSkillController
 import com.myrran.infraestructure.view.ui.misc.AutoFocusScrollPane
 import com.myrran.infraestructure.view.ui.misc.UIClickListener
 import com.myrran.infraestructure.view.ui.misc.UIMoveListener
@@ -37,7 +37,7 @@ class SkillTemplateViews(
 
 ): Container<Table>(), Identifiable<SkillViewId>, Observer<SkillEvent>, Disposable {
 
-    private val header: TemplatesHeaderView = TemplatesHeaderView("Forms", assets)
+    private val header: TemplatesHeaderView = TemplatesHeaderView("Skill Templates", assets)
     private var views: Map<SkillTemplateId, SkillTemplateView> = createSkillTemplateViews()
     private val rootTable = Table()
 
@@ -87,12 +87,12 @@ class SkillTemplateViews(
             is SkillCreatedEvent -> updateQuantities()
             is SkillRemovedEvent -> updateQuantities()
             is SkillStatUpgradedEvent ->  Unit
-            is SubSkillStatUpgradedEvent -> Unit
-            is SubSkillChangedEvent -> Unit
-            is SubSkillRemovedEvent -> Unit
-            is BuffSkillStatUpgradedEvent -> Unit
-            is BuffSkillChangedEvent -> Unit
-            is BuffSkillRemovedEvent -> Unit
+            is FormSkillStatUpgradedEvent -> Unit
+            is FormSkillChangedEvent -> Unit
+            is FormSkillRemovedEvent -> Unit
+            is EffectSkillStatUpgradedEvent -> Unit
+            is EffectSkillChangedEvent -> Unit
+            is EffectSkillRemovedEvent -> Unit
         }
     }
 

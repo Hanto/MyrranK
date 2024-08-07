@@ -2,7 +2,7 @@ package com.myrran.infraestructure.repositories.skill
 
 import com.badlogic.gdx.Gdx
 import com.myrran.domain.misc.DeSerializer
-import com.myrran.domain.skills.created.Skill
+import com.myrran.domain.skills.created.skill.Skill
 import com.myrran.domain.skills.created.skill.SkillId
 
 class SkillRepository(

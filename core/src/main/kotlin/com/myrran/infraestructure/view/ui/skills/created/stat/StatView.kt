@@ -7,7 +7,6 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent
 import com.badlogic.gdx.scenes.scene2d.ui.Table
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener
 import com.badlogic.gdx.utils.Align
-import com.myrran.controller.StatController
 import com.myrran.domain.misc.format
 import com.myrran.domain.skills.created.stat.NumUpgrades
 import com.myrran.domain.skills.created.stat.Stat
@@ -22,6 +21,7 @@ import com.myrran.infraestructure.assets.TOTAL_BONUS_SIZE
 import com.myrran.infraestructure.assets.UPGRADECOST_SIZE
 import com.myrran.infraestructure.assets.UPGRADES_SIZE
 import com.myrran.infraestructure.assets.UPGRADE_BAR_SIZE
+import com.myrran.infraestructure.controller.StatController
 import com.myrran.infraestructure.view.ui.misc.TextView
 
 class StatView(
@@ -32,14 +32,14 @@ class StatView(
 
 ): Table()
 {
-    private val name = TextView(model.name.value, assets.font12, WHITE, 1f)
+    private val name = TextView(model.name.value, assets.font14, WHITE, 1f)
 
     private val upgradeCost = if (model is StatUpgradeable)
-        TextView(model.upgradeCost, assets.font10, PURPLE_LIGHT, 1f) { it.value.format(0) } else null
+        TextView(model.upgradeCost, assets.font14, PURPLE_LIGHT, 1f) { it.value.format(0) } else null
     private val bonusPerUpgrade = if (model is StatUpgradeable)
-        TextView(model.bonusPerUpgrade, assets.font10, PURPLE_LIGHT, 1f) { it.value.format(1) } else null
+        TextView(model.bonusPerUpgrade, assets.font14, PURPLE_LIGHT, 1f) { it.value.format(1) } else null
     private val upgrades = if (model is StatUpgradeable)
-        TextView(model.upgrades, assets.font10, PURPLE_LIGHT, 1f) { "${it.actual.value}-${it.maximum.value}"} else null
+        TextView(model.upgrades, assets.font14, PURPLE_LIGHT, 1f) { "${it.actual.value}-${it.maximum.value}"} else null
 
     private val baseBonus = if (model is StatUpgradeable)
         TextView(model.baseBonus, assets.font14, PURPLE_DARK, 1f) { it.value.format(1) } else null

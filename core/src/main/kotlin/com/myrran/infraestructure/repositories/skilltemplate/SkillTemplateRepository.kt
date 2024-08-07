@@ -2,12 +2,12 @@ package com.myrran.infraestructure.repositories.skilltemplate
 
 import com.badlogic.gdx.Gdx
 import com.myrran.domain.misc.DeSerializer
-import com.myrran.domain.skills.templates.BuffSkillTemplate
-import com.myrran.domain.skills.templates.SkillTemplate
-import com.myrran.domain.skills.templates.SubSkillTemplate
-import com.myrran.domain.skills.templates.buff.BuffSkillTemplateId
+import com.myrran.domain.skills.templates.effect.EffectTemplate
+import com.myrran.domain.skills.templates.effect.EffectTemplateId
+import com.myrran.domain.skills.templates.form.FormTemplate
+import com.myrran.domain.skills.templates.form.FormTemplateId
+import com.myrran.domain.skills.templates.skill.SkillTemplate
 import com.myrran.domain.skills.templates.skill.SkillTemplateId
-import com.myrran.domain.skills.templates.subskill.SubSkillTemplateId
 
 class SkillTemplateRepository(
 
@@ -16,22 +16,22 @@ class SkillTemplateRepository(
 )
 {
     private val skillTemplates: Map<SkillTemplateId, SkillTemplate>
-    private val subSkillTemplates: Map<SubSkillTemplateId, SubSkillTemplate>
-    private val buffSkillTemplates: Map<BuffSkillTemplateId, BuffSkillTemplate>
+    private val formTemplates: Map<FormTemplateId, FormTemplate>
+    private val effectTemplates: Map<EffectTemplateId, EffectTemplate>
 
     companion object {
 
         const val CONFIG_FOLDER = "config/"
         private const val SKILL_TEMPLATES = "SkillTemplates.json"
-        private const val SUBSKILL_TEMPLATES = "SubSkillTemplates.json"
-        private const val BUFFSKILL_TEMPLATES = "BuffSkillTemplates.json"
+        private const val FORMS_TEMPLATES = "FormTemplates.json"
+        private const val EFFECT_TEMPLATES = "EffectTemplates.json"
     }
 
     init {
 
         skillTemplates = loadSkillTemplates().associateBy { it.id }
-        subSkillTemplates = loadSubSkillTemplates().associateBy { it.id }
-        buffSkillTemplates = loadBuffSkillTemplates().associateBy { it.id }
+        formTemplates = loadFormTemplates().associateBy { it.id }
+        effectTemplates = loadEffectTemplates().associateBy { it.id }
     }
 
     // MAIN:
@@ -41,59 +41,59 @@ class SkillTemplateRepository(
 
         skillTemplates[id]
 
-    fun findBy(id: SubSkillTemplateId): SubSkillTemplate? =
+    fun findBy(id: FormTemplateId): FormTemplate? =
 
-        subSkillTemplates[id]
+        formTemplates[id]
 
-    fun findBy(id: BuffSkillTemplateId): BuffSkillTemplate? =
+    fun findBy(id: EffectTemplateId): EffectTemplate? =
 
-        buffSkillTemplates[id]
+        effectTemplates[id]
 
     fun findAllSkillTemplates(): Collection<SkillTemplate> =
 
         skillTemplates.values
 
-    fun findAllSubSkillTemplates(): Collection<SubSkillTemplate> =
+    fun findAllFormSkillTemplates(): Collection<FormTemplate> =
 
-        subSkillTemplates.values
+        formTemplates.values
 
-    fun findAllBuffSkillTemplates(): Collection<BuffSkillTemplate> =
+    fun findAllEffectSkillTemplates(): Collection<EffectTemplate> =
 
-        buffSkillTemplates.values
+        effectTemplates.values
 
     fun exists(id: SkillTemplateId): Boolean =
 
         skillTemplates.containsKey(id)
 
-    fun exists(id: SubSkillTemplateId): Boolean =
+    fun exists(id: FormTemplateId): Boolean =
 
-        subSkillTemplates.containsKey(id)
+        formTemplates.containsKey(id)
 
-    fun exists(id: BuffSkillTemplateId): Boolean =
+    fun exists(id: EffectTemplateId): Boolean =
 
-        buffSkillTemplates.containsKey(id)
+        effectTemplates.containsKey(id)
 
     // HELPER:
     //--------------------------------------------------------------------------------------------------------
 
     private fun loadSkillTemplates(): Collection<SkillTemplate> {
 
-        val skillJson = Gdx.files.internal("$CONFIG_FOLDER$SKILL_TEMPLATES").readString()
-        val skillEntities = deSerializer.deserialize(skillJson, Array<SkillTemplateEntity>::class.java ).toList()
-        return skillEntities.map { skillTemplateAdapter.toDomain(it) }
+        val json = Gdx.files.internal("$CONFIG_FOLDER$SKILL_TEMPLATES").readString()
+        val entities = deSerializer.deserialize(json, Array<SkillTemplateEntity>::class.java ).toList()
+        return entities.map { skillTemplateAdapter.toDomain(it) }
     }
 
-    private fun loadSubSkillTemplates(): Collection<SubSkillTemplate> {
+    private fun loadFormTemplates(): Collection<FormTemplate> {
 
-        val subSkillJson = Gdx.files.internal("$CONFIG_FOLDER$SUBSKILL_TEMPLATES").readString()
-        val subSkillEntities = deSerializer.deserialize(subSkillJson, Array<SubSkillTemplateEntity>::class.java ).toList()
-        return subSkillEntities.map { skillTemplateAdapter.toDomain(it) }
+        val json = Gdx.files.internal("$CONFIG_FOLDER$FORMS_TEMPLATES").readString()
+        val entities = deSerializer.deserialize(json, Array<FormTemplateEntity>::class.java ).toList()
+        return entities.map { skillTemplateAdapter.toDomain(it) }
     }
 
-    private fun loadBuffSkillTemplates(): Collection<BuffSkillTemplate> {
+    private fun loadEffectTemplates(): Collection<EffectTemplate> {
 
-        val buffSkillJson = Gdx.files.internal("$CONFIG_FOLDER$BUFFSKILL_TEMPLATES").readString()
-        val buffSkillEntities = deSerializer.deserialize(buffSkillJson, Array<BuffSKillTemplateEntity>::class.java ).toList()
-        return buffSkillEntities.map { skillTemplateAdapter.toDomain(it) }
+        val json = Gdx.files.internal("$CONFIG_FOLDER$EFFECT_TEMPLATES").readString()
+        val entities = deSerializer.deserialize(json, Array<EffectTemplateEntity>::class.java ).toList()
+        return entities.map { skillTemplateAdapter.toDomain(it) }
     }
 }

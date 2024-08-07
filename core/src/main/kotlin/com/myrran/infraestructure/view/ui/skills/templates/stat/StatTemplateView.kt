@@ -25,14 +25,14 @@ class StatTemplateView(
 
 ): Table()
 {
-    private val name = TextView(stat.name.value, assets.font12, WHITE, 1f)
+    private val name = TextView(stat.name.value, assets.font14, WHITE, 1f)
 
     private val upgradeCost = if (stat is StatUpgradeableTemplate)
-        TextView(stat.upgradeCost, assets.font10, PURPLE_LIGHT, 1f) { it.value.format(0) } else null
+        TextView(stat.upgradeCost, assets.font14, PURPLE_LIGHT, 1f) { it.value.format(0) } else null
     private val bonusPerUpgrade = if (stat is StatUpgradeableTemplate)
-        TextView(stat.bonusPerUpgrade, assets.font10, PURPLE_LIGHT, 1f) { it.value.format(1) } else null
+        TextView(stat.bonusPerUpgrade, assets.font14, PURPLE_LIGHT, 1f) { it.value.format(1) } else null
     private val maximum = if (stat is StatUpgradeableTemplate)
-        TextView(stat.maximum, assets.font10, PURPLE_LIGHT, 1f) { it.value.toString() } else null
+        TextView(stat.maximum, assets.font14, PURPLE_LIGHT, 1f) { it.value.toString() } else null
 
     private val baseBonus = if (stat is StatUpgradeableTemplate)
         TextView(stat.baseBonus, assets.font14, PURPLE_DARK, 1f) { it.value.format(1) } else null

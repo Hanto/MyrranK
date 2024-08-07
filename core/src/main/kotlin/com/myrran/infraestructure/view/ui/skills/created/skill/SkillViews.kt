@@ -5,21 +5,21 @@ import com.badlogic.gdx.scenes.scene2d.ui.Container
 import com.badlogic.gdx.scenes.scene2d.ui.Table
 import com.badlogic.gdx.utils.Disposable
 import com.myrran.application.SpellBook
-import com.myrran.controller.BookSkillController
-import com.myrran.domain.events.BuffSkillChangedEvent
-import com.myrran.domain.events.BuffSkillRemovedEvent
-import com.myrran.domain.events.BuffSkillStatUpgradedEvent
+import com.myrran.domain.events.EffectSkillChangedEvent
+import com.myrran.domain.events.EffectSkillRemovedEvent
+import com.myrran.domain.events.EffectSkillStatUpgradedEvent
+import com.myrran.domain.events.FormSkillChangedEvent
+import com.myrran.domain.events.FormSkillRemovedEvent
+import com.myrran.domain.events.FormSkillStatUpgradedEvent
 import com.myrran.domain.events.SkillCreatedEvent
 import com.myrran.domain.events.SkillEvent
 import com.myrran.domain.events.SkillRemovedEvent
 import com.myrran.domain.events.SkillStatUpgradedEvent
-import com.myrran.domain.events.SubSkillChangedEvent
-import com.myrran.domain.events.SubSkillRemovedEvent
-import com.myrran.domain.events.SubSkillStatUpgradedEvent
 import com.myrran.domain.misc.Identifiable
 import com.myrran.domain.misc.observer.Observer
 import com.myrran.domain.skills.created.skill.SkillId
 import com.myrran.infraestructure.assets.SkillViewAssets
+import com.myrran.infraestructure.controller.BookSkillController
 import com.myrran.infraestructure.view.ui.misc.AutoFocusScrollPane
 import com.myrran.infraestructure.view.ui.misc.UIClickListener
 import com.myrran.infraestructure.view.ui.misc.UIMoveListener
@@ -90,12 +90,12 @@ class SkillViews(
             is SkillCreatedEvent -> update()
             is SkillRemovedEvent -> { views[event.skillId]?.dispose(); this.update() }
             is SkillStatUpgradedEvent ->  views[event.skillId]?.propertyChange(event)
-            is SubSkillStatUpgradedEvent -> views[event.skillId]?.propertyChange(event)
-            is SubSkillChangedEvent -> views[event.skillId]?.propertyChange(event)
-            is SubSkillRemovedEvent -> views[event.skillId]?.propertyChange(event)
-            is BuffSkillStatUpgradedEvent -> views[event.skillId]?.propertyChange(event)
-            is BuffSkillChangedEvent -> views[event.skillId]?.propertyChange(event)
-            is BuffSkillRemovedEvent -> views[event.skillId]?.propertyChange(event)
+            is FormSkillStatUpgradedEvent -> views[event.skillId]?.propertyChange(event)
+            is FormSkillChangedEvent -> views[event.skillId]?.propertyChange(event)
+            is FormSkillRemovedEvent -> views[event.skillId]?.propertyChange(event)
+            is EffectSkillStatUpgradedEvent -> views[event.skillId]?.propertyChange(event)
+            is EffectSkillChangedEvent -> views[event.skillId]?.propertyChange(event)
+            is EffectSkillRemovedEvent -> views[event.skillId]?.propertyChange(event)
         }
     }
 

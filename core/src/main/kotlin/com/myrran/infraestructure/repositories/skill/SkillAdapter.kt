@@ -1,16 +1,22 @@
 package com.myrran.infraestructure.repositories.skill
 
-import com.myrran.domain.skills.created.BuffSkill
-import com.myrran.domain.skills.created.BuffSkillSlotContent.NoBuffSkill
-import com.myrran.domain.skills.created.Skill
-import com.myrran.domain.skills.created.SubSkill
-import com.myrran.domain.skills.created.SubSkillSlotContent.NoSubSkill
-import com.myrran.domain.skills.created.buff.BuffSkillId
-import com.myrran.domain.skills.created.buff.BuffSkillName
-import com.myrran.domain.skills.created.buff.BuffSkillSlot
-import com.myrran.domain.skills.created.buff.BuffSkillSlotId
-import com.myrran.domain.skills.created.buff.BuffSkillSlotName
-import com.myrran.domain.skills.created.buff.BuffSkillSlots
+import com.myrran.domain.skills.created.effect.EffectSkill
+import com.myrran.domain.skills.created.effect.EffectSkillId
+import com.myrran.domain.skills.created.effect.EffectSkillName
+import com.myrran.domain.skills.created.effect.EffectSkillSlot
+import com.myrran.domain.skills.created.effect.EffectSkillSlotContent.NoEffectSkill
+import com.myrran.domain.skills.created.effect.EffectSkillSlotId
+import com.myrran.domain.skills.created.effect.EffectSkillSlotName
+import com.myrran.domain.skills.created.effect.EffectSkillSlots
+import com.myrran.domain.skills.created.form.FormSkill
+import com.myrran.domain.skills.created.form.FormSkillId
+import com.myrran.domain.skills.created.form.FormSkillName
+import com.myrran.domain.skills.created.form.FormSkillSlot
+import com.myrran.domain.skills.created.form.FormSkillSlotContent.NoFormSkill
+import com.myrran.domain.skills.created.form.FormSkillSlotId
+import com.myrran.domain.skills.created.form.FormSkillSlotName
+import com.myrran.domain.skills.created.form.FormSkillSlots
+import com.myrran.domain.skills.created.skill.Skill
 import com.myrran.domain.skills.created.skill.SkillId
 import com.myrran.domain.skills.created.skill.SkillName
 import com.myrran.domain.skills.created.stat.BonusPerUpgrade
@@ -24,16 +30,10 @@ import com.myrran.domain.skills.created.stat.StatUpgradeable
 import com.myrran.domain.skills.created.stat.Stats
 import com.myrran.domain.skills.created.stat.UpgradeCost
 import com.myrran.domain.skills.created.stat.Upgrades
-import com.myrran.domain.skills.created.subskill.SubSkillId
-import com.myrran.domain.skills.created.subskill.SubSkillName
-import com.myrran.domain.skills.created.subskill.SubSkillSlot
-import com.myrran.domain.skills.created.subskill.SubSkillSlotId
-import com.myrran.domain.skills.created.subskill.SubSkillSlotName
-import com.myrran.domain.skills.created.subskill.SubSkillSlots
 import com.myrran.domain.skills.lock.Lock
-import com.myrran.domain.skills.templates.buff.BuffSkillTemplateId
+import com.myrran.domain.skills.templates.effect.EffectTemplateId
+import com.myrran.domain.skills.templates.form.FormTemplateId
 import com.myrran.domain.skills.templates.skill.SkillTemplateId
-import com.myrran.domain.skills.templates.subskill.SubSkillTemplateId
 import java.util.UUID
 
 class SkillAdapter
@@ -46,7 +46,7 @@ class SkillAdapter
             type = domain.type,
             name = domain.name.value,
             stats = domain.getStats().map { fromDomain(it) },
-            slots = domain.getSubSkillSlots().map { fromDomain(it) }
+            slots = domain.getFormSkillSlots().map { fromDomain(it) }
         )
 
     fun toDomain(entity: SkillEntity): Skill =
@@ -57,88 +57,88 @@ class SkillAdapter
             type = entity.type,
             name = SkillName(entity.name),
             stats = Stats(entity.stats.map { toDomain(it) }.associateBy { it.id } ),
-            slots = SubSkillSlots(entity.slots.map { toDomain(it) }.associateBy { it.id } )
+            slots = FormSkillSlots(entity.slots.map { toDomain(it) }.associateBy { it.id } )
         )
 
-    private fun fromDomain(domain: SubSkillSlot): SubSkillSlotEntity =
+    private fun fromDomain(domain: FormSkillSlot): FormSkillSlotEntity =
 
-        SubSkillSlotEntity(
+        FormSkillSlotEntity(
             id = domain.id.value,
             name = domain.name.value,
             lock = domain.lock.openedBy.toList(),
             content = when (val content = domain.content) {
 
-                NoSubSkill -> null
-                is SubSkill -> fromDomain(content)
+                NoFormSkill -> null
+                is FormSkill -> fromDomain(content)
             }
         )
 
-    private fun toDomain(entity: SubSkillSlotEntity): SubSkillSlot =
+    private fun toDomain(entity: FormSkillSlotEntity): FormSkillSlot =
 
-        SubSkillSlot(
-            id = SubSkillSlotId(entity.id),
-            name = SubSkillSlotName(entity.name),
+        FormSkillSlot(
+            id = FormSkillSlotId(entity.id),
+            name = FormSkillSlotName(entity.name),
             lock = Lock(entity.lock),
             content = when (val content = entity.content) {
 
-                null -> NoSubSkill
+                null -> NoFormSkill
                 else -> toDomain(content)
             }
         )
 
-    private fun fromDomain(domain: SubSkill): SubSkillEntity =
+    private fun fromDomain(domain: FormSkill): FormSkillEntity =
 
-        SubSkillEntity(
+        FormSkillEntity(
             id = domain.id.value.toString(),
             templateId = domain.templateId.value,
             type = domain.type,
             name = domain.name.value,
             stats = domain.getStats().map { fromDomain(it) },
-            slots = domain.slots.getBuffSkillSlots().map { fromDomain(it) },
+            slots = domain.slots.getEffectSkillSlots().map { fromDomain(it) },
             keys = domain.keys
         )
 
-    private fun toDomain(entity: SubSkillEntity): SubSkill =
+    private fun toDomain(entity: FormSkillEntity): FormSkill =
 
-        SubSkill(
-            id = SubSkillId(UUID.fromString(entity.id)),
-            templateId = SubSkillTemplateId(entity.templateId),
+        FormSkill(
+            id = FormSkillId(UUID.fromString(entity.id)),
+            templateId = FormTemplateId(entity.templateId),
             type = entity.type,
-            name = SubSkillName(entity.name),
+            name = FormSkillName(entity.name),
             stats = Stats(entity.stats.map { toDomain(it) }.associateBy { it.id } ),
-            slots = BuffSkillSlots(entity.slots.map { toDomain(it) }.associateBy { it.id } ),
+            slots = EffectSkillSlots(entity.slots.map { toDomain(it) }.associateBy { it.id } ),
             keys = entity.keys
         )
 
-    private fun fromDomain(domain: BuffSkillSlot): BuffSKillSlotEntity =
+    private fun fromDomain(domain: EffectSkillSlot): EffectSKillSlotEntity =
 
-        BuffSKillSlotEntity(
+        EffectSKillSlotEntity(
             id = domain.id.value,
             name = domain.name.value,
             lock = domain.lock.openedBy.toList(),
             content = when (val content = domain.content) {
 
-                NoBuffSkill -> null
-                is BuffSkill -> fromDomain(content)
+                NoEffectSkill -> null
+                is EffectSkill -> fromDomain(content)
             }
         )
 
-    private fun toDomain(entity: BuffSKillSlotEntity): BuffSkillSlot =
+    private fun toDomain(entity: EffectSKillSlotEntity): EffectSkillSlot =
 
-        BuffSkillSlot(
-            id = BuffSkillSlotId(entity.id),
-            name = BuffSkillSlotName(entity.name),
+        EffectSkillSlot(
+            id = EffectSkillSlotId(entity.id),
+            name = EffectSkillSlotName(entity.name),
             lock = Lock(entity.lock),
             content = when (val content = entity.content) {
 
-                null -> NoBuffSkill
+                null -> NoEffectSkill
                 else -> toDomain(content)
             }
         )
 
-    private fun fromDomain(domain: BuffSkill): BuffSkillEntity =
+    private fun fromDomain(domain: EffectSkill): EffectSkillEntity =
 
-        BuffSkillEntity(
+        EffectSkillEntity(
             id = domain.id.value.toString(),
             templateId = domain.templateId.value,
             type = domain.type,
@@ -147,13 +147,13 @@ class SkillAdapter
             keys = domain.keys.toList()
         )
 
-    private fun toDomain(entity: BuffSkillEntity): BuffSkill =
+    private fun toDomain(entity: EffectSkillEntity): EffectSkill =
 
-        BuffSkill(
-            id = BuffSkillId(UUID.fromString(entity.id)),
-            templateId = BuffSkillTemplateId(entity.templateId),
+        EffectSkill(
+            id = EffectSkillId(UUID.fromString(entity.id)),
+            templateId = EffectTemplateId(entity.templateId),
             type = entity.type,
-            name = BuffSkillName(entity.name),
+            name = EffectSkillName(entity.name),
             stats = Stats(entity.stats.map { toDomain(it) }.associateBy { it.id } ),
             keys = entity.keys
         )

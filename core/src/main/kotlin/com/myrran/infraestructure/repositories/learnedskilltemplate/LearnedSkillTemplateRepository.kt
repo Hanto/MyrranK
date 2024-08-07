@@ -3,9 +3,9 @@ package com.myrran.infraestructure.repositories.learnedskilltemplate
 import com.badlogic.gdx.Gdx
 import com.myrran.domain.misc.DeSerializer
 import com.myrran.domain.misc.Quantity
-import com.myrran.domain.skills.templates.buff.BuffSkillTemplateId
+import com.myrran.domain.skills.templates.effect.EffectTemplateId
+import com.myrran.domain.skills.templates.form.FormTemplateId
 import com.myrran.domain.skills.templates.skill.SkillTemplateId
-import com.myrran.domain.skills.templates.subskill.SubSkillTemplateId
 
 class LearnedSkillTemplateRepository(
 
@@ -13,32 +13,32 @@ class LearnedSkillTemplateRepository(
 )
 {
     private val skillTemplates: MutableMap<SkillTemplateId, Quantity<SkillTemplateId>>
-    private val subSkillsTemplates: MutableMap<SubSkillTemplateId, Quantity<SubSkillTemplateId>>
-    private val buffSkillsTemplates: MutableMap<BuffSkillTemplateId, Quantity<BuffSkillTemplateId>>
+    private val formSkillsTemplates: MutableMap<FormTemplateId, Quantity<FormTemplateId>>
+    private val effectSkillsTemplates: MutableMap<EffectTemplateId, Quantity<EffectTemplateId>>
 
     companion object {
 
         private const val LEARNED_SKILL_TEMPLATES_JSON = "LearnedSkillTemplates.json"
-        private const val LEARNED_SUBSKILL_TEMPLATES_JSON = "LearnedSubSkillTemplates.json"
-        private const val LEARNED_BUFFSKILL_TEMPLATES_JSON = "LearnedBuffSkillTemplates.json"
+        private const val LEARNED_FORM_TEMPLATES_JSON = "LearnedFormTemplates.json"
+        private const val LEARNED_EFFECT_TEMPLATES_JSON = "LearnedEffectTemplates.json"
     }
 
     init {
 
         skillTemplates = loadSkillTemplates()
-        subSkillsTemplates = loadSubSkillTemplates()
-        buffSkillsTemplates = loadBuffSkillTemplates()
+        formSkillsTemplates = loadFormSkillTemplates()
+        effectSkillsTemplates = loadEffectSkillTemplates()
     }
 
     // MAIN:
     //--------------------------------------------------------------------------------------------------------
 
     fun findBy(id: SkillTemplateId): Quantity<SkillTemplateId> = skillTemplates[id] ?: Quantity.zero(id)
-    fun findBy(id: SubSkillTemplateId): Quantity<SubSkillTemplateId> = subSkillsTemplates[id] ?: Quantity.zero(id)
-    fun findBy(id: BuffSkillTemplateId): Quantity<BuffSkillTemplateId> = buffSkillsTemplates[id] ?: Quantity.zero(id)
+    fun findBy(id: FormTemplateId): Quantity<FormTemplateId> = formSkillsTemplates[id] ?: Quantity.zero(id)
+    fun findBy(id: EffectTemplateId): Quantity<EffectTemplateId> = effectSkillsTemplates[id] ?: Quantity.zero(id)
     fun findAllSkillTemplates() = skillTemplates.values
-    fun findAllSubSkillTemplates() = subSkillsTemplates.values
-    fun findAllBuffSkillTemplates() = buffSkillsTemplates.values
+    fun findAllFormTemplates() = formSkillsTemplates.values
+    fun findAllEffectTemplates() = effectSkillsTemplates.values
 
     fun saveSkill(id: Quantity<SkillTemplateId>) {
 
@@ -52,28 +52,28 @@ class LearnedSkillTemplateRepository(
         saveSkillTemplates()
     }
 
-    fun saveSub(id: Quantity<SubSkillTemplateId>) {
+    fun saveForm(id: Quantity<FormTemplateId>) {
 
-        subSkillsTemplates[id.value] = id
-        saveSubSkillTemplates()
+        formSkillsTemplates[id.value] = id
+        saveFormTemplates()
     }
 
-    fun saveSubs(list: Collection<Quantity<SubSkillTemplateId>>) {
+    fun saveForms(list: Collection<Quantity<FormTemplateId>>) {
 
-        list.forEach { subSkillsTemplates[it.value] = it }
-        saveSubSkillTemplates()
+        list.forEach { formSkillsTemplates[it.value] = it }
+        saveFormTemplates()
     }
 
-    fun saveBuff(id: Quantity<BuffSkillTemplateId>) {
+    fun saveEffect(id: Quantity<EffectTemplateId>) {
 
-        buffSkillsTemplates[id.value] = id
-        saveBuffSkillTemplates()
+        effectSkillsTemplates[id.value] = id
+        saveEffectTemplates()
     }
 
-    fun saveBuffs(list: Collection<Quantity<BuffSkillTemplateId>>) {
+    fun saveEffects(list: Collection<Quantity<EffectTemplateId>>) {
 
-        list.forEach { buffSkillsTemplates[it.value] = it }
-        saveBuffSkillTemplates()
+        list.forEach { effectSkillsTemplates[it.value] = it }
+        saveEffectTemplates()
     }
 
     // HELPER:
@@ -86,18 +86,18 @@ class LearnedSkillTemplateRepository(
         Gdx.files.local(LEARNED_SKILL_TEMPLATES_JSON).writeString(json, false)
     }
 
-    private fun saveSubSkillTemplates() {
+    private fun saveFormTemplates() {
 
-        val entities = subSkillsTemplates.entries.map { LearnedSkillTemplateEntity(it.key.value, it.value.available, it.value.total) }
+        val entities = formSkillsTemplates.entries.map { LearnedSkillTemplateEntity(it.key.value, it.value.available, it.value.total) }
         val json = deSerializer.serialize(entities)
-        Gdx.files.local(LEARNED_SUBSKILL_TEMPLATES_JSON).writeString(json, false)
+        Gdx.files.local(LEARNED_FORM_TEMPLATES_JSON).writeString(json, false)
     }
 
-    private fun saveBuffSkillTemplates() {
+    private fun saveEffectTemplates() {
 
-        val entities = buffSkillsTemplates.entries.map { LearnedSkillTemplateEntity(it.key.value, it.value.available, it.value.total) }
+        val entities = effectSkillsTemplates.entries.map { LearnedSkillTemplateEntity(it.key.value, it.value.available, it.value.total) }
         val json = deSerializer.serialize(entities)
-        Gdx.files.local(LEARNED_BUFFSKILL_TEMPLATES_JSON).writeString(json, false)
+        Gdx.files.local(LEARNED_EFFECT_TEMPLATES_JSON).writeString(json, false)
     }
 
     private fun loadSkillTemplates(): MutableMap<SkillTemplateId, Quantity<SkillTemplateId>> =
@@ -110,23 +110,23 @@ class LearnedSkillTemplateRepository(
 
         }.getOrElse { mutableMapOf() }
 
-    private fun loadSubSkillTemplates(): MutableMap<SubSkillTemplateId, Quantity<SubSkillTemplateId>> =
+    private fun loadFormSkillTemplates(): MutableMap<FormTemplateId, Quantity<FormTemplateId>> =
 
         runCatching {
 
-            val json = Gdx.files.local(LEARNED_SUBSKILL_TEMPLATES_JSON).readString()
+            val json = Gdx.files.local(LEARNED_FORM_TEMPLATES_JSON).readString()
             val entities = deSerializer.deserialize(json, Array<LearnedSkillTemplateEntity>::class.java).toList()
-            return entities.associate { SubSkillTemplateId(it.id) to Quantity(SubSkillTemplateId(it.id), it.avaiable, it.total) }.toMutableMap()
+            return entities.associate { FormTemplateId(it.id) to Quantity(FormTemplateId(it.id), it.avaiable, it.total) }.toMutableMap()
 
         }.getOrElse { mutableMapOf() }
 
-    private fun loadBuffSkillTemplates(): MutableMap<BuffSkillTemplateId, Quantity<BuffSkillTemplateId>> =
+    private fun loadEffectSkillTemplates(): MutableMap<EffectTemplateId, Quantity<EffectTemplateId>> =
 
         runCatching {
 
-            val json = Gdx.files.local(LEARNED_BUFFSKILL_TEMPLATES_JSON).readString()
+            val json = Gdx.files.local(LEARNED_EFFECT_TEMPLATES_JSON).readString()
             val entities = deSerializer.deserialize(json, Array<LearnedSkillTemplateEntity>::class.java).toList()
-            return entities.associate { BuffSkillTemplateId(it.id) to Quantity(BuffSkillTemplateId(it.id) ,it.avaiable, it.total) }.toMutableMap()
+            return entities.associate { EffectTemplateId(it.id) to Quantity(EffectTemplateId(it.id) ,it.avaiable, it.total) }.toMutableMap()
 
         }.getOrElse { mutableMapOf() }
 }

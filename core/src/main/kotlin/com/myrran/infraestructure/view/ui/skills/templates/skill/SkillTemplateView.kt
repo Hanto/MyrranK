@@ -3,11 +3,11 @@ package com.myrran.infraestructure.view.ui.skills.templates.skill
 import com.badlogic.gdx.scenes.scene2d.Touchable
 import com.badlogic.gdx.scenes.scene2d.ui.Container
 import com.badlogic.gdx.scenes.scene2d.ui.Table
-import com.myrran.controller.SkillTemplateController
 import com.myrran.domain.misc.Identifiable
 import com.myrran.domain.misc.Quantity
-import com.myrran.domain.skills.templates.SkillTemplate
+import com.myrran.domain.skills.templates.skill.SkillTemplate
 import com.myrran.infraestructure.assets.SkillViewAssets
+import com.myrran.infraestructure.controller.SkillTemplateController
 import com.myrran.infraestructure.view.ui.misc.UIClickListener
 import com.myrran.infraestructure.view.ui.skills.SkillViewId
 import com.myrran.infraestructure.view.ui.skills.templates.stat.StatsTemplateView

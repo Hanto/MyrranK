@@ -1,31 +1,31 @@
 package com.myrran.application
 
-import com.myrran.domain.events.BuffSkillChangedEvent
-import com.myrran.domain.events.BuffSkillRemovedEvent
-import com.myrran.domain.events.BuffSkillStatUpgradedEvent
+import com.myrran.domain.events.EffectSkillChangedEvent
+import com.myrran.domain.events.EffectSkillRemovedEvent
+import com.myrran.domain.events.EffectSkillStatUpgradedEvent
+import com.myrran.domain.events.FormSkillChangedEvent
+import com.myrran.domain.events.FormSkillRemovedEvent
+import com.myrran.domain.events.FormSkillStatUpgradedEvent
 import com.myrran.domain.events.SkillCreatedEvent
 import com.myrran.domain.events.SkillEvent
 import com.myrran.domain.events.SkillRemovedEvent
 import com.myrran.domain.events.SkillStatUpgradedEvent
-import com.myrran.domain.events.SubSkillChangedEvent
-import com.myrran.domain.events.SubSkillRemovedEvent
-import com.myrran.domain.events.SubSkillStatUpgradedEvent
 import com.myrran.domain.misc.Quantity
 import com.myrran.domain.misc.observer.JavaObservable
 import com.myrran.domain.misc.observer.Observable
-import com.myrran.domain.skills.created.BuffSkill
-import com.myrran.domain.skills.created.SubSkill
-import com.myrran.domain.skills.created.buff.BuffSkillSlotId
+import com.myrran.domain.skills.created.effect.EffectSkill
+import com.myrran.domain.skills.created.effect.EffectSkillSlotId
+import com.myrran.domain.skills.created.form.FormSkill
+import com.myrran.domain.skills.created.form.FormSkillSlotId
 import com.myrran.domain.skills.created.skill.SkillId
 import com.myrran.domain.skills.created.stat.NumUpgrades
 import com.myrran.domain.skills.created.stat.StatId
-import com.myrran.domain.skills.created.subskill.SubSkillSlotId
-import com.myrran.domain.skills.templates.BuffSkillTemplate
-import com.myrran.domain.skills.templates.SkillTemplate
-import com.myrran.domain.skills.templates.SubSkillTemplate
-import com.myrran.domain.skills.templates.buff.BuffSkillTemplateId
+import com.myrran.domain.skills.templates.effect.EffectTemplate
+import com.myrran.domain.skills.templates.effect.EffectTemplateId
+import com.myrran.domain.skills.templates.form.FormTemplate
+import com.myrran.domain.skills.templates.form.FormTemplateId
+import com.myrran.domain.skills.templates.skill.SkillTemplate
 import com.myrran.domain.skills.templates.skill.SkillTemplateId
-import com.myrran.domain.skills.templates.subskill.SubSkillTemplateId
 import com.myrran.infraestructure.repositories.skill.SkillRepository
 
 data class SpellBook(
@@ -40,12 +40,12 @@ data class SpellBook(
     //--------------------------------------------------------------------------------------------------------
 
     fun learn(id: SkillTemplateId) = learned.learn(id)
-    fun learn(id: SubSkillTemplateId) = learned.learn(id)
-    fun learn(id: BuffSkillTemplateId) = learned.learn(id)
+    fun learn(id: FormTemplateId) = learned.learn(id)
+    fun learn(id: EffectTemplateId) = learned.learn(id)
 
     fun learnedSkillTemplates(): Collection<Quantity<SkillTemplate>> = learned.learnedSkillTemplates()
-    fun learnedSubSkillTemplates(): Collection<Quantity<SubSkillTemplate>> = learned.learnedSubSkillTemplates()
-    fun learnedBuffSkillTemplates(): Collection<Quantity<BuffSkillTemplate>> = learned.learnedBuffSkillTemplates()
+    fun learnedFormTemplates(): Collection<Quantity<FormTemplate>> = learned.learnedFormTemplates()
+    fun learnedEffectTemplates(): Collection<Quantity<EffectTemplate>> = learned.learnedEffectTemplates()
 
     // ADD:
     //--------------------------------------------------------------------------------------------------------
@@ -64,37 +64,37 @@ data class SpellBook(
         }
     }
 
-    fun setSubSkillTo(skillId: SkillId, subSkillSlotId: SubSkillSlotId, subSkillTemplateId: SubSkillTemplateId) {
+    fun setFormSkillTo(skillId: SkillId, formSkillSlotId: FormSkillSlotId, formTemplateId: FormTemplateId) {
 
         val skill = created.findBy(skillId)!!
-        val subSkillTemplate = learned.findBy(subSkillTemplateId)
+        val formTemplate = learned.findBy(formTemplateId)
 
-        if (skill.isSubSkillOpenedBy(subSkillSlotId, subSkillTemplate.value) && subSkillTemplate.isAvailable())
+        if (skill.isFormSkillSlotOpenedBy(formSkillSlotId, formTemplate.value) && formTemplate.isAvailable())
         {
-            removeSubSkill(skillId, subSkillSlotId)
-            val subSkill = subSkillTemplate.value.toSubSkill()
-            skill.setSubSkill(subSkillSlotId, subSkill)
+            removeFormSkillFrom(skillId, formSkillSlotId)
+            val formSkill = formTemplate.value.toFormSkill()
+            skill.setFormSkill(formSkillSlotId, formSkill)
 
             created.save(skill)
-            learned.decreaseAndSaveSub(subSkillTemplate)
-            notify(SubSkillChangedEvent(skillId, subSkillSlotId, subSkill))
+            learned.decreaseAndSaveForm(formTemplate)
+            notify(FormSkillChangedEvent(skillId, formSkillSlotId, formSkill))
         }
     }
 
-    fun setBuffSKillTo(skillId: SkillId, subSkillSlotId: SubSkillSlotId, buffSkillSlotId: BuffSkillSlotId, buffSkillTemplateId: BuffSkillTemplateId) {
+    fun setEffectSkillTo(skillId: SkillId, formSkillSlotId: FormSkillSlotId, effectSkillSlotId: EffectSkillSlotId, effectTemplateId: EffectTemplateId) {
 
         val skill = created.findBy(skillId)!!
-        val buffSkillTemplate = learned.findBy(buffSkillTemplateId)
+        val formTemplate = learned.findBy(effectTemplateId)
 
-        if (skill.isBuffSkillOpenedBy(subSkillSlotId, buffSkillSlotId, buffSkillTemplate.value) && buffSkillTemplate.isAvailable()) {
+        if (skill.isEffectSkillSlotOpenedBy(formSkillSlotId, effectSkillSlotId, formTemplate.value) && formTemplate.isAvailable()) {
 
-            removeBuffSkill(skillId, subSkillSlotId, buffSkillSlotId)
-            val buffSkill = buffSkillTemplate.value.toBuffSkill()
-            skill.setBuffSkill(subSkillSlotId, buffSkillSlotId, buffSkill)
+            removeEffectSkillFrom(skillId, formSkillSlotId, effectSkillSlotId)
+            val effectSkill = formTemplate.value.toEffectSkill()
+            skill.setEffectSkill(formSkillSlotId, effectSkillSlotId, effectSkill)
 
             created.save(skill)
-            learned.decreaseAndSaveBuff(buffSkillTemplate)
-            notify(BuffSkillChangedEvent(skillId, subSkillSlotId, buffSkillSlotId, buffSkill))
+            learned.decreaseAndSaveEffect(formTemplate)
+            notify(EffectSkillChangedEvent(skillId, formSkillSlotId, effectSkillSlotId, effectSkill))
         }
     }
 
@@ -105,61 +105,63 @@ data class SpellBook(
 
         val skill = created.findBy(skillId)!!
 
-        val removed = skill.removeAllSubSkills()
-        val removedSubSkills = removed.filterIsInstance<SubSkill>()
-        val removedBuffSkills = removed.filterIsInstance<BuffSkill>()
+        val removed = skill.removeAllFormSkills()
+        val removedFormSkills = removed.filterIsInstance<FormSkill>()
+        val removedEffectSkills = removed.filterIsInstance<EffectSkill>()
 
         learned.increaseAndSave(skill)
-        learned.increaseAndSaveSubs(removedSubSkills)
-        learned.increaseAndSaveBuffs(removedBuffSkills)
+        learned.increaseAndSaveForms(removedFormSkills)
+        learned.increaseAndSaveEffects(removedEffectSkills)
         created.removeBy(skill.id)
         notify(SkillRemovedEvent(skillId))
     }
 
-    fun removeSubSkill(skillId: SkillId, subSkillSlotId: SubSkillSlotId) {
+    fun removeFormSkillFrom(skillId: SkillId, formSkillSlotId: FormSkillSlotId) {
 
         val skill = created.findBy(skillId)!!
 
-        val removed = skill.removeSubSkill(subSkillSlotId)
-        val removedSubSkills = removed.filterIsInstance<SubSkill>()
-        val removedBuffSkills = removed.filterIsInstance<BuffSkill>()
+        val removed = skill.removeFormSkillFrom(formSkillSlotId)
+        val removedFormSkills = removed.filterIsInstance<FormSkill>()
+        val removedEffectSkills = removed.filterIsInstance<EffectSkill>()
 
         created.save(skill)
-        learned.increaseAndSaveSubs(removedSubSkills)
-        learned.increaseAndSaveBuffs(removedBuffSkills)
-        notify(SubSkillRemovedEvent(skillId, removed))
+        learned.increaseAndSaveForms(removedFormSkills)
+        learned.increaseAndSaveEffects(removedEffectSkills)
+        notify(FormSkillRemovedEvent(skillId, removed))
     }
 
-    fun removeBuffSkill(skillId: SkillId, subSkillSlotId: SubSkillSlotId, buffSkillSlotId: BuffSkillSlotId) {
+    fun removeEffectSkillFrom(skillId: SkillId, formSkillSlotId: FormSkillSlotId, effectSkillSlotId: EffectSkillSlotId) {
 
         val skill = created.findBy(skillId)!!
 
-        skill.removeBuffSkill(subSkillSlotId, buffSkillSlotId)?.also { buffSkill ->
+        skill.removeEffectSkillFrom(formSkillSlotId, effectSkillSlotId)?.also { effectSkill ->
 
             created.save(skill)
-            learned.increaseAndSave(buffSkill.templateId)
-            notify(BuffSkillRemovedEvent(skillId, buffSkill))
+            learned.increaseAndSave(effectSkill.templateId)
+            notify(EffectSkillRemovedEvent(skillId, effectSkill))
         }
     }
 
     // IS OPENED:
     //--------------------------------------------------------------------------------------------------------
 
-    fun isBuffSkillOpenedBy(skillId: SkillId, subSkillSlotId: SubSkillSlotId, buffSkillSlotId: BuffSkillSlotId, buffSkillTemplateId: BuffSkillTemplateId): Boolean {
+
+    fun isFormSkillSlotOpenedBy(skillId: SkillId, formSkillSlotId: FormSkillSlotId, formTemplateId: FormTemplateId): Boolean {
 
         val skill = created.findBy(skillId)!!
-        val buffSkillTemplate = learned.findBy(buffSkillTemplateId)
+        val formTemplate = learned.findBy(formTemplateId)
 
-        return skill.isBuffSkillOpenedBy(subSkillSlotId, buffSkillSlotId, buffSkillTemplate.value)
+        return skill.isFormSkillSlotOpenedBy(formSkillSlotId, formTemplate.value)
     }
 
-    fun isSubSkillOpenedBy(skillId: SkillId, subSkillSlotId: SubSkillSlotId, subSkillTemplateId: SubSkillTemplateId): Boolean {
+    fun isEffectSkillSlotOpenedBy(skillId: SkillId, formSkillSlotId: FormSkillSlotId, effectSkillSlotId: EffectSkillSlotId, effectTemplateId: EffectTemplateId): Boolean {
 
         val skill = created.findBy(skillId)!!
-        val subSkillTemplate = learned.findBy(subSkillTemplateId)
+        val effectTemplate = learned.findBy(effectTemplateId)
 
-        return skill.isSubSkillOpenedBy(subSkillSlotId, subSkillTemplate.value)
+        return skill.isEffectSkillSlotOpenedBy(formSkillSlotId, effectSkillSlotId, effectTemplate.value)
     }
+
 
     // UPGRADE:
     //--------------------------------------------------------------------------------------------------------
@@ -173,21 +175,21 @@ data class SpellBook(
         notify(SkillStatUpgradedEvent(skillId, statId, upgradeBy))
     }
 
-    fun upgrade(skillId: SkillId, subSkillSlotId: SubSkillSlotId, statId: StatId, upgradeBy: NumUpgrades) {
+    fun upgrade(skillId: SkillId, formSkillSlotId: FormSkillSlotId, statId: StatId, upgradeBy: NumUpgrades) {
 
         val skill = created.findBy(skillId)!!
 
-        skill.upgrade(subSkillSlotId, statId, upgradeBy)
+        skill.upgrade(formSkillSlotId, statId, upgradeBy)
         created.save(skill)
-        notify(SubSkillStatUpgradedEvent(skillId, subSkillSlotId, statId, upgradeBy))
+        notify(FormSkillStatUpgradedEvent(skillId, formSkillSlotId, statId, upgradeBy))
     }
 
-    fun upgrade(skillId: SkillId, subSkillSlotId: SubSkillSlotId, buffSkillSlotId: BuffSkillSlotId, statId: StatId, upgradeBy: NumUpgrades) {
+    fun upgrade(skillId: SkillId, formSkillSlotId: FormSkillSlotId, effectSkillSlotId: EffectSkillSlotId, statId: StatId, upgradeBy: NumUpgrades) {
 
         val skill = created.findBy(skillId)!!
 
-        skill.upgrade(subSkillSlotId, buffSkillSlotId, statId, upgradeBy)
+        skill.upgrade(formSkillSlotId, effectSkillSlotId, statId, upgradeBy)
         created.save(skill)
-        notify(BuffSkillStatUpgradedEvent(skillId, subSkillSlotId, buffSkillSlotId, statId, upgradeBy))
+        notify(EffectSkillStatUpgradedEvent(skillId, formSkillSlotId, effectSkillSlotId, statId, upgradeBy))
     }
 }

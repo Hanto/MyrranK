@@ -1,6 +1,6 @@
 package com.myrran.domain.spells.spell
 
-import com.myrran.domain.skills.created.Skill
+import com.myrran.domain.skills.created.skill.Skill
 
 enum class SkillType(val builder: (skill: Skill) -> Spell) {
 
