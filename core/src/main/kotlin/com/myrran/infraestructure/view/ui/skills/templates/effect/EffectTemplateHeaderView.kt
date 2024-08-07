@@ -2,6 +2,7 @@ package com.myrran.infraestructure.view.ui.skills.templates.effect
 
 import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.graphics.Color.ORANGE
+import com.badlogic.gdx.graphics.Color.WHITE
 import com.badlogic.gdx.scenes.scene2d.ui.Image
 import com.badlogic.gdx.scenes.scene2d.ui.Table
 import com.badlogic.gdx.utils.Align
@@ -21,7 +22,7 @@ class EffectTemplateHeaderView(
     val icon = Image(assets.skillIcon)
     private val name = TextView(model.value.name, assets.font20, ORANGE, 2f) { it.value }
     private val available = TextView(model, assets.font14, model.toColor(), 2f) { "${it.available}/${it.total}" }
-    private val description = TextView("EFFECT", assets.font12, Color.WHITE, 1f)
+    private val description = TextView("EFFECT", assets.font12, WHITE, 1f)
     private val keys = TextView(model.value.keys.map { it.value }, assets.font14, PURPLE_LIGHT, 2f) { it.joinToString( " ") }
 
     init {

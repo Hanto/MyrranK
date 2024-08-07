@@ -36,7 +36,7 @@ class SkillView(
 
 ): Container<Table>(), Identifiable<SkillViewId>, Observer<SkillEvent>, Disposable
 {
-    private var skillHeader: SkillHeaderView = SkillHeaderView(model, assets)
+    private var skillHeader: SkillHeaderView = SkillHeaderView(model, assets, controller)
     private var skillStats: StatsView = StatsView( { model.getStats() }, assets, controller)
     private var formSlots: Map<FormSkillSlotId, FormSkillSlotView> = createFormSlotViews()
     private val skillKey: SkillSlotKeyView = SkillSlotKeyView(model, assets, controller)

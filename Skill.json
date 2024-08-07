@@ -3,11 +3,12 @@
   "templateId" : "BOLT_1",
   "type" : "BOLT",
   "name" : "Bolt",
+  "customName" : "01 Firebolt",
   "stats" : [ {
     "id" : "SPEED",
     "name" : "speed",
     "baseBonus" : 10.0,
-    "actual" : 0,
+    "actual" : 20,
     "maximum" : 20,
     "upgradeCost" : 2.0,
     "bonusPerUpgrade" : 1.0
@@ -15,7 +16,7 @@
     "id" : "Cooldown",
     "name" : "cooldown",
     "baseBonus" : 10.0,
-    "actual" : 0,
+    "actual" : 12,
     "maximum" : 20,
     "upgradeCost" : 2.0,
     "bonusPerUpgrade" : 1.0
@@ -51,7 +52,7 @@
             "id" : "DAMAGE",
             "name" : "damage",
             "baseBonus" : 10.0,
-            "actual" : 0,
+            "actual" : 24,
             "maximum" : 50,
             "upgradeCost" : 4.0,
             "bonusPerUpgrade" : 5.0
@@ -67,11 +68,12 @@
   "templateId" : "BOLT_1",
   "type" : "BOLT",
   "name" : "Bolt",
+  "customName" : "02 Fireball",
   "stats" : [ {
     "id" : "SPEED",
     "name" : "speed",
     "baseBonus" : 10.0,
-    "actual" : 0,
+    "actual" : 19,
     "maximum" : 20,
     "upgradeCost" : 2.0,
     "bonusPerUpgrade" : 1.0
@@ -79,7 +81,7 @@
     "id" : "Cooldown",
     "name" : "cooldown",
     "baseBonus" : 10.0,
-    "actual" : 0,
+    "actual" : 10,
     "maximum" : 20,
     "upgradeCost" : 2.0,
     "bonusPerUpgrade" : 1.0
@@ -97,7 +99,7 @@
         "id" : "RADIUS",
         "name" : "radius",
         "baseBonus" : 10.0,
-        "actual" : 0,
+        "actual" : 8,
         "maximum" : 20,
         "upgradeCost" : 2.0,
         "bonusPerUpgrade" : 1.0
@@ -115,7 +117,7 @@
             "id" : "DAMAGE",
             "name" : "damage",
             "baseBonus" : 10.0,
-            "actual" : 0,
+            "actual" : 16,
             "maximum" : 50,
             "upgradeCost" : 4.0,
             "bonusPerUpgrade" : 5.0
@@ -131,6 +133,7 @@
   "templateId" : "BOLT_1",
   "type" : "BOLT",
   "name" : "Bolt",
+  "customName" : "03 Poisonbolt",
   "stats" : [ {
     "id" : "SPEED",
     "name" : "speed",
@@ -143,7 +146,7 @@
     "id" : "Cooldown",
     "name" : "cooldown",
     "baseBonus" : 10.0,
-    "actual" : 0,
+    "actual" : 11,
     "maximum" : 20,
     "upgradeCost" : 2.0,
     "bonusPerUpgrade" : 1.0
@@ -187,7 +190,7 @@
             "id" : "DURATION",
             "name" : "duration",
             "baseBonus" : 10.0,
-            "actual" : 0,
+            "actual" : 9,
             "maximum" : 50,
             "upgradeCost" : 2.0,
             "bonusPerUpgrade" : 1.0
@@ -195,7 +198,7 @@
             "id" : "MAX_STACKS",
             "name" : "max stacks",
             "baseBonus" : 1.0,
-            "actual" : 3,
+            "actual" : 2,
             "maximum" : 3,
             "upgradeCost" : 40.0,
             "bonusPerUpgrade" : 1.0
@@ -211,6 +214,7 @@
   "templateId" : "BOLT_1",
   "type" : "BOLT",
   "name" : "Bolt",
+  "customName" : "04 Poisonball",
   "stats" : [ {
     "id" : "SPEED",
     "name" : "speed",
@@ -223,7 +227,7 @@
     "id" : "Cooldown",
     "name" : "cooldown",
     "baseBonus" : 10.0,
-    "actual" : 0,
+    "actual" : 14,
     "maximum" : 20,
     "upgradeCost" : 2.0,
     "bonusPerUpgrade" : 1.0
@@ -287,16 +291,17 @@
     }
   } ]
 }, {
-  "id" : "aa4431f5-bdbc-4e83-80a4-ae99f341de41",
-  "templateId" : "BOLT_1",
+  "id" : "16bd7110-29b4-421f-9214-1d0eb2923dfd",
+  "templateId" : "GRENADE_1",
   "type" : "BOLT",
-  "name" : "Bolt",
+  "name" : "Grenade",
+  "customName" : "Grenade",
   "stats" : [ {
     "id" : "SPEED",
     "name" : "speed",
     "baseBonus" : 10.0,
     "actual" : 0,
-    "maximum" : 20,
+    "maximum" : 50,
     "upgradeCost" : 2.0,
     "bonusPerUpgrade" : 1.0
   }, {
@@ -304,7 +309,15 @@
     "name" : "cooldown",
     "baseBonus" : 10.0,
     "actual" : 0,
-    "maximum" : 20,
+    "maximum" : 50,
+    "upgradeCost" : 2.0,
+    "bonusPerUpgrade" : 1.0
+  }, {
+    "id" : "Range",
+    "name" : "range",
+    "baseBonus" : 10.0,
+    "actual" : 0,
+    "maximum" : 50,
     "upgradeCost" : 2.0,
     "bonusPerUpgrade" : 1.0
   } ],
@@ -312,39 +325,6 @@
     "id" : "IMPACT:1",
     "name" : "Impact",
     "lock" : [ "A", "B", "C", "D" ],
-    "content" : null
-  } ]
-}, {
-  "id" : "cc97ba9b-4dca-41d1-9266-aee4251b2c7c",
-  "templateId" : "DUALBOLT_1",
-  "type" : "BOLT",
-  "name" : "Dual Bolt",
-  "stats" : [ {
-    "id" : "SPEED",
-    "name" : "speed",
-    "baseBonus" : 10.0,
-    "actual" : 0,
-    "maximum" : 50,
-    "upgradeCost" : 2.0,
-    "bonusPerUpgrade" : 1.0
-  }, {
-    "id" : "Cooldown",
-    "name" : "cooldown",
-    "baseBonus" : 10.0,
-    "actual" : 0,
-    "maximum" : 50,
-    "upgradeCost" : 2.0,
-    "bonusPerUpgrade" : 1.0
-  } ],
-  "slots" : [ {
-    "id" : "IMPACT:1",
-    "name" : "Impact 1",
-    "lock" : [ "A", "B" ],
-    "content" : null
-  }, {
-    "id" : "IMPACT:2",
-    "name" : "Impact 2",
-    "lock" : [ "A", "B" ],
     "content" : null
   } ]
 } ]

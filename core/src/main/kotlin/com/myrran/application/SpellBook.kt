@@ -18,6 +18,7 @@ import com.myrran.domain.skills.created.effect.EffectSkillSlotId
 import com.myrran.domain.skills.created.form.FormSkill
 import com.myrran.domain.skills.created.form.FormSkillSlotId
 import com.myrran.domain.skills.created.skill.SkillId
+import com.myrran.domain.skills.created.skill.SkillName
 import com.myrran.domain.skills.created.stat.NumUpgrades
 import com.myrran.domain.skills.created.stat.StatId
 import com.myrran.domain.skills.templates.effect.EffectTemplate
@@ -49,6 +50,14 @@ data class SpellBook(
 
     // ADD:
     //--------------------------------------------------------------------------------------------------------
+
+    fun changeName(skillId: SkillId, newName: SkillName) {
+
+        val skill = created.findBy(skillId)!!
+        skill.custonName = newName
+
+        created.save(skill)
+    }
 
     fun addSkill(id: SkillTemplateId) {
 

@@ -7,6 +7,7 @@ import com.myrran.domain.skills.created.form.FormSkillSlot
 import com.myrran.domain.skills.created.form.FormSkillSlotId
 import com.myrran.domain.skills.created.skill.Skill
 import com.myrran.domain.skills.created.skill.SkillId
+import com.myrran.domain.skills.created.skill.SkillName
 import com.myrran.domain.skills.created.stat.NumUpgrades
 import com.myrran.domain.skills.created.stat.StatId
 import com.myrran.domain.skills.templates.effect.EffectTemplateId
@@ -46,6 +47,10 @@ class SkillController(
     override fun upgrade(stat: StatId, numUpgrades: NumUpgrades) =
 
         book.upgrade(skillId, stat, numUpgrades)
+
+    fun changeName(newName: String) =
+
+        book.changeName(skillId, SkillName(newName))
 
     fun removeSkill() =
 

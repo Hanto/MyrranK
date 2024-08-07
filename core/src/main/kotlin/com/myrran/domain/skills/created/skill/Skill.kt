@@ -33,6 +33,7 @@ data class Skill(
     val templateId: SkillTemplateId,
     val type: SkillType,
     val name: SkillName,
+    var custonName: SkillName,
     private val stats: Stats,
     private val slots: FormSkillSlots,
     private val observable: Observable<SkillEvent> = JavaObservable()

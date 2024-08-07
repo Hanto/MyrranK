@@ -11,7 +11,7 @@ class TextView<T>(
     font: BitmapFont,
     color: Color = Color.WHITE,
     val shadowTickness: Float = 0f,
-    private val formater: (T) -> String =  { it.toString() }
+    private val formater: (T) -> String = { it.toString() }
 
 ): Label(formater.invoke(text), LabelStyle(font, color))
 {

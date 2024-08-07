@@ -1,13 +1,13 @@
 [ {
   "id" : "DUALBOLT_1",
-  "avaiable" : 2,
+  "avaiable" : 3,
   "total" : 3
 }, {
   "id" : "BOLT_1",
-  "avaiable" : 7,
+  "avaiable" : 8,
   "total" : 12
 }, {
   "id" : "GRENADE_1",
-  "avaiable" : 7,
+  "avaiable" : 6,
   "total" : 12
 } ]

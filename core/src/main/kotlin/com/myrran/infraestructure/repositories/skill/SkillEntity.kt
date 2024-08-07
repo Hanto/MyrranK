@@ -10,6 +10,7 @@ data class SkillEntity(
     val templateId: String,
     val type: SkillType,
     val name: String,
+    val customName: String,
     val stats: List<StatEntity>,
     val slots: List<FormSkillSlotEntity>
 )
