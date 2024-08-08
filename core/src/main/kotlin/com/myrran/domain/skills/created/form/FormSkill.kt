@@ -56,7 +56,7 @@ data class FormSkill(
 
         slots.removeEffectSkillFrom(effectSkillSlotId)
 
-    fun removeAllFormSkills(): Collection<EffectSkill> =
+    fun removeAllEffectSkills(): Collection<EffectSkill> =
 
         slots.removeAllEffectSkills()
 

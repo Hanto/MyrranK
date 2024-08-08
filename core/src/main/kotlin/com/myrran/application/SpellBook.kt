@@ -13,9 +13,7 @@ import com.myrran.domain.events.SkillStatUpgradedEvent
 import com.myrran.domain.misc.Quantity
 import com.myrran.domain.misc.observer.JavaObservable
 import com.myrran.domain.misc.observer.Observable
-import com.myrran.domain.skills.created.effect.EffectSkill
 import com.myrran.domain.skills.created.effect.EffectSkillSlotId
-import com.myrran.domain.skills.created.form.FormSkill
 import com.myrran.domain.skills.created.form.FormSkillSlotId
 import com.myrran.domain.skills.created.skill.SkillId
 import com.myrran.domain.skills.created.skill.SkillName
@@ -80,13 +78,13 @@ data class SpellBook(
 
         if (skill.isFormSkillSlotOpenedBy(formSkillSlotId, formTemplate.value) && formTemplate.isAvailable())
         {
-            removeFormSkillFrom(skillId, formSkillSlotId)
             val formSkill = formTemplate.value.toFormSkill()
-            skill.setFormSkill(formSkillSlotId, formSkill)
+            val removedSkills = skill.setFormSkill(formSkillSlotId, formSkill)
 
             created.save(skill)
             learned.decreaseAndSaveForm(formTemplate)
             notify(FormSkillChangedEvent(skillId, formSkillSlotId, formSkill))
+            if (removedSkills.isNotEmpty()) notify(FormSkillRemovedEvent(skillId, removedSkills))
         }
     }
 
@@ -97,13 +95,13 @@ data class SpellBook(
 
         if (skill.isEffectSkillSlotOpenedBy(formSkillSlotId, effectSkillSlotId, formTemplate.value) && formTemplate.isAvailable()) {
 
-            removeEffectSkillFrom(skillId, formSkillSlotId, effectSkillSlotId)
             val effectSkill = formTemplate.value.toEffectSkill()
-            skill.setEffectSkill(formSkillSlotId, effectSkillSlotId, effectSkill)
+            val removedEffect = skill.setEffectSkill(formSkillSlotId, effectSkillSlotId, effectSkill)
 
             created.save(skill)
             learned.decreaseAndSaveEffect(formTemplate)
             notify(EffectSkillChangedEvent(skillId, formSkillSlotId, effectSkillSlotId, effectSkill))
+            removedEffect?.also { notify(EffectSkillRemovedEvent(skillId, removedEffect)) }
         }
     }
 
@@ -114,29 +112,26 @@ data class SpellBook(
 
         val skill = created.findBy(skillId)!!
 
-        val removed = skill.removeAllFormSkills()
-        val removedFormSkills = removed.filterIsInstance<FormSkill>()
-        val removedEffectSkills = removed.filterIsInstance<EffectSkill>()
+        val removedSkills = skill.removeAllFormSkills()
 
         learned.increaseAndSave(skill)
-        learned.increaseAndSaveForms(removedFormSkills)
-        learned.increaseAndSaveEffects(removedEffectSkills)
+        learned.increaseAndSaveForms(removedSkills.removedForms)
+        learned.increaseAndSaveEffects(removedSkills.removedEffects)
         created.removeBy(skill.id)
-        notify(SkillRemovedEvent(skillId))
+        notify(SkillRemovedEvent(skillId, removedSkills))
+        if (removedSkills.isNotEmpty()) notify(FormSkillRemovedEvent(skillId, removedSkills))
     }
 
     fun removeFormSkillFrom(skillId: SkillId, formSkillSlotId: FormSkillSlotId) {
 
         val skill = created.findBy(skillId)!!
 
-        val removed = skill.removeFormSkillFrom(formSkillSlotId)
-        val removedFormSkills = removed.filterIsInstance<FormSkill>()
-        val removedEffectSkills = removed.filterIsInstance<EffectSkill>()
+        val removedSkills = skill.removeFormSkillFrom(formSkillSlotId)
 
         created.save(skill)
-        learned.increaseAndSaveForms(removedFormSkills)
-        learned.increaseAndSaveEffects(removedEffectSkills)
-        notify(FormSkillRemovedEvent(skillId, removed))
+        learned.increaseAndSaveForms(removedSkills.removedForms)
+        learned.increaseAndSaveEffects(removedSkills.removedEffects)
+        if (removedSkills.isNotEmpty()) notify(FormSkillRemovedEvent(skillId, removedSkills))
     }
 
     fun removeEffectSkillFrom(skillId: SkillId, formSkillSlotId: FormSkillSlotId, effectSkillSlotId: EffectSkillSlotId) {
@@ -154,7 +149,6 @@ data class SpellBook(
     // IS OPENED:
     //--------------------------------------------------------------------------------------------------------
 
-
     fun isFormSkillSlotOpenedBy(skillId: SkillId, formSkillSlotId: FormSkillSlotId, formTemplateId: FormTemplateId): Boolean {
 
         val skill = created.findBy(skillId)!!
@@ -170,7 +164,6 @@ data class SpellBook(
 
         return skill.isEffectSkillSlotOpenedBy(formSkillSlotId, effectSkillSlotId, effectTemplate.value)
     }
-
 
     // UPGRADE:
     //--------------------------------------------------------------------------------------------------------

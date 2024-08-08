@@ -2,6 +2,7 @@ package com.myrran.domain.skills.created.form
 
 import com.myrran.domain.skills.created.effect.EffectSkill
 import com.myrran.domain.skills.created.effect.EffectSkillSlotId
+import com.myrran.domain.skills.created.skill.SkillsRemoved
 import com.myrran.domain.skills.created.stat.NumUpgrades
 import com.myrran.domain.skills.created.stat.StatId
 import com.myrran.domain.skills.created.stat.UpgradeCost
@@ -28,13 +29,13 @@ data class FormSkillSlots(
 
         bySlotId[formSkillSlotId]?.isFormSkillSlotOpenedBy(formTemplate) ?: false
 
-    fun removeFormSkillFrom(formSkillSlotId: FormSkillSlotId): FormSkill? =
+    fun removeFormSkillFrom(formSkillSlotId: FormSkillSlotId): SkillsRemoved =
 
-        bySlotId[formSkillSlotId]?.removeFormSkill()
+        bySlotId[formSkillSlotId]?.removeFormSkill() ?: SkillsRemoved()
 
-    fun removeAllFormSkills(): Collection<FormSkill> =
+    fun removeAllFormSkills(): SkillsRemoved =
 
-        bySlotId.values.mapNotNull { removeFormSkillFrom(it.id) }
+        bySlotId.values.map { removeFormSkillFrom(it.id) }.reduce { acc, next -> acc + next }
 
     fun setFormSkill(formSkillSlotId: FormSkillSlotId, formSkill: FormSkill) =
 
@@ -54,10 +55,6 @@ data class FormSkillSlots(
     fun removeEffectSKillFrom(formSkillSlotId: FormSkillSlotId, effectSkillSlotId: EffectSkillSlotId): EffectSkill? =
 
         bySlotId[formSkillSlotId]?.removeEffectSkillFrom(effectSkillSlotId)
-
-    fun removeAllEffectSkills(): Collection<EffectSkill> =
-
-        bySlotId.values.flatMap { it.removeAllEffectSkills() }
 
     fun setEffectSkill(formSkillSlotId: FormSkillSlotId, effectSkillSlotId: EffectSkillSlotId, effectSkill: EffectSkill) =
 

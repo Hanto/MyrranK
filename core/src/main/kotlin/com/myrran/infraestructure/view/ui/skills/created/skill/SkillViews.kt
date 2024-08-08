@@ -39,15 +39,22 @@ class SkillViews(
 
     private val header: TemplatesHeaderView = TemplatesHeaderView("Spells", assets)
     private var views: Map<SkillId, SkillView> = createSkillViews()
+
     private val rootTable = Table()
+    private val templatesTable = Table().top().left()
+    private val scrollPane = AutoFocusScrollPane(templatesTable)
+    private val scrollTable = Table().top().left()
+
 
     init {
 
         model.addObserver(this)
         header.addListener(UIMoveListener(this))
-        touchable = Touchable.enabled
         addListener(UIClickListener { toFront() } )
+        scrollPane.setScrollbarsVisible(true)
 
+        touchable = Touchable.enabled
+        scrollTable.background = assets.containerBackground
         top().left()
         rebuildTable()
 
@@ -58,14 +65,12 @@ class SkillViews(
     private fun rebuildTable() {
 
         rootTable.clearChildren()
+        templatesTable.clearChildren()
+        scrollTable.clearChildren()
 
-        val templatesTable = Table().top().left()
+        // skills inside scrollpane
         views.values.sortedBy { it.model.name.value }.forEach { templatesTable.add(it).left().row() }
-        val scrollPane = AutoFocusScrollPane(templatesTable)
-        scrollPane.setScrollbarsVisible(true)
 
-        val scrollTable = Table().top().left()
-        scrollTable.background = assets.containerBackground
         scrollTable.add(scrollPane)
 
         rootTable.add(header).expand().fillX().row()

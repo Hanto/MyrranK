@@ -35,7 +35,7 @@ data class EffectSkillSlots(
 
     fun removeAllEffectSkills(): Collection<EffectSkill> =
 
-        bySlotId.values.mapNotNull { removeEffectSkillFrom(it.id) }.filterIsInstance<EffectSkill>()
+        bySlotId.values.mapNotNull { removeEffectSkillFrom(it.id) }
 
     fun setEffectSkill(effectSkillSlotId: EffectSkillSlotId, effectSkill: EffectSkill) =
 

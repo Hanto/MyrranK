@@ -56,19 +56,20 @@ data class Skill(
         slots.getFormSkillSlots().none { it.getFormSkill()?.templateId == formTemplate.id } &&
         slots.isFormSkillSlotOpenedBy(formSkillSlotId, formTemplate)
 
-    fun removeFormSkillFrom(formSkillSlotId: FormSkillSlotId): Collection<SkillFormEffect> =
+    fun removeFormSkillFrom(formSkillSlotId: FormSkillSlotId): SkillsRemoved =
 
-        (slots.removeFormSkillFrom(formSkillSlotId)?.let { formSkill -> formSkill.removeAllFormSkills().map { it.copy() } + formSkill.copy() } ?: emptyList<SkillFormEffect>())
+        slots.removeFormSkillFrom(formSkillSlotId)
             .also { if (it.isNotEmpty()) notify(FormSkillRemovedEvent(id, it)) }
 
-    fun removeAllFormSkills(): Collection<SkillFormEffect> =
+    fun removeAllFormSkills(): SkillsRemoved =
 
-        slots.removeAllFormSkills().let { formSkills -> formSkills.flatMap { it.removeAllFormSkills() } + formSkills }
+        slots.removeAllFormSkills()
             .also { if (it.isNotEmpty()) notify(FormSkillRemovedEvent(id, it)) }
 
-    fun setFormSkill(formSkillSlotId: FormSkillSlotId, formSkill: FormSkill) =
+    fun setFormSkill(formSkillSlotId: FormSkillSlotId, formSkill: FormSkill): SkillsRemoved =
 
-        slots.setFormSkill(formSkillSlotId, formSkill)
+        removeFormSkillFrom(formSkillSlotId)
+            .also { slots.setFormSkill(formSkillSlotId, formSkill) }
             .also { notify(FormSkillChangedEvent(id, formSkillSlotId, formSkill)) }
 
     // EFFECTSKILL
@@ -87,9 +88,10 @@ data class Skill(
         slots.removeEffectSKillFrom(formSkillSlotId, effectSkillSlotId)?.copy()
             ?.also { notify(EffectSkillRemovedEvent(id, it)) }
 
-    fun setEffectSkill(formSkillSlotId: FormSkillSlotId, effectSkillSlotId: EffectSkillSlotId, effectSkill: EffectSkill) =
+    fun setEffectSkill(formSkillSlotId: FormSkillSlotId, effectSkillSlotId: EffectSkillSlotId, effectSkill: EffectSkill): EffectSkill? =
 
-        slots.setEffectSkill(formSkillSlotId, effectSkillSlotId, effectSkill)
+        removeEffectSkillFrom(formSkillSlotId, effectSkillSlotId)
+            .also { slots.setEffectSkill(formSkillSlotId, effectSkillSlotId, effectSkill) }
             .also { notify(EffectSkillChangedEvent(id, formSkillSlotId, effectSkillSlotId, effectSkill)) }
 
     // UPGRADES:
