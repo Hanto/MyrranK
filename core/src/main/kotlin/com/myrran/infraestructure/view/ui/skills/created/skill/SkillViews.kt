@@ -78,7 +78,7 @@ class SkillViews(
     private fun update() {
 
         factory.disposeView(id)
-        views.values.forEach { factory.disposeView(it.id) }
+        views.values.forEach { it.dispose() }
         views = createSkillViews()
         rebuildTable()
     }
@@ -88,7 +88,7 @@ class SkillViews(
         when (event) {
 
             is SkillCreatedEvent -> update()
-            is SkillRemovedEvent -> { views[event.skillId]?.dispose(); this.update() }
+            is SkillRemovedEvent -> { views[event.skillId]?.dispose(); update() }
             is SkillStatUpgradedEvent ->  views[event.skillId]?.propertyChange(event)
             is FormSkillStatUpgradedEvent -> views[event.skillId]?.propertyChange(event)
             is FormSkillChangedEvent -> views[event.skillId]?.propertyChange(event)
@@ -102,7 +102,7 @@ class SkillViews(
     override fun dispose() {
 
         factory.disposeView(id)
-        views.values.forEach { factory.disposeView(it.id) }
+        views.values.forEach { it.dispose() }
         model.removeAllObservers()
     }
 
