@@ -5,6 +5,7 @@ import com.myrran.domain.skills.created.effect.EffectSkillSlot
 import com.myrran.domain.skills.created.effect.EffectSkillSlotId
 import com.myrran.domain.skills.created.effect.EffectSkillSlots
 import com.myrran.domain.skills.created.skill.SkillFormEffect
+import com.myrran.domain.skills.created.skill.SkillsRemoved
 import com.myrran.domain.skills.created.stat.NumUpgrades
 import com.myrran.domain.skills.created.stat.StatId
 import com.myrran.domain.skills.created.stat.Stats
@@ -52,11 +53,11 @@ data class FormSkill(
         slots.getEffectSkills().none { it.templateId == effectTemplate.id } &&
         slots.isEffectSkillSlotOpenedBy(effectSkillSlotId, effectTemplate)
 
-    fun removeEffectSkillFrom(effectSkillSlotId: EffectSkillSlotId): EffectSkill? =
+    fun removeEffectSkillFrom(effectSkillSlotId: EffectSkillSlotId): SkillsRemoved =
 
         slots.removeEffectSkillFrom(effectSkillSlotId)
 
-    fun removeAllEffectSkills(): Collection<EffectSkill> =
+    fun removeAllEffectSkills(): SkillsRemoved =
 
         slots.removeAllEffectSkills()
 

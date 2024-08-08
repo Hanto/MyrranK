@@ -1,5 +1,6 @@
 package com.myrran.domain.skills.created.effect
 
+import com.myrran.domain.skills.created.skill.SkillsRemoved
 import com.myrran.domain.skills.created.stat.NumUpgrades
 import com.myrran.domain.skills.created.stat.StatId
 import com.myrran.domain.skills.created.stat.UpgradeCost
@@ -29,13 +30,13 @@ data class EffectSkillSlots(
 
         bySlotId[effectSkillSlotId]?.isOpenedBy(effectTemplate.keys) ?: false
 
-    fun removeEffectSkillFrom(effectSkillSlotId: EffectSkillSlotId): EffectSkill? =
+    fun removeEffectSkillFrom(effectSkillSlotId: EffectSkillSlotId): SkillsRemoved =
 
-        bySlotId[effectSkillSlotId]?.removeEffectSkill()
+        bySlotId[effectSkillSlotId]?.removeEffectSkill() ?: SkillsRemoved()
 
-    fun removeAllEffectSkills(): Collection<EffectSkill> =
+    fun removeAllEffectSkills(): SkillsRemoved =
 
-        bySlotId.values.mapNotNull { removeEffectSkillFrom(it.id) }
+        bySlotId.values.map { removeEffectSkillFrom(it.id) }.reduce { acc, next -> acc + next }
 
     fun setEffectSkill(effectSkillSlotId: EffectSkillSlotId, effectSkill: EffectSkill) =
 

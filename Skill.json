@@ -290,41 +290,4 @@
       "keys" : [ "A", "B", "C", "D" ]
     }
   } ]
-}, {
-  "id" : "73d1514a-804f-4dc2-928f-fb3ff0a71917",
-  "templateId" : "GRENADE_1",
-  "type" : "BOLT",
-  "name" : "Grenade",
-  "customName" : "05 Grenade",
-  "stats" : [ {
-    "id" : "SPEED",
-    "name" : "speed",
-    "baseBonus" : 10.0,
-    "actual" : 0,
-    "maximum" : 50,
-    "upgradeCost" : 2.0,
-    "bonusPerUpgrade" : 1.0
-  }, {
-    "id" : "Cooldown",
-    "name" : "cooldown",
-    "baseBonus" : 10.0,
-    "actual" : 0,
-    "maximum" : 50,
-    "upgradeCost" : 2.0,
-    "bonusPerUpgrade" : 1.0
-  }, {
-    "id" : "Range",
-    "name" : "range",
-    "baseBonus" : 10.0,
-    "actual" : 0,
-    "maximum" : 50,
-    "upgradeCost" : 2.0,
-    "bonusPerUpgrade" : 1.0
-  } ],
-  "slots" : [ {
-    "id" : "IMPACT:1",
-    "name" : "Impact",
-    "lock" : [ "A", "B", "C", "D" ],
-    "content" : null
-  } ]
 } ]

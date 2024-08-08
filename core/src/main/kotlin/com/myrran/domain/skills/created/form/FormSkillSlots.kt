@@ -52,9 +52,9 @@ data class FormSkillSlots(
 
         bySlotId[formSkillSlotId]?.isEffectSkillSlotOpenedBy(effectSkillSlotId, effectTemplate) ?: false
 
-    fun removeEffectSKillFrom(formSkillSlotId: FormSkillSlotId, effectSkillSlotId: EffectSkillSlotId): EffectSkill? =
+    fun removeEffectSKillFrom(formSkillSlotId: FormSkillSlotId, effectSkillSlotId: EffectSkillSlotId): SkillsRemoved =
 
-        bySlotId[formSkillSlotId]?.removeEffectSkillFrom(effectSkillSlotId)
+        bySlotId[formSkillSlotId]?.removeEffectSkillFrom(effectSkillSlotId) ?: SkillsRemoved()
 
     fun setEffectSkill(formSkillSlotId: FormSkillSlotId, effectSkillSlotId: EffectSkillSlotId, effectSkill: EffectSkill) =
 

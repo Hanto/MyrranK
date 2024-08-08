@@ -4,6 +4,7 @@ import com.myrran.domain.misc.Quantity
 import com.myrran.domain.skills.created.effect.EffectSkill
 import com.myrran.domain.skills.created.form.FormSkill
 import com.myrran.domain.skills.created.skill.Skill
+import com.myrran.domain.skills.created.skill.SkillsRemoved
 import com.myrran.domain.skills.templates.effect.EffectTemplate
 import com.myrran.domain.skills.templates.effect.EffectTemplateId
 import com.myrran.domain.skills.templates.form.FormTemplate
@@ -121,13 +122,13 @@ class LearnedSkillTemplates(
         learnedRepository.saveSkill(newQuantity)
     }
 
-    fun increaseAndSave(skillTemplate: EffectTemplateId) {
+    fun increaseAndSave(removed: SkillsRemoved) {
 
-        val newQuantity = learnedRepository.findBy(skillTemplate).increaseAvailable()
-        learnedRepository.saveEffect(newQuantity)
+        increaseAndSaveForms(removed.removedForms)
+        increaseAndSaveEffects(removed.removedEffects)
     }
 
-    fun increaseAndSaveForms(forms: Collection<FormSkill>) {
+    private fun increaseAndSaveForms(forms: Collection<FormSkill>) {
 
         if (forms.isNotEmpty()) {
 
@@ -136,7 +137,7 @@ class LearnedSkillTemplates(
         }
     }
 
-    fun increaseAndSaveEffects(effects: Collection<EffectSkill>) {
+    private fun increaseAndSaveEffects(effects: Collection<EffectSkill>) {
 
         if (effects.isNotEmpty()) {
 

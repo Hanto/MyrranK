@@ -38,7 +38,7 @@ data class FormSkillSlot(
 
         when (val formSkill = content) {
 
-            is FormSkill -> SkillsRemoved(formSkill, formSkill.removeAllEffectSkills()).also { content = NoFormSkill}
+            is FormSkill -> (formSkill.removeAllEffectSkills() + formSkill).also { content = NoFormSkill}
             is NoFormSkill -> SkillsRemoved()
         }
 
@@ -61,9 +61,9 @@ data class FormSkillSlot(
 
         content.ifIs(FormSkill::class)?.isOpenedBy(effectSkillSlotId, effectTemplate) ?: false
 
-    fun removeEffectSkillFrom(effectSkillSlotId: EffectSkillSlotId): EffectSkill? =
+    fun removeEffectSkillFrom(effectSkillSlotId: EffectSkillSlotId): SkillsRemoved =
 
-        content.ifIs(FormSkill::class)?.removeEffectSkillFrom(effectSkillSlotId)
+        content.ifIs(FormSkill::class)?.removeEffectSkillFrom(effectSkillSlotId) ?: SkillsRemoved()
 
     fun setEffectSkill(effectSkillSlotId: EffectSkillSlotId, effectSkill: EffectSkill) =
 

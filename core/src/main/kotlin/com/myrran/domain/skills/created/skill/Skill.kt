@@ -84,17 +84,17 @@ data class Skill(
 
         slots.isEffectSkillSlotOpenedBy(formSkillSlotId, effectSkillSlotId, effectTemplate)
 
-    fun removeEffectSkillFrom(formSkillSlotId: FormSkillSlotId, effectSkillSlotId: EffectSkillSlotId): EffectSkill? =
+    fun removeEffectSkillFrom(formSkillSlotId: FormSkillSlotId, effectSkillSlotId: EffectSkillSlotId): SkillsRemoved =
 
         slots.removeEffectSKillFrom(formSkillSlotId, effectSkillSlotId)
-            ?.also { notify(EffectSkillRemovedEvent(id, it)) }
+            .also { notify(EffectSkillRemovedEvent(id, formSkillSlotId, effectSkillSlotId, it)) }
 
-    fun setEffectSkill(formSkillSlotId: FormSkillSlotId, effectSkillSlotId: EffectSkillSlotId, effectSkill: EffectSkill): EffectSkill? =
+    fun setEffectSkill(formSkillSlotId: FormSkillSlotId, effectSkillSlotId: EffectSkillSlotId, effectSkill: EffectSkill): SkillsRemoved =
 
         slots.removeEffectSKillFrom(formSkillSlotId, effectSkillSlotId)
             .also { slots.setEffectSkill(formSkillSlotId, effectSkillSlotId, effectSkill) }
             .also { notify(EffectSkillChangedEvent(id, formSkillSlotId, effectSkillSlotId, effectSkill)) }
-            ?.also { notify(EffectSkillRemovedEvent(id, it)) }
+            .also { if (it.isNotEmpty()) notify(EffectSkillRemovedEvent(id, formSkillSlotId, effectSkillSlotId, it)) }
 
     // UPGRADES:
     //--------------------------------------------------------------------------------------------------------

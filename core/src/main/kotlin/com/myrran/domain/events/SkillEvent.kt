@@ -24,4 +24,4 @@ data class FormSkillRemovedEvent(override val skillId: SkillId, val removed: Ski
 
 data class EffectSkillStatUpgradedEvent(override val skillId: SkillId, val formSlot: FormSkillSlotId, val effectSlot: EffectSkillSlotId, val statId: StatId, val numUpgrades: NumUpgrades): SkillEvent
 data class EffectSkillChangedEvent(override val skillId: SkillId, val formSlot: FormSkillSlotId, val effectSlot: EffectSkillSlotId, val changedTo: EffectSkill): SkillEvent
-data class EffectSkillRemovedEvent(override val skillId: SkillId, val removed: EffectSkill): SkillEvent
+data class EffectSkillRemovedEvent(override val skillId: SkillId, val formSlot: FormSkillSlotId, val effectSlot: EffectSkillSlotId, val removed: SkillsRemoved): SkillEvent

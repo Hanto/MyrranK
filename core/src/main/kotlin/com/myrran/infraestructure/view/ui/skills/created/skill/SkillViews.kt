@@ -93,7 +93,7 @@ class SkillViews(
         when (event) {
 
             is SkillCreatedEvent -> update()
-            is SkillRemovedEvent -> { views[event.skillId]?.dispose(); update() }
+            is SkillRemovedEvent -> update().also { views[event.skillId]?.dispose() }
             is SkillStatUpgradedEvent ->  views[event.skillId]?.propertyChange(event)
             is FormSkillStatUpgradedEvent -> views[event.skillId]?.propertyChange(event)
             is FormSkillChangedEvent -> views[event.skillId]?.propertyChange(event)

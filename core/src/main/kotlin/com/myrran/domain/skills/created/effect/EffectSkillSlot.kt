@@ -1,6 +1,7 @@
 package com.myrran.domain.skills.created.effect
 
 import com.myrran.domain.skills.created.effect.EffectSkillSlotContent.NoEffectSkill
+import com.myrran.domain.skills.created.skill.SkillsRemoved
 import com.myrran.domain.skills.created.stat.NumUpgrades
 import com.myrran.domain.skills.created.stat.StatId
 import com.myrran.domain.skills.created.stat.UpgradeCost
@@ -25,9 +26,13 @@ data class EffectSkillSlot(
 
         content.ifIs(EffectSkill::class)
 
-    fun removeEffectSkill(): EffectSkill? =
+    fun removeEffectSkill(): SkillsRemoved =
 
-        content.ifIs(EffectSkill::class).also { content = NoEffectSkill }
+        when (val effectSkill = content) {
+
+            is EffectSkill -> SkillsRemoved(effectSkill).also { content = NoEffectSkill }
+            is NoEffectSkill -> SkillsRemoved()
+        }
 
     fun setEffectSkill(effectSkill: EffectSkill) =
 

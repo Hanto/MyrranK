@@ -96,13 +96,13 @@ class SkillView(
 
             is SkillCreatedEvent -> Unit
             is SkillRemovedEvent -> Unit
-            is SkillStatUpgradedEvent ->  { statsView.update(event.statId); headerView.update() }
-            is FormSkillStatUpgradedEvent -> { formSlotViews[event.formSlot]?.update(event.statId); headerView.update() }
+            is SkillStatUpgradedEvent ->  statsView.update(event.statId).also { headerView.update() }
+            is FormSkillStatUpgradedEvent -> formSlotViews[event.formSlot]?.update(event.statId).also { headerView.update() }
             is FormSkillChangedEvent -> update()
             is FormSkillRemovedEvent -> update()
-            is EffectSkillStatUpgradedEvent -> { formSlotViews[event.formSlot]?.effectSlotViews?.get(event.effectSlot)?.update(event.statId); headerView.update() }
+            is EffectSkillStatUpgradedEvent -> formSlotViews[event.formSlot]?.effectSlotViews?.get(event.effectSlot)?.update(event.statId).also { headerView.update() }
             is EffectSkillChangedEvent -> formSlotViews[event.formSlot]?.effectSlotViews?.get(event.effectSlot)?.update()
-            is EffectSkillRemovedEvent -> update()
+            is EffectSkillRemovedEvent -> formSlotViews[event.formSlot]?.effectSlotViews?.get(event.effectSlot)?.update()
         }
     }
 

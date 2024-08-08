@@ -8,7 +8,8 @@ data class SkillsRemoved(
     val removedForms: Collection<FormSkill> = emptyList(),
     val removedEffects: Collection<EffectSkill> = emptyList()
 ){
-    constructor(form: FormSkill, removedEffects: Collection<EffectSkill>): this(listOf(form), removedEffects)
+    constructor(effectSkill: EffectSkill):
+        this(emptyList<FormSkill>(), listOf(effectSkill))
 
     operator fun plus(other: SkillsRemoved): SkillsRemoved =
 
@@ -16,17 +17,21 @@ data class SkillsRemoved(
             removedForms = removedForms + other.removedForms,
             removedEffects = removedEffects + other.removedEffects)
 
+    operator fun plus(other: FormSkill): SkillsRemoved =
+
+        SkillsRemoved(
+            removedForms = removedForms + other,
+            removedEffects = removedEffects
+        )
+
+    operator fun plus(other: EffectSkill): SkillsRemoved =
+
+        SkillsRemoved(
+            removedForms = removedForms,
+            removedEffects = removedEffects + other
+        )
+
     fun isNotEmpty(): Boolean =
 
-        removedForms.isNotEmpty() && removedEffects.isNotEmpty()
-}
-
-data class EffectRemoved(
-
-    val removedEffect: EffectSkill?
-)
-{
-    fun isNotEmpty(): Boolean =
-
-        removedEffect != null
+        removedForms.isNotEmpty() || removedEffects.isNotEmpty()
 }
