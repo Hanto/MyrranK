@@ -325,6 +325,48 @@
     "id" : "IMPACT:1",
     "name" : "Impact",
     "lock" : [ "A", "B", "C", "D" ],
-    "content" : null
+    "content" : {
+      "id" : "f6513fbb-4cf2-40e9-baa4-c453f1a94fe6",
+      "templateId" : "CONE_1",
+      "type" : "EXPLOSION",
+      "name" : "Cone",
+      "stats" : [ {
+        "id" : "WIDE",
+        "name" : "wide",
+        "baseBonus" : 10.0,
+        "actual" : 0,
+        "maximum" : 20,
+        "upgradeCost" : 2.0,
+        "bonusPerUpgrade" : 1.0
+      }, {
+        "id" : "RANGE",
+        "name" : "range",
+        "baseBonus" : 10.0,
+        "actual" : 0,
+        "maximum" : 20,
+        "upgradeCost" : 2.0,
+        "bonusPerUpgrade" : 1.0
+      }, {
+        "id" : "SPEED",
+        "name" : "speed",
+        "baseBonus" : 10.0,
+        "actual" : 0,
+        "maximum" : 20,
+        "upgradeCost" : 2.0,
+        "bonusPerUpgrade" : 1.0
+      } ],
+      "slots" : [ {
+        "id" : "DEBUFF_1",
+        "name" : "Debuff 1",
+        "lock" : [ "a", "b", "e" ],
+        "content" : null
+      }, {
+        "id" : "DEBUFF_2",
+        "name" : "Debuff 2",
+        "lock" : [ "c", "d", "e" ],
+        "content" : null
+      } ],
+      "keys" : [ "A", "B", "C", "D" ]
+    }
   } ]
 } ]

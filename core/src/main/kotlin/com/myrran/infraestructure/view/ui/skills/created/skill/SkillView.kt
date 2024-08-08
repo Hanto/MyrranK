@@ -41,7 +41,7 @@ class SkillView(
     private var formSlotViews: Map<FormSkillSlotId, FormSkillSlotView> = createFormSlotViews()
     private val keyView: SkillSlotKeyView = SkillSlotKeyView(model, assets, controller)
 
-    private val table = Table().top().left()
+    private val rootTable = Table().top().left()
     private val bodyTable = Table()
     private val skillStatsTable = Table()
 
@@ -56,13 +56,13 @@ class SkillView(
         skillStatsTable.setBackground(assets.tableBackground)
         rebuildTable()
 
-        actor = table
+        actor = rootTable
         setSize(prefWidth, prefHeight)
     }
 
     private fun rebuildTable() {
 
-        table.clearChildren()
+        rootTable.clearChildren()
         bodyTable.clearChildren()
         skillStatsTable.clearChildren()
 
@@ -75,8 +75,8 @@ class SkillView(
         formSlotViews.values.forEach { bodyTable.add(it).top().right().expand().fillX().padBottom(2f).row() }
 
         // all:
-        table.add(headerView).left().fillX().padBottom(0f).row()
-        table.add(bodyTable)
+        rootTable.add(headerView).left().fillX().padBottom(0f).row()
+        rootTable.add(bodyTable)
     }
 
     // UPDATE:
