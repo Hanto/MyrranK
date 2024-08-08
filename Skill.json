@@ -290,4 +290,33 @@
       "keys" : [ "A", "B", "C", "D" ]
     }
   } ]
+}, {
+  "id" : "e316ccda-27dd-407d-a84a-64a87cbbc296",
+  "templateId" : "BOLT_1",
+  "type" : "BOLT",
+  "name" : "Bolt",
+  "customName" : "Bolt",
+  "stats" : [ {
+    "id" : "SPEED",
+    "name" : "speed",
+    "baseBonus" : 10.0,
+    "actual" : 1,
+    "maximum" : 50,
+    "upgradeCost" : 2.0,
+    "bonusPerUpgrade" : 1.0
+  }, {
+    "id" : "Cooldown",
+    "name" : "cooldown",
+    "baseBonus" : 10.0,
+    "actual" : 0,
+    "maximum" : 50,
+    "upgradeCost" : 2.0,
+    "bonusPerUpgrade" : 1.0
+  } ],
+  "slots" : [ {
+    "id" : "IMPACT:1",
+    "name" : "Impact",
+    "lock" : [ "A", "B", "C", "D" ],
+    "content" : null
+  } ]
 } ]

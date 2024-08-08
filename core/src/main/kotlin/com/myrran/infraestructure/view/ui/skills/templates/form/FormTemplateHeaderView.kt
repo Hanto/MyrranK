@@ -18,7 +18,7 @@ class FormTemplateHeaderView(
 
     ): Table()
 {
-    private val tooltip = TooltipView("Drag to an Spell slot to add this Form", assets.font14, assets.tooltipBackground)
+    private val tooltip = TooltipView("Drag to add this Form to a Spell slot", assets.font14, assets.tooltipBackground)
     val icon = DraggableIconView(assets.getIcon("FormIcon"))
     private val name = TextView(model.value.name, assets.font20, Color.ORANGE, 2f) { it.value }
     private val available = TextView(model, assets.font14, model.toColor(), 2f) { "${it.available}/${it.total}" }

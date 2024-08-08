@@ -18,6 +18,7 @@ import com.myrran.domain.misc.Identifiable
 import com.myrran.domain.misc.observer.Observer
 import com.myrran.domain.skills.created.form.FormSkillSlotId
 import com.myrran.domain.skills.created.skill.Skill
+import com.myrran.domain.skills.created.stat.StatId
 import com.myrran.infraestructure.assets.SkillViewAssets
 import com.myrran.infraestructure.controller.SkillController
 import com.myrran.infraestructure.view.ui.misc.UIClickListener
@@ -82,7 +83,13 @@ class SkillView(
     // UPDATE:
     //--------------------------------------------------------------------------------------------------------
 
-    fun update() {
+    private fun update(statId: StatId) {
+
+        statsView.update(statId)
+        headerView.update()
+    }
+
+    private fun update() {
 
         factory.disposeView(id)
         formSlotViews.values.forEach { it.dispose() }
@@ -96,13 +103,13 @@ class SkillView(
 
             is SkillCreatedEvent -> Unit
             is SkillRemovedEvent -> Unit
-            is SkillStatUpgradedEvent ->  statsView.update(event.statId).also { headerView.update() }
+            is SkillStatUpgradedEvent ->  update(event.statId)
             is FormSkillStatUpgradedEvent -> formSlotViews[event.formSlot]?.update(event.statId).also { headerView.update() }
             is FormSkillChangedEvent -> update()
             is FormSkillRemovedEvent -> update()
             is EffectSkillStatUpgradedEvent -> formSlotViews[event.formSlot]?.effectSlotViews?.get(event.effectSlot)?.update(event.statId).also { headerView.update() }
-            is EffectSkillChangedEvent -> formSlotViews[event.formSlot]?.effectSlotViews?.get(event.effectSlot)?.update()
-            is EffectSkillRemovedEvent -> formSlotViews[event.formSlot]?.effectSlotViews?.get(event.effectSlot)?.update()
+            is EffectSkillChangedEvent -> formSlotViews[event.formSlot]?.effectSlotViews?.get(event.effectSlot)?.update().also { headerView.update() }
+            is EffectSkillRemovedEvent -> formSlotViews[event.formSlot]?.effectSlotViews?.get(event.effectSlot)?.update().also { headerView.update() }
         }
     }
 
