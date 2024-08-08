@@ -21,7 +21,7 @@ class FormDaDTarget(
 ): DaDTarget, Identifiable<SkillViewId>
 {
     override val id: SkillViewId = view.id
-    override fun getActor(): Actor = view.formSlotKeyView
+    override fun getActor(): Actor = view.keyView
     override fun drag(source: DaDSource, payload: Payload, x: Float, y: Float, pointer: Int): Boolean =
 
         true
@@ -36,12 +36,12 @@ class FormDaDTarget(
     override fun notifyNewPayload(payload: Payload) =
 
         when (controller.isOpenedBy((payload.`object` as Quantity<FormTemplate>).value.id)) {
-            true -> view.formSlotKeyView.highlightWithColor(Color.GREEN)
-            false -> view.formSlotKeyView.highlightWithColor(Color.RED)
+            true -> view.keyView.highlightWithColor(Color.GREEN)
+            false -> view.keyView.highlightWithColor(Color.RED)
         }
 
     override fun notifyNoPayload() {
 
-        view.formSlotKeyView.dontHighlight()
+        view.keyView.dontHighlight()
     }
 }

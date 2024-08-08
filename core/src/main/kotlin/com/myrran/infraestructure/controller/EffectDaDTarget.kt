@@ -21,7 +21,7 @@ class EffectDaDTarget(
 ): DaDTarget, Identifiable<SkillViewId>
 {
     override val id: SkillViewId = view.id
-    override fun getActor(): Actor = view.effectSkillSlotKeyView
+    override fun getActor(): Actor = view.keyView
 
     override fun drag(source: DaDSource, payload: Payload, x: Float, y: Float, pointer: Int): Boolean =
 
@@ -37,12 +37,12 @@ class EffectDaDTarget(
     override fun notifyNewPayload(payload: Payload) =
 
         when (controller.isOpenedBy((payload.`object` as Quantity<EffectTemplate>).value.id)) {
-            true -> view.effectSkillSlotKeyView.highlightWithColor(Color.GREEN)
-            false -> view.effectSkillSlotKeyView.highlightWithColor(Color.RED)
+            true -> view.keyView.highlightWithColor(Color.GREEN)
+            false -> view.keyView.highlightWithColor(Color.RED)
         }
 
     override fun notifyNoPayload() {
 
-        view.effectSkillSlotKeyView.dontHighlight()
+        view.keyView.dontHighlight()
     }
 }

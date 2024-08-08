@@ -291,11 +291,11 @@
     }
   } ]
 }, {
-  "id" : "16bd7110-29b4-421f-9214-1d0eb2923dfd",
+  "id" : "73d1514a-804f-4dc2-928f-fb3ff0a71917",
   "templateId" : "GRENADE_1",
   "type" : "BOLT",
   "name" : "Grenade",
-  "customName" : "Grenade",
+  "customName" : "05 Grenade",
   "stats" : [ {
     "id" : "SPEED",
     "name" : "speed",

@@ -36,11 +36,14 @@ class SkillView(
 
 ): Container<Table>(), Identifiable<SkillViewId>, Observer<SkillEvent>, Disposable
 {
-    private var skillHeader: SkillHeaderView = SkillHeaderView(model, assets, controller)
-    private var skillStats: StatsView = StatsView( { model.getStats() }, assets, controller)
-    private var formSlots: Map<FormSkillSlotId, FormSkillSlotView> = createFormSlotViews()
-    private val skillKey: SkillSlotKeyView = SkillSlotKeyView(model, assets, controller)
+    private var headerView: SkillHeaderView = SkillHeaderView(model, assets, controller)
+    private var statsView: StatsView = StatsView( { model.getStats() }, assets, controller)
+    private var formSlotViews: Map<FormSkillSlotId, FormSkillSlotView> = createFormSlotViews()
+    private val keyView: SkillSlotKeyView = SkillSlotKeyView(model, assets, controller)
+
     private val table = Table().top().left()
+    private val bodyTable = Table()
+    private val skillStatsTable = Table()
 
     // LAYOUT:
     //--------------------------------------------------------------------------------------------------------
@@ -49,7 +52,8 @@ class SkillView(
 
         addListener(UIClickListener { toFront() } )
 
-        top().left()
+        touchable = Touchable.enabled
+        skillStatsTable.setBackground(assets.tableBackground)
         rebuildTable()
 
         actor = table
@@ -59,19 +63,19 @@ class SkillView(
     private fun rebuildTable() {
 
         table.clearChildren()
+        bodyTable.clearChildren()
+        skillStatsTable.clearChildren()
 
-        val bodyTable = Table()
-        val skillStatsTable = Table()
-        skillStatsTable.touchable = Touchable.enabled
-        skillStatsTable.setBackground(assets.tableBackground)
-        formSlots.values.forEach { it.touchable = Touchable.enabled }
+        // stats:
+        skillStatsTable.add(keyView).fillY()
+        skillStatsTable.add(statsView)
 
-        skillStatsTable.add(skillKey).fillY()
-        skillStatsTable.add(skillStats)
+        // stats + forms:
         bodyTable.add(skillStatsTable).top().right().padBottom(0f).padBottom(2f).row()
-        formSlots.values.forEach { bodyTable.add(it).top().right().expand().fillX().padBottom(2f).row() }
+        formSlotViews.values.forEach { bodyTable.add(it).top().right().expand().fillX().padBottom(2f).row() }
 
-        table.add(skillHeader).left().fillX().padBottom(0f).row()
+        // all:
+        table.add(headerView).left().fillX().padBottom(0f).row()
         table.add(bodyTable)
     }
 
@@ -81,8 +85,8 @@ class SkillView(
     fun update() {
 
         factory.disposeView(id)
-        formSlots.values.forEach { it.dispose() }
-        formSlots = createFormSlotViews()
+        formSlotViews.values.forEach { it.dispose() }
+        formSlotViews = createFormSlotViews()
         rebuildTable()
     }
 
@@ -92,12 +96,12 @@ class SkillView(
 
             is SkillCreatedEvent -> Unit
             is SkillRemovedEvent -> Unit
-            is SkillStatUpgradedEvent ->  { skillStats.update(event.statId); skillHeader.update() }
-            is FormSkillStatUpgradedEvent -> { formSlots[event.formSlot]?.update(event.statId); skillHeader.update() }
+            is SkillStatUpgradedEvent ->  { statsView.update(event.statId); headerView.update() }
+            is FormSkillStatUpgradedEvent -> { formSlotViews[event.formSlot]?.update(event.statId); headerView.update() }
             is FormSkillChangedEvent -> update()
             is FormSkillRemovedEvent -> update()
-            is EffectSkillStatUpgradedEvent -> { formSlots[event.formSlot]?.effectSlotsViews?.get(event.effectSlot)?.update(event.statId); skillHeader.update() }
-            is EffectSkillChangedEvent -> formSlots[event.formSlot]?.effectSlotsViews?.get(event.effectSlot)?.update()
+            is EffectSkillStatUpgradedEvent -> { formSlotViews[event.formSlot]?.effectSlotViews?.get(event.effectSlot)?.update(event.statId); headerView.update() }
+            is EffectSkillChangedEvent -> formSlotViews[event.formSlot]?.effectSlotViews?.get(event.effectSlot)?.update()
             is EffectSkillRemovedEvent -> update()
         }
     }
@@ -105,7 +109,7 @@ class SkillView(
     override fun dispose() {
 
         factory.disposeView(id)
-        formSlots.values.forEach { it.dispose() }
+        formSlotViews.values.forEach { it.dispose() }
     }
 
     // HELPER:

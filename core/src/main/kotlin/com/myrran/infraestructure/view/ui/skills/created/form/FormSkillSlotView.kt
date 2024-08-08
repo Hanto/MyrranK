@@ -25,9 +25,11 @@ class FormSkillSlotView(
 
 ): Table(), Identifiable<SkillViewId>
 {
-    private var stats: StatsView = StatsView( { getStats() }, assets, controller)
-    val formSlotKeyView: FormSkillSlotKeyView = FormSkillSlotKeyView(model, assets, controller)
-    var effectSlotsViews: Map<EffectSkillSlotId, EffectSkillSlotView> = createEffectSlotViews()
+    private var statsView: StatsView = StatsView( { getStatsView() }, assets, controller)
+    val keyView: FormSkillSlotKeyView = FormSkillSlotKeyView(model, assets, controller)
+    var effectSlotViews: Map<EffectSkillSlotId, EffectSkillSlotView> = createEffectSlotViews()
+
+    private val formTable = Table()
 
     // LAYOUT:
     //--------------------------------------------------------------------------------------------------------
@@ -35,6 +37,7 @@ class FormSkillSlotView(
     init {
 
         left()
+
         setBackground(assets.tableBackground)
         rebuildTable()
     }
@@ -42,16 +45,17 @@ class FormSkillSlotView(
     private fun rebuildTable() {
 
         clearChildren()
+        formTable.clearChildren()
 
-        val keyAndStatsTable = Table()
-        keyAndStatsTable.add(formSlotKeyView).expandY().fillY()
+        // form:
+        formTable.add(keyView).expandY().fillY()
         if (model.content is FormSkill)
-            keyAndStatsTable.add(stats)
+            formTable.add(statsView)
+        formTable.row()
 
-        keyAndStatsTable.row()
-
-        add(keyAndStatsTable).row()
-        effectSlotsViews.values.forEach{ add(it).left().row() }
+        // effects:
+        add(formTable).row()
+        effectSlotViews.values.forEach{ add(it).left().row() }
     }
 
     // UPDATE:
@@ -59,13 +63,13 @@ class FormSkillSlotView(
 
     fun update(statId: StatId) {
 
-        stats.update(statId)
+        statsView.update(statId)
     }
 
     fun dispose() {
 
         factory.disposeView(id)
-        effectSlotsViews.values.forEach { factory.disposeView(it.id) }
+        effectSlotViews.values.forEach { factory.disposeView(it.id) }
     }
 
     // HELPER:
@@ -80,7 +84,7 @@ class FormSkillSlotView(
                 .associate { it.id to factory.createEffectSlotView(it, controller) }
         }
 
-    private fun getStats(): Collection<Stat> =
+    private fun getStatsView(): Collection<Stat> =
 
         when (val formSkill = model.content) {
 

@@ -20,7 +20,7 @@ class EffectTemplateHeaderView(
 
     ): Table()
 {
-    private val tooltip = TooltipView("Drag to an Skill slot to add this Effect", assets.font14, assets.tooltipBackground)
+    private val tooltip = TooltipView("Drag to an Spell slot to add this Effect", assets.font14, assets.tooltipBackground)
     val icon = DraggableIconView(assets.getIcon("EffectIcon"))
     private val name = TextView(model.value.name, assets.font20, ORANGE, 2f) { it.value }
     private val available = TextView(model, assets.font14, model.toColor(), 2f) { "${it.available}/${it.total}" }

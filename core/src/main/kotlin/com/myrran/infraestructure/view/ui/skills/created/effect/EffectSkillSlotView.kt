@@ -21,8 +21,8 @@ class EffectSkillSlotView(
 
 ): Table(), Identifiable<SkillViewId>
 {
-    val effectSkillSlotKeyView: EffectSkillSlotKeyView = EffectSkillSlotKeyView(model, assets, controller)
-    private var stats: StatsView = createStatsView()
+    private var statsView: StatsView = createStatsView()
+    val keyView: EffectSkillSlotKeyView = EffectSkillSlotKeyView(model, assets, controller)
 
     // LAYOUT:
     //--------------------------------------------------------------------------------------------------------
@@ -30,6 +30,7 @@ class EffectSkillSlotView(
     init {
 
         left()
+
         rebuildTable()
     }
 
@@ -37,9 +38,10 @@ class EffectSkillSlotView(
 
         clearChildren()
 
-        add(effectSkillSlotKeyView).expandY().fillY()
+        // effect:
+        add(keyView).expandY().fillY()
         if (model.content is EffectSkill)
-            add(stats)
+            add(statsView)
     }
 
     // UPDATE:
@@ -47,13 +49,13 @@ class EffectSkillSlotView(
 
     fun update(statId: StatId) {
 
-        stats.update(statId)
+        statsView.update(statId)
     }
 
     fun update() {
 
-        effectSkillSlotKeyView.update()
-        stats = createStatsView()
+        keyView.update()
+        statsView = createStatsView()
         rebuildTable()
     }
 
@@ -62,9 +64,9 @@ class EffectSkillSlotView(
 
     private fun createStatsView(): StatsView =
 
-        StatsView( { getStats() }, assets, controller )
+        StatsView( { getStatsView() }, assets, controller )
 
-    private fun getStats(): Collection<Stat> =
+    private fun getStatsView(): Collection<Stat> =
 
         when (val effectSkill = model.content) {
 
