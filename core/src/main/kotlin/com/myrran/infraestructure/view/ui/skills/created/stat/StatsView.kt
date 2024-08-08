@@ -19,7 +19,7 @@ class StatsView(
     init {
 
         top().left().padLeft(5f).padRight(5f).padBottom(7f)
-        setBackground(assets.tableBackgroundLight)
+        setBackground(assets.tableBackground)
         reBuildTable()
     }
 

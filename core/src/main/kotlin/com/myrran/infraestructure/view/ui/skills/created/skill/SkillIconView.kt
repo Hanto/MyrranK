@@ -32,13 +32,13 @@ class SkillIconView(
         val iconTable = Table().center()
 
         iconTable.add(name.align(Align.center)).center().row()
-        iconTable.setBackground(assets.tableBackgroundLight)
+        iconTable.setBackground(assets.tableBackground)
 
         val costTable = Table().center()
 
         costTable.add(costLabel.align(Align.right)).right()
         costTable.add(cost.align(Align.left)).left()
-        costTable.setBackground(assets.tableBackgroundLight)
+        costTable.setBackground(assets.tableBackground)
 
         bottom().left()
         add(iconTable).left()

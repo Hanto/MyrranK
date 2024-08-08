@@ -21,7 +21,7 @@ class SkillTemplateHeaderView(
 
 ): Table()
 {
-    private val icon = Image(assets.skillIcon)
+    private val icon = Image(assets.getIcon("SkillIcon"))
     private val name = TextView(model.value.name, assets.font20, ORANGE, 2f) { it.value }
     private val available = TextView(model, assets.font14, model.toColor(), 2f) { "${it.available}/${it.total}" }
     private val description = TextView("SKILL", assets.font14, WHITE, 1f)
@@ -32,7 +32,7 @@ class SkillTemplateHeaderView(
         createButton.addListener(UIClickListener { controller.addSkill(model.value.id) })
 
         left()
-        setBackground(assets.tableBackgroundLightToDark.tint(Color(0.6f, 0.6f, 0.6f, 0.90f)))
+        setBackground(assets.templateHeader)
 
         val lowerTable = Table().bottom().left()
         lowerTable.add(name.align(Align.left)).left()

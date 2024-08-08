@@ -21,7 +21,7 @@ class TemplatesHeaderView(
         touchable = Touchable.enabled
         top().left()
 
-        setBackground(assets.tableBackgroundLightToDark.tint(Color(0.6f, 0.6f, 0.6f, 0.90f)))
+        setBackground(assets.containerHeader)
         add(headerName.align(Align.left)).minHeight(33f).padLeft(8f).left()
     }
 }

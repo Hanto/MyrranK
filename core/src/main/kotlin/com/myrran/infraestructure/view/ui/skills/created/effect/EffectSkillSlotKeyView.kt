@@ -39,7 +39,7 @@ class EffectSkillSlotKeyView(
         touchable = Touchable.enabled
         addListener(UIClickListener(RIGHT_BUTTON) { controller.removeEffectSkill() })
         top().center()
-        setBackground(assets.tableBackgroundLight)
+        setBackground(assets.tableBackground)
         rebuildTable()
     }
 

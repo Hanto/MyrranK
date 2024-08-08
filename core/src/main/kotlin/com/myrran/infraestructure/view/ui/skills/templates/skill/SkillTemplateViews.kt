@@ -65,7 +65,7 @@ class SkillTemplateViews(
         scrollPane.setScrollbarsVisible(true)
 
         val scrollTable = Table().top().left()
-        scrollTable.background = assets.tableBackgroundLight
+        scrollTable.background = assets.containerBackground
         scrollTable.add(scrollPane)
 
         rootTable.add(header).expand().fillX().row()

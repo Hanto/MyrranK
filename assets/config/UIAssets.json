@@ -2,5 +2,5 @@
     "atlas": [ "Atlas.atlas" ],
     "fonts" : [ "8.fnt", "10.fnt", "11.fnt", "14.fnt", "20.fnt",
         "Calibri10.fnt", "Calibri11.fnt", "Calibri12.fnt", "Calibri13.fnt", "Calibri14.fnt",
-        "Arial10.fnt", "Arial11.fnt", "Arial12.fnt", "Arial13.fnt", "arial14.fnt" ]
+        "Arial10.fnt", "Arial11.fnt", "Arial12.fnt", "Arial13.fnt", "Arial14.fnt" ]
 }

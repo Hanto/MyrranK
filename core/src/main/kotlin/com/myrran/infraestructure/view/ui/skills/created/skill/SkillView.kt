@@ -63,7 +63,7 @@ class SkillView(
         val bodyTable = Table()
         val skillStatsTable = Table()
         skillStatsTable.touchable = Touchable.enabled
-        skillStatsTable.setBackground(assets.tableBackgroundLight)
+        skillStatsTable.setBackground(assets.tableBackground)
         formSlots.values.forEach { it.touchable = Touchable.enabled }
 
         skillStatsTable.add(skillKey).fillY()

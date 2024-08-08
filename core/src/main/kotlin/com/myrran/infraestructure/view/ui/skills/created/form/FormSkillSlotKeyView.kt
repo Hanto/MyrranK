@@ -39,7 +39,7 @@ class FormSkillSlotKeyView(
         touchable = Touchable.enabled
         addListener(UIClickListener(RIGHT_BUTTON) { controller.removeFormSkill() })
         top().center()
-        setBackground(assets.tableBackgroundLight)
+        setBackground(assets.tableBackground)
         rebuildTable()
     }
 

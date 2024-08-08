@@ -3,14 +3,15 @@ package com.myrran.infraestructure.view.ui.skills.templates.effect
 import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.graphics.Color.ORANGE
 import com.badlogic.gdx.graphics.Color.WHITE
-import com.badlogic.gdx.scenes.scene2d.ui.Image
 import com.badlogic.gdx.scenes.scene2d.ui.Table
 import com.badlogic.gdx.utils.Align
 import com.myrran.domain.misc.Quantity
 import com.myrran.domain.skills.templates.effect.EffectTemplate
 import com.myrran.infraestructure.assets.PURPLE_LIGHT
 import com.myrran.infraestructure.assets.SkillViewAssets
+import com.myrran.infraestructure.view.ui.misc.DraggableIconView
 import com.myrran.infraestructure.view.ui.misc.TextView
+import com.myrran.infraestructure.view.ui.misc.TooltipView
 
 class EffectTemplateHeaderView(
 
@@ -19,7 +20,8 @@ class EffectTemplateHeaderView(
 
     ): Table()
 {
-    val icon = Image(assets.skillIcon)
+    private val tooltip = TooltipView("Drag to an Skill slot to add this Effect", assets.font14, assets.tooltipBackground)
+    val icon = DraggableIconView(assets.getIcon("EffectIcon"))
     private val name = TextView(model.value.name, assets.font20, ORANGE, 2f) { it.value }
     private val available = TextView(model, assets.font14, model.toColor(), 2f) { "${it.available}/${it.total}" }
     private val description = TextView("EFFECT", assets.font12, WHITE, 1f)
@@ -28,7 +30,9 @@ class EffectTemplateHeaderView(
     init {
 
         left()
-        setBackground(assets.tableBackgroundLightToDark.tint(Color(0.6f, 0.6f, 0.6f, 0.90f)))
+        setBackground(assets.templateHeader)
+        icon.addListener(tooltip)
+        tooltip.setInstant(true)
 
         val lowerTable = Table().bottom().left()
         lowerTable.add(name.align(Align.left)).left()

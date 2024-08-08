@@ -27,7 +27,7 @@ class SkillSlotKeyView(
         touchable = Touchable.enabled
         addListener(UIClickListener(RIGHT_BUTTON) { controller.removeSkill() })
         top().center()
-        setBackground(assets.tableBackgroundLight)
+        setBackground(assets.tableBackground)
         rebuildTable()
     }
 

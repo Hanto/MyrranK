@@ -72,35 +72,31 @@ class MainScreen(
         learnedTemplates = LearnedSkillTemplates(learnedRepository, skillTemplateRepository)
         spellBook = SpellBook(skillRepository, learnedTemplates)
 
-        fpsText = TextView("FPS: ?", assetStorage.getFont("20.fnt"), shadowTickness = 2f, formater = {it})
+        fpsText = TextView("0", assetStorage.getFont("20.fnt"), shadowTickness = 2f, formater = { "FPS: $it" })
         uiStage.addActor(fpsText)
 
-        //playerSkillBook.addSubSkillTo(SkillId.from("95a1bfb2-a2bd-47d3-920b-e7f9ad798b76"), SubSkillSlotId("IMPACT"), SubSkillTemplateId("EXPLOSION_1"))
-        //val controller = SkillController(skill.id, playerSkillBook)
-
         val assets = SkillViewAssets(
-            skillIcon = assetStorage.getTextureRegion("Atlas.atlas", "TexturasIconos/FireBall"),
-            tableBackgroundLightToDark = assetStorage.getNinePatchDrawable("Atlas.atlas", "TexturasIconos/NineLightToDark", Color.WHITE, 1f),
-            tableBackgroundLight = assetStorage.getNinePatchDrawable("Atlas.atlas","TexturasIconos/NineLight", Color.WHITE, 0.90f),
-            tableBackgroundDark = assetStorage.getNinePatchDrawable("Atlas.atlas","TexturasIconos/NineDark", Color.WHITE, 0.90f),
             font20 = assetStorage.getFont("20.fnt"),
             font14 = assetStorage.getFont("14.fnt"),
-            font12 = assetStorage.getFont("Calibri12.fnt"),
-            font10 =  assetStorage.getFont("Calibri10.fnt"),
+            font12 = assetStorage.getFont("Arial12.fnt"),
+            font10 =  assetStorage.getFont("Arial10.fnt"),
             statBarBack = assetStorage.getTextureRegion("Atlas.atlas", "TexturasMisc/CasillaTalentoFondo"),
             statBarFront = assetStorage.getTextureRegion("Atlas.atlas", "TexturasMisc/CasillaTalento"),
+            skillHeader = assetStorage.getNinePatchDrawable("Atlas.atlas", "TexturasIconos/NineLightToDark", Color(0.7f, 0.7f, 0.7f, 1.0f), 0.90f),
+            templateHeader = assetStorage.getNinePatchDrawable("Atlas.atlas", "TexturasIconos/NineLightToDark", Color(0.7f, 0.7f, 0.7f, 1.0f), 0.90f),
+            containerHeader = assetStorage.getNinePatchDrawable("Atlas.atlas", "TexturasIconos/NineLightToDark", Color(0.6f, 0.6f, 0.6f, 1.0f), 0.90f),
+            containerBackground = assetStorage.getNinePatchDrawable("Atlas.atlas","TexturasIconos/NineLight", Color.WHITE, 0.90f),
+            tableBackground = assetStorage.getNinePatchDrawable("Atlas.atlas","TexturasIconos/NineLight", Color.WHITE, 0.90f),
+            tooltipBackground = assetStorage.getNinePatchDrawable("Atlas.atlas","TexturasIconos/NineLight", Color.WHITE, 0.95f),
+            iconTextures = mapOf(
+                "SkillIcon" to assetStorage.getTextureRegion("Atlas.atlas", "TexturasIconos/FireBall"),
+                "EffectIcon" to assetStorage.getTextureRegion("Atlas.atlas", "TexturasIconos/Editar"),
+                "FormIcon" to assetStorage.getTextureRegion("Atlas.atlas", "TexturasIconos/Muros")
+            )
         )
 
         val dragAndDropManager = DragAndDropManager(DaD(), DaD())
         val skillViewFactory = SkillViewFactory(dragAndDropManager, assets)
-
-        /*
-        val skill = spellBook.created.findBy(SkillId.from("95a1bfb2-a2bd-47d3-920b-e7f9ad798b76"))!!
-        val skillView = skillViewFactory.createSkillView(skill, controller)
-        uiStage.addActor(skillView)
-        skillView.setPosition(550f, 100f)
-        */
-
         val bookController = BookSkillController(spellBook)
 
         val effectList = EffectTemplateViews(SkillViewId(UUID.randomUUID()), spellBook, assets, skillViewFactory)
@@ -118,15 +114,6 @@ class MainScreen(
         val skillList = SkillViews(SkillViewId(UUID.randomUUID()), spellBook, assets, bookController, skillViewFactory)
         uiStage.addActor(skillList)
         skillList.setPosition(860f, 154f)
-
-        //spellBook.removeSkill(SkillId.from("3e4d0937-2a1a-45cc-a793-649130461dc0"))
-        //spellBook.addSkill(SkillTemplateId("BOLT_1"))
-
-        //playerSkillBook.learn(BuffSkillTemplateId("BOMB_1"))
-        //skillView.setDebug(true, true)
-        //templateView.setDebug(true, true)
-        //uiStage.setDebugUnderMouse(true)
-        //uiStage.setDebugAll(true)
     }
 
     // RENDER:
@@ -146,7 +133,7 @@ class MainScreen(
 
     private fun renderUI(delta: Float) {
 
-        fpsText.setText(Gdx.graphics.framesPerSecond)
+        fpsText.setText(Gdx.graphics.framesPerSecond.toString())
     }
 
     private fun clearScreen() {

@@ -1,6 +1,5 @@
 package com.myrran.infraestructure.view.ui.skills.created.skill
 
-import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.graphics.Color.ORANGE
 import com.badlogic.gdx.graphics.Color.WHITE
 import com.badlogic.gdx.scenes.scene2d.ui.Image
@@ -22,7 +21,7 @@ class SkillHeaderView(
 
 ): Table()
 {
-    private val icon = Image(assets.skillIcon)
+    private val icon = Image(assets.getIcon("SkillIcon"))
     private val name = TextFieldView(skill.custonName, assets.font20, ORANGE, 2f, { controller.changeName(it) }, { it.value })
     private val description = TextView(skill.name, assets.font14, WHITE, 1f) { it.value.uppercase() }
     private val cost = TextView(skill.totalCost(), assets.font20, PURPLE_LIGHT, 2f) { it.value.format(0) }
@@ -30,7 +29,7 @@ class SkillHeaderView(
     init {
 
         left()
-        setBackground(assets.tableBackgroundLightToDark.tint(Color(0.6f, 0.6f, 0.6f, 0.90f)))
+        setBackground(assets.skillHeader)
         rebuildTable()
     }
 

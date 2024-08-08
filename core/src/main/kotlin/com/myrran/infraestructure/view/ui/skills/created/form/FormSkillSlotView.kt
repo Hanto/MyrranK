@@ -35,7 +35,7 @@ class FormSkillSlotView(
     init {
 
         left()
-        setBackground(assets.tableBackgroundLight)
+        setBackground(assets.tableBackground)
         rebuildTable()
     }
 
