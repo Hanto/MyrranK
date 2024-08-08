@@ -127,20 +127,20 @@ class LearnedSkillTemplates(
         learnedRepository.saveEffect(newQuantity)
     }
 
-    fun increaseAndSaveForms(quantityList: Collection<FormSkill>) {
+    fun increaseAndSaveForms(forms: Collection<FormSkill>) {
 
-        if (quantityList.isNotEmpty()) {
+        if (forms.isNotEmpty()) {
 
-            val newQuantities = quantityList.map { learnedRepository.findBy(it.templateId).increaseAvailable() }
+            val newQuantities = forms.map { learnedRepository.findBy(it.templateId).increaseAvailable() }
             learnedRepository.saveForms(newQuantities)
         }
     }
 
-    fun increaseAndSaveEffects(quantityList: Collection<EffectSkill>) {
+    fun increaseAndSaveEffects(effects: Collection<EffectSkill>) {
 
-        if (quantityList.isNotEmpty()) {
+        if (effects.isNotEmpty()) {
 
-            val newQuantities = quantityList.map { learnedRepository.findBy(it.templateId).increaseAvailable() }
+            val newQuantities = effects.map { learnedRepository.findBy(it.templateId).increaseAvailable() }
             learnedRepository.saveEffects(newQuantities)
         }
     }

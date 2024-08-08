@@ -21,3 +21,12 @@ data class SkillsRemoved(
         removedForms.isNotEmpty() && removedEffects.isNotEmpty()
 }
 
+data class EffectRemoved(
+
+    val removedEffect: EffectSkill?
+)
+{
+    fun isNotEmpty(): Boolean =
+
+        removedEffect != null
+}
