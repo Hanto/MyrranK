@@ -7,7 +7,9 @@ import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.graphics.GL20
 import com.badlogic.gdx.graphics.OrthographicCamera
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
+import com.badlogic.gdx.math.Interpolation
 import com.badlogic.gdx.scenes.scene2d.Stage
+import com.badlogic.gdx.scenes.scene2d.actions.Actions
 import com.myrran.application.LearnedSkillTemplates
 import com.myrran.application.SpellBook
 import com.myrran.badlogic.DaD
@@ -21,8 +23,9 @@ import com.myrran.infraestructure.repositories.skill.SkillAdapter
 import com.myrran.infraestructure.repositories.skill.SkillRepository
 import com.myrran.infraestructure.repositories.skilltemplate.SkillTemplateAdapter
 import com.myrran.infraestructure.repositories.skilltemplate.SkillTemplateRepository
+import com.myrran.infraestructure.view.player.Pixie
 import com.myrran.infraestructure.view.player.PlayerAnimation
-import com.myrran.infraestructure.view.player.PlayerView
+import com.myrran.infraestructure.view.player.PlayerFactory
 import com.myrran.infraestructure.view.player.PlayerViewAssets
 import com.myrran.infraestructure.view.ui.misc.TextView
 import com.myrran.infraestructure.view.ui.skills.SkillViewAssets
@@ -54,6 +57,7 @@ class MainScreen(
     private val learnedTemplates: LearnedSkillTemplates
     private val spellBook: SpellBook
     private val camera: OrthographicCamera
+    private val playerView: Pixie<PlayerAnimation>
 
     private val fpsText: TextView<String>
 
@@ -125,12 +129,21 @@ class MainScreen(
         val playerAssets = PlayerViewAssets(
             characterTexture = assetStorage.getTextureRegion("Atlas.atlas", "BAK/Player Sprites/Player"))
 
-        val playerView = PlayerView(playerAssets)
+        playerView = PlayerFactory().toPlayerView(playerAssets)
         playerView.setAnimation(PlayerAnimation.IDDLE)
+
+        playerView.addAction(Actions.forever(Actions.sequence(
+            Actions.scaleTo(2f, 2f, 2f, Interpolation.circleIn),
+            Actions.scaleTo(0.5f, 0.5f, 2f, Interpolation.circleOut)
+        )))
+
         worldStage.addActor(playerView)
-        playerView.setPosition(50f, 50f)
 
         camera = OrthographicCamera(Gdx.graphics.width.toFloat(), Gdx.graphics.height.toFloat())
+        worldStage.viewport.camera = camera
+
+
+        camera.zoom = 0.5f
     }
 
     // RENDER:
@@ -140,6 +153,7 @@ class MainScreen(
 
         clearScreen()
 
+        camera.position.set(playerView.originX, playerView.originY, 0f)
         camera.update()
 
         batch.begin()
