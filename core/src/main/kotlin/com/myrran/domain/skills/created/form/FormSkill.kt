@@ -4,7 +4,6 @@ import com.myrran.domain.skills.created.effect.EffectSkill
 import com.myrran.domain.skills.created.effect.EffectSkillSlot
 import com.myrran.domain.skills.created.effect.EffectSkillSlotId
 import com.myrran.domain.skills.created.effect.EffectSkillSlots
-import com.myrran.domain.skills.created.skill.SkillFormEffect
 import com.myrran.domain.skills.created.skill.SkillsRemoved
 import com.myrran.domain.skills.created.stat.NumUpgrades
 import com.myrran.domain.skills.created.stat.StatId
@@ -27,7 +26,7 @@ data class FormSkill(
     val slots: EffectSkillSlots,
     val keys: Collection<LockType>
 
-): FormSkillSlotContent, StatsI by stats, SkillFormEffect
+): FormSkillSlotContent, StatsI by stats
 {
     fun createForm(): Form =
 

@@ -12,7 +12,6 @@ class SpellBolt(
 ): Spell
 {
     val speed = skill.getStat(StatId("SPEED"))
-    val size = skill.getStat(StatId("SIZE"))
 
 
     fun onCollision() {
@@ -21,7 +20,8 @@ class SpellBolt(
 
         if (impactFormSkill is FormSkill)
         {
-            impactFormSkill.createForm()
+            val form = impactFormSkill.createForm()
+
         }
     }
 

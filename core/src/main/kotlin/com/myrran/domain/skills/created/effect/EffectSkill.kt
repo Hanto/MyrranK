@@ -1,6 +1,5 @@
 package com.myrran.domain.skills.created.effect
 
-import com.myrran.domain.skills.created.skill.SkillFormEffect
 import com.myrran.domain.skills.created.stat.Stats
 import com.myrran.domain.skills.created.stat.StatsI
 import com.myrran.domain.skills.lock.LockType
@@ -17,7 +16,7 @@ data class EffectSkill(
     val stats: Stats,
     val keys: Collection<LockType>
 
-): EffectSkillSlotContent, StatsI by stats, SkillFormEffect
+): EffectSkillSlotContent, StatsI by stats
 {
     fun createEffect(): Effect =
 
