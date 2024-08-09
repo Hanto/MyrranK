@@ -8,8 +8,8 @@ import com.myrran.domain.skills.created.form.FormSkillSlot
 import com.myrran.domain.skills.created.form.FormSkillSlotContent.NoFormSkill
 import com.myrran.domain.skills.created.stat.Stat
 import com.myrran.domain.skills.created.stat.StatId
-import com.myrran.infraestructure.assets.SkillViewAssets
 import com.myrran.infraestructure.controller.FormSkillController
+import com.myrran.infraestructure.view.ui.skills.SkillViewAssets
 import com.myrran.infraestructure.view.ui.skills.SkillViewFactory
 import com.myrran.infraestructure.view.ui.skills.SkillViewId
 import com.myrran.infraestructure.view.ui.skills.created.effect.EffectSkillSlotView

@@ -2,7 +2,7 @@ package com.myrran.infraestructure.view.ui.skills.templates.stat
 
 import com.badlogic.gdx.scenes.scene2d.ui.Table
 import com.myrran.domain.skills.templates.stat.StatTemplate
-import com.myrran.infraestructure.assets.SkillViewAssets
+import com.myrran.infraestructure.view.ui.skills.SkillViewAssets
 
 class StatsTemplateView(
 

@@ -8,10 +8,10 @@ import com.badlogic.gdx.utils.Align
 import com.myrran.domain.misc.format
 import com.myrran.domain.skills.created.skill.Skill
 import com.myrran.infraestructure.assets.PURPLE_LIGHT
-import com.myrran.infraestructure.assets.SkillViewAssets
 import com.myrran.infraestructure.controller.SkillController
 import com.myrran.infraestructure.view.ui.misc.TextFieldView
 import com.myrran.infraestructure.view.ui.misc.TextView
+import com.myrran.infraestructure.view.ui.skills.SkillViewAssets
 
 class SkillHeaderView(
 

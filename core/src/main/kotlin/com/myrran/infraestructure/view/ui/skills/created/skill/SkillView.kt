@@ -19,9 +19,9 @@ import com.myrran.domain.misc.observer.Observer
 import com.myrran.domain.skills.created.form.FormSkillSlotId
 import com.myrran.domain.skills.created.skill.Skill
 import com.myrran.domain.skills.created.stat.StatId
-import com.myrran.infraestructure.assets.SkillViewAssets
 import com.myrran.infraestructure.controller.SkillController
 import com.myrran.infraestructure.view.ui.misc.UIClickListener
+import com.myrran.infraestructure.view.ui.skills.SkillViewAssets
 import com.myrran.infraestructure.view.ui.skills.SkillViewFactory
 import com.myrran.infraestructure.view.ui.skills.SkillViewId
 import com.myrran.infraestructure.view.ui.skills.created.form.FormSkillSlotView

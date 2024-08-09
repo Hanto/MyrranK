@@ -12,11 +12,11 @@ import com.myrran.infraestructure.assets.BONUS_PER_UPGRADE_SIZE
 import com.myrran.infraestructure.assets.NAME_SIZE
 import com.myrran.infraestructure.assets.PURPLE_DARK
 import com.myrran.infraestructure.assets.PURPLE_LIGHT
-import com.myrran.infraestructure.assets.SkillViewAssets
 import com.myrran.infraestructure.assets.TOTAL_BONUS_SIZE
 import com.myrran.infraestructure.assets.UPGRADECOST_SIZE
 import com.myrran.infraestructure.assets.UPGRADES_SIZE
 import com.myrran.infraestructure.view.ui.misc.TextView
+import com.myrran.infraestructure.view.ui.skills.SkillViewAssets
 
 class StatTemplateView(
 

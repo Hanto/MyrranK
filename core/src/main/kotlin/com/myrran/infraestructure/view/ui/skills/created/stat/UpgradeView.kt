@@ -9,8 +9,8 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener
 import com.myrran.domain.skills.created.stat.NumUpgrades
 import com.myrran.domain.skills.created.stat.StatUpgradeable
-import com.myrran.infraestructure.assets.SkillViewAssets
 import com.myrran.infraestructure.controller.StatController
+import com.myrran.infraestructure.view.ui.skills.SkillViewAssets
 
 class UpgradeView(
 

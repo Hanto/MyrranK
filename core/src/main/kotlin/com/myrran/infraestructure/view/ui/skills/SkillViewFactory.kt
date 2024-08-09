@@ -7,7 +7,6 @@ import com.myrran.domain.skills.created.skill.Skill
 import com.myrran.domain.skills.templates.effect.EffectTemplate
 import com.myrran.domain.skills.templates.form.FormTemplate
 import com.myrran.domain.skills.templates.skill.SkillTemplate
-import com.myrran.infraestructure.assets.SkillViewAssets
 import com.myrran.infraestructure.controller.BookSkillController
 import com.myrran.infraestructure.controller.DragAndDropManager
 import com.myrran.infraestructure.controller.EffectDaDSource

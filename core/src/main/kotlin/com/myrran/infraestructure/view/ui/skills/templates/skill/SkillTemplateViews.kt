@@ -18,11 +18,11 @@ import com.myrran.domain.events.SkillStatUpgradedEvent
 import com.myrran.domain.misc.Identifiable
 import com.myrran.domain.misc.observer.Observer
 import com.myrran.domain.skills.templates.skill.SkillTemplateId
-import com.myrran.infraestructure.assets.SkillViewAssets
 import com.myrran.infraestructure.controller.BookSkillController
 import com.myrran.infraestructure.view.ui.misc.AutoFocusScrollPane
 import com.myrran.infraestructure.view.ui.misc.UIClickListener
 import com.myrran.infraestructure.view.ui.misc.UIMoveListener
+import com.myrran.infraestructure.view.ui.skills.SkillViewAssets
 import com.myrran.infraestructure.view.ui.skills.SkillViewFactory
 import com.myrran.infraestructure.view.ui.skills.SkillViewId
 import com.myrran.infraestructure.view.ui.skills.templates.TemplatesHeaderView

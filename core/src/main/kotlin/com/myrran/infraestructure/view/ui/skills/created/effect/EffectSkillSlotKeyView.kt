@@ -13,11 +13,11 @@ import com.myrran.domain.skills.created.effect.EffectSkillSlot
 import com.myrran.domain.skills.created.effect.EffectSkillSlotContent.NoEffectSkill
 import com.myrran.domain.skills.lock.LockType
 import com.myrran.infraestructure.assets.PURPLE_LIGHT
-import com.myrran.infraestructure.assets.SkillViewAssets
 import com.myrran.infraestructure.controller.EffectSKillController
 import com.myrran.infraestructure.view.ui.misc.TextView
 import com.myrran.infraestructure.view.ui.misc.UIClickListener
 import com.myrran.infraestructure.view.ui.misc.UIClickListener.Button.RIGHT_BUTTON
+import com.myrran.infraestructure.view.ui.skills.SkillViewAssets
 
 @Suppress("DuplicatedCode")
 class EffectSkillSlotKeyView(

@@ -6,11 +6,11 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table
 import com.badlogic.gdx.utils.Align
 import com.myrran.domain.skills.created.skill.Skill
 import com.myrran.domain.skills.created.skill.SkillName
-import com.myrran.infraestructure.assets.SkillViewAssets
 import com.myrran.infraestructure.controller.SkillController
 import com.myrran.infraestructure.view.ui.misc.TextView
 import com.myrran.infraestructure.view.ui.misc.UIClickListener
 import com.myrran.infraestructure.view.ui.misc.UIClickListener.Button.RIGHT_BUTTON
+import com.myrran.infraestructure.view.ui.skills.SkillViewAssets
 
 class SkillSlotKeyView(
 

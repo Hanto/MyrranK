@@ -7,8 +7,8 @@ import com.myrran.domain.skills.created.effect.EffectSkillSlot
 import com.myrran.domain.skills.created.effect.EffectSkillSlotContent.NoEffectSkill
 import com.myrran.domain.skills.created.stat.Stat
 import com.myrran.domain.skills.created.stat.StatId
-import com.myrran.infraestructure.assets.SkillViewAssets
 import com.myrran.infraestructure.controller.EffectSKillController
+import com.myrran.infraestructure.view.ui.skills.SkillViewAssets
 import com.myrran.infraestructure.view.ui.skills.SkillViewFactory
 import com.myrran.infraestructure.view.ui.skills.SkillViewId
 import com.myrran.infraestructure.view.ui.skills.created.stat.StatsView

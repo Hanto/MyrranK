@@ -3,8 +3,8 @@ package com.myrran.infraestructure.view.ui.skills.created.stat
 import com.badlogic.gdx.scenes.scene2d.ui.Table
 import com.myrran.domain.skills.created.stat.Stat
 import com.myrran.domain.skills.created.stat.StatId
-import com.myrran.infraestructure.assets.SkillViewAssets
 import com.myrran.infraestructure.controller.StatController
+import com.myrran.infraestructure.view.ui.skills.SkillViewAssets
 
 class StatsView(
 

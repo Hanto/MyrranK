@@ -5,6 +5,7 @@ import com.badlogic.gdx.InputMultiplexer
 import com.badlogic.gdx.assets.AssetManager
 import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.graphics.GL20
+import com.badlogic.gdx.graphics.OrthographicCamera
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import com.badlogic.gdx.scenes.scene2d.Stage
 import com.myrran.application.LearnedSkillTemplates
@@ -12,7 +13,6 @@ import com.myrran.application.SpellBook
 import com.myrran.badlogic.DaD
 import com.myrran.domain.misc.DeSerializer
 import com.myrran.infraestructure.assets.AssetStorage
-import com.myrran.infraestructure.assets.SkillViewAssets
 import com.myrran.infraestructure.controller.BookSkillController
 import com.myrran.infraestructure.controller.DragAndDropManager
 import com.myrran.infraestructure.repositories.assetsconfig.AssetsConfigRepository
@@ -21,7 +21,11 @@ import com.myrran.infraestructure.repositories.skill.SkillAdapter
 import com.myrran.infraestructure.repositories.skill.SkillRepository
 import com.myrran.infraestructure.repositories.skilltemplate.SkillTemplateAdapter
 import com.myrran.infraestructure.repositories.skilltemplate.SkillTemplateRepository
+import com.myrran.infraestructure.view.player.PlayerAnimation
+import com.myrran.infraestructure.view.player.PlayerView
+import com.myrran.infraestructure.view.player.PlayerViewAssets
 import com.myrran.infraestructure.view.ui.misc.TextView
+import com.myrran.infraestructure.view.ui.skills.SkillViewAssets
 import com.myrran.infraestructure.view.ui.skills.SkillViewFactory
 import com.myrran.infraestructure.view.ui.skills.SkillViewId
 import com.myrran.infraestructure.view.ui.skills.created.skill.SkillViews
@@ -36,6 +40,7 @@ class MainScreen(
     private val inputMultiplexer: InputMultiplexer = InputMultiplexer(),
     private val batch: SpriteBatch = SpriteBatch(),
     private val uiStage: Stage = Stage(),
+    private val worldStage: Stage = Stage(),
     private val assetStorage: AssetStorage = AssetStorage(
         assetManager = AssetManager()),
 
@@ -48,6 +53,7 @@ class MainScreen(
     private val learnedRepository: LearnedSkillTemplateRepository
     private val learnedTemplates: LearnedSkillTemplates
     private val spellBook: SpellBook
+    private val camera: OrthographicCamera
 
     private val fpsText: TextView<String>
 
@@ -114,6 +120,17 @@ class MainScreen(
         val skillList = SkillViews(SkillViewId(UUID.randomUUID()), spellBook, assets, bookController, skillViewFactory)
         uiStage.addActor(skillList)
         skillList.setPosition(860f, 154f)
+
+
+        val playerAssets = PlayerViewAssets(
+            characterTexture = assetStorage.getTextureRegion("Atlas.atlas", "BAK/Player Sprites/Player"))
+
+        val playerView = PlayerView(playerAssets)
+        playerView.setAnimation(PlayerAnimation.IDDLE)
+        worldStage.addActor(playerView)
+        playerView.setPosition(50f, 50f)
+
+        camera = OrthographicCamera(Gdx.graphics.width.toFloat(), Gdx.graphics.height.toFloat())
     }
 
     // RENDER:
@@ -123,8 +140,13 @@ class MainScreen(
 
         clearScreen()
 
+        camera.update()
+
         batch.begin()
         batch.end()
+
+        worldStage.act()
+        worldStage.draw()
 
         uiStage.act()
         renderUI(delta)

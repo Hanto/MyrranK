@@ -8,8 +8,8 @@ import com.myrran.badlogic.Payload
 import com.myrran.domain.misc.Identifiable
 import com.myrran.domain.misc.Quantity
 import com.myrran.domain.skills.templates.effect.EffectTemplate
-import com.myrran.infraestructure.assets.SkillViewAssets
 import com.myrran.infraestructure.view.ui.misc.TextView
+import com.myrran.infraestructure.view.ui.skills.SkillViewAssets
 import com.myrran.infraestructure.view.ui.skills.SkillViewId
 import com.myrran.infraestructure.view.ui.skills.templates.effect.EffectTemplateView
 

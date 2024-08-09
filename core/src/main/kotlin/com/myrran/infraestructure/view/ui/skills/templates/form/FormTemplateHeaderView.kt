@@ -6,10 +6,10 @@ import com.badlogic.gdx.utils.Align
 import com.myrran.domain.misc.Quantity
 import com.myrran.domain.skills.templates.form.FormTemplate
 import com.myrran.infraestructure.assets.PURPLE_LIGHT
-import com.myrran.infraestructure.assets.SkillViewAssets
 import com.myrran.infraestructure.view.ui.misc.DraggableIconView
 import com.myrran.infraestructure.view.ui.misc.TextView
 import com.myrran.infraestructure.view.ui.misc.TooltipView
+import com.myrran.infraestructure.view.ui.skills.SkillViewAssets
 
 class FormTemplateHeaderView(
 

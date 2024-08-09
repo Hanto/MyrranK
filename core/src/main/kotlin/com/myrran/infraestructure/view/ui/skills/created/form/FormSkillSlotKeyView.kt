@@ -13,11 +13,11 @@ import com.myrran.domain.skills.created.form.FormSkillSlot
 import com.myrran.domain.skills.created.form.FormSkillSlotContent.NoFormSkill
 import com.myrran.domain.skills.lock.LockType
 import com.myrran.infraestructure.assets.PURPLE_LIGHT
-import com.myrran.infraestructure.assets.SkillViewAssets
 import com.myrran.infraestructure.controller.FormSkillController
 import com.myrran.infraestructure.view.ui.misc.TextView
 import com.myrran.infraestructure.view.ui.misc.UIClickListener
 import com.myrran.infraestructure.view.ui.misc.UIClickListener.Button.RIGHT_BUTTON
+import com.myrran.infraestructure.view.ui.skills.SkillViewAssets
 
 @Suppress("DuplicatedCode")
 class FormSkillSlotKeyView(
