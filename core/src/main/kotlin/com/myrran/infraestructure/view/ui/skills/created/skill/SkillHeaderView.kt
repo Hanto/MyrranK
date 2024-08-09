@@ -22,7 +22,7 @@ class SkillHeaderView(
 ): Table()
 {
     private val icon = Image(assets.getIcon("SkillIcon"))
-    private val name = TextFieldView(skill.custonName, assets.font20, ORANGE, 2f, { controller.changeName(it) }, { it.value })
+    private val name = TextFieldView(skill.customName, assets.font20, ORANGE, 2f, { controller.changeName(it) }, { it.value })
     private val description = TextView(skill.name, assets.font14, WHITE, 1f) { it.value.uppercase() }
     private val cost = TextView(skill.totalCost(), assets.font20, PURPLE_LIGHT, 2f) { it.value.format(0) }
 

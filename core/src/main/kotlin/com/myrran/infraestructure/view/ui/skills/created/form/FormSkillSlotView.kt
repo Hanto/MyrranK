@@ -61,28 +61,43 @@ class FormSkillSlotView(
     // UPDATE:
     //--------------------------------------------------------------------------------------------------------
 
-    fun update(statId: StatId) {
+    fun updateStat(statId: StatId) {
 
         statsView.update(statId)
+    }
+
+    fun updateForm() {
+
+        keyView.update()
+        statsView = createStatsView()
+        effectSlotViews = createEffectSlotViews()
+        rebuildTable()
     }
 
     fun dispose() {
 
         factory.disposeView(id)
-        effectSlotViews.values.forEach { factory.disposeView(it.id) }
+        effectSlotViews.forEach { it.value.dispose() }
     }
 
     // HELPER:
     //--------------------------------------------------------------------------------------------------------
 
-    private fun createEffectSlotViews(): Map<EffectSkillSlotId, EffectSkillSlotView> =
+    private fun createEffectSlotViews(): Map<EffectSkillSlotId, EffectSkillSlotView> {
 
-        when (val formSkill = model.content) {
+        effectSlotViews?.forEach { it.value.dispose() }
+
+        return when (val formSkill = model.content) {
 
             is NoFormSkill -> emptyMap()
             is FormSkill -> formSkill.getEffectSkillSlots()
                 .associate { it.id to factory.createEffectSlotView(it, controller) }
         }
+    }
+
+    private fun createStatsView(): StatsView =
+
+        StatsView( { getStatsView() }, assets, controller )
 
     private fun getStatsView(): Collection<Stat> =
 

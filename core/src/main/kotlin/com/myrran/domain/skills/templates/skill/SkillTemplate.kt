@@ -25,7 +25,7 @@ data class SkillTemplate(
             templateId = id,
             type = type,
             name = name,
-            custonName = name,
+            customName = name,
             stats = Stats ( stats.map { it.toStat() }.associateBy { it.id } ),
             slots = FormSkillSlots( slots.map { it.toFormSkillSlot() }.associateBy { it.id } )
         )

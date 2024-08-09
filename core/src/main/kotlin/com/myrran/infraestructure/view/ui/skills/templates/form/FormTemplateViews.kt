@@ -87,7 +87,7 @@ class FormTemplateViews(
         when (event) {
 
             is SkillCreatedEvent -> Unit
-            is SkillRemovedEvent -> Unit
+            is SkillRemovedEvent -> updateQuantities()
             is SkillStatUpgradedEvent ->  Unit
             is FormSkillStatUpgradedEvent -> Unit
             is FormSkillChangedEvent -> updateQuantities()

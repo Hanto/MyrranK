@@ -109,7 +109,7 @@ class SkillViewFactory(
 
         val id = SkillViewId()
         val effectController = controller.toEffectSkillController(model)
-        val view = EffectSkillSlotView(id, model, assets, effectController)
+        val view = EffectSkillSlotView(id, model, assets, effectController, this)
         val dadTarget = EffectDaDTarget(view, assets, effectController)
         dragAndDropManager.addTarget(dadTarget)
 

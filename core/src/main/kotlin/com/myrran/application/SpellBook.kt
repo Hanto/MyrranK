@@ -52,7 +52,7 @@ data class SpellBook(
     fun changeName(skillId: SkillId, newName: SkillName) {
 
         val skill = created.findBy(skillId)!!
-        skill.custonName = newName
+        skill.customName = newName
 
         created.save(skill)
     }
@@ -87,8 +87,8 @@ data class SpellBook(
             learned.increaseAndSave(removed)
 
             if (removed.isNotEmpty())
-                notify(FormSkillRemovedEvent(skillId, removed))
-            notify(FormSkillChangedEvent(skillId, formSkillSlotId, formSkill))
+                notify(FormSkillRemovedEvent(skillId, formSkillSlotId))
+            notify(FormSkillChangedEvent(skillId, formSkillSlotId))
         }
     }
 
@@ -107,8 +107,8 @@ data class SpellBook(
             learned.increaseAndSave(removed)
 
             if (removed.isNotEmpty())
-                notify(EffectSkillRemovedEvent(skillId, formSkillSlotId, effectSkillSlotId, removed))
-            notify(EffectSkillChangedEvent(skillId, formSkillSlotId, effectSkillSlotId, effectSkill))
+                notify(EffectSkillRemovedEvent(skillId, formSkillSlotId, effectSkillSlotId))
+            notify(EffectSkillChangedEvent(skillId, formSkillSlotId, effectSkillSlotId))
         }
     }
 
@@ -119,16 +119,13 @@ data class SpellBook(
 
         val skill = created.findBy(skillId)!!
 
-        val removed = skill.removeAllFormSkills()
+        val removed = skill.removeSkill()
 
         learned.increaseAndSave(skill)
         learned.increaseAndSave(removed)
         created.removeBy(skill.id)
 
-        if (removed.isNotEmpty())
-            notify(FormSkillRemovedEvent(skillId, removed))
-
-        notify(SkillRemovedEvent(skillId, removed))
+        notify(SkillRemovedEvent(skillId))
     }
 
     fun removeFormSkillFrom(skillId: SkillId, formSkillSlotId: FormSkillSlotId) {
@@ -142,7 +139,7 @@ data class SpellBook(
             created.save(skill)
             learned.increaseAndSave(removed)
 
-            notify(FormSkillRemovedEvent(skillId, removed))
+            notify(FormSkillRemovedEvent(skillId, formSkillSlotId))
         }
     }
 
@@ -157,7 +154,7 @@ data class SpellBook(
             created.save(skill)
             learned.increaseAndSave(removed)
 
-            notify(EffectSkillRemovedEvent(skillId, formSkillSlotId, effectSkillSlotId, removed))
+            notify(EffectSkillRemovedEvent(skillId, formSkillSlotId, effectSkillSlotId))
         }
     }
 
@@ -189,7 +186,7 @@ data class SpellBook(
 
         skill.upgrade(statId, upgradeBy)
         created.save(skill)
-        notify(SkillStatUpgradedEvent(skillId, statId, upgradeBy))
+        notify(SkillStatUpgradedEvent(skillId, statId))
     }
 
     fun upgrade(skillId: SkillId, formSkillSlotId: FormSkillSlotId, statId: StatId, upgradeBy: NumUpgrades) {
@@ -198,7 +195,7 @@ data class SpellBook(
 
         skill.upgrade(formSkillSlotId, statId, upgradeBy)
         created.save(skill)
-        notify(FormSkillStatUpgradedEvent(skillId, formSkillSlotId, statId, upgradeBy))
+        notify(FormSkillStatUpgradedEvent(skillId, formSkillSlotId, statId))
     }
 
     fun upgrade(skillId: SkillId, formSkillSlotId: FormSkillSlotId, effectSkillSlotId: EffectSkillSlotId, statId: StatId, upgradeBy: NumUpgrades) {
@@ -207,6 +204,6 @@ data class SpellBook(
 
         skill.upgrade(formSkillSlotId, effectSkillSlotId, statId, upgradeBy)
         created.save(skill)
-        notify(EffectSkillStatUpgradedEvent(skillId, formSkillSlotId, effectSkillSlotId, statId, upgradeBy))
+        notify(EffectSkillStatUpgradedEvent(skillId, formSkillSlotId, effectSkillSlotId, statId))
     }
 }

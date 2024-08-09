@@ -4,10 +4,10 @@
   "total" : 3
 }, {
   "id" : "BOLT_1",
-  "avaiable" : 7,
+  "avaiable" : 11,
   "total" : 12
 }, {
   "id" : "GRENADE_1",
-  "avaiable" : 7,
+  "avaiable" : 12,
   "total" : 12
 } ]

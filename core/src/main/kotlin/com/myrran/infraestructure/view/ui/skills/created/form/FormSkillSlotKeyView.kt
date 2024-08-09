@@ -28,8 +28,8 @@ class FormSkillSlotKeyView(
 
 ): Table()
 {
-    private val runesLabel: TextView<String> = TextView(model.toName(), assets.font14, model.toColor(), 1f)
-    private var keys: List<TextView<String>> = getKeys()
+    private var runesLabel: TextView<String> = TextView(model.toName(), assets.font14, model.toColor(), 1f)
+    private var keys: List<TextView<String>> = createKeys()
 
     // LAYOUT:
     //--------------------------------------------------------------------------------------------------------
@@ -76,14 +76,19 @@ class FormSkillSlotKeyView(
 
     fun update() {
 
-        keys = getKeys()
+        keys = createKeys()
+        runesLabel = createRunesLabel()
         rebuildTable()
     }
 
     // HELPER:
     //--------------------------------------------------------------------------------------------------------
 
-    private fun getKeys() =
+    private fun createRunesLabel(): TextView<String> =
+
+        TextView(model.toName(), assets.font14, model.toColor(), 1f)
+
+    private fun createKeys() =
 
         model.lock.openedBy
             .map { TextView(it.value, assets.font14, it.toColor(), 1f) }

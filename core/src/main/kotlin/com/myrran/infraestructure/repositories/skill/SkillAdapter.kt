@@ -45,7 +45,7 @@ class SkillAdapter
             templateId = domain.templateId.value,
             type = domain.type,
             name = domain.name.value,
-            customName = domain.custonName.value,
+            customName = domain.customName.value,
             stats = domain.getStats().map { fromDomain(it) },
             slots = domain.getFormSkillSlots().map { fromDomain(it) }
         )
@@ -57,7 +57,7 @@ class SkillAdapter
             templateId = SkillTemplateId(entity.templateId),
             type = entity.type,
             name = SkillName(entity.name),
-            custonName = SkillName(entity.customName),
+            customName = SkillName(entity.customName),
             stats = Stats(entity.stats.map { toDomain(it) }.associateBy { it.id } ),
             slots = FormSkillSlots(entity.slots.map { toDomain(it) }.associateBy { it.id } )
         )

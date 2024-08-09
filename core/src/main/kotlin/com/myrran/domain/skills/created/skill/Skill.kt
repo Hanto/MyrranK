@@ -7,6 +7,7 @@ import com.myrran.domain.events.FormSkillChangedEvent
 import com.myrran.domain.events.FormSkillRemovedEvent
 import com.myrran.domain.events.FormSkillStatUpgradedEvent
 import com.myrran.domain.events.SkillEvent
+import com.myrran.domain.events.SkillRemovedEvent
 import com.myrran.domain.events.SkillStatUpgradedEvent
 import com.myrran.domain.misc.Identifiable
 import com.myrran.domain.misc.observer.JavaObservable
@@ -33,23 +34,31 @@ data class Skill(
     val templateId: SkillTemplateId,
     val type: SkillType,
     val name: SkillName,
-    var custonName: SkillName,
+    var customName: SkillName,
     private val stats: Stats,
     private val slots: FormSkillSlots,
     private val observable: Observable<SkillEvent> = JavaObservable()
 
 ): StatsI by stats, Observable<SkillEvent> by observable, Identifiable<SkillId>
 {
-    // FORMKILLS
+    // SKILL:
+    //--------------------------------------------------------------------------------------------------------
+
+    fun removeSkill(): SkillsRemoved =
+
+        slots.removeAllFormSkills()
+            .also { if (it.isNotEmpty()) notify(SkillRemovedEvent(id)) }
+
+    // FORM SKILLS:
     //--------------------------------------------------------------------------------------------------------
 
     fun getFormSkillSlots(): Collection<FormSkillSlot> =
 
-        slots.getFormSkillSlots().map { it.copy() }
+        slots.getFormSkillSlots()
 
     fun getFormSkill(formSkillSlotId: FormSkillSlotId): FormSkill? =
 
-        slots.getFormSkill(formSkillSlotId)?.copy()
+        slots.getFormSkill(formSkillSlotId)
 
     fun isFormSkillSlotOpenedBy(formSkillSlotId: FormSkillSlotId, formTemplate: FormTemplate): Boolean =
 
@@ -59,21 +68,16 @@ data class Skill(
     fun removeFormSkillFrom(formSkillSlotId: FormSkillSlotId): SkillsRemoved =
 
         slots.removeFormSkillFrom(formSkillSlotId)
-            .also { if (it.isNotEmpty()) notify(FormSkillRemovedEvent(id, it)) }
-
-    fun removeAllFormSkills(): SkillsRemoved =
-
-        slots.removeAllFormSkills()
-            .also { if (it.isNotEmpty()) notify(FormSkillRemovedEvent(id, it)) }
+            .also { if (it.isNotEmpty()) notify(FormSkillRemovedEvent(id, formSkillSlotId)) }
 
     fun setFormSkill(formSkillSlotId: FormSkillSlotId, formSkill: FormSkill): SkillsRemoved =
 
         slots.removeFormSkillFrom(formSkillSlotId)
             .also { slots.setFormSkill(formSkillSlotId, formSkill) }
-            .also { notify(FormSkillChangedEvent(id, formSkillSlotId, formSkill)) }
-            .also { if (it.isNotEmpty()) notify(FormSkillRemovedEvent(id, it)) }
+            .also { notify(FormSkillChangedEvent(id, formSkillSlotId)) }
+            .also { if (it.isNotEmpty()) notify(FormSkillRemovedEvent(id, formSkillSlotId)) }
 
-    // EFFECTSKILL
+    // EFFECT SKILLS:
     //--------------------------------------------------------------------------------------------------------
 
     fun getEffectSkill(formSkillSlotId: FormSkillSlotId, effectSkillSlotId: EffectSkillSlotId): EffectSkill? =
@@ -87,14 +91,14 @@ data class Skill(
     fun removeEffectSkillFrom(formSkillSlotId: FormSkillSlotId, effectSkillSlotId: EffectSkillSlotId): SkillsRemoved =
 
         slots.removeEffectSKillFrom(formSkillSlotId, effectSkillSlotId)
-            .also { notify(EffectSkillRemovedEvent(id, formSkillSlotId, effectSkillSlotId, it)) }
+            .also { notify(EffectSkillRemovedEvent(id, formSkillSlotId, effectSkillSlotId)) }
 
     fun setEffectSkill(formSkillSlotId: FormSkillSlotId, effectSkillSlotId: EffectSkillSlotId, effectSkill: EffectSkill): SkillsRemoved =
 
         slots.removeEffectSKillFrom(formSkillSlotId, effectSkillSlotId)
             .also { slots.setEffectSkill(formSkillSlotId, effectSkillSlotId, effectSkill) }
-            .also { notify(EffectSkillChangedEvent(id, formSkillSlotId, effectSkillSlotId, effectSkill)) }
-            .also { if (it.isNotEmpty()) notify(EffectSkillRemovedEvent(id, formSkillSlotId, effectSkillSlotId, it)) }
+            .also { notify(EffectSkillChangedEvent(id, formSkillSlotId, effectSkillSlotId)) }
+            .also { if (it.isNotEmpty()) notify(EffectSkillRemovedEvent(id, formSkillSlotId, effectSkillSlotId)) }
 
     // UPGRADES:
     //--------------------------------------------------------------------------------------------------------
@@ -102,17 +106,17 @@ data class Skill(
     override fun upgrade(statId: StatId, upgradeBy: NumUpgrades) =
 
         stats.upgrade(statId, upgradeBy)
-            .also { notify(SkillStatUpgradedEvent(id, statId, upgradeBy)) }
+            .also { notify(SkillStatUpgradedEvent(id, statId)) }
 
     fun upgrade(formSkillSlotId: FormSkillSlotId, statId: StatId, upgradeBy: NumUpgrades) =
 
         slots.upgrade(formSkillSlotId, statId, upgradeBy)
-            .also { notify(FormSkillStatUpgradedEvent(id, formSkillSlotId, statId, upgradeBy)) }
+            .also { notify(FormSkillStatUpgradedEvent(id, formSkillSlotId, statId)) }
 
     fun upgrade(formSkillSlotId: FormSkillSlotId, effectSkillSlotId: EffectSkillSlotId, statId: StatId, upgradeBy: NumUpgrades) =
 
         slots.upgrade(formSkillSlotId, effectSkillSlotId, statId, upgradeBy)
-            .also { notify(EffectSkillStatUpgradedEvent(id, formSkillSlotId, effectSkillSlotId, statId, upgradeBy)) }
+            .also { notify(EffectSkillStatUpgradedEvent(id, formSkillSlotId, effectSkillSlotId, statId)) }
 
     fun totalCost(): UpgradeCost =
 

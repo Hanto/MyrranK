@@ -83,18 +83,10 @@ class SkillView(
     // UPDATE:
     //--------------------------------------------------------------------------------------------------------
 
-    private fun update(statId: StatId) {
+    private fun updateStat(statId: StatId) {
 
         statsView.update(statId)
         headerView.update()
-    }
-
-    private fun update() {
-
-        factory.disposeView(id)
-        formSlotViews.values.forEach { it.dispose() }
-        formSlotViews = createFormSlotViews()
-        rebuildTable()
     }
 
     override fun propertyChange(event: SkillEvent) {
@@ -103,27 +95,30 @@ class SkillView(
 
             is SkillCreatedEvent -> Unit
             is SkillRemovedEvent -> Unit
-            is SkillStatUpgradedEvent ->  update(event.statId)
-            is FormSkillStatUpgradedEvent -> formSlotViews[event.formSlot]?.update(event.statId).also { headerView.update() }
-            is FormSkillChangedEvent -> update()
-            is FormSkillRemovedEvent -> update()
-            is EffectSkillStatUpgradedEvent -> formSlotViews[event.formSlot]?.effectSlotViews?.get(event.effectSlot)?.update(event.statId).also { headerView.update() }
-            is EffectSkillChangedEvent -> formSlotViews[event.formSlot]?.effectSlotViews?.get(event.effectSlot)?.update().also { headerView.update() }
-            is EffectSkillRemovedEvent -> formSlotViews[event.formSlot]?.effectSlotViews?.get(event.effectSlot)?.update().also { headerView.update() }
+            is SkillStatUpgradedEvent ->  updateStat(event.statId)
+            is FormSkillStatUpgradedEvent -> formSlotViews[event.formSlot]?.updateStat(event.statId).also { headerView.update() }
+            is FormSkillChangedEvent -> formSlotViews[event.formSlot]?.updateForm()
+            is FormSkillRemovedEvent -> formSlotViews[event.formSlot]?.updateForm()
+            is EffectSkillStatUpgradedEvent -> formSlotViews[event.formSlot]?.effectSlotViews?.get(event.effectSlot)?.updateStat(event.statId).also { headerView.update() }
+            is EffectSkillChangedEvent -> formSlotViews[event.formSlot]?.effectSlotViews?.get(event.effectSlot)?.updateEffect().also { headerView.update() }
+            is EffectSkillRemovedEvent -> formSlotViews[event.formSlot]?.effectSlotViews?.get(event.effectSlot)?.updateEffect().also { headerView.update() }
         }
     }
 
     override fun dispose() {
 
         factory.disposeView(id)
-        formSlotViews.values.forEach { it.dispose() }
+        formSlotViews.forEach { it.value.dispose() }
     }
 
     // HELPER:
     //--------------------------------------------------------------------------------------------------------
 
-    private fun createFormSlotViews(): Map<FormSkillSlotId, FormSkillSlotView> =
+    private fun createFormSlotViews(): Map<FormSkillSlotId, FormSkillSlotView> {
 
-        model.getFormSkillSlots()
-            .associate { it.id to factory.createFormSlotView(it, controller)  }
+        formSlotViews?.forEach { it.value.dispose() }
+
+        return model.getFormSkillSlots()
+            .associate { it.id to factory.createFormSlotView(it, controller) }
+    }
 }
