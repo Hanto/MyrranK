@@ -1,19 +1,20 @@
 package com.myrran.infraestructure.view.mob.player
 
 import com.badlogic.gdx.graphics.g2d.Animation
+import com.myrran.domain.mob.Player
+import com.myrran.domain.mob.PlayerView
 import com.myrran.domain.mob.metricunits.Pixel
 import com.myrran.domain.mob.metricunits.Size
-import com.myrran.infraestructure.view.mob.Pixie
 import ktx.collections.toGdxArray
 
-class PlayerFactory
+class PlayerViewFactory
 {
     companion object {
 
         private val size = Size(Pixel(32f), Pixel(32f))
     }
 
-    fun toPlayerView(assets: PlayerViewAssets): Pixie<PlayerAnimation> {
+    fun toPlayerView(model: Player, assets: PlayerViewAssets): PlayerView {
 
         val frames = assets.characterTexture.split(size.width.value(), size.height.value())
         val animations = mapOf(
@@ -24,6 +25,6 @@ class PlayerFactory
             PlayerAnimation.IDDLE to        Animation(0.5f, arrayOf(frames[4][0], frames[4][1], frames[4][2]).toGdxArray())
         )
 
-        return Pixie(animations, PlayerAnimation.IDDLE, size)
+        return PlayerView(model, animations, size)
     }
 }

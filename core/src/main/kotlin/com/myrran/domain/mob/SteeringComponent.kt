@@ -17,7 +17,7 @@ class SteeringComponent(
     private var isTagged: Boolean = false,
     private var isFacingAutomatic: Boolean = false
 
-): Steerable<Vector2>, Component, Poolable, Location<Vector2> by spatial, Limiter by speedLimits
+): Steerable<Vector2>, Location<Vector2> by spatial, Limiter by speedLimits, Component, Poolable
 {
     private var steeringOutput: SteeringAcceleration<Vector2> = SteeringAcceleration(Vector2())
     private var steeringBehavior: SteeringBehavior<Vector2>? = null

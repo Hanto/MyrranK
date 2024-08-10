@@ -20,8 +20,8 @@ open class Pixie<ANIMATIOM_TYPE: Enum<ANIMATIOM_TYPE>>(
 
     init {
 
-        this.setSize(size.width.toFloat(), size.height.toFloat())
-        this.setOrigin((size.width / 2).toFloat() , (size.height / 2).toFloat() )
+        this.setSize(size.width.toMeters().toFloat(), size.height.toMeters().toFloat())
+        this.setOrigin((size.width.toMeters() / 2).toFloat() , (size.height.toMeters() / 2).toFloat() )
     }
 
     // MAIN:

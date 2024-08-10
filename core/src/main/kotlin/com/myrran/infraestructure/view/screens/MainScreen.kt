@@ -8,21 +8,22 @@ import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.graphics.GL20
 import com.badlogic.gdx.graphics.OrthographicCamera
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
-import com.badlogic.gdx.math.Interpolation
 import com.badlogic.gdx.math.Vector2
-import com.badlogic.gdx.physics.box2d.BodyDef
-import com.badlogic.gdx.physics.box2d.CircleShape
-import com.badlogic.gdx.physics.box2d.FixtureDef
+import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer
 import com.badlogic.gdx.physics.box2d.World
 import com.badlogic.gdx.scenes.scene2d.Stage
-import com.badlogic.gdx.scenes.scene2d.actions.Actions
 import com.myrran.application.LearnedSkillTemplates
 import com.myrran.application.SpellBook
 import com.myrran.badlogic.DaD
 import com.myrran.domain.misc.DeSerializer
+import com.myrran.domain.mob.BodyFactory
+import com.myrran.domain.mob.Player
+import com.myrran.domain.mob.PlayerView
 import com.myrran.domain.mob.Spatial
 import com.myrran.domain.mob.SpeedLimits
 import com.myrran.domain.mob.SteeringComponent
+import com.myrran.domain.mob.metricunits.Pixel
+import com.myrran.domain.mob.metricunits.Size
 import com.myrran.infraestructure.assets.AssetStorage
 import com.myrran.infraestructure.controller.BookSkillController
 import com.myrran.infraestructure.controller.DragAndDropManager
@@ -32,10 +33,8 @@ import com.myrran.infraestructure.repositories.skill.SkillAdapter
 import com.myrran.infraestructure.repositories.skill.SkillRepository
 import com.myrran.infraestructure.repositories.skilltemplate.SkillTemplateAdapter
 import com.myrran.infraestructure.repositories.skilltemplate.SkillTemplateRepository
-import com.myrran.infraestructure.view.mob.Pixie
-import com.myrran.infraestructure.view.mob.player.PlayerAnimation
-import com.myrran.infraestructure.view.mob.player.PlayerFactory
 import com.myrran.infraestructure.view.mob.player.PlayerViewAssets
+import com.myrran.infraestructure.view.mob.player.PlayerViewFactory
 import com.myrran.infraestructure.view.ui.misc.TextView
 import com.myrran.infraestructure.view.ui.skills.SkillViewAssets
 import com.myrran.infraestructure.view.ui.skills.SkillViewFactory
@@ -66,7 +65,10 @@ class MainScreen(
     private val learnedTemplates: LearnedSkillTemplates
     private val spellBook: SpellBook
     private val camera: OrthographicCamera
-    private val playerView: Pixie<PlayerAnimation>
+    private val playerView: PlayerView
+    private val world = World(Vector2(0f, 0f) ,true)
+    private val debugRenderer: Box2DDebugRenderer
+
 
     private val fpsText: TextView<String>
 
@@ -138,53 +140,31 @@ class MainScreen(
         val playerAssets = PlayerViewAssets(
             characterTexture = assetStorage.getTextureRegion("Atlas.atlas", "BAK/Player Sprites/Player"))
 
-        playerView = PlayerFactory().toPlayerView(playerAssets)
-        playerView.setAnimation(PlayerAnimation.IDDLE)
-
+        /*
         playerView.addAction(Actions.forever(Actions.sequence(
             Actions.scaleTo(2f, 2f, 2f, Interpolation.circleIn),
             Actions.scaleTo(0.5f, 0.5f, 2f, Interpolation.circleOut)
-        )))
+        ))) */
 
-        worldStage.addActor(playerView)
 
-        camera = OrthographicCamera(Gdx.graphics.width.toFloat(), Gdx.graphics.height.toFloat())
+        camera = OrthographicCamera(Gdx.graphics.width.toFloat()/100, Gdx.graphics.height.toFloat()/100)
         worldStage.viewport.camera = camera
 
         camera.zoom = 0.5f
 
-
         val engine = Engine()
         val entity = engine.createEntity()
 
+        val bodyFactory = BodyFactory(world)
+        val body = bodyFactory.createSquareBody(Size(Pixel(32f), Pixel(32f)))
+        val steeringComponent = SteeringComponent(Spatial(body), SpeedLimits())
+        val player = Player(steeringComponent)
 
-        val world = World(Vector2(0f, 0f) ,true)
-        val boxBodyDef = BodyDef()
-        boxBodyDef.type = BodyDef.BodyType.DynamicBody
-        boxBodyDef.position.x = 0f
-        boxBodyDef.position.y = 0f
-        boxBodyDef.fixedRotation = true
+        val playerViewFactory = PlayerViewFactory()
+        playerView = playerViewFactory.toPlayerView(player, playerAssets)
+        debugRenderer = Box2DDebugRenderer()
 
-        val boxBody = world.createBody(boxBodyDef)
-        val circleShape = CircleShape()
-        circleShape.radius = 0.16f
-
-        val fixture = FixtureDef()
-        fixture.shape = circleShape
-        fixture.density = 1f
-        fixture.friction = 0.3f
-        fixture.restitution = 0.1f
-
-        boxBody.createFixture(fixture)
-        circleShape.dispose()
-
-        val steeringComponent = SteeringComponent(Spatial(boxBody), SpeedLimits())
-
-        entity.add(steeringComponent)
-
-        //val playerView = PlayerView(steeringComponent, )
-
-
+        worldStage.addActor(playerView)
     }
 
     // RENDER:
@@ -193,12 +173,15 @@ class MainScreen(
     override fun render(delta: Float) {
 
         clearScreen()
+        debugRenderer.render(world,  camera.combined)
 
         camera.position.set(playerView.originX, playerView.originY, 0f)
         camera.update()
 
         batch.begin()
         batch.end()
+
+        world.step(delta, 8, 6)
 
         worldStage.act()
         worldStage.draw()

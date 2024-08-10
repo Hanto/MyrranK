@@ -13,4 +13,8 @@ data class Meter(
     fun toPixel(): Pixel =
 
         Pixel(value * 100)
+
+    operator fun div(int: Int): Meter =
+
+        Meter(value / int)
 }

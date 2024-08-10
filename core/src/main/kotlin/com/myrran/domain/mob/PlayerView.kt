@@ -11,10 +11,8 @@ import com.myrran.infraestructure.view.mob.player.PlayerAnimation
 
 class PlayerView(
 
-    private val model: SteeringComponent,
+    private val model: Player,
     animations: Map<PlayerAnimation, Animation<TextureRegion>>,
     size: Size<Pixel>
 
 ): Steerable<Vector2> by model, Pixie<PlayerAnimation>(animations, PlayerAnimation.IDDLE, size)
-{
-}
