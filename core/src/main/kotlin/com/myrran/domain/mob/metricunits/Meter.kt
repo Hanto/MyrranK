@@ -1,4 +1,4 @@
-package com.myrran.domain.mob.units
+package com.myrran.domain.mob.metricunits
 
 data class Meter(
 

@@ -1,16 +1,16 @@
 package com.myrran.domain.mob
 
 import com.badlogic.gdx.ai.steer.Limiter
-import com.myrran.domain.mob.units.Acceleration
-import com.myrran.domain.mob.units.AngularAcceleration
-import com.myrran.domain.mob.units.AngularVelocity
-import com.myrran.domain.mob.units.Meter
-import com.myrran.domain.mob.units.Radian
-import com.myrran.domain.mob.units.Speed
+import com.myrran.domain.mob.metricunits.Acceleration
+import com.myrran.domain.mob.metricunits.AngularAcceleration
+import com.myrran.domain.mob.metricunits.AngularVelocity
+import com.myrran.domain.mob.metricunits.Meter
+import com.myrran.domain.mob.metricunits.Radian
+import com.myrran.domain.mob.metricunits.Speed
 
 class SpeedLimits(
 
-    private var linearSpeedGreeshold: Speed<Meter> = Speed(Meter(0.001f)),
+    private var zeroLinearSpeedTreshold: Speed<Meter> = Speed(Meter(0.001f)),
     private var maxLinearSpeed: Speed<Meter> = Speed(Meter(50f)),
     private var maxLinearAcceleration: Acceleration<Meter> = Acceleration(Meter(200f)),
     private var maxAngularSpeed: AngularVelocity<Radian> = AngularVelocity(Radian(5f)),
@@ -20,11 +20,11 @@ class SpeedLimits(
 {
     override fun getZeroLinearSpeedThreshold(): Float =
 
-        linearSpeedGreeshold.value.toFloat()
+        zeroLinearSpeedTreshold.value.toFloat()
 
     override fun setZeroLinearSpeedThreshold(threesholdInMeters: Float) {
 
-        linearSpeedGreeshold = Speed(Meter(threesholdInMeters)) }
+        zeroLinearSpeedTreshold = Speed(Meter(threesholdInMeters)) }
 
     override fun getMaxLinearSpeed(): Float =
 

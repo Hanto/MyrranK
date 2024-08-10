@@ -1,8 +1,8 @@
 package com.myrran.infraestructure.view.mob.player
 
 import com.badlogic.gdx.graphics.g2d.Animation
-import com.myrran.domain.mob.units.Pixel
-import com.myrran.domain.mob.units.Size
+import com.myrran.domain.mob.metricunits.Pixel
+import com.myrran.domain.mob.metricunits.Size
 import com.myrran.infraestructure.view.mob.Pixie
 import ktx.collections.toGdxArray
 

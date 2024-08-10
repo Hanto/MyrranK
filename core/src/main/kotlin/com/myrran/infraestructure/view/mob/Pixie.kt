@@ -5,8 +5,8 @@ import com.badlogic.gdx.graphics.g2d.Animation
 import com.badlogic.gdx.graphics.g2d.Batch
 import com.badlogic.gdx.graphics.g2d.TextureRegion
 import com.badlogic.gdx.scenes.scene2d.Actor
-import com.myrran.domain.mob.units.Pixel
-import com.myrran.domain.mob.units.Size
+import com.myrran.domain.mob.metricunits.Pixel
+import com.myrran.domain.mob.metricunits.Size
 
 open class Pixie<ANIMATIOM_TYPE: Enum<ANIMATIOM_TYPE>>(
 

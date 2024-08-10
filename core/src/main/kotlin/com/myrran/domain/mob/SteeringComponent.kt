@@ -14,8 +14,8 @@ class SteeringComponent(
     private val spatial: Spatial,
     private val speedLimits: SpeedLimits,
 
-    private var isTagged: Boolean,
-    private var isFacingAutomatic: Boolean
+    private var isTagged: Boolean = false,
+    private var isFacingAutomatic: Boolean = false
 
 ): Steerable<Vector2>, Component, Poolable, Location<Vector2> by spatial, Limiter by speedLimits
 {
@@ -66,7 +66,7 @@ class SteeringComponent(
         when (isFacingAutomatic) {
 
             true -> orientationBasedOnSteering(steering)
-            false -> orientationBasedOnCurrectDirection()
+            false -> orientationBasedOnCurrentDirection()
         }
     }
 
@@ -78,7 +78,7 @@ class SteeringComponent(
         }
     }
 
-    private fun orientationBasedOnCurrectDirection() {
+    private fun orientationBasedOnCurrentDirection() {
 
         if (!spatial.linearVelocity().isZero(speedLimits.zeroLinearSpeedThreshold)) {
 

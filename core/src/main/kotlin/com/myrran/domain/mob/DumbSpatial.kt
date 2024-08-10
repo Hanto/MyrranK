@@ -5,8 +5,8 @@ import com.badlogic.gdx.math.Vector2
 
 data class DumbSpatial(
 
-    var position: Vector2 = Vector2(0f,0f),
-    var orientation: Float = 0f
+    private var position: Vector2 = Vector2(0f,0f),
+    private var orientation: Float = 0f
 
 ): Location<Vector2>
 {

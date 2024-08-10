@@ -1,5 +1,6 @@
 package com.myrran.infraestructure.view.screens
 
+import com.badlogic.ashley.core.Engine
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.InputMultiplexer
 import com.badlogic.gdx.assets.AssetManager
@@ -8,12 +9,20 @@ import com.badlogic.gdx.graphics.GL20
 import com.badlogic.gdx.graphics.OrthographicCamera
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import com.badlogic.gdx.math.Interpolation
+import com.badlogic.gdx.math.Vector2
+import com.badlogic.gdx.physics.box2d.BodyDef
+import com.badlogic.gdx.physics.box2d.CircleShape
+import com.badlogic.gdx.physics.box2d.FixtureDef
+import com.badlogic.gdx.physics.box2d.World
 import com.badlogic.gdx.scenes.scene2d.Stage
 import com.badlogic.gdx.scenes.scene2d.actions.Actions
 import com.myrran.application.LearnedSkillTemplates
 import com.myrran.application.SpellBook
 import com.myrran.badlogic.DaD
 import com.myrran.domain.misc.DeSerializer
+import com.myrran.domain.mob.Spatial
+import com.myrran.domain.mob.SpeedLimits
+import com.myrran.domain.mob.SteeringComponent
 import com.myrran.infraestructure.assets.AssetStorage
 import com.myrran.infraestructure.controller.BookSkillController
 import com.myrran.infraestructure.controller.DragAndDropManager
@@ -142,8 +151,40 @@ class MainScreen(
         camera = OrthographicCamera(Gdx.graphics.width.toFloat(), Gdx.graphics.height.toFloat())
         worldStage.viewport.camera = camera
 
-
         camera.zoom = 0.5f
+
+
+        val engine = Engine()
+        val entity = engine.createEntity()
+
+
+        val world = World(Vector2(0f, 0f) ,true)
+        val boxBodyDef = BodyDef()
+        boxBodyDef.type = BodyDef.BodyType.DynamicBody
+        boxBodyDef.position.x = 0f
+        boxBodyDef.position.y = 0f
+        boxBodyDef.fixedRotation = true
+
+        val boxBody = world.createBody(boxBodyDef)
+        val circleShape = CircleShape()
+        circleShape.radius = 0.16f
+
+        val fixture = FixtureDef()
+        fixture.shape = circleShape
+        fixture.density = 1f
+        fixture.friction = 0.3f
+        fixture.restitution = 0.1f
+
+        boxBody.createFixture(fixture)
+        circleShape.dispose()
+
+        val steeringComponent = SteeringComponent(Spatial(boxBody), SpeedLimits())
+
+        entity.add(steeringComponent)
+
+        //val playerView = PlayerView(steeringComponent, )
+
+
     }
 
     // RENDER:
