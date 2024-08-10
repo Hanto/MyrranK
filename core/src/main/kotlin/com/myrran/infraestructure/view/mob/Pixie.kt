@@ -1,4 +1,4 @@
-package com.myrran.infraestructure.view.player
+package com.myrran.infraestructure.view.mob
 
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.graphics.g2d.Animation
@@ -8,10 +8,10 @@ import com.badlogic.gdx.scenes.scene2d.Actor
 import com.myrran.domain.world.Pixel
 import com.myrran.domain.world.Size
 
-open class Pixie<ANIMATIOM_TYPES>(
+open class Pixie<ANIMATIOM_TYPE: Enum<ANIMATIOM_TYPE>>(
 
-    private val animations: Map<ANIMATIOM_TYPES, Animation<TextureRegion>>,
-    private var currentAnimation: ANIMATIOM_TYPES,
+    private val animations: Map<ANIMATIOM_TYPE, Animation<TextureRegion>>,
+    private var currentAnimation: ANIMATIOM_TYPE,
     size: Size<Pixel>
 
 ): Actor()
@@ -27,7 +27,7 @@ open class Pixie<ANIMATIOM_TYPES>(
     // MAIN:
     //--------------------------------------------------------------------------------------------------------
 
-    fun setAnimation(animation: ANIMATIOM_TYPES) {
+    fun setAnimation(animation: ANIMATIOM_TYPE) {
 
         if (animation != currentAnimation) {
 

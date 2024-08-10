@@ -1,16 +1,12 @@
 package com.myrran.domain.world
 
-data class Meter(
+data class Radian(
 
     private val value: Float
 
-): Distance
+): Angle
 {
     fun toFloat(): Float =
 
         value
-
-    fun toPixel(): Pixel =
-
-        Pixel(value * 100)
 }

@@ -77,7 +77,7 @@ class AssetStorage(
             .let { TextureRegion(it) }
             .also { textureRegions[atlasName, textureName] = it }
 
-    fun getNinePatch(atlasName: String, ninePatchName: String): NinePatch =
+    private fun getNinePatch(atlasName: String, ninePatchName: String): NinePatch =
 
         ninePatches[atlasName, ninePatchName] ?: addAndReturnNinePatch(atlasName, ninePatchName)
 

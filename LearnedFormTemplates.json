@@ -1,6 +1,6 @@
 [ {
   "id" : "CIRCLE_1",
-  "avaiable" : 5,
+  "avaiable" : 4,
   "total" : 5
 }, {
   "id" : "TRAIL_1",
@@ -12,6 +12,6 @@
   "total" : 2
 }, {
   "id" : "POINT_1",
-  "avaiable" : 5,
+  "avaiable" : 4,
   "total" : 5
 } ]

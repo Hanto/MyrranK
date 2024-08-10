@@ -1,4 +1,4 @@
-package com.myrran.infraestructure.view.player
+package com.myrran.infraestructure.view.mob.player
 
 import com.badlogic.gdx.graphics.g2d.TextureRegion
 

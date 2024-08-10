@@ -23,10 +23,10 @@ import com.myrran.infraestructure.repositories.skill.SkillAdapter
 import com.myrran.infraestructure.repositories.skill.SkillRepository
 import com.myrran.infraestructure.repositories.skilltemplate.SkillTemplateAdapter
 import com.myrran.infraestructure.repositories.skilltemplate.SkillTemplateRepository
-import com.myrran.infraestructure.view.player.Pixie
-import com.myrran.infraestructure.view.player.PlayerAnimation
-import com.myrran.infraestructure.view.player.PlayerFactory
-import com.myrran.infraestructure.view.player.PlayerViewAssets
+import com.myrran.infraestructure.view.mob.Pixie
+import com.myrran.infraestructure.view.mob.player.PlayerAnimation
+import com.myrran.infraestructure.view.mob.player.PlayerFactory
+import com.myrran.infraestructure.view.mob.player.PlayerViewAssets
 import com.myrran.infraestructure.view.ui.misc.TextView
 import com.myrran.infraestructure.view.ui.skills.SkillViewAssets
 import com.myrran.infraestructure.view.ui.skills.SkillViewFactory

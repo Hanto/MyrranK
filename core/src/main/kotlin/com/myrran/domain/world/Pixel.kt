@@ -3,7 +3,8 @@ package com.myrran.domain.world
 data class Pixel(
 
     private val value: Float
-)
+
+): Distance
 {
     fun toFloat(): Float =
 
