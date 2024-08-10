@@ -1,4 +1,4 @@
-package com.myrran.domain.world
+package com.myrran.domain.mob.units
 
 data class AngularVelocity<T: Angle>(
 

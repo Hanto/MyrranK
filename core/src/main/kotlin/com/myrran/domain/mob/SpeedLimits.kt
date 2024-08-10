@@ -1,12 +1,12 @@
 package com.myrran.domain.mob
 
 import com.badlogic.gdx.ai.steer.Limiter
-import com.myrran.domain.world.Acceleration
-import com.myrran.domain.world.AngularAcceleration
-import com.myrran.domain.world.AngularVelocity
-import com.myrran.domain.world.Meter
-import com.myrran.domain.world.Radian
-import com.myrran.domain.world.Speed
+import com.myrran.domain.mob.units.Acceleration
+import com.myrran.domain.mob.units.AngularAcceleration
+import com.myrran.domain.mob.units.AngularVelocity
+import com.myrran.domain.mob.units.Meter
+import com.myrran.domain.mob.units.Radian
+import com.myrran.domain.mob.units.Speed
 
 class SpeedLimits(
 
@@ -40,7 +40,8 @@ class SpeedLimits(
 
     override fun setMaxLinearAcceleration(maxAccelerationInMeters: Float) {
 
-        maxLinearAcceleration = Acceleration(Meter(maxAccelerationInMeters))}
+        maxLinearAcceleration = Acceleration(Meter(maxAccelerationInMeters))
+    }
 
     override fun getMaxAngularSpeed(): Float =
 
