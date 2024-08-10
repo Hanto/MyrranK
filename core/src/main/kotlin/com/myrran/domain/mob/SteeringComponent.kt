@@ -11,7 +11,7 @@ import com.badlogic.gdx.utils.Pool.Poolable
 
 class SteeringComponent(
 
-    private val spatial: Spatial,
+    val spatial: Spatial,
     private val speedLimits: SpeedLimits,
 
     private var isTagged: Boolean = false,

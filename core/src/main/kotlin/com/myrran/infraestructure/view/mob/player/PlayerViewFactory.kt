@@ -18,11 +18,11 @@ class PlayerViewFactory
 
         val frames = assets.characterTexture.split(size.width.value(), size.height.value())
         val animations = mapOf(
-            PlayerAnimation.WALK_DOWN to    Animation(0.3f, arrayOf(frames[0][0], frames[0][1], frames[0][2]).toGdxArray()),
-            PlayerAnimation.WALK_LEFT to    Animation(0.3f, arrayOf(frames[1][0], frames[1][1], frames[1][2]).toGdxArray()),
-            PlayerAnimation.WALK_RIGHT to   Animation(0.3f, arrayOf(frames[2][0], frames[2][1], frames[2][2]).toGdxArray()),
-            PlayerAnimation.WALK_UP to      Animation(0.3f, arrayOf(frames[3][0], frames[3][1], frames[3][2]).toGdxArray()),
-            PlayerAnimation.IDDLE to        Animation(0.5f, arrayOf(frames[4][0], frames[4][1], frames[4][2]).toGdxArray())
+            PlayerAnimation.WALK_SOUTH to    Animation(0.2f, arrayOf(frames[0][0], frames[0][1], frames[0][2]).toGdxArray()),
+            PlayerAnimation.WALK_WEST to    Animation(0.2f, arrayOf(frames[1][0], frames[1][1], frames[1][2]).toGdxArray()),
+            PlayerAnimation.WALK_EAST to   Animation(0.2f, arrayOf(frames[2][0], frames[2][1], frames[2][2]).toGdxArray()),
+            PlayerAnimation.WALK_NORTH to      Animation(0.2f, arrayOf(frames[3][0], frames[3][1], frames[3][2]).toGdxArray()),
+            PlayerAnimation.IDDLE to        Animation(0.5f, arrayOf(frames[2][3], frames[2][4], frames[2][5]).toGdxArray())
         )
 
         return PlayerView(model, animations, size)

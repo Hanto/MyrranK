@@ -12,6 +12,7 @@ import com.badlogic.gdx.math.Vector2
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer
 import com.badlogic.gdx.physics.box2d.World
 import com.badlogic.gdx.scenes.scene2d.Stage
+import com.badlogic.gdx.utils.TimeUtils
 import com.myrran.application.LearnedSkillTemplates
 import com.myrran.application.SpellBook
 import com.myrran.badlogic.DaD
@@ -27,6 +28,8 @@ import com.myrran.domain.mob.metricunits.Size
 import com.myrran.infraestructure.assets.AssetStorage
 import com.myrran.infraestructure.controller.BookSkillController
 import com.myrran.infraestructure.controller.DragAndDropManager
+import com.myrran.infraestructure.input.InputManager
+import com.myrran.infraestructure.input.PlayerInputs
 import com.myrran.infraestructure.repositories.assetsconfig.AssetsConfigRepository
 import com.myrran.infraestructure.repositories.learnedskilltemplate.LearnedSkillTemplateRepository
 import com.myrran.infraestructure.repositories.skill.SkillAdapter
@@ -68,6 +71,9 @@ class MainScreen(
     private val playerView: PlayerView
     private val world = World(Vector2(0f, 0f) ,true)
     private val debugRenderer: Box2DDebugRenderer
+    private val inputManager: InputManager
+    private val playerInputs: PlayerInputs
+    private val player: Player
 
 
     private val fpsText: TextView<String>
@@ -121,19 +127,19 @@ class MainScreen(
         val bookController = BookSkillController(spellBook)
 
         val effectList = EffectTemplateViews(SkillViewId(UUID.randomUUID()), spellBook, assets, skillViewFactory)
-        uiStage.addActor(effectList)
+        //uiStage.addActor(effectList)
         effectList.setPosition(533f, 154f)
 
         val formList = FormTemplateViews(SkillViewId(UUID.randomUUID()), spellBook, assets, skillViewFactory)
-        uiStage.addActor(formList)
+        //uiStage.addActor(formList)
         formList.setPosition(268f, 154f)
 
         val skillTemplateList = SkillTemplateViews(SkillViewId(UUID.randomUUID()), spellBook, assets, bookController, skillViewFactory)
-        uiStage.addActor(skillTemplateList)
+        //uiStage.addActor(skillTemplateList)
         skillTemplateList.setPosition(3f, 154f)
 
         val skillList = SkillViews(SkillViewId(UUID.randomUUID()), spellBook, assets, bookController, skillViewFactory)
-        uiStage.addActor(skillList)
+        //uiStage.addActor(skillList)
         skillList.setPosition(860f, 154f)
 
 
@@ -158,11 +164,15 @@ class MainScreen(
         val bodyFactory = BodyFactory(world)
         val body = bodyFactory.createSquareBody(Size(Pixel(32f), Pixel(32f)))
         val steeringComponent = SteeringComponent(Spatial(body), SpeedLimits())
-        val player = Player(steeringComponent)
+        playerInputs = PlayerInputs()
+        player = Player(steeringComponent, playerInputs)
 
         val playerViewFactory = PlayerViewFactory()
         playerView = playerViewFactory.toPlayerView(player, playerAssets)
         debugRenderer = Box2DDebugRenderer()
+
+        inputManager = InputManager(playerInputs)
+        inputMultiplexer.addProcessor(inputManager)
 
         worldStage.addActor(playerView)
     }
@@ -170,18 +180,39 @@ class MainScreen(
     // RENDER:
     //--------------------------------------------------------------------------------------------------------
 
+    private var currentTime: Double = TimeUtils.nanoTime() / 1000000000.0
+    private var timeStep: Double = 0.0
+    private val fixedTimestep: Double = 0.03
+
     override fun render(delta: Float) {
 
-        clearScreen()
-        debugRenderer.render(world,  camera.combined)
+        val newTime = TimeUtils.nanoTime() / 1000000000.0
+        val deltaTime = (newTime - currentTime)
+        currentTime = newTime
+        timeStep += deltaTime
 
-        camera.position.set(playerView.originX, playerView.originY, 0f)
+        clearScreen()
+        //debugRenderer.render(world,  camera.combined)
+
         camera.update()
 
         batch.begin()
         batch.end()
 
-        world.step(delta, 8, 6)
+        if (timeStep >= fixedTimestep) {
+            player.saveLastPosition()
+        }
+
+        while (timeStep >= fixedTimestep) {
+
+            world.step(fixedTimestep.toFloat(), 8, 6)
+
+            timeStep -= fixedTimestep
+        }
+
+        player.update(delta)
+        playerView.update((timeStep / fixedTimestep).toFloat())
+        //camera.position.set(playerView.x, playerView.y, 0f)
 
         worldStage.act()
         worldStage.draw()
