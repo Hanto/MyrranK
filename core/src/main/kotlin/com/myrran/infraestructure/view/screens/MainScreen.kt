@@ -12,7 +12,6 @@ import com.badlogic.gdx.math.Vector2
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer
 import com.badlogic.gdx.physics.box2d.World
 import com.badlogic.gdx.scenes.scene2d.Stage
-import com.badlogic.gdx.utils.TimeUtils
 import com.myrran.application.LearnedSkillTemplates
 import com.myrran.application.SpellBook
 import com.myrran.badlogic.DaD
@@ -180,19 +179,15 @@ class MainScreen(
     // RENDER:
     //--------------------------------------------------------------------------------------------------------
 
-    private var currentTime: Double = TimeUtils.nanoTime() / 1000000000.0
-    private var timeStep: Double = 0.0
-    private val fixedTimestep: Double = 0.03
+    private var timeStep: Float = 0f
+    private val fixedTimestep: Float = 0.03f
 
     override fun render(delta: Float) {
 
-        val newTime = TimeUtils.nanoTime() / 1000000000.0
-        val deltaTime = (newTime - currentTime)
-        currentTime = newTime
-        timeStep += deltaTime
+        timeStep += delta
 
         clearScreen()
-        //debugRenderer.render(world,  camera.combined)
+        debugRenderer.render(world,  camera.combined)
 
         camera.update()
 
@@ -211,7 +206,7 @@ class MainScreen(
         }
 
         player.update(delta)
-        playerView.update((timeStep / fixedTimestep).toFloat())
+        playerView.update(timeStep / fixedTimestep)
         //camera.position.set(playerView.x, playerView.y, 0f)
 
         worldStage.act()

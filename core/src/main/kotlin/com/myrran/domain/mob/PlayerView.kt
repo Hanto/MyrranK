@@ -33,12 +33,13 @@ class PlayerView(
             is StateIddle -> setAnimation(PlayerAnimation.IDDLE)
         }
 
-        val lastPosition = model.lastPosition
-        val newPosition = model.position
-        val offset = newPosition.minus(lastPosition)
+        val offset = model.position.minus(model.lastPosition)
 
         setPosition(
-            lastPosition.x + offset.x * fractionOfTimestep,
-            lastPosition.y + offset.y * fractionOfTimestep)
+            model.lastPosition.x + offset.x * fractionOfTimestep,
+            model.lastPosition.y + offset.y * fractionOfTimestep)
+
+
+        //setPosition(model.position.x, model.position.y)
     }
 }

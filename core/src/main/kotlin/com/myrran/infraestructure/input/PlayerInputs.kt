@@ -20,49 +20,30 @@ data class PlayerInputs(
 
         if (oldDirection.goesNorth()) {
             when {
-                goNorth && goSouth -> forces.add(NORTH)
-                goNorth -> forces.add(NORTH)
-                goSouth -> forces.add(SOUTH)
-            }
-        }
-        else if (oldDirection.goesSouth()) {
-            when {
-                goNorth && goSouth -> forces.add(SOUTH)
                 goNorth -> forces.add(NORTH)
                 goSouth -> forces.add(SOUTH)
             }
         }
         else {
             when {
-                goNorth && goSouth -> Unit
-                goNorth -> forces.add(NORTH)
                 goSouth -> forces.add(SOUTH)
+                goNorth -> forces.add(NORTH)
             }
         }
-
         if (oldDirection.goesEast()) {
             when {
-                goWest && goEast -> forces.add(EAST)
-                goWest -> forces.add(WEST)
                 goEast -> forces.add(EAST)
-            }
-        }
-        else if (oldDirection.goesWest()) {
-            when {
-                goWest && goEast -> forces.add(WEST)
                 goWest -> forces.add(WEST)
-                goEast -> forces.add(EAST)
             }
         }
         else {
             when {
-                goWest && goEast -> Unit
                 goWest -> forces.add(WEST)
                 goEast -> forces.add(EAST)
             }
         }
 
-        return forces.fold( Vector2(0f, 0f)) { acc, next -> acc.plus(next) }.nor()
+        return forces.fold( Vector2(0f, 0f) ) { acc, next -> acc.plus(next) }.nor()
     }
 }
 
@@ -72,6 +53,4 @@ private val EAST = Vector2(1f, 0f)
 private val WEST = Vector2(-1f, 0f)
 
 private fun Vector2.goesNorth() = this.y > 0
-private fun Vector2.goesSouth() = this.y < 0
-private fun Vector2.goesWest() = this.x < 0
 private fun Vector2.goesEast() = this.x > 0

@@ -16,7 +16,6 @@ class Player(
 {
     var lastPosition: Vector2 = Vector2(0f, 0f)
 
-
     fun update(deltaTime: Float) {
 
         state = state.nextState(input)
