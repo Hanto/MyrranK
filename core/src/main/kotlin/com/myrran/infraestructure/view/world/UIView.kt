@@ -27,7 +27,7 @@ import java.util.UUID
 
 class UIView(
 
-    val uiStage: Stage,
+    val stage: Stage,
     private val assetStorage: AssetStorage
 
 ): Disposable
@@ -74,37 +74,37 @@ class UIView(
         val bookController = BookSkillController(spellBook)
 
         val effectList = EffectTemplateViews(SkillViewId(UUID.randomUUID()), spellBook, assets, skillViewFactory)
-        uiStage.addActor(effectList)
+        stage.addActor(effectList)
         effectList.setPosition(533f, 154f)
 
         val formList = FormTemplateViews(SkillViewId(UUID.randomUUID()), spellBook, assets, skillViewFactory)
-        uiStage.addActor(formList)
+        stage.addActor(formList)
         formList.setPosition(268f, 154f)
 
         val skillTemplateList = SkillTemplateViews(SkillViewId(UUID.randomUUID()), spellBook, assets, bookController, skillViewFactory)
-        uiStage.addActor(skillTemplateList)
+        stage.addActor(skillTemplateList)
         skillTemplateList.setPosition(3f, 154f)
 
         val skillList = SkillViews(SkillViewId(UUID.randomUUID()), spellBook, assets, bookController, skillViewFactory)
-        uiStage.addActor(skillList)
+        stage.addActor(skillList)
         skillList.setPosition(860f, 154f)
 
     }
 
     fun render(deltaTime: Float) {
 
-        uiStage.act(deltaTime)
+        stage.act(deltaTime)
 
-        uiStage.draw()
+        stage.draw()
     }
 
     fun resize(width: Int, height: Int) {
 
-        uiStage.viewport.update(Gdx.graphics.width, Gdx.graphics.height)
+        stage.viewport.update(Gdx.graphics.width, Gdx.graphics.height)
     }
 
     override fun dispose() {
 
-        uiStage.dispose()
+        stage.dispose()
     }
 }

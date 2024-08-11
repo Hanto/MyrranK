@@ -9,29 +9,29 @@ import com.badlogic.gdx.scenes.scene2d.Stage
 import com.myrran.domain.misc.DeSerializer
 import com.myrran.domain.world.World
 import com.myrran.infraestructure.assets.AssetStorage
-import com.myrran.infraestructure.input.PlayerInputListener
+import com.myrran.infraestructure.input.PlayerController
 import com.myrran.infraestructure.input.PlayerInputs
 import com.myrran.infraestructure.repositories.assetsconfig.AssetsConfigRepository
 import com.myrran.infraestructure.view.mob.player.PlayerViewAssets
 import com.myrran.infraestructure.view.mob.player.PlayerViewFactory
 import com.myrran.infraestructure.view.world.UIView
+import com.myrran.infraestructure.view.world.View
 import com.myrran.infraestructure.view.world.WorldView
 import ktx.app.KtxScreen
 
 class MainScreen(
 
-    private val batch: SpriteBatch = SpriteBatch(),
     private val assetStorage: AssetStorage = AssetStorage(
         assetManager = AssetManager()),
 
     private val assetsConfigRepository: AssetsConfigRepository = AssetsConfigRepository(DeSerializer()),
 
+
 ): KtxScreen
 {
-
-    private val model: World
-    private val worldView: WorldView
-    private val uiView: UIView
+    private val world: World
+    private val view: View
+    private val playerController: PlayerController
 
     // INIT:
     //--------------------------------------------------------------------------------------------------------
@@ -42,21 +42,21 @@ class MainScreen(
         assetStorage.load(initialAssets)
         assetStorage.finishLoading()
 
-        val playerAssets = PlayerViewAssets(
-            characterTexture = assetStorage.getTextureRegion("Atlas.atlas", "BAK/Player Sprites/Player"))
+        val playerAssets = PlayerViewAssets(assetStorage.getTextureRegion("Atlas.atlas", "BAK/Player Sprites/Player"))
 
         val playerViewFactory = PlayerViewFactory(playerAssets)
         val playerInputs = PlayerInputs()
 
-        model = World(playerInputs)
-        worldView = WorldView(model, playerInputs, playerViewFactory)
-        uiView = UIView(Stage(), assetStorage)
+        world = World(playerInputs)
+        val worldView = WorldView(world, playerViewFactory)
+        val uiView = UIView(Stage(), assetStorage)
+        view = View(worldView, uiView, SpriteBatch())
 
-        val playerInputListener = PlayerInputListener(playerInputs, worldView.camera)
+        playerController = PlayerController(playerInputs, worldView.camera)
         val inputMultiplexer = InputMultiplexer()
-        inputMultiplexer.addProcessor(playerInputListener)
-        inputMultiplexer.addProcessor(worldView.worldStage)
-        inputMultiplexer.addProcessor(uiView.uiStage)
+        inputMultiplexer.addProcessor(playerController)
+        inputMultiplexer.addProcessor(worldView.stage)
+        inputMultiplexer.addProcessor(uiView.stage)
         Gdx.input.inputProcessor = inputMultiplexer
     }
 
@@ -70,26 +70,21 @@ class MainScreen(
 
         clearScreen()
 
-        batch.begin()
-        batch.end()
-
         timeStep += delta
 
         if (timeStep >= fixedTimestep) {
 
-            model.saveLastPosition()
+            world.saveLastPosition()
 
             while (timeStep >= fixedTimestep) {
 
-                model.update(fixedTimestep)
+                world.update(fixedTimestep)
 
                 timeStep -= fixedTimestep
             }
         }
 
-        worldView.render(delta, timeStep / fixedTimestep)
-
-        uiView.render(delta)
+        view.render(delta, timeStep / fixedTimestep)
     }
 
     private fun clearScreen() {
@@ -100,15 +95,13 @@ class MainScreen(
 
     override fun resize(width: Int, height: Int) {
 
-        uiView.resize(width, height)
+        view.resize(width, height)
     }
 
     override fun dispose() {
 
-        batch.dispose()
         assetStorage.dispose()
-        model.dispose()
-        worldView.dispose()
-        uiView.dispose()
+        world.dispose()
+        view.dispose()
     }
 }

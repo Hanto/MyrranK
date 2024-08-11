@@ -4,7 +4,7 @@
   "total" : 2
 }, {
   "id" : "BOMB_1",
-  "avaiable" : 1,
+  "avaiable" : 2,
   "total" : 2
 }, {
   "id" : "SLOW_1",
@@ -16,7 +16,7 @@
   "total" : 2
 }, {
   "id" : "ROOT_1",
-  "avaiable" : 2,
+  "avaiable" : 1,
   "total" : 2
 }, {
   "id" : "DAMAGE_1",

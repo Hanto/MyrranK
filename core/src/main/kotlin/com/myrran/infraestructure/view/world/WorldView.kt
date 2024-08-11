@@ -9,16 +9,14 @@ import com.myrran.domain.events.WorldEvent
 import com.myrran.domain.misc.observer.Observer
 import com.myrran.domain.mob.metrics.Pixel
 import com.myrran.domain.world.World
-import com.myrran.infraestructure.input.PlayerInputs
 import com.myrran.infraestructure.view.mob.PlayerView
 import com.myrran.infraestructure.view.mob.player.PlayerViewFactory
 
 class WorldView(
 
     private val model: World,
-    private val playerInputs: PlayerInputs,
     private val playerViewFactory: PlayerViewFactory,
-    val worldStage: Stage = Stage(),
+    val stage: Stage = Stage(),
     val camera: OrthographicCamera = OrthographicCamera(
         Pixel(Gdx.graphics.width).toMeters().toFloat(),
         Pixel(Gdx.graphics.height).toMeters().toFloat()),
@@ -31,9 +29,9 @@ class WorldView(
 
     init {
 
-        worldStage.addActor(playerView)
+        stage.addActor(playerView)
         camera.zoom = 0.5f
-        worldStage.viewport.camera = camera
+        stage.viewport.camera = camera
     }
 
     fun render(deltaTime: Float, fractionOfTimestep: Float) {
@@ -44,8 +42,8 @@ class WorldView(
         //camera.position.set(playerView.x, playerView.y, 0f)
         camera.update()
 
-        worldStage.act(deltaTime)
-        worldStage.draw()
+        stage.act(deltaTime)
+        stage.draw()
     }
 
     private fun interpolatePositions(fractionOfTimestep: Float) {
@@ -60,7 +58,7 @@ class WorldView(
 
     override fun dispose() {
 
-        worldStage.dispose()
+        stage.dispose()
         box2dDebug.dispose()
     }
 }

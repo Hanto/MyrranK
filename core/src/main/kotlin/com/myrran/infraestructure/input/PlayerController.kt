@@ -5,7 +5,7 @@ import com.badlogic.gdx.InputProcessor
 import com.badlogic.gdx.graphics.OrthographicCamera
 import com.myrran.domain.mob.metrics.PositionPixels
 
-class PlayerInputListener(
+class PlayerController(
 
     private val playerInputs: PlayerInputs,
     private val camera: OrthographicCamera
