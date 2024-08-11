@@ -1,30 +1,26 @@
 package com.myrran.infraestructure.view.world
 
-import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.graphics.OrthographicCamera
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer
 import com.badlogic.gdx.scenes.scene2d.Stage
 import com.badlogic.gdx.utils.Disposable
+import com.myrran.application.World
 import com.myrran.domain.events.WorldEvent
 import com.myrran.domain.misc.observer.Observer
-import com.myrran.domain.mob.metrics.Pixel
-import com.myrran.domain.world.World
+import com.myrran.infraestructure.view.mob.MobViewFactory
 import com.myrran.infraestructure.view.mob.PlayerView
-import com.myrran.infraestructure.view.mob.player.PlayerViewFactory
 
 class WorldView(
 
     private val model: World,
-    private val playerViewFactory: PlayerViewFactory,
-    val stage: Stage = Stage(),
-    val camera: OrthographicCamera = OrthographicCamera(
-        Pixel(Gdx.graphics.width).toMeters().toFloat(),
-        Pixel(Gdx.graphics.height).toMeters().toFloat()),
-    private val box2dDebug: Box2DDebugRenderer = Box2DDebugRenderer()
+    private val stage: Stage,
+    private val camera: OrthographicCamera,
+    private val mobViewFactory: MobViewFactory
 
 ): Observer<WorldEvent>, Disposable
 {
-    private val playerView: PlayerView = playerViewFactory.toPlayerView(model.player)
+    private val playerView: PlayerView = mobViewFactory.createPlayer(model.player)
+    private val box2dDebug: Box2DDebugRenderer = Box2DDebugRenderer()
     //private val cameraTarget: Location<Vector2> = playerView
 
     init {

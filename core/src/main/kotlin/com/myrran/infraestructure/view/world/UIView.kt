@@ -27,7 +27,7 @@ import java.util.UUID
 
 class UIView(
 
-    val stage: Stage,
+    private val stage: Stage,
     private val assetStorage: AssetStorage
 
 ): Disposable

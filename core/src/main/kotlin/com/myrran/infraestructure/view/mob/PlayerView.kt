@@ -9,7 +9,6 @@ import com.myrran.infraestructure.input.StateIddle
 import com.myrran.infraestructure.input.StateNorth
 import com.myrran.infraestructure.input.StateSouth
 import com.myrran.infraestructure.input.StateWest
-import com.myrran.infraestructure.view.mob.player.PlayerAnimation
 import ktx.math.minus
 
 class PlayerView(

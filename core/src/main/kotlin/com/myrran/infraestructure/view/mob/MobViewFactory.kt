@@ -1,12 +1,11 @@
-package com.myrran.infraestructure.view.mob.player
+package com.myrran.infraestructure.view.mob
 
 import com.badlogic.gdx.graphics.g2d.Animation
 import com.myrran.domain.mob.Player
 import com.myrran.domain.mob.metrics.SizePixels
-import com.myrran.infraestructure.view.mob.PlayerView
 import ktx.collections.toGdxArray
 
-class PlayerViewFactory(
+class MobViewFactory(
 
     private val assets: PlayerViewAssets
 )
@@ -16,7 +15,7 @@ class PlayerViewFactory(
         private val size = SizePixels(32, 32)
     }
 
-    fun toPlayerView(model: Player): PlayerView {
+    fun createPlayer(model: Player): PlayerView {
 
         val frames = assets.characterTexture.split(size.width.value(), size.height.value())
         val animations = mapOf(

@@ -3,12 +3,14 @@ package com.myrran.infraestructure.input
 import com.badlogic.gdx.Input
 import com.badlogic.gdx.InputProcessor
 import com.badlogic.gdx.graphics.OrthographicCamera
+import com.myrran.domain.mob.Player
 import com.myrran.domain.mob.metrics.PositionPixels
 
 class PlayerController(
 
+    private val player: Player,
+    private val worldCamera: OrthographicCamera,
     private val playerInputs: PlayerInputs,
-    private val camera: OrthographicCamera
 
 ): InputProcessor
 {
@@ -21,6 +23,8 @@ class PlayerController(
             Input.Keys.A -> playerInputs.goWest = true
             Input.Keys.D -> playerInputs.goEast = true
         }
+
+        player.applyInputs(playerInputs)
         return true
     }
 
@@ -33,6 +37,8 @@ class PlayerController(
             Input.Keys.A -> playerInputs.goWest = false
             Input.Keys.D -> playerInputs.goEast = false
         }
+
+        player.applyInputs(playerInputs)
         return true
     }
 
@@ -40,7 +46,7 @@ class PlayerController(
 
         val screenPosition = PositionPixels(screenX, screenY)
         playerInputs.touchedScreen = screenPosition
-        playerInputs.touchedWorld = screenPosition.toWorldPosition(camera)
+        playerInputs.touchedWorld = screenPosition.toWorldPosition(worldCamera)
         playerInputs.doCast = true
         return false
     }
@@ -49,7 +55,7 @@ class PlayerController(
 
         val screenPosition = PositionPixels(screenX, screenY)
         playerInputs.touchedScreen = screenPosition
-        playerInputs.touchedWorld = screenPosition.toWorldPosition(camera)
+        playerInputs.touchedWorld = screenPosition.toWorldPosition(worldCamera)
         playerInputs.doCast = false
         return false
     }
