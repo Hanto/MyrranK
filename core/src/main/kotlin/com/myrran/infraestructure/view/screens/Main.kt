@@ -55,11 +55,9 @@ class Main : KtxGame<KtxScreen>() {
 
         val deSerializer = DeSerializer()
         val assetStorage = AssetStorage(
-            assetManager = AssetManager()
-        )
+            assetManager = AssetManager())
         val assetsConfigRepository = AssetsConfigRepository(
             deSerializer = deSerializer)
-
         val initialAssets = assetsConfigRepository.loadAssetCollection("UIAssets.json")
         assetStorage.load(initialAssets)
         assetStorage.finishLoading()
@@ -73,7 +71,6 @@ class Main : KtxGame<KtxScreen>() {
         val mobFactory = MobFactory(
             bodyFactory = bodyFactory)
         val player = mobFactory.createPlayer()
-
         val world = com.myrran.application.World(
             player = player,
             box2dWorld = box2dWorld,
@@ -95,7 +92,6 @@ class Main : KtxGame<KtxScreen>() {
             world = world,
             worldCamera = worldCamera,
             playerInputs = playerInputs)
-
         val worldView = WorldView(
             model = world,
             stage = worldStage,
@@ -143,7 +139,6 @@ class Main : KtxGame<KtxScreen>() {
         val bookController = SpellBookController(spellBook)
         val dragAndDropManager = DragAndDropManager(DaD(), DaD())
         val skillViewFactory = SkillViewFactory(dragAndDropManager, skillViewAssets)
-
         val uiView = UIView(
             spellBook = spellBook,
             stage = uiStage,
@@ -159,7 +154,6 @@ class Main : KtxGame<KtxScreen>() {
         inputMultiplexer.addProcessor(uiStage)
         inputMultiplexer.addProcessor(worldStage)
         Gdx.input.inputProcessor = inputMultiplexer
-
         val view = View(
             worldView = worldView,
             uiView = uiView,
