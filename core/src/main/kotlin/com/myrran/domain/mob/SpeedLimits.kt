@@ -40,8 +40,7 @@ class SpeedLimits(
 
     override fun setMaxLinearAcceleration(maxAccelerationInMeters: Float) {
 
-        maxLinearAcceleration = Acceleration(Meter(maxAccelerationInMeters))
-    }
+        maxLinearAcceleration = Acceleration(Meter(maxAccelerationInMeters)) }
 
     override fun getMaxAngularSpeed(): Float =
 
