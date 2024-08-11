@@ -21,7 +21,7 @@ class Player(
     fun applyInputs(inputs: PlayerInputs) {
 
         state = state.nextState(inputs)
-        steeringComponent.spatial.body.linearVelocity = state.direction.scl(4f, 4f)
+        steeringComponent.spatial.body.linearVelocity = state.direction.scl(maxLinearSpeed, maxLinearSpeed)
     }
 
     override fun setPosition(position: PositionMeters) =

@@ -11,8 +11,8 @@ import com.myrran.domain.mob.metrics.Speed
 class SpeedLimits(
 
     private var zeroLinearSpeedTreshold: Speed<Meter> = Speed(Meter(0.001f)),
-    private var maxLinearSpeed: Speed<Meter> = Speed(Meter(50f)),
-    private var maxLinearAcceleration: Acceleration<Meter> = Acceleration(Meter(200f)),
+    private var maxLinearSpeed: Speed<Meter> = Speed(Meter(4f)),
+    private var maxLinearAcceleration: Acceleration<Meter> = Acceleration(Meter(5f)),
     private var maxAngularSpeed: AngularVelocity<Radian> = AngularVelocity(Radian(5f)),
     private var maxAngularAcceleration: AngularAcceleration<Radian> = AngularAcceleration(Radian(5f))
 
