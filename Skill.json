@@ -16,7 +16,7 @@
     "id" : "Cooldown",
     "name" : "cooldown",
     "baseBonus" : 10.0,
-    "actual" : 12,
+    "actual" : 15,
     "maximum" : 50,
     "upgradeCost" : 2.0,
     "bonusPerUpgrade" : 1.0
@@ -125,24 +125,24 @@
         "name" : "Debuff 1",
         "lock" : [ "a", "b" ],
         "content" : {
-          "id" : "d6c6ee18-9eba-4e8a-b218-608a2b090e48",
-          "templateId" : "ROOT_1",
+          "id" : "babd1bd4-ab80-4657-b083-b5dddb16c4c7",
+          "templateId" : "BOMB_1",
           "type" : "BOMB",
-          "name" : "Root",
+          "name" : "Bomb",
           "stats" : [ {
-            "id" : "DURATION",
-            "name" : "duration",
+            "id" : "DAMAGE",
+            "name" : "damage",
             "baseBonus" : 10.0,
             "actual" : 0,
-            "maximum" : 20,
+            "maximum" : 50,
             "upgradeCost" : 2.0,
             "bonusPerUpgrade" : 1.0
           }, {
-            "id" : "MAGNITUDE",
-            "name" : "silence power",
+            "id" : "DETONATION TIME",
+            "name" : "detonation time",
             "baseBonus" : 10.0,
             "actual" : 0,
-            "maximum" : 20,
+            "maximum" : 50,
             "upgradeCost" : 2.0,
             "bonusPerUpgrade" : -1.0
           } ],

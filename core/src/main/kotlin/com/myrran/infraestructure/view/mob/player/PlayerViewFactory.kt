@@ -2,18 +2,21 @@ package com.myrran.infraestructure.view.mob.player
 
 import com.badlogic.gdx.graphics.g2d.Animation
 import com.myrran.domain.mob.Player
-import com.myrran.domain.mob.PlayerView
 import com.myrran.domain.mob.metrics.SizePixels
+import com.myrran.infraestructure.view.mob.PlayerView
 import ktx.collections.toGdxArray
 
-class PlayerViewFactory
+class PlayerViewFactory(
+
+    private val assets: PlayerViewAssets
+)
 {
     companion object {
 
         private val size = SizePixels(32, 32)
     }
 
-    fun toPlayerView(model: Player, assets: PlayerViewAssets): PlayerView {
+    fun toPlayerView(model: Player): PlayerView {
 
         val frames = assets.characterTexture.split(size.width.value(), size.height.value())
         val animations = mapOf(

@@ -4,9 +4,11 @@ import com.badlogic.gdx.ai.steer.Limiter
 import com.badlogic.gdx.ai.utils.Location
 import com.badlogic.gdx.math.Vector2
 import com.badlogic.gdx.physics.box2d.Body
+import com.myrran.domain.mob.metrics.PositionMeters
 
 data class Spatial(
 
+    //TODO(): Make it private
     val body: Body,
 
 ): Location<Vector2>
@@ -37,6 +39,10 @@ data class Spatial(
     override fun newLocation(): Location<Vector2> =
 
         DumbSpatial()
+
+    fun setPosition(position: PositionMeters) =
+
+        body.setTransform(position.toVector(), body.angle)
 
     // VELOCITY:
     //--------------------------------------------------------------------------------------------------------

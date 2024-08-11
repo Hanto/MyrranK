@@ -41,7 +41,8 @@ class PlayerInputListener(
         val screenPosition = PositionPixels(screenX, screenY)
         playerInputs.touchedScreen = screenPosition
         playerInputs.touchedWorld = screenPosition.toWorldPosition(camera)
-        return true
+        playerInputs.doCast = true
+        return false
     }
 
     override fun touchUp(screenX: Int, screenY: Int, pointer: Int, button: Int): Boolean {
@@ -49,27 +50,13 @@ class PlayerInputListener(
         val screenPosition = PositionPixels(screenX, screenY)
         playerInputs.touchedScreen = screenPosition
         playerInputs.touchedWorld = screenPosition.toWorldPosition(camera)
+        playerInputs.doCast = false
         return false
     }
 
-    override fun keyTyped(character: Char): Boolean {
-
-        return false
-    }
-
-    override fun touchCancelled(screenX: Int, screenY: Int, pointer: Int, button: Int): Boolean {
-        return false
-    }
-
-    override fun touchDragged(screenX: Int, screenY: Int, pointer: Int): Boolean {
-        return false
-    }
-
-    override fun mouseMoved(screenX: Int, screenY: Int): Boolean {
-        return false
-    }
-
-    override fun scrolled(amountX: Float, amountY: Float): Boolean {
-        return false
-    }
+    override fun keyTyped(character: Char): Boolean = false
+    override fun touchCancelled(screenX: Int, screenY: Int, pointer: Int, button: Int): Boolean = false
+    override fun touchDragged(screenX: Int, screenY: Int, pointer: Int): Boolean = false
+    override fun mouseMoved(screenX: Int, screenY: Int): Boolean = false
+    override fun scrolled(amountX: Float, amountY: Float): Boolean = false
 }

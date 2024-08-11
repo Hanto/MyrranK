@@ -8,6 +8,7 @@ import com.badlogic.gdx.ai.steer.SteeringBehavior
 import com.badlogic.gdx.ai.utils.Location
 import com.badlogic.gdx.math.Vector2
 import com.badlogic.gdx.utils.Pool.Poolable
+import com.myrran.domain.mob.metrics.PositionMeters
 
 class SteeringComponent(
 
@@ -46,6 +47,10 @@ class SteeringComponent(
     override fun reset() {
 
     }
+
+    fun setPosition(position: PositionMeters) =
+
+        spatial.setPosition(position)
 
     // STEERING:
     //--------------------------------------------------------------------------------------------------------

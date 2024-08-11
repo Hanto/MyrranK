@@ -9,6 +9,7 @@ data class PlayerInputs(
 
     var touchedScreen: PositionPixels = PositionPixels(0, 0),
     var touchedWorld: PositionMeters = PositionMeters(0f, 0f),
+    var doCast: Boolean = false,
     var goNorth: Boolean = false,
     var goSouth: Boolean = false,
     var goEast: Boolean = false,
