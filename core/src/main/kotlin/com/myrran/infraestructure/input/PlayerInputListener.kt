@@ -3,7 +3,7 @@ package com.myrran.infraestructure.input
 import com.badlogic.gdx.Input
 import com.badlogic.gdx.InputProcessor
 
-class InputManager(
+class PlayerInputListener(
 
     private val playerInputs: PlayerInputs
 

@@ -83,6 +83,7 @@ data class StateSouth(override val direction: Vector2): State {
 }
 
 sealed interface State {
+
     val direction: Vector2
     fun nextState(inputs: PlayerInputs): State
 }

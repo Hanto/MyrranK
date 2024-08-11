@@ -24,6 +24,7 @@ class Player(
     }
 
     fun saveLastPosition() {
+
         lastPosition = position.cpy()
     }
 }

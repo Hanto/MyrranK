@@ -27,7 +27,7 @@ import com.myrran.domain.mob.metricunits.Size
 import com.myrran.infraestructure.assets.AssetStorage
 import com.myrran.infraestructure.controller.BookSkillController
 import com.myrran.infraestructure.controller.DragAndDropManager
-import com.myrran.infraestructure.input.InputManager
+import com.myrran.infraestructure.input.PlayerInputListener
 import com.myrran.infraestructure.input.PlayerInputs
 import com.myrran.infraestructure.repositories.assetsconfig.AssetsConfigRepository
 import com.myrran.infraestructure.repositories.learnedskilltemplate.LearnedSkillTemplateRepository
@@ -70,7 +70,7 @@ class MainScreen(
     private val playerView: PlayerView
     private val world = World(Vector2(0f, 0f) ,true)
     private val debugRenderer: Box2DDebugRenderer
-    private val inputManager: InputManager
+    private val playerInputListener: PlayerInputListener
     private val playerInputs: PlayerInputs
     private val player: Player
 
@@ -170,8 +170,8 @@ class MainScreen(
         playerView = playerViewFactory.toPlayerView(player, playerAssets)
         debugRenderer = Box2DDebugRenderer()
 
-        inputManager = InputManager(playerInputs)
-        inputMultiplexer.addProcessor(inputManager)
+        playerInputListener = PlayerInputListener(playerInputs)
+        inputMultiplexer.addProcessor(playerInputListener)
 
         worldStage.addActor(playerView)
     }
