@@ -22,8 +22,8 @@ import com.myrran.domain.mob.PlayerView
 import com.myrran.domain.mob.Spatial
 import com.myrran.domain.mob.SpeedLimits
 import com.myrran.domain.mob.SteeringComponent
-import com.myrran.domain.mob.metricunits.Pixel
-import com.myrran.domain.mob.metricunits.SizePixels
+import com.myrran.domain.mob.metrics.Pixel
+import com.myrran.domain.mob.metrics.SizePixels
 import com.myrran.infraestructure.assets.AssetStorage
 import com.myrran.infraestructure.controller.BookSkillController
 import com.myrran.infraestructure.controller.DragAndDropManager

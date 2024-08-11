@@ -4,7 +4,7 @@ import com.badlogic.gdx.ai.steer.Steerable
 import com.badlogic.gdx.graphics.g2d.Animation
 import com.badlogic.gdx.graphics.g2d.TextureRegion
 import com.badlogic.gdx.math.Vector2
-import com.myrran.domain.mob.metricunits.SizePixels
+import com.myrran.domain.mob.metrics.SizePixels
 import com.myrran.infraestructure.input.StateEast
 import com.myrran.infraestructure.input.StateIddle
 import com.myrran.infraestructure.input.StateNorth

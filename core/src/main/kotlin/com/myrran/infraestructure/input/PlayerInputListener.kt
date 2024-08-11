@@ -3,7 +3,7 @@ package com.myrran.infraestructure.input
 import com.badlogic.gdx.Input
 import com.badlogic.gdx.InputProcessor
 import com.badlogic.gdx.graphics.OrthographicCamera
-import com.myrran.domain.mob.metricunits.PositionPixels
+import com.myrran.domain.mob.metrics.PositionPixels
 
 class PlayerInputListener(
 

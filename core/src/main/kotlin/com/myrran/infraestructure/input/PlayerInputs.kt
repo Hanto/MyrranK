@@ -1,8 +1,8 @@
 package com.myrran.infraestructure.input
 
 import com.badlogic.gdx.math.Vector2
-import com.myrran.domain.mob.metricunits.PositionMeters
-import com.myrran.domain.mob.metricunits.PositionPixels
+import com.myrran.domain.mob.metrics.PositionMeters
+import com.myrran.domain.mob.metrics.PositionPixels
 import ktx.math.plus
 
 data class PlayerInputs(

@@ -1,4 +1,4 @@
-package com.myrran.domain.mob.metricunits
+package com.myrran.domain.mob.metrics
 
 interface Distance
 

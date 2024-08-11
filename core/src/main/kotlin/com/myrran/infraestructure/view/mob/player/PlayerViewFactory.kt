@@ -3,7 +3,7 @@ package com.myrran.infraestructure.view.mob.player
 import com.badlogic.gdx.graphics.g2d.Animation
 import com.myrran.domain.mob.Player
 import com.myrran.domain.mob.PlayerView
-import com.myrran.domain.mob.metricunits.SizePixels
+import com.myrran.domain.mob.metrics.SizePixels
 import ktx.collections.toGdxArray
 
 class PlayerViewFactory
