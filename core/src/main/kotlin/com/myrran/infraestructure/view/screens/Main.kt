@@ -11,7 +11,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import com.badlogic.gdx.math.Vector2
 import com.badlogic.gdx.physics.box2d.World
 import com.badlogic.gdx.scenes.scene2d.Stage
-import com.myrran.application.LearnedSkillTemplates
+import com.myrran.application.LearnedTemplates
 import com.myrran.application.SpellBook
 import com.myrran.badlogic.DaD
 import com.myrran.domain.misc.DeSerializer
@@ -117,7 +117,7 @@ class Main : KtxGame<KtxScreen>() {
         val skillTemplateRepository = SkillTemplateRepository(
             skillTemplateAdapter = skillTemplateAdapter,
             deSerializer = deSerializer)
-        val learnedTemplates = LearnedSkillTemplates(
+        val learnedTemplates = LearnedTemplates(
             learnedRepository = learnedRepository,
             templateRepository = skillTemplateRepository)
         val spellBook = SpellBook(

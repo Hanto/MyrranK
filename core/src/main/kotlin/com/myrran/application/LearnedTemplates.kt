@@ -14,7 +14,7 @@ import com.myrran.domain.skills.templates.skill.SkillTemplateId
 import com.myrran.infraestructure.repositories.learnedskilltemplate.LearnedSkillTemplateRepository
 import com.myrran.infraestructure.repositories.skilltemplate.SkillTemplateRepository
 
-class LearnedSkillTemplates(
+class LearnedTemplates(
 
     private val learnedRepository: LearnedSkillTemplateRepository,
     private val templateRepository: SkillTemplateRepository

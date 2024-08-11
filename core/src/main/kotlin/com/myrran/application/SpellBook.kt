@@ -30,7 +30,7 @@ import com.myrran.infraestructure.repositories.skill.SkillRepository
 data class SpellBook(
 
     val created: SkillRepository,
-    private val learned: LearnedSkillTemplates,
+    private val learned: LearnedTemplates,
     private val observable: Observable<SkillEvent> = JavaObservable()
 
 ): Observable<SkillEvent> by observable
