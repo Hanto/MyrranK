@@ -1,4 +1,4 @@
-package com.myrran.domain.mob
+package com.myrran.domain.mob.steerable
 
 import com.badlogic.gdx.ai.steer.Limiter
 import com.myrran.domain.mob.metrics.Acceleration

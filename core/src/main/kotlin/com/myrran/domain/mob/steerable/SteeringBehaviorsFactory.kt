@@ -1,4 +1,4 @@
-package com.myrran.domain.mob
+package com.myrran.domain.mob.steerable
 
 import com.badlogic.gdx.ai.steer.Steerable
 import com.badlogic.gdx.ai.steer.SteeringBehavior

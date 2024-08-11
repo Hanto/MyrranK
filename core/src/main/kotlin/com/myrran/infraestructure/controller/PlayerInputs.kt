@@ -1,4 +1,4 @@
-package com.myrran.infraestructure.input
+package com.myrran.infraestructure.controller
 
 import com.badlogic.gdx.math.Vector2
 import com.myrran.domain.mob.metrics.PositionMeters
@@ -16,6 +16,14 @@ data class PlayerInputs(
     var goWest: Boolean = false,
 )
 {
+    companion object {
+
+        private val NORTH = Vector2(0f, 1f)
+        private val SOUTH = Vector2(0f, -1f)
+        private val EAST = Vector2(1f, 0f)
+        private val WEST = Vector2(-1f, 0f)
+    }
+
     fun calculateDirection(oldDirection: Vector2): Vector2 {
 
         val forces:MutableList<Vector2> = mutableListOf()
@@ -45,14 +53,9 @@ data class PlayerInputs(
             }
         }
 
-        return forces.fold( Vector2(0f, 0f) ) { acc, next -> acc.plus(next) }.nor()
+        return forces.fold(Vector2(0f, 0f)) { acc, next -> acc.plus(next) }.nor()
     }
+
+    private fun Vector2.goesNorth() = this.y > 0
+    private fun Vector2.goesEast() = this.x > 0
 }
-
-private val NORTH = Vector2(0f, 1f)
-private val SOUTH = Vector2(0f, -1f)
-private val EAST = Vector2(1f, 0f)
-private val WEST = Vector2(-1f, 0f)
-
-private fun Vector2.goesNorth() = this.y > 0
-private fun Vector2.goesEast() = this.x > 0

@@ -17,7 +17,7 @@ import com.myrran.domain.skills.templates.skill.SkillTemplateId
 // BOOK
 //------------------------------------------------------------------------------------------------------------
 
-class BookSkillController(
+class SpellBookController(
 
     private val book: SpellBook,
 )

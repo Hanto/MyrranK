@@ -1,14 +1,15 @@
-package com.myrran.infraestructure.view.mob
+package com.myrran.infraestructure.view.mob.player
 
 import com.badlogic.gdx.graphics.g2d.Animation
 import com.badlogic.gdx.graphics.g2d.TextureRegion
-import com.myrran.domain.mob.Player
 import com.myrran.domain.mob.metrics.SizePixels
-import com.myrran.infraestructure.input.StateEast
-import com.myrran.infraestructure.input.StateIddle
-import com.myrran.infraestructure.input.StateNorth
-import com.myrran.infraestructure.input.StateSouth
-import com.myrran.infraestructure.input.StateWest
+import com.myrran.domain.mob.player.Player
+import com.myrran.domain.mob.player.StateEast
+import com.myrran.domain.mob.player.StateIddle
+import com.myrran.domain.mob.player.StateNorth
+import com.myrran.domain.mob.player.StateSouth
+import com.myrran.domain.mob.player.StateWest
+import com.myrran.infraestructure.view.mob.Pixie
 import ktx.math.minus
 
 class PlayerView(

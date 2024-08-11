@@ -1,11 +1,12 @@
-package com.myrran.domain.mob
+package com.myrran.domain.mob.player
 
 import com.badlogic.gdx.ai.steer.Steerable
 import com.badlogic.gdx.math.Vector2
+import com.myrran.domain.mob.Mob
+import com.myrran.domain.mob.MobId
 import com.myrran.domain.mob.metrics.PositionMeters
-import com.myrran.infraestructure.input.PlayerInputs
-import com.myrran.infraestructure.input.State
-import com.myrran.infraestructure.input.StateIddle
+import com.myrran.domain.mob.steerable.SteeringComponent
+import com.myrran.infraestructure.controller.PlayerInputs
 
 class Player(
 

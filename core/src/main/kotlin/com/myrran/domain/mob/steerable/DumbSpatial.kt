@@ -1,4 +1,4 @@
-package com.myrran.domain.mob
+package com.myrran.domain.mob.steerable
 
 import com.badlogic.gdx.ai.utils.Location
 import com.badlogic.gdx.math.Vector2

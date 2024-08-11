@@ -1,8 +1,11 @@
 package com.myrran.infraestructure.view.mob
 
 import com.badlogic.gdx.graphics.g2d.Animation
-import com.myrran.domain.mob.Player
 import com.myrran.domain.mob.metrics.SizePixels
+import com.myrran.domain.mob.player.Player
+import com.myrran.infraestructure.view.mob.player.PlayerAnimation
+import com.myrran.infraestructure.view.mob.player.PlayerView
+import com.myrran.infraestructure.view.mob.player.PlayerViewAssets
 import ktx.collections.toGdxArray
 
 class MobViewFactory(

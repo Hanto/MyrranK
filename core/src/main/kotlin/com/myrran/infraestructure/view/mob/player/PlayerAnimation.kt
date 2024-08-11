@@ -1,4 +1,4 @@
-package com.myrran.infraestructure.view.mob
+package com.myrran.infraestructure.view.mob.player
 
 enum class PlayerAnimation {
     WALK_EAST,

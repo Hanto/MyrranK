@@ -18,7 +18,7 @@ import com.myrran.domain.events.SkillStatUpgradedEvent
 import com.myrran.domain.misc.Identifiable
 import com.myrran.domain.misc.observer.Observer
 import com.myrran.domain.skills.created.skill.SkillId
-import com.myrran.infraestructure.controller.BookSkillController
+import com.myrran.infraestructure.controller.SpellBookController
 import com.myrran.infraestructure.view.ui.misc.AutoFocusScrollPane
 import com.myrran.infraestructure.view.ui.misc.UIClickListener
 import com.myrran.infraestructure.view.ui.misc.UIMoveListener
@@ -32,7 +32,7 @@ class SkillViews(
     override val id: SkillViewId,
     private val model: SpellBook,
     private val assets: SkillViewAssets,
-    private val controller: BookSkillController,
+    private val controller: SpellBookController,
     private val factory: SkillViewFactory,
 
 ): Container<Table>(), Identifiable<SkillViewId>, Observer<SkillEvent>, Disposable {

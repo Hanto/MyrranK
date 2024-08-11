@@ -7,7 +7,8 @@ import com.myrran.domain.misc.observer.Observable
 import com.myrran.domain.mob.Mob
 import com.myrran.domain.mob.MobFactory
 import com.myrran.domain.mob.MobId
-import com.myrran.domain.mob.Player
+import com.myrran.domain.mob.player.Player
+import com.myrran.infraestructure.controller.PlayerInputs
 import com.badlogic.gdx.physics.box2d.World as Box2DWorld
 
 class World(
@@ -24,6 +25,10 @@ class World(
     fun addMob(mob: Mob) {
 
         mobs[mob.id] = mob }
+
+    fun applyPlayerInputs(inputs: PlayerInputs) =
+
+        player.applyInputs(inputs)
 
     fun update(timesStep: Float) {
 

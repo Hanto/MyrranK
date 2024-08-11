@@ -7,7 +7,6 @@ import com.myrran.domain.skills.created.skill.Skill
 import com.myrran.domain.skills.templates.effect.EffectTemplate
 import com.myrran.domain.skills.templates.form.FormTemplate
 import com.myrran.domain.skills.templates.skill.SkillTemplate
-import com.myrran.infraestructure.controller.BookSkillController
 import com.myrran.infraestructure.controller.DragAndDropManager
 import com.myrran.infraestructure.controller.EffectDaDSource
 import com.myrran.infraestructure.controller.EffectDaDTarget
@@ -15,6 +14,7 @@ import com.myrran.infraestructure.controller.FormDaDSource
 import com.myrran.infraestructure.controller.FormDaDTarget
 import com.myrran.infraestructure.controller.FormSkillController
 import com.myrran.infraestructure.controller.SkillController
+import com.myrran.infraestructure.controller.SpellBookController
 import com.myrran.infraestructure.view.ui.skills.created.effect.EffectSkillSlotView
 import com.myrran.infraestructure.view.ui.skills.created.form.FormSkillSlotView
 import com.myrran.infraestructure.view.ui.skills.created.skill.SkillView
@@ -40,7 +40,7 @@ class SkillViewFactory(
     // SKILLTEMPLATE:
     //--------------------------------------------------------------------------------------------------------
 
-    fun createSkillTemplateView(model: Quantity<SkillTemplate>, controller: BookSkillController): SkillTemplateView {
+    fun createSkillTemplateView(model: Quantity<SkillTemplate>, controller: SpellBookController): SkillTemplateView {
 
         val id = SkillViewId()
         val skillTemplateController = controller.toSkillTemplateController()
@@ -78,7 +78,7 @@ class SkillViewFactory(
     // SKILL:
     //--------------------------------------------------------------------------------------------------------
 
-    fun createSkillView(model: Skill, controller: BookSkillController): SkillView {
+    fun createSkillView(model: Skill, controller: SpellBookController): SkillView {
 
         val id = SkillViewId()
         val skillController = controller.toSkillController(model)

@@ -1,5 +1,6 @@
 package com.myrran.infraestructure.view.world
 
+import com.badlogic.gdx.InputMultiplexer
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import com.badlogic.gdx.utils.Disposable
 
@@ -7,6 +8,7 @@ class View(
 
     private val worldView: WorldView,
     private val uiView: UIView,
+    private val inputMultiplexer: InputMultiplexer,
     private val batch: SpriteBatch,
 
     ): Disposable

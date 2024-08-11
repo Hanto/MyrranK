@@ -1,6 +1,7 @@
-package com.myrran.infraestructure.input
+package com.myrran.domain.mob.player
 
 import com.badlogic.gdx.math.Vector2
+import com.myrran.infraestructure.controller.PlayerInputs
 
 data class StateIddle(override val direction: Vector2): State {
 

@@ -7,15 +7,17 @@ import com.badlogic.gdx.utils.Disposable
 import com.myrran.application.World
 import com.myrran.domain.events.WorldEvent
 import com.myrran.domain.misc.observer.Observer
+import com.myrran.infraestructure.controller.WorldController
 import com.myrran.infraestructure.view.mob.MobViewFactory
-import com.myrran.infraestructure.view.mob.PlayerView
+import com.myrran.infraestructure.view.mob.player.PlayerView
 
 class WorldView(
 
     private val model: World,
     private val stage: Stage,
     private val camera: OrthographicCamera,
-    private val mobViewFactory: MobViewFactory
+    private val mobViewFactory: MobViewFactory,
+    private val worldController: WorldController,
 
 ): Observer<WorldEvent>, Disposable
 {
