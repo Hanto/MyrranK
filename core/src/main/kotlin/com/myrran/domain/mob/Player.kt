@@ -20,7 +20,7 @@ class Player(
 
         state = state.nextState(input)
 
-        steeringComponent.spatial.body.linearVelocity = state.direction.scl(1.3f, 1.3f)
+        steeringComponent.spatial.body.linearVelocity = state.direction.scl(4f, 4f)
     }
 
     fun saveLastPosition() {

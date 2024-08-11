@@ -2,10 +2,13 @@ package com.myrran.infraestructure.input
 
 import com.badlogic.gdx.Input
 import com.badlogic.gdx.InputProcessor
+import com.badlogic.gdx.graphics.OrthographicCamera
+import com.myrran.domain.mob.metricunits.PositionPixels
 
 class PlayerInputListener(
 
-    private val playerInputs: PlayerInputs
+    private val playerInputs: PlayerInputs,
+    private val camera: OrthographicCamera
 
 ): InputProcessor
 {
@@ -18,7 +21,7 @@ class PlayerInputListener(
             Input.Keys.A -> playerInputs.goWest = true
             Input.Keys.D -> playerInputs.goEast = true
         }
-        return false
+        return true
     }
 
     override fun keyUp(keycode: Int): Boolean {
@@ -30,20 +33,27 @@ class PlayerInputListener(
             Input.Keys.A -> playerInputs.goWest = false
             Input.Keys.D -> playerInputs.goEast = false
         }
+        return true
+    }
+
+    override fun touchDown(screenX: Int, screenY: Int, pointer: Int, button: Int): Boolean {
+
+        val screenPosition = PositionPixels(screenX, screenY)
+        playerInputs.touchedScreen = screenPosition
+        playerInputs.touchedWorld = screenPosition.toWorldPosition(camera)
+        return true
+    }
+
+    override fun touchUp(screenX: Int, screenY: Int, pointer: Int, button: Int): Boolean {
+
+        val screenPosition = PositionPixels(screenX, screenY)
+        playerInputs.touchedScreen = screenPosition
+        playerInputs.touchedWorld = screenPosition.toWorldPosition(camera)
         return false
     }
 
     override fun keyTyped(character: Char): Boolean {
 
-        return false
-    }
-
-    override fun touchDown(screenX: Int, screenY: Int, pointer: Int, button: Int): Boolean {
-
-        return false
-    }
-
-    override fun touchUp(screenX: Int, screenY: Int, pointer: Int, button: Int): Boolean {
         return false
     }
 

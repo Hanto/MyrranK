@@ -4,8 +4,7 @@ import com.badlogic.gdx.ai.steer.Steerable
 import com.badlogic.gdx.graphics.g2d.Animation
 import com.badlogic.gdx.graphics.g2d.TextureRegion
 import com.badlogic.gdx.math.Vector2
-import com.myrran.domain.mob.metricunits.Pixel
-import com.myrran.domain.mob.metricunits.Size
+import com.myrran.domain.mob.metricunits.SizePixels
 import com.myrran.infraestructure.input.StateEast
 import com.myrran.infraestructure.input.StateIddle
 import com.myrran.infraestructure.input.StateNorth
@@ -19,7 +18,7 @@ class PlayerView(
 
     private val model: Player,
     animations: Map<PlayerAnimation, Animation<TextureRegion>>,
-    size: Size<Pixel>
+    size: SizePixels
 
 ): Steerable<Vector2> by model, Pixie<PlayerAnimation>(animations, PlayerAnimation.IDDLE, size)
 {
@@ -38,8 +37,5 @@ class PlayerView(
         setPosition(
             model.lastPosition.x + offset.x * fractionOfTimestep,
             model.lastPosition.y + offset.y * fractionOfTimestep)
-
-
-        //setPosition(model.position.x, model.position.y)
     }
 }

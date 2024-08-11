@@ -23,7 +23,7 @@ import com.myrran.domain.mob.Spatial
 import com.myrran.domain.mob.SpeedLimits
 import com.myrran.domain.mob.SteeringComponent
 import com.myrran.domain.mob.metricunits.Pixel
-import com.myrran.domain.mob.metricunits.Size
+import com.myrran.domain.mob.metricunits.SizePixels
 import com.myrran.infraestructure.assets.AssetStorage
 import com.myrran.infraestructure.controller.BookSkillController
 import com.myrran.infraestructure.controller.DragAndDropManager
@@ -152,7 +152,7 @@ class MainScreen(
         ))) */
 
 
-        camera = OrthographicCamera(Gdx.graphics.width.toFloat()/100, Gdx.graphics.height.toFloat()/100)
+        camera = OrthographicCamera(Pixel(Gdx.graphics.width).toMeters().toFloat(), Pixel(Gdx.graphics.height).toMeters().toFloat())
         worldStage.viewport.camera = camera
 
         camera.zoom = 0.5f
@@ -161,7 +161,7 @@ class MainScreen(
         val entity = engine.createEntity()
 
         val bodyFactory = BodyFactory(world)
-        val body = bodyFactory.createSquareBody(Size(Pixel(32f), Pixel(32f)))
+        val body = bodyFactory.createSquareBody(SizePixels(32f, 32f))
         val steeringComponent = SteeringComponent(Spatial(body), SpeedLimits())
         playerInputs = PlayerInputs()
         player = Player(steeringComponent, playerInputs)
@@ -170,7 +170,7 @@ class MainScreen(
         playerView = playerViewFactory.toPlayerView(player, playerAssets)
         debugRenderer = Box2DDebugRenderer()
 
-        playerInputListener = PlayerInputListener(playerInputs)
+        playerInputListener = PlayerInputListener(playerInputs, camera)
         inputMultiplexer.addProcessor(playerInputListener)
 
         worldStage.addActor(playerView)

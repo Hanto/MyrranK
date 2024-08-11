@@ -5,14 +5,13 @@ import com.badlogic.gdx.graphics.g2d.Animation
 import com.badlogic.gdx.graphics.g2d.Batch
 import com.badlogic.gdx.graphics.g2d.TextureRegion
 import com.badlogic.gdx.scenes.scene2d.Actor
-import com.myrran.domain.mob.metricunits.Pixel
-import com.myrran.domain.mob.metricunits.Size
+import com.myrran.domain.mob.metricunits.SizePixels
 
 open class Pixie<ANIMATIOM_TYPE: Enum<ANIMATIOM_TYPE>>(
 
     private val animations: Map<ANIMATIOM_TYPE, Animation<TextureRegion>>,
     private var currentAnimation: ANIMATIOM_TYPE,
-    size: Size<Pixel>
+    sizePixels: SizePixels
 
 ): Actor()
 {
@@ -20,8 +19,10 @@ open class Pixie<ANIMATIOM_TYPE: Enum<ANIMATIOM_TYPE>>(
 
     init {
 
-        this.setSize(size.width.toMeters().toFloat(), size.height.toMeters().toFloat())
-        this.setOrigin((size.width.toMeters() / 2).toFloat() , (size.height.toMeters() / 2).toFloat() )
+        val sizeMeters = sizePixels.toMeters()
+
+        this.setSize(sizeMeters.width.toFloat(), sizeMeters.height.toFloat())
+        this.setOrigin((sizeMeters.width / 2).toFloat() , (sizePixels.height / 2).toFloat() )
     }
 
     // MAIN:

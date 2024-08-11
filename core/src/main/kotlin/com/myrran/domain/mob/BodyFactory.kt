@@ -6,15 +6,14 @@ import com.badlogic.gdx.physics.box2d.BodyDef
 import com.badlogic.gdx.physics.box2d.FixtureDef
 import com.badlogic.gdx.physics.box2d.PolygonShape
 import com.badlogic.gdx.physics.box2d.World
-import com.myrran.domain.mob.metricunits.Pixel
-import com.myrran.domain.mob.metricunits.Size
+import com.myrran.domain.mob.metricunits.SizePixels
 
 class BodyFactory(
 
     private val world: World
 )
 {
-    fun createSquareBody(size: Size<Pixel>): Body {
+    fun createSquareBody(size: SizePixels): Body {
 
         val bd = BodyDef()
         bd.type = BodyDef.BodyType.KinematicBody

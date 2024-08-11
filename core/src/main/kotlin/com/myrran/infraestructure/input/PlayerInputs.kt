@@ -1,13 +1,14 @@
 package com.myrran.infraestructure.input
 
 import com.badlogic.gdx.math.Vector2
-import com.myrran.domain.mob.metricunits.Pixel
-import com.myrran.domain.mob.metricunits.Position
+import com.myrran.domain.mob.metricunits.PositionMeters
+import com.myrran.domain.mob.metricunits.PositionPixels
 import ktx.math.plus
 
 data class PlayerInputs(
 
-    var touched: Position<Pixel> = Position(Pixel(0f), Pixel(0f)),
+    var touchedScreen: PositionPixels = PositionPixels(0, 0),
+    var touchedWorld: PositionMeters = PositionMeters(0f, 0f),
     var goNorth: Boolean = false,
     var goSouth: Boolean = false,
     var goEast: Boolean = false,

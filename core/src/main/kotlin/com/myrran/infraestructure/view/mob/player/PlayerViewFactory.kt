@@ -3,15 +3,14 @@ package com.myrran.infraestructure.view.mob.player
 import com.badlogic.gdx.graphics.g2d.Animation
 import com.myrran.domain.mob.Player
 import com.myrran.domain.mob.PlayerView
-import com.myrran.domain.mob.metricunits.Pixel
-import com.myrran.domain.mob.metricunits.Size
+import com.myrran.domain.mob.metricunits.SizePixels
 import ktx.collections.toGdxArray
 
 class PlayerViewFactory
 {
     companion object {
 
-        private val size = Size(Pixel(32f), Pixel(32f))
+        private val size = SizePixels(32, 32)
     }
 
     fun toPlayerView(model: Player, assets: PlayerViewAssets): PlayerView {
