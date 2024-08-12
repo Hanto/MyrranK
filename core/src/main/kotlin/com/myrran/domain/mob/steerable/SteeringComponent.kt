@@ -60,8 +60,7 @@ class SteeringComponent(
 
     override fun saveLastPosition() {
 
-        lastPosition = position.cpy()
-    }
+        lastPosition = position.cpy() }
 
     override fun getLastPosition(): Vector2 =
 
