@@ -160,9 +160,9 @@ class Main : KtxGame<KtxScreen>() {
         //----------------------------------------------------------------------------------------------------
 
         val inputMultiplexer = InputMultiplexer()
-        inputMultiplexer.addProcessor(playerController)
         inputMultiplexer.addProcessor(uiStage)
         inputMultiplexer.addProcessor(worldStage)
+        inputMultiplexer.addProcessor(playerController)
         Gdx.input.inputProcessor = inputMultiplexer
         val view = View(
             worldView = worldView,

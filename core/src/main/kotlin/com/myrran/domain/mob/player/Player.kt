@@ -53,10 +53,6 @@ data class Player(
                 origin = characterCenter,
                 target = pointingAt) )
 
-            //val skill = world.spellBook.created.findAll().first()
-            //val spell = world.mobFactory.createSpell(skill, characterCenter, pointingAt)
-            //world.addMob(spell)
-
             doCast = true
         }
     }

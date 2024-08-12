@@ -41,7 +41,7 @@ class UpgradeView(
 
                 val numUpgrades = if (button == Buttons.RIGHT) 2 else 1
                 controller.upgrade(stat.id, NumUpgrades(numUpgrades))
-                return true
+                return false
             }
         })
     }

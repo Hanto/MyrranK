@@ -50,7 +50,7 @@ class MobFactory(
 
     private fun createSpellBolt(skill: Skill, origin: Vector2, target: Vector2): SpellBolt {
 
-        val sizeMultiplier = skill.getStat(StatId("SIZE"))!!.totalBonus().value
+        val sizeMultiplier = skill.getStat(StatId(SpellBolt.SIZE))!!.totalBonus().value
         val radius = Pixel(16) * sizeMultiplier / 100
 
         val body = bodyFactory.createCircleBody(radius)

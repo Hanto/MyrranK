@@ -31,4 +31,5 @@ class MobViewFactory(
 
         return PlayerView(model, animations, size)
     }
+
 }

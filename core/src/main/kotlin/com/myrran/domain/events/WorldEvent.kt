@@ -16,7 +16,7 @@ sealed interface WorldEvent: Event {
 
     ): WorldEvent
 
-    data class RemoveMobEvent(
+    data class MobRemovedEvent(
 
         val mobId: MobId
 

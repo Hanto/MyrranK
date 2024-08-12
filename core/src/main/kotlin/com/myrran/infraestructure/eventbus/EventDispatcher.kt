@@ -1,76 +1,60 @@
 package com.myrran.infraestructure.eventbus
 
 import com.badlogic.gdx.ai.msg.MessageDispatcher
+import com.badlogic.gdx.ai.msg.Telegram
 import com.badlogic.gdx.ai.msg.Telegraph
-import com.myrran.domain.events.EffectSkillChangedEvent
-import com.myrran.domain.events.EffectSkillRemovedEvent
-import com.myrran.domain.events.EffectSkillStatUpgradedEvent
 import com.myrran.domain.events.Event
-import com.myrran.domain.events.FormSkillChangedEvent
-import com.myrran.domain.events.FormSkillRemovedEvent
-import com.myrran.domain.events.FormSkillStatUpgradedEvent
-import com.myrran.domain.events.SkillCreatedEvent
-import com.myrran.domain.events.SkillRemovedEvent
-import com.myrran.domain.events.SkillStatUpgradedEvent
-import com.myrran.domain.events.WorldEvent.PlayerSpellCastedEvent
-import com.myrran.domain.events.WorldEvent.RemoveMobEvent
-import com.myrran.infraestructure.eventbus.EventDispatcher.MsgCode.*
+import kotlin.reflect.KClass
 
 class EventDispatcher(
 
     private val messageDispatcher: MessageDispatcher
 )
 {
-    fun sendEvent(event: Event) =
+    private val eventToMsgMap: MutableMap<KClass<out Event>, Int> = mutableMapOf()
 
-        messageDispatcher.dispatchMessage(0f, event.toMsgCode().value, event)
+    fun sendEvent(event: Event) {
 
-    fun <T: Event>sendEvent(event: T, target: Telegraph) =
-
-        messageDispatcher.dispatchMessage(0f, target, event.toMsgCode().value, event)
-
-    fun addListener(observer: Telegraph, vararg events: MsgCode) {
-
-        val msgCodes = events.map { it.value }.toIntArray()
-        messageDispatcher.addListeners(observer, *msgCodes )
+        val msgCode = eventToMsgMap[event::class]!!
+        messageDispatcher.dispatchMessage(0f, msgCode , event)
     }
 
-    fun removeListener(observer: Telegraph) {
+    fun sendEvent(event: Event, target: Telegraph) {
 
-        val msgCodes = entries.map { it.value }.toIntArray()
-        messageDispatcher.removeListener(observer, *msgCodes)
+        val msgCode = eventToMsgMap[event::class]!!
+        messageDispatcher.dispatchMessage(0f, target, msgCode, event)
     }
 
-    private fun Event.toMsgCode(): MsgCode =
+    fun addListener(listener: EventListener, vararg events: KClass<out Event>) {
 
-        when (this) {
-            is SkillCreatedEvent -> SkillCreatedMsg
-            is EffectSkillChangedEvent -> EffectSkillChangedMsg
-            is EffectSkillRemovedEvent -> EffectSkillRemovedMsg
-            is EffectSkillStatUpgradedEvent -> EffectSkillStatUpgradedMsg
-            is FormSkillChangedEvent -> FormSkillChangedMsg
-            is FormSkillRemovedEvent -> FormSkillRemovedMsg
-            is FormSkillStatUpgradedEvent -> FormSkillStatUpgradedMsg
-            is SkillRemovedEvent -> SkillRemovedMsg
-            is SkillStatUpgradedEvent -> SkillStatUpgradedMsg
-            is PlayerSpellCastedEvent -> PlayerSpellCastedMsg
-            is RemoveMobEvent -> RemoveMobEvent
-            else -> SkillCreatedMsg
-        }
+        val msgCodes = events.map { eventToMsgMap.computeIfAbsent(it) { nextMsgCode() } }.toIntArray()
 
-
-    enum class MsgCode(val value: Int) {
-
-        SkillCreatedMsg(0),
-        EffectSkillChangedMsg(1),
-        EffectSkillRemovedMsg(2),
-        EffectSkillStatUpgradedMsg(3),
-        FormSkillChangedMsg(4),
-        FormSkillRemovedMsg(5),
-        FormSkillStatUpgradedMsg(6),
-        SkillRemovedMsg(7),
-        SkillStatUpgradedMsg(8),
-        PlayerSpellCastedMsg(10),
-        RemoveMobEvent(11),
+        messageDispatcher.addListeners(listener, *msgCodes )
     }
+
+    fun removeListener(listener: EventListener) {
+
+        val msgCodes =eventToMsgMap.values.toIntArray()
+        messageDispatcher.removeListener(listener, *msgCodes)
+    }
+
+    fun update() =
+
+        messageDispatcher.update()
+
+    private fun nextMsgCode() =
+
+        eventToMsgMap.values.maxOfOrNull { it + 1 } ?: 0
+}
+
+interface EventListener: Telegraph {
+
+    override fun handleMessage(msg: Telegram): Boolean {
+
+        val event = msg.extraInfo as Event
+        handleEvent(event)
+        return true
+    }
+
+    fun handleEvent(event: Event): Unit?
 }
