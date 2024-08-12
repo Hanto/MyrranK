@@ -1,12 +1,13 @@
 package com.myrran.infraestructure.controller
 
 import com.badlogic.gdx.Input
+import com.badlogic.gdx.Input.Buttons
 import com.badlogic.gdx.InputProcessor
 import com.badlogic.gdx.graphics.OrthographicCamera
 import com.myrran.application.World
 import com.myrran.domain.mob.metrics.PositionPixels
 
-class WorldController(
+class PlayerController(
 
     private val world: World,
     private val worldCamera: OrthographicCamera,
@@ -44,19 +45,31 @@ class WorldController(
 
     override fun touchDown(screenX: Int, screenY: Int, pointer: Int, button: Int): Boolean {
 
+        when(button) {
+
+            Buttons.RIGHT -> playerInputs.doCast = true
+        }
+
         val screenPosition = PositionPixels(screenX, screenY)
         playerInputs.touchedScreen = screenPosition
         playerInputs.touchedWorld = screenPosition.toWorldPosition(worldCamera)
-        playerInputs.doCast = true
+
+        world.applyPlayerInputs(playerInputs)
         return false
     }
 
     override fun touchUp(screenX: Int, screenY: Int, pointer: Int, button: Int): Boolean {
 
+        when(button) {
+
+            Buttons.RIGHT -> playerInputs.doCast = false
+        }
+
         val screenPosition = PositionPixels(screenX, screenY)
         playerInputs.touchedScreen = screenPosition
         playerInputs.touchedWorld = screenPosition.toWorldPosition(worldCamera)
-        playerInputs.doCast = false
+
+        world.applyPlayerInputs(playerInputs)
         return false
     }
 

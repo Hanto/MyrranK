@@ -20,9 +20,9 @@ import com.myrran.domain.mob.MobFactory
 import com.myrran.domain.mob.metrics.Pixel
 import com.myrran.infraestructure.assets.AssetStorage
 import com.myrran.infraestructure.controller.DragAndDropManager
+import com.myrran.infraestructure.controller.PlayerController
 import com.myrran.infraestructure.controller.PlayerInputs
 import com.myrran.infraestructure.controller.SpellBookController
-import com.myrran.infraestructure.controller.WorldController
 import com.myrran.infraestructure.repositories.assetsconfig.AssetsConfigRepository
 import com.myrran.infraestructure.repositories.learnedskilltemplate.LearnedSkillTemplateRepository
 import com.myrran.infraestructure.repositories.skill.SkillAdapter
@@ -61,43 +61,6 @@ class Main : KtxGame<KtxScreen>() {
         val initialAssets = assetsConfigRepository.loadAssetCollection("UIAssets.json")
         assetStorage.load(initialAssets)
         assetStorage.finishLoading()
-
-        // WORLD:
-        //----------------------------------------------------------------------------------------------------
-
-        val box2dWorld = World(Vector2(0f, 0f), true)
-        val bodyFactory = BodyFactory(
-            world = box2dWorld)
-        val mobFactory = MobFactory(
-            bodyFactory = bodyFactory)
-        val player = mobFactory.createPlayer()
-        val world = com.myrran.application.World(
-            player = player,
-            box2dWorld = box2dWorld,
-            mobFactory = mobFactory)
-
-        // WORLD VIEW:
-        //----------------------------------------------------------------------------------------------------
-
-        val worldStage = Stage()
-        val playerAssets = PlayerViewAssets(
-            characterTexture =  assetStorage.getTextureRegion("Atlas.atlas", "BAK/Player Sprites/Player"))
-        val mobViewFactory = MobViewFactory(
-            assets = playerAssets)
-        val worldCamera = OrthographicCamera(
-            Pixel(Gdx.graphics.width).toMeters().toFloat(),
-            Pixel(Gdx.graphics.height).toMeters().toFloat())
-        val playerInputs = PlayerInputs()
-        val worldController = WorldController(
-            world = world,
-            worldCamera = worldCamera,
-            playerInputs = playerInputs)
-        val worldView = WorldView(
-            model = world,
-            stage = worldStage,
-            camera = worldCamera,
-            mobViewFactory = mobViewFactory,
-            worldController = worldController)
 
         // UI VIEW:
         //----------------------------------------------------------------------------------------------------
@@ -146,11 +109,51 @@ class Main : KtxGame<KtxScreen>() {
             bookController = bookController,
             skillViewFactory = skillViewFactory)
 
+        // WORLD:
+        //----------------------------------------------------------------------------------------------------
+
+        val box2dWorld = World(Vector2(0f, 0f), true)
+        val bodyFactory = BodyFactory(
+            world = box2dWorld)
+        val mobFactory = MobFactory(
+            bodyFactory = bodyFactory)
+        val player = mobFactory.createPlayer()
+        val world = com.myrran.application.World(
+            player = player,
+            spellBook = spellBook,
+            box2dWorld = box2dWorld,
+            mobFactory = mobFactory)
+
+        // WORLD VIEW:
+        //----------------------------------------------------------------------------------------------------
+
+        val worldStage = Stage()
+        val playerAssets = PlayerViewAssets(
+            characterTexture =  assetStorage.getTextureRegion("Atlas.atlas", "BAK/Player Sprites/Player"))
+        val mobViewFactory = MobViewFactory(
+            assets = playerAssets)
+        val worldCamera = OrthographicCamera(
+            Pixel(Gdx.graphics.width).toMeters().toFloat(),
+            Pixel(Gdx.graphics.height).toMeters().toFloat())
+        val playerInputs = PlayerInputs()
+        val playerController = PlayerController(
+            world = world,
+            worldCamera = worldCamera,
+            playerInputs = playerInputs)
+        val worldView = WorldView(
+            model = world,
+            stage = worldStage,
+            camera = worldCamera,
+            mobViewFactory = mobViewFactory,
+            playerController = playerController)
+
+
+
         // VIEW:
         //----------------------------------------------------------------------------------------------------
 
         val inputMultiplexer = InputMultiplexer()
-        inputMultiplexer.addProcessor(worldController)
+        inputMultiplexer.addProcessor(playerController)
         inputMultiplexer.addProcessor(uiStage)
         inputMultiplexer.addProcessor(worldStage)
         Gdx.input.inputProcessor = inputMultiplexer

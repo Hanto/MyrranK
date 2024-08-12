@@ -7,7 +7,7 @@ import com.badlogic.gdx.utils.Disposable
 import com.myrran.application.World
 import com.myrran.domain.events.WorldEvent
 import com.myrran.domain.misc.observer.Observer
-import com.myrran.infraestructure.controller.WorldController
+import com.myrran.infraestructure.controller.PlayerController
 import com.myrran.infraestructure.view.mob.MobViewFactory
 import com.myrran.infraestructure.view.mob.player.PlayerView
 
@@ -17,7 +17,7 @@ class WorldView(
     private val stage: Stage,
     private val camera: OrthographicCamera,
     private val mobViewFactory: MobViewFactory,
-    private val worldController: WorldController,
+    private val playerController: PlayerController,
 
 ): Observer<WorldEvent>, Disposable
 {
@@ -28,7 +28,7 @@ class WorldView(
     init {
 
         stage.addActor(playerView)
-        camera.zoom = 0.5f
+        //camera.zoom = 0.5f
         stage.viewport.camera = camera
     }
 

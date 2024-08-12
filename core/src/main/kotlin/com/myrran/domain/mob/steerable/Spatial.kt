@@ -4,11 +4,10 @@ import com.badlogic.gdx.ai.steer.Limiter
 import com.badlogic.gdx.ai.utils.Location
 import com.badlogic.gdx.math.Vector2
 import com.badlogic.gdx.physics.box2d.Body
-import com.myrran.domain.mob.metrics.PositionMeters
 
 data class Spatial(
 
-    private val body: Body,
+    val body: Body,
     private val limiter: Limiter
 
 ): Location<Vector2>
@@ -40,16 +39,16 @@ data class Spatial(
 
         DumbSpatial()
 
-    fun setPosition(position: PositionMeters) =
+    fun setPosition(position: Vector2) =
 
-        body.setTransform(position.toVector(), body.angle)
+        body.setTransform(position, body.angle)
 
     // VELOCITY:
     //--------------------------------------------------------------------------------------------------------
 
     fun setLinearVelocity(direction: Vector2, value: Float) {
 
-        body.linearVelocity = direction.nor().scl(value).limit(limiter.maxAngularSpeed) }
+        body.linearVelocity = direction.nor().scl(value).limit(limiter.maxLinearSpeed) }
 
     fun linearVelocity(): Vector2 =
 

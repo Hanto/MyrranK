@@ -33,6 +33,10 @@ data class Pixel(
     operator fun div(int: Int): Pixel =
 
         Pixel(value / int)
+
+    operator fun times(int: Float): Pixel =
+
+        Pixel(value * int)
 }
 
 data class Meter(

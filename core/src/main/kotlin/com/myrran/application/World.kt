@@ -14,8 +14,9 @@ import com.badlogic.gdx.physics.box2d.World as Box2DWorld
 class World(
 
     val player: Player,
+    val spellBook: SpellBook,
     val box2dWorld: Box2DWorld,
-    private val mobFactory: MobFactory,
+    val mobFactory: MobFactory,
     private val observable: Observable<WorldEvent> = JavaObservable()
 
 ): Observable<WorldEvent> by observable, Disposable
@@ -26,6 +27,12 @@ class World(
 
         mobs[mob.id] = mob }
 
+    fun removeMob(id: MobId) {
+
+        mobs.remove(id)
+            ?.also { mobFactory.destroyMob(it) }
+    }
+
     fun applyPlayerInputs(inputs: PlayerInputs) =
 
         player.applyInputs(inputs)
@@ -33,6 +40,10 @@ class World(
     fun update(timesStep: Float) {
 
         box2dWorld.step(timesStep, 8, 3)
+        player.act(timesStep, this)
+        mobs.values.forEach { it.act(timesStep, this) }
+
+        mobs.values.filter { it.toBeRemoved }.forEach { removeMob(it.id) }
     }
 
     fun saveLastPosition() {

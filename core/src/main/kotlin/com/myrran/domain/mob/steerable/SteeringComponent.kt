@@ -9,11 +9,10 @@ import com.badlogic.gdx.ai.utils.Location
 import com.badlogic.gdx.math.Vector2
 import com.badlogic.gdx.utils.Pool.Poolable
 import com.myrran.domain.mob.Movable
-import com.myrran.domain.mob.metrics.PositionMeters
 
 class SteeringComponent(
 
-    private val location: Spatial,
+    override val location: Spatial,
     private val speedLimits: SpeedLimits,
 
     private var isTagged: Boolean = false,
@@ -54,7 +53,7 @@ class SteeringComponent(
 
         location.setLinearVelocity(direction, value)
 
-    override fun setPosition(position: PositionMeters) =
+    override fun setPosition(position: Vector2) =
 
         location.setPosition(position)
 

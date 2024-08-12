@@ -19,11 +19,6 @@ data class SizePixels(
     constructor(x: Int, y: Int): this(Pixel(x), Pixel(y))
     constructor(x: Float, y: Float): this(Pixel(x), Pixel(y))
 
-
-    fun toVector(): Vector2 =
-
-        Vector2(width.toFloat(), height.toFloat())
-
     fun toMeters(): SizeMeters =
 
         SizeMeters(width.toMeters(), height.toMeters())
@@ -41,10 +36,6 @@ data class SizeMeters(
 ): Size<Meter> {
 
     constructor(x: Float, y: Float): this(Meter(x), Meter(y))
-
-    fun toVector(): Vector2 =
-
-        Vector2(width.toFloat(), height.toFloat())
 
     fun toPixels(): SizePixels =
 

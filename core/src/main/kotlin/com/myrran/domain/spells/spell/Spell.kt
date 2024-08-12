@@ -1,3 +1,5 @@
 package com.myrran.domain.spells.spell
 
-sealed interface Spell
+import com.myrran.domain.mob.Mob
+
+sealed interface Spell: Mob

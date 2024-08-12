@@ -61,4 +61,8 @@ class BodyFactory(
         shape.dispose()
         return body
     }
+
+    fun destroyBody(body: Body) =
+
+        world.destroyBody(body)
 }

@@ -7,6 +7,7 @@ import com.badlogic.gdx.math.Vector3
 interface PositionI<T: Distance> {
     val x: T
     val y: T
+    fun toBox2dUnits(): Vector2
 }
 
 data class PositionPixels(
@@ -19,13 +20,13 @@ data class PositionPixels(
     constructor(x: Int, y: Int): this(Pixel(x), Pixel(y))
     constructor(x: Float, y: Float): this(Pixel(x), Pixel(y))
 
-    fun toVector(): Vector2 =
-
-        Vector2(x.toFloat(), y.toFloat())
-
     fun toMeters(): PositionMeters =
 
         PositionMeters(x.toMeters(), y.toMeters())
+
+    override fun toBox2dUnits(): Vector2 =
+
+        Vector2(x.toBox2DUnits(), y.toBox2DUnits())
 
     fun toWorldPosition(camera: OrthographicCamera): PositionMeters {
 
@@ -43,13 +44,13 @@ data class PositionMeters(
 {
     constructor(x: Float, y: Float): this(Meter(x), Meter(y))
 
-    fun toVector(): Vector2 =
-
-        Vector2(x.toFloat(), y.toFloat())
-
     fun toPixels(): PositionPixels =
 
         PositionPixels(x.toPixel(), y.toPixel())
+
+    override fun toBox2dUnits(): Vector2 =
+
+        Vector2(x.toBox2DUnits(), y.toBox2DUnits())
 
     fun toScreenPosition(camera: OrthographicCamera): PositionPixels {
 
@@ -57,11 +58,3 @@ data class PositionMeters(
         return PositionPixels(screenCoordinates.x, screenCoordinates.y)
     }
 }
-
-fun Vector2.toPositionPixels(): PositionPixels =
-
-    PositionPixels(x, y)
-
-fun Vector2.toPositionMeters(): PositionMeters =
-
-    PositionMeters(x, y)
