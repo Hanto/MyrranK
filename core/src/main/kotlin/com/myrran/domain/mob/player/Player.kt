@@ -21,7 +21,9 @@ class Player(
     fun applyInputs(inputs: PlayerInputs) {
 
         state = state.nextState(inputs)
-        steeringComponent.spatial.body.linearVelocity = state.direction.scl(maxLinearSpeed, maxLinearSpeed)
+        val force = state.direction.cpy().scl(1000f)
+        steeringComponent.spatial.body.linearVelocity = state.direction.scl(maxLinearSpeed)
+        //steeringComponent.spatial.applyForceToCenter(force)
     }
 
     override fun setPosition(position: PositionMeters) =

@@ -65,7 +65,7 @@ class SteeringComponent(
 
         if (!steering.linear.isZero(speedLimits.zeroLinearSpeedThreshold)) {
 
-            spatial.applyForceToCenter(steering.linear, speedLimits) // Box2D internally scales the force by deltaTime
+            spatial.applyForceToCenter(steering.linear) // Box2D internally scales the force by deltaTime
         }
 
         when (isFacingAutomatic) {
@@ -79,7 +79,7 @@ class SteeringComponent(
 
         if (steering.angular != 0f) {
 
-            spatial.applyTorque(steeringOutput.angular, speedLimits) // Box2D internally scales the force by deltaTime
+            spatial.applyTorque(steeringOutput.angular) // Box2D internally scales the force by deltaTime
         }
     }
 

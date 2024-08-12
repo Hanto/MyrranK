@@ -22,7 +22,7 @@ class MainScreen(
 
         clearScreen()
 
-        timeStep += delta
+        timeStep += delta.coerceAtMost(0.3f)
 
         if (timeStep >= fixedTimestep) {
 

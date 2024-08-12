@@ -27,14 +27,17 @@ class BodyFactory(
 
         val center = sizeInMeters.toVector().scl(0.5f, 0.5f)
         shape.setAsBox(sizeInMeters.width.toFloat() /2, sizeInMeters.height.toFloat() /2,
-            center, 0f
-        )
+            center, 0f)
 
         val fixDef = FixtureDef()
         fixDef.shape = shape
+        //fixDef.density = 60f
 
         val body = world.createBody(bd)
         body.createFixture(fixDef)
+        //body.gravityScale = 0f
+        //body.linearDamping = 0.3f
+        //body.isSleepingAllowed = false
 
         shape.dispose()
         return body
