@@ -1,14 +1,10 @@
 package com.myrran.infraestructure.controller
 
 import com.badlogic.gdx.math.Vector2
-import com.myrran.domain.mob.metrics.PositionMeters
-import com.myrran.domain.mob.metrics.PositionPixels
 import ktx.math.plus
 
 data class PlayerInputs(
 
-    var touchedScreen: PositionPixels = PositionPixels(0, 0),
-    var touchedWorld: PositionMeters = PositionMeters(0f, 0f),
     var doCast: Boolean = false,
     var goNorth: Boolean = false,
     var goSouth: Boolean = false,

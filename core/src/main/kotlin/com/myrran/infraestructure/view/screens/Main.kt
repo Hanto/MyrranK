@@ -2,6 +2,7 @@ package com.myrran.infraestructure.view.screens
 
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.InputMultiplexer
+import com.badlogic.gdx.ai.msg.MessageDispatcher
 import com.badlogic.gdx.assets.AssetManager
 import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.graphics.OrthographicCamera
@@ -23,6 +24,7 @@ import com.myrran.infraestructure.controller.DragAndDropManager
 import com.myrran.infraestructure.controller.PlayerController
 import com.myrran.infraestructure.controller.PlayerInputs
 import com.myrran.infraestructure.controller.SpellBookController
+import com.myrran.infraestructure.eventbus.EventDispatcher
 import com.myrran.infraestructure.repositories.assetsconfig.AssetsConfigRepository
 import com.myrran.infraestructure.repositories.learnedskilltemplate.LearnedSkillTemplateRepository
 import com.myrran.infraestructure.repositories.skill.SkillAdapter
@@ -49,6 +51,10 @@ class Main : KtxGame<KtxScreen>() {
     override fun create() {
 
         KtxAsync.initiate()
+
+        val messageDispatcher = MessageDispatcher()
+        val eventDispatcher = EventDispatcher(
+            messageDispatcher = messageDispatcher)
 
         // ASSETS:
         //----------------------------------------------------------------------------------------------------
@@ -116,13 +122,15 @@ class Main : KtxGame<KtxScreen>() {
         val bodyFactory = BodyFactory(
             world = box2dWorld)
         val mobFactory = MobFactory(
-            bodyFactory = bodyFactory)
+            bodyFactory = bodyFactory,
+            eventDispatcher = eventDispatcher)
         val player = mobFactory.createPlayer()
         val world = com.myrran.application.World(
             player = player,
             spellBook = spellBook,
             box2dWorld = box2dWorld,
-            mobFactory = mobFactory)
+            mobFactory = mobFactory,
+            eventDispatcher = eventDispatcher)
 
         // WORLD VIEW:
         //----------------------------------------------------------------------------------------------------
@@ -145,9 +153,8 @@ class Main : KtxGame<KtxScreen>() {
             stage = worldStage,
             camera = worldCamera,
             mobViewFactory = mobViewFactory,
-            playerController = playerController)
-
-
+            playerController = playerController,
+            eventDispatcher = eventDispatcher)
 
         // VIEW:
         //----------------------------------------------------------------------------------------------------

@@ -1,13 +1,14 @@
 package com.myrran.infraestructure.view.world
 
+import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.graphics.OrthographicCamera
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer
 import com.badlogic.gdx.scenes.scene2d.Stage
 import com.badlogic.gdx.utils.Disposable
 import com.myrran.application.World
-import com.myrran.domain.events.WorldEvent
-import com.myrran.domain.misc.observer.Observer
+import com.myrran.domain.mob.metrics.PositionPixels
 import com.myrran.infraestructure.controller.PlayerController
+import com.myrran.infraestructure.eventbus.EventDispatcher
 import com.myrran.infraestructure.view.mob.MobViewFactory
 import com.myrran.infraestructure.view.mob.player.PlayerView
 
@@ -18,8 +19,9 @@ class WorldView(
     private val camera: OrthographicCamera,
     private val mobViewFactory: MobViewFactory,
     private val playerController: PlayerController,
+    private val eventDispatcher: EventDispatcher,
 
-): Observer<WorldEvent>, Disposable
+): Disposable
 {
     private val playerView: PlayerView = mobViewFactory.createPlayer(model.player)
     private val box2dDebug: Box2DDebugRenderer = Box2DDebugRenderer()
@@ -37,6 +39,7 @@ class WorldView(
         box2dDebug.render(model.box2dWorld, camera.combined)
 
         interpolatePositions(fractionOfTimestep)
+        updatePlayerWithTheirTargets()
         //camera.position.set(playerView.x, playerView.y, 0f)
         camera.update()
 
@@ -49,9 +52,9 @@ class WorldView(
         playerView.update(fractionOfTimestep)
     }
 
-    override fun propertyChange(event: WorldEvent) {
+    private fun updatePlayerWithTheirTargets() {
 
-
+        model.player.pointingAt = PositionPixels(Gdx.input.x, Gdx.input.y).toWorldPosition(camera)
     }
 
     override fun dispose() {

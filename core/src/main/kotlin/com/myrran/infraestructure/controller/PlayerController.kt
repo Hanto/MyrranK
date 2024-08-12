@@ -5,7 +5,6 @@ import com.badlogic.gdx.Input.Buttons
 import com.badlogic.gdx.InputProcessor
 import com.badlogic.gdx.graphics.OrthographicCamera
 import com.myrran.application.World
-import com.myrran.domain.mob.metrics.PositionPixels
 
 class PlayerController(
 
@@ -49,11 +48,6 @@ class PlayerController(
 
             Buttons.RIGHT -> playerInputs.doCast = true
         }
-
-        val screenPosition = PositionPixels(screenX, screenY)
-        playerInputs.touchedScreen = screenPosition
-        playerInputs.touchedWorld = screenPosition.toWorldPosition(worldCamera)
-
         world.applyPlayerInputs(playerInputs)
         return false
     }
@@ -64,11 +58,6 @@ class PlayerController(
 
             Buttons.RIGHT -> playerInputs.doCast = false
         }
-
-        val screenPosition = PositionPixels(screenX, screenY)
-        playerInputs.touchedScreen = screenPosition
-        playerInputs.touchedWorld = screenPosition.toWorldPosition(worldCamera)
-
         world.applyPlayerInputs(playerInputs)
         return false
     }

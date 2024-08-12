@@ -1,4 +1,3 @@
 package com.myrran.domain.events
 
-interface Event {
-}
+sealed interface Event

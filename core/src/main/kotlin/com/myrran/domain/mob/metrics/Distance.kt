@@ -57,6 +57,10 @@ data class Meter(
 
         value
 
+    operator fun plus(other: Meter) =
+
+        Meter(value + other.value)
+
     operator fun div(int: Int): Meter =
 
         Meter(value / int)

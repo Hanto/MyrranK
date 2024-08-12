@@ -4,7 +4,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera
 import com.badlogic.gdx.math.Vector2
 import com.badlogic.gdx.math.Vector3
 
-interface PositionI<T: Distance> {
+interface Position<T: Distance> {
     val x: T
     val y: T
     fun toBox2dUnits(): Vector2
@@ -15,7 +15,7 @@ data class PositionPixels(
     override val x: Pixel,
     override val y: Pixel,
 
-): PositionI<Pixel>
+): Position<Pixel>
 {
     constructor(x: Int, y: Int): this(Pixel(x), Pixel(y))
     constructor(x: Float, y: Float): this(Pixel(x), Pixel(y))
@@ -40,7 +40,7 @@ data class PositionMeters(
     override val x: Meter,
     override val y: Meter
 
-): PositionI<Meter>
+): Position<Meter>
 {
     constructor(x: Float, y: Float): this(Meter(x), Meter(y))
 
