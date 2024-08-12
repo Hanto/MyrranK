@@ -7,16 +7,16 @@ import com.badlogic.gdx.physics.box2d.FixtureDef
 import com.badlogic.gdx.physics.box2d.PolygonShape
 import com.badlogic.gdx.physics.box2d.World
 import com.myrran.domain.mob.metrics.Pixel
-import com.myrran.domain.mob.metrics.SizePixels
+import com.myrran.domain.mob.metrics.Size
 
 class BodyFactory(
 
     private val world: World
 )
 {
-    fun createSquareBody(sizeInPixels: SizePixels): Body {
+    fun createSquareBody(size: Size<*>): Body {
 
-        val sizeInMeters = sizeInPixels.toMeters()
+        val sizeInMeters = size.toBox2dUnits()
 
         val bd = BodyDef()
         bd.type = BodyDef.BodyType.KinematicBody
@@ -25,9 +25,8 @@ class BodyFactory(
 
         val shape = PolygonShape()
 
-        val center = sizeInMeters.toVector().scl(0.5f, 0.5f)
-        shape.setAsBox(sizeInMeters.width.toFloat() /2, sizeInMeters.height.toFloat() /2,
-            center, 0f)
+        sizeInMeters.scl(0.5f)
+        shape.setAsBox(sizeInMeters.x, sizeInMeters.y, sizeInMeters, 0f)
 
         val fixDef = FixtureDef()
         fixDef.shape = shape

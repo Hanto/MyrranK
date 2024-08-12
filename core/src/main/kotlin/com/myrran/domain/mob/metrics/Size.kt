@@ -6,6 +6,7 @@ interface Size<T: Distance> {
 
     val width: T
     val height: T
+    fun toBox2dUnits(): Vector2
 }
 
 data class SizePixels(
@@ -26,6 +27,10 @@ data class SizePixels(
     fun toMeters(): SizeMeters =
 
         SizeMeters(width.toMeters(), height.toMeters())
+
+    override fun toBox2dUnits(): Vector2 =
+
+        Vector2(width.toMeters().toFloat(), height.toMeters().toFloat())
 }
 
 data class SizeMeters(
@@ -44,4 +49,8 @@ data class SizeMeters(
     fun toPixels(): SizePixels =
 
         SizePixels(width.toPixel(), height.toPixel())
+
+    override fun toBox2dUnits(): Vector2 =
+
+        Vector2(width.toFloat(), height.toFloat())
 }
