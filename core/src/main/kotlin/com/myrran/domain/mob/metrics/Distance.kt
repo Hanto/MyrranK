@@ -1,6 +1,10 @@
 package com.myrran.domain.mob.metrics
 
 interface Distance
+{
+
+    fun toBox2DUnits(): Float
+}
 
 data class Pixel(
 
@@ -22,6 +26,10 @@ data class Pixel(
 
         Meter(value * METERS_TO_PIXEL)
 
+    override fun toBox2DUnits(): Float =
+
+        toMeters().toFloat()
+
     operator fun div(int: Int): Pixel =
 
         Pixel(value / int)
@@ -40,6 +48,10 @@ data class Meter(
     fun toPixel(): Pixel =
 
         Pixel(value * PIXEL_TO_METERS)
+
+    override fun toBox2DUnits(): Float =
+
+        value
 
     operator fun div(int: Int): Meter =
 

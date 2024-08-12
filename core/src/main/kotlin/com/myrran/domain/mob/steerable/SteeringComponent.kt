@@ -8,28 +8,30 @@ import com.badlogic.gdx.ai.steer.SteeringBehavior
 import com.badlogic.gdx.ai.utils.Location
 import com.badlogic.gdx.math.Vector2
 import com.badlogic.gdx.utils.Pool.Poolable
+import com.myrran.domain.mob.Movable
 import com.myrran.domain.mob.metrics.PositionMeters
 
 class SteeringComponent(
 
-    val spatial: Spatial,
+    private val location: Spatial,
     private val speedLimits: SpeedLimits,
 
     private var isTagged: Boolean = false,
     private var isFacingAutomatic: Boolean = false
 
-): Steerable<Vector2>, Location<Vector2> by spatial, Limiter by speedLimits, Component, Poolable
+): Steerable<Vector2>, Location<Vector2> by location, Limiter by speedLimits, Movable, Component, Poolable
 {
     private var steeringOutput: SteeringAcceleration<Vector2> = SteeringAcceleration(Vector2())
     private var steeringBehavior: SteeringBehavior<Vector2>? = null
+    private var lastPosition: Vector2 = Vector2(0f, 0f)
 
     override fun getLinearVelocity(): Vector2 =
 
-        spatial.linearVelocity()
+        location.linearVelocity()
 
     override fun getAngularVelocity(): Float =
 
-        spatial.angularVelocity()
+        location.angularVelocity()
 
     override fun getBoundingRadius(): Float =
 
@@ -48,9 +50,22 @@ class SteeringComponent(
 
     }
 
-    fun setPosition(position: PositionMeters) =
+    override fun setLinearVelocity(direction: Vector2, value: Float) =
 
-        spatial.setPosition(position)
+        location.setLinearVelocity(direction, value)
+
+    override fun setPosition(position: PositionMeters) =
+
+        location.setPosition(position)
+
+    override fun saveLastPosition() {
+
+        lastPosition = position.cpy()
+    }
+
+    override fun getLastPosition(): Vector2 =
+
+        lastPosition
 
     // STEERING:
     //--------------------------------------------------------------------------------------------------------
@@ -65,7 +80,7 @@ class SteeringComponent(
 
         if (!steering.linear.isZero(speedLimits.zeroLinearSpeedThreshold)) {
 
-            spatial.applyForceToCenter(steering.linear) // Box2D internally scales the force by deltaTime
+            location.applyForceToCenter(steering.linear) // Box2D internally scales the force by deltaTime
         }
 
         when (isFacingAutomatic) {
@@ -79,16 +94,16 @@ class SteeringComponent(
 
         if (steering.angular != 0f) {
 
-            spatial.applyTorque(steeringOutput.angular) // Box2D internally scales the force by deltaTime
+            location.applyTorque(steeringOutput.angular) // Box2D internally scales the force by deltaTime
         }
     }
 
     private fun orientationBasedOnCurrentDirection() {
 
-        if (!spatial.linearVelocity().isZero(speedLimits.zeroLinearSpeedThreshold)) {
+        if (!location.linearVelocity().isZero(speedLimits.zeroLinearSpeedThreshold)) {
 
-            val newOrientation = spatial.vectorToAngle(spatial.linearVelocity())
-            spatial.orientation = newOrientation
+            val newOrientation = location.vectorToAngle(location.linearVelocity())
+            location.orientation = newOrientation
         }
     }
 }

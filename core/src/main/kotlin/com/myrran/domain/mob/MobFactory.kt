@@ -1,12 +1,15 @@
 package com.myrran.domain.mob
 
 import com.myrran.domain.mob.metrics.Meter
+import com.myrran.domain.mob.metrics.Pixel
 import com.myrran.domain.mob.metrics.SizePixels
 import com.myrran.domain.mob.metrics.Speed
 import com.myrran.domain.mob.player.Player
 import com.myrran.domain.mob.steerable.Spatial
 import com.myrran.domain.mob.steerable.SpeedLimits
 import com.myrran.domain.mob.steerable.SteeringComponent
+import com.myrran.domain.skills.created.skill.Skill
+import com.myrran.domain.spells.spell.SpellBolt
 
 class MobFactory(
 
@@ -17,12 +20,36 @@ class MobFactory(
 
         val body = bodyFactory.createSquareBody(SizePixels(32, 32))
         val limiter = SpeedLimits(
-            maxLinearSpeed = Speed(Meter(4f))
-        )
-        val location = Spatial(body, limiter)
-        val steeringComponent = SteeringComponent(location, limiter)
-        val player = Player(MobId(), steeringComponent)
+            maxLinearSpeed = Speed(Meter(4f)))
+        val location = Spatial(
+            body = body,
+            limiter = limiter)
+        val movable = SteeringComponent(
+            location = location,
+            speedLimits = limiter)
+        val player = Player(
+            id = MobId(),
+            movable = movable)
 
         return player
+    }
+
+    fun createSpellBolt(skill: Skill): SpellBolt {
+
+        val body = bodyFactory.createCircleBody(Pixel(16))
+        val limiter = SpeedLimits(
+            maxLinearSpeed = Speed(Meter(100f)))
+        val location = Spatial(
+            body = body,
+            limiter = limiter)
+        val movable = SteeringComponent(
+            location = location,
+            speedLimits = limiter)
+        val spell = SpellBolt(
+            id = MobId(),
+            skill = skill.copy(),
+            movable = movable)
+
+        return spell
     }
 }

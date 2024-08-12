@@ -8,9 +8,8 @@ import com.myrran.domain.mob.metrics.PositionMeters
 
 data class Spatial(
 
-    //TODO() make it private
-    val body: Body,
-    private val limits: Limiter
+    private val body: Body,
+    private val limiter: Limiter
 
 ): Location<Vector2>
 {
@@ -48,6 +47,10 @@ data class Spatial(
     // VELOCITY:
     //--------------------------------------------------------------------------------------------------------
 
+    fun setLinearVelocity(direction: Vector2, value: Float) {
+
+        body.linearVelocity = direction.nor().scl(value).limit(limiter.maxAngularSpeed) }
+
     fun linearVelocity(): Vector2 =
 
         body.linearVelocity
@@ -59,13 +62,13 @@ data class Spatial(
     fun applyForceToCenter(force: Vector2) {
 
         body.applyForceToCenter(force, true)
-        body.linearVelocity = body.linearVelocity.limit(limits.maxLinearSpeed)
+        body.linearVelocity = body.linearVelocity.limit(limiter.maxLinearSpeed)
     }
 
     fun applyTorque(angular: Float) {
 
         body.applyTorque(angular, true)
-        body.angularVelocity = body.angularVelocity.coerceAtMost(limits.maxAngularSpeed)
+        body.angularVelocity = body.angularVelocity.coerceAtMost(limiter.maxAngularSpeed)
     }
 
 }

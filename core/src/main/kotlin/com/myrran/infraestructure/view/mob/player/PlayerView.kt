@@ -29,11 +29,11 @@ class PlayerView(
             is StateSouth -> setAnimation(PlayerAnimation.WALK_SOUTH)
             is StateIddle -> setAnimation(PlayerAnimation.IDDLE)
         }
-
-        val offset = model.position.minus(model.lastPosition)
+        val lastPosition = model.getLastPosition()
+        val offset = model.position.minus(lastPosition)
 
         setPosition(
-            model.lastPosition.x + offset.x * fractionOfTimestep,
-            model.lastPosition.y + offset.y * fractionOfTimestep)
+            lastPosition.x + offset.x * fractionOfTimestep,
+            lastPosition.y + offset.y * fractionOfTimestep)
     }
 }

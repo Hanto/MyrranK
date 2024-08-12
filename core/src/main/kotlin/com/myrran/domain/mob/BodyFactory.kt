@@ -6,7 +6,7 @@ import com.badlogic.gdx.physics.box2d.CircleShape
 import com.badlogic.gdx.physics.box2d.FixtureDef
 import com.badlogic.gdx.physics.box2d.PolygonShape
 import com.badlogic.gdx.physics.box2d.World
-import com.myrran.domain.mob.metrics.Pixel
+import com.myrran.domain.mob.metrics.Distance
 import com.myrran.domain.mob.metrics.Size
 
 class BodyFactory(
@@ -42,7 +42,7 @@ class BodyFactory(
         return body
     }
 
-    fun createCircleBody(radius: Pixel): Body {
+    fun createCircleBody(radius: Distance): Body {
 
         val bd = BodyDef()
         bd.type = BodyDef.BodyType.KinematicBody
@@ -50,7 +50,7 @@ class BodyFactory(
         bd.fixedRotation = true
 
         val shape = CircleShape()
-        shape.radius = radius.toMeters().toFloat()
+        shape.radius = radius.toBox2DUnits()
 
         val fixDef = FixtureDef()
         fixDef.shape = shape
