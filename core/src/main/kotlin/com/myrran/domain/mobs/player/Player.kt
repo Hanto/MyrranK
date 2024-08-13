@@ -30,6 +30,13 @@ data class Player(
 {
     private var tryToCast = false
 
+    fun applyInputs(inputs: PlayerInputs) {
+
+        state = state.nextState(inputs)
+        steerable.setLinearVelocity(state.direction, maxLinearSpeed)
+        tryToCast = inputs.tryToCast
+    }
+
     override fun act(deltaTime: Float, world: World) {
 
         caster.updateCastingTime(deltaTime)
@@ -40,13 +47,6 @@ data class Player(
                 caster = caster,
                 origin = getCenter()) )
         }
-    }
-
-    fun applyInputs(inputs: PlayerInputs) {
-
-        state = state.nextState(inputs)
-        steerable.setLinearVelocity(state.direction, maxLinearSpeed)
-        tryToCast = inputs.tryToCast
     }
 
     private fun getCenter(): PositionMeters =
