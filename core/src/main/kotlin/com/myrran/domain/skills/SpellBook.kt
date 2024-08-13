@@ -15,6 +15,7 @@ import com.myrran.domain.misc.observer.JavaObservable
 import com.myrran.domain.misc.observer.Observable
 import com.myrran.domain.skills.created.effect.EffectSkillSlotId
 import com.myrran.domain.skills.created.form.FormSkillSlotId
+import com.myrran.domain.skills.created.skill.Skill
 import com.myrran.domain.skills.created.skill.SkillId
 import com.myrran.domain.skills.created.skill.SkillName
 import com.myrran.domain.skills.created.stat.NumUpgrades
@@ -29,7 +30,7 @@ import com.myrran.infraestructure.repositories.skill.SkillRepository
 
 data class SpellBook(
 
-    val created: SkillRepository,
+    private val created: SkillRepository,
     private val learned: LearnedTemplates,
     private val observable: Observable<SkillEvent> = JavaObservable()
 
@@ -45,6 +46,17 @@ data class SpellBook(
     fun learnedSkillTemplates(): Collection<Quantity<SkillTemplate>> = learned.learnedSkillTemplates()
     fun learnedFormTemplates(): Collection<Quantity<FormTemplate>> = learned.learnedFormTemplates()
     fun learnedEffectTemplates(): Collection<Quantity<EffectTemplate>> = learned.learnedEffectTemplates()
+
+    // PLAYER SKILLS:
+    //--------------------------------------------------------------------------------------------------------
+
+    fun findPlayerSkill(skillId: SkillId): Skill? =
+
+        created.findBy(skillId)
+
+    fun findAllPlayerSkills(): Collection<Skill> =
+
+        created.findAll()
 
     // ADD:
     //--------------------------------------------------------------------------------------------------------

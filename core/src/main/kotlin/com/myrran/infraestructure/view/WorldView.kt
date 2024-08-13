@@ -89,7 +89,7 @@ class WorldView(
 
     private fun updatePlayerWithTheirTargets() {
 
-        model.player.pointingAt = PositionPixels(Gdx.input.x, Gdx.input.y).toWorldPosition(camera)
+        model.player.updateTarget(PositionPixels(Gdx.input.x, Gdx.input.y).toWorldPosition(camera))
     }
 
     private fun createSpell(event: SpellCreatedEvent) {

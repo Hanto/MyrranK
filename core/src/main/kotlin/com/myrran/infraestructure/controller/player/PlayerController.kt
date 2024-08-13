@@ -46,7 +46,7 @@ class PlayerController(
 
         when(button) {
 
-            Buttons.RIGHT -> playerInputs.doCast = true
+            Buttons.RIGHT -> playerInputs.tryToCast = true
         }
         world.applyPlayerInputs(playerInputs)
         return false
@@ -56,7 +56,7 @@ class PlayerController(
 
         when(button) {
 
-            Buttons.RIGHT -> playerInputs.doCast = false
+            Buttons.RIGHT -> playerInputs.tryToCast = false
         }
         world.applyPlayerInputs(playerInputs)
         return false

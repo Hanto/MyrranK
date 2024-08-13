@@ -7,13 +7,13 @@ import com.badlogic.gdx.ai.steer.SteeringBehavior
 import com.badlogic.gdx.math.Vector2
 import com.myrran.domain.mobs.spells.spell.WorldBox2D
 
-class SteerableByBox2D(
+class SteerableByBox2DComponent(
 
     private val movable: MovableByBox2D,
     private val speedLimiter: SpeedLimiter,
     private var isFacingAutomatic: Boolean = false
 
-): SteerableAI, Movable by movable, Limiter by speedLimiter, Component
+): Steerable, Movable by movable, Limiter by speedLimiter, Component
 {
     private var steeringOutput: SteeringAcceleration<Vector2> = SteeringAcceleration(Vector2())
     private var steeringBehavior: SteeringBehavior<Vector2>? = null

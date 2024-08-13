@@ -7,6 +7,7 @@ class SpellConstants {
 
     companion object {
 
+        val COOLDOWN = StatId("COOLDOWN")
         val SPEED = StatId("SPEED")
         val SIZE = StatId("SIZE")
         val RANGE = StatId("RANGE")

@@ -2,7 +2,7 @@ package com.myrran.domain.misc.mapttl
 
 import com.myrran.domain.misc.Clock
 import com.myrran.domain.misc.ElapsedTime
-import com.myrran.domain.misc.Time
+import com.myrran.domain.misc.PointInTime
 import java.util.concurrent.Delayed
 import java.util.concurrent.TimeUnit
 
@@ -10,7 +10,7 @@ data class ExpiringKey<KEY>(
 
     val key: KEY,
     private val clock: Clock = Clock(),
-    private var creationTime: Time = clock.currentTime(),
+    private var creationTime: PointInTime = clock.currentTime(),
     private var ttl: ElapsedTime
 
 ): Delayed {

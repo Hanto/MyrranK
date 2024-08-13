@@ -5,7 +5,7 @@ import ktx.math.plus
 
 data class PlayerInputs(
 
-    var doCast: Boolean = false,
+    var tryToCast: Boolean = false,
     var goNorth: Boolean = false,
     var goSouth: Boolean = false,
     var goEast: Boolean = false,

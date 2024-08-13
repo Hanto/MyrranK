@@ -1,20 +1,16 @@
 package com.myrran.domain.events
 
 import com.myrran.domain.mobs.common.Mob
-import com.myrran.domain.mobs.common.MobId
-import com.myrran.domain.mobs.common.metrics.Meter
-import com.myrran.domain.mobs.common.metrics.Position
+import com.myrran.domain.mobs.common.caster.Caster
+import com.myrran.domain.mobs.common.metrics.PositionMeters
 import com.myrran.domain.mobs.spells.spell.Spell
-import com.myrran.domain.skills.created.skill.SkillId
 
 sealed interface WorldEvent: Event
 
 data class PlayerSpellCastedEvent(
 
-    val mobId: MobId,
-    val skillId: SkillId,
-    val origin: Position<Meter>,
-    val target: Position<Meter>
+    val caster: Caster,
+    val origin: PositionMeters,
 
 ): WorldEvent
 

@@ -8,8 +8,8 @@ import java.util.concurrent.TimeUnit
 
 class Clock
 {
-    fun currentTime(): Time = Time()
-    fun elapsedTimeSince(start: Time) = ElapsedTime.since(start)
+    fun currentTime(): PointInTime = PointInTime(System.currentTimeMillis())
+    fun elapsedTimeSince(start: PointInTime) = ElapsedTime.since(start)
 }
 
 data class ElapsedTime(private val value: Long)
@@ -17,8 +17,8 @@ data class ElapsedTime(private val value: Long)
     companion object
     {
         @JvmStatic
-        fun since(start: Time): ElapsedTime =
-            ElapsedTime(Time().toMillis() - start.toMillis())
+        fun since(start: PointInTime): ElapsedTime =
+            ElapsedTime(PointInTime().toMillis() - start.toMillis())
 
         fun of(units: Long, timeUnit: TimeUnit): ElapsedTime =
             ElapsedTime(timeUnit.toMillis(units))
@@ -35,7 +35,7 @@ data class ElapsedTime(private val value: Long)
         value.compareTo(other.value)
 }
 
-data class Time(val value: Long = System.currentTimeMillis())
+data class PointInTime(val value: Long = System.currentTimeMillis())
 {
     fun toMillis(): Long = value
     fun toDate(): Date = Date(value)
@@ -48,11 +48,11 @@ data class Time(val value: Long = System.currentTimeMillis())
 
         unit.convert(value, TimeUnit.MILLISECONDS)
 
-    operator fun plus(other: ElapsedTime): Time =
+    operator fun plus(other: ElapsedTime): PointInTime =
 
-        Time(value + other.toMillis())
+        PointInTime(value + other.toMillis())
 
-    operator fun minus(other: Time): ElapsedTime =
+    operator fun minus(other: PointInTime): ElapsedTime =
 
         ElapsedTime(toMillis() - other.toMillis())
 }

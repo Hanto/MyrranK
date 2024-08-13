@@ -8,6 +8,8 @@ import com.myrran.domain.events.SpellCreatedEvent
 import com.myrran.domain.mobs.common.Mob
 import com.myrran.domain.mobs.common.MobFactory
 import com.myrran.domain.mobs.common.MobId
+import com.myrran.domain.mobs.common.caster.Caster
+import com.myrran.domain.mobs.common.metrics.PositionMeters
 import com.myrran.domain.mobs.player.Player
 import com.myrran.domain.mobs.spells.spell.WorldBox2D
 import com.myrran.domain.skills.SpellBook
@@ -69,7 +71,7 @@ class World(
     override fun handleEvent(event: Event) {
 
         when (event) {
-            is PlayerSpellCastedEvent -> castPlayerSpell(event)
+            is PlayerSpellCastedEvent -> castPlayerSpell(event.caster, event.origin)
             is MobRemovedEvent -> toBeRemoved.add(event.mob.id)
             else -> Unit
         }
@@ -82,13 +84,14 @@ class World(
 
         player.applyInputs(inputs)
 
-    private fun castPlayerSpell(event: PlayerSpellCastedEvent) {
+    private fun castPlayerSpell(caster: Caster, origin: PositionMeters) {
 
-        val skill = spellBook.created.findBy(event.skillId)!!
-        val spell = mobFactory.createSpell(skill, event.origin.toBox2dUnits(), event.target.toBox2dUnits())
+        val skill = spellBook.findPlayerSkill(caster.selectedSkillId!!)!!
+        val spell = mobFactory.createSpell(skill, origin, caster.pointingAt)
+        caster.setCastingTime(skill.getCastingTime())
 
-        sendEvent(SpellCreatedEvent(spell))
         addMob(spell)
+        sendEvent(SpellCreatedEvent(spell))
     }
 
     private fun addMob(mob: Mob) {

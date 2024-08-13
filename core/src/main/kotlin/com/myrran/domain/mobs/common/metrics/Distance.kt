@@ -2,7 +2,6 @@ package com.myrran.domain.mobs.common.metrics
 
 interface Distance
 {
-
     fun toBox2DUnits(): Float
 }
 

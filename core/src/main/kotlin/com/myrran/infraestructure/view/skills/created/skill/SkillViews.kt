@@ -116,6 +116,6 @@ class SkillViews(
 
     private fun createSkillViews(): Map<SkillId, SkillView> =
 
-        model.created.findAll()
+        model.findAllPlayerSkills()
             .associate { it.id to factory.createSkillView(it, controller) }
 }

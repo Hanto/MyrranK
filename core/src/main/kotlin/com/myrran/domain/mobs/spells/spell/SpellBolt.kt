@@ -1,15 +1,16 @@
 package com.myrran.domain.mobs.spells.spell
 
-import com.badlogic.gdx.math.Vector2
 import com.myrran.domain.World
 import com.myrran.domain.events.MobRemovedEvent
 import com.myrran.domain.mobs.common.Mob
 import com.myrran.domain.mobs.common.MobId
+import com.myrran.domain.mobs.common.consumable.Consumable
+import com.myrran.domain.mobs.common.consumable.ConsumableComponent
+import com.myrran.domain.mobs.common.metrics.PositionMeters
 import com.myrran.domain.mobs.common.steerable.Movable
 import com.myrran.domain.mobs.common.steerable.Spatial
-import com.myrran.domain.mobs.common.steerable.SteerableAI
-import com.myrran.domain.mobs.common.steerable.SteerableByBox2D
-import com.myrran.domain.mobs.spells.spell.SpellConstants.Companion.RANGE
+import com.myrran.domain.mobs.common.steerable.Steerable
+import com.myrran.domain.mobs.common.steerable.SteerableByBox2DComponent
 import com.myrran.domain.mobs.spells.spell.SpellConstants.Companion.SPEED
 import com.myrran.domain.skills.created.skill.Skill
 import com.myrran.infraestructure.eventbus.EventDispatcher
@@ -18,34 +19,29 @@ import ktx.math.minus
 class SpellBolt(
 
     override val id: MobId,
-    override val steerable: SteerableByBox2D,
+    override val steerable: SteerableByBox2DComponent,
     private val eventDispatcher: EventDispatcher,
 
+    private val consumable: ConsumableComponent,
     val skill: Skill,
-    origin: Vector2,
-    target: Vector2,
+    origin: PositionMeters,
+    target: PositionMeters,
 
-): SteerableAI by steerable, Spatial, Movable, Mob, Spell
+): Steerable by steerable, Spatial, Movable, Mob, Spell, Consumable by consumable
 {
-    private var timeToLife = skill.getStat(RANGE)!!.totalBonus().value
-
     init {
 
-        position = origin
-        saveLastPosition()
+        steerable.position = origin.toBox2dUnits()
+        steerable.saveLastPosition()
 
-        val direction = target.minus(position).nor()
+        val direction = target.toBox2dUnits().minus(position).nor()
         val speed = skill.getStat(SPEED)!!.totalBonus()
-        setLinearVelocity(direction, speed.value)
+        steerable.setLinearVelocity(direction, speed.value)
     }
 
     override fun act(deltaTime: Float, world: World) {
 
-        timeToLife -= deltaTime
-
-        if(timeToLife <0) {
-
+        if (consumable.updateDuration(deltaTime).isConsumed)
             eventDispatcher.sendEvent(MobRemovedEvent(this))
-        }
     }
 }
