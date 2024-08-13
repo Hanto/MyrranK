@@ -2,7 +2,7 @@ package com.myrran.domain.spells.spell
 
 import com.badlogic.gdx.math.Vector2
 import com.myrran.application.World
-import com.myrran.domain.events.WorldEvent.MobRemovedEvent
+import com.myrran.domain.events.MobRemovedEvent
 import com.myrran.domain.mob.Mob
 import com.myrran.domain.mob.MobId
 import com.myrran.domain.mob.Movable
@@ -27,14 +27,20 @@ class SpellBolt(
 
         const val SPEED = "SPEED"
         const val SIZE = "SIZE"
+        const val RANGE = "RANGE"
     }
 
-    var timeToLife = 2f
-    override var toBeRemoved = false
+    private var timeToLife = skill.getStat(StatId(RANGE))!!.totalBonus().value
 
     init {
 
+        println(timeToLife)
+
+        // origin:
         position = origin
+        saveLastPosition()
+
+        // target:
         val direction = target.minus(position).nor()
         val speed = skill.getStat(StatId(SPEED))!!.totalBonus()
 
@@ -47,7 +53,7 @@ class SpellBolt(
 
         if(timeToLife <0) {
 
-            eventDispatcher.sendEvent(MobRemovedEvent(id))
+            eventDispatcher.sendEvent(MobRemovedEvent(this))
         }
     }
 }

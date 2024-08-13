@@ -1,4 +1,4 @@
-package com.myrran.domain.mob.player
+package com.myrran.domain.mob
 
 import com.badlogic.gdx.math.Vector2
 import com.myrran.infraestructure.controller.PlayerInputs

@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.g2d.Batch
 import com.badlogic.gdx.graphics.g2d.TextureRegion
 import com.badlogic.gdx.scenes.scene2d.Actor
 import com.myrran.domain.mob.metrics.SizePixels
+import ktx.actors.alpha
 
 open class Pixie<ANIMATIOM_TYPE: Enum<ANIMATIOM_TYPE>>(
 
@@ -22,7 +23,7 @@ open class Pixie<ANIMATIOM_TYPE: Enum<ANIMATIOM_TYPE>>(
         val sizeMeters = sizePixels.toMeters()
 
         this.setSize(sizeMeters.width.toFloat(), sizeMeters.height.toFloat())
-        this.setOrigin((sizeMeters.width / 2).toFloat() , (sizePixels.height / 2).toFloat() )
+        this.setOrigin((sizeMeters.width).toFloat() , (sizePixels.height).toFloat() )
     }
 
     // MAIN:
@@ -42,6 +43,7 @@ open class Pixie<ANIMATIOM_TYPE: Enum<ANIMATIOM_TYPE>>(
         stateTime += Gdx.graphics.deltaTime
         val frame = animations[currentAnimation]!!.getKeyFrame(stateTime, true)
 
+        batch.setColor(color.r,color.g, color.b, alpha)
         batch.draw(frame, x, y, originX, originY, width, height, scaleX, scaleY, rotation)
     }
 }

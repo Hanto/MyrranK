@@ -9,36 +9,37 @@ import kotlin.reflect.KClass
 class EventDispatcher(
 
     private val messageDispatcher: MessageDispatcher
-)
+
+): EventSender
 {
     private val eventToMsgMap: MutableMap<KClass<out Event>, Int> = mutableMapOf()
 
-    fun sendEvent(event: Event) {
+    override fun sendEvent(event: Event) {
 
         val msgCode = eventToMsgMap[event::class]!!
         messageDispatcher.dispatchMessage(0f, msgCode , event)
     }
 
-    fun sendEvent(event: Event, target: Telegraph) {
+    override fun sendEvent(event: Event, target: EventListener) {
 
         val msgCode = eventToMsgMap[event::class]!!
         messageDispatcher.dispatchMessage(0f, target, msgCode, event)
     }
 
-    fun addListener(listener: EventListener, vararg events: KClass<out Event>) {
+    override fun addListener(listener: EventListener, vararg events: KClass<out Event>) {
 
         val msgCodes = events.map { eventToMsgMap.computeIfAbsent(it) { nextMsgCode() } }.toIntArray()
 
         messageDispatcher.addListeners(listener, *msgCodes )
     }
 
-    fun removeListener(listener: EventListener) {
+    override fun removeListener(listener: EventListener) {
 
         val msgCodes =eventToMsgMap.values.toIntArray()
         messageDispatcher.removeListener(listener, *msgCodes)
     }
 
-    fun update() =
+    override fun update() =
 
         messageDispatcher.update()
 
@@ -57,4 +58,13 @@ interface EventListener: Telegraph {
     }
 
     fun handleEvent(event: Event): Unit?
+}
+
+interface EventSender {
+
+    fun sendEvent(event: Event)
+    fun sendEvent(event: Event, target: EventListener)
+    fun addListener(listener: EventListener, vararg events: KClass<out Event>)
+    fun removeListener(listener: EventListener)
+    fun update()
 }

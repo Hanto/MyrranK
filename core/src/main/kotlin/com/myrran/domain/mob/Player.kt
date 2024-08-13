@@ -1,11 +1,8 @@
-package com.myrran.domain.mob.player
+package com.myrran.domain.mob
 
 import com.badlogic.gdx.math.Vector2
 import com.myrran.application.World
-import com.myrran.domain.events.WorldEvent.PlayerSpellCastedEvent
-import com.myrran.domain.mob.Mob
-import com.myrran.domain.mob.MobId
-import com.myrran.domain.mob.Movable
+import com.myrran.domain.events.PlayerSpellCastedEvent
 import com.myrran.domain.mob.metrics.Meter
 import com.myrran.domain.mob.metrics.Pixel
 import com.myrran.domain.mob.metrics.Position
@@ -26,7 +23,6 @@ data class Player(
 {
     var pointingAt: Position<Meter> = PositionMeters(0f, 0f)
     private var doCast = false
-    override var toBeRemoved: Boolean = false
 
     fun applyInputs(inputs: PlayerInputs) {
 
@@ -53,7 +49,7 @@ data class Player(
                 origin = characterCenter,
                 target = pointingAt) )
 
-            doCast = true
+            doCast = false
         }
     }
 }

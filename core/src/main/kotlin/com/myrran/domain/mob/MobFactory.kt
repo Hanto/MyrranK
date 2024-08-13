@@ -5,8 +5,6 @@ import com.myrran.domain.mob.metrics.Meter
 import com.myrran.domain.mob.metrics.Pixel
 import com.myrran.domain.mob.metrics.SizePixels
 import com.myrran.domain.mob.metrics.Speed
-import com.myrran.domain.mob.player.Player
-import com.myrran.domain.mob.player.StateIddle
 import com.myrran.domain.mob.steerable.Spatial
 import com.myrran.domain.mob.steerable.SpeedLimits
 import com.myrran.domain.mob.steerable.SteeringComponent

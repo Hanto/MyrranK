@@ -13,7 +13,7 @@
                 "bonusPerUpgrade": 0.5
             },
             {
-                "id": "Cooldown",
+                "id": "COOLDOWN",
                 "name": "cooldown",
                 "baseBonus": 10.0,
                 "maximum": 50,
@@ -62,12 +62,20 @@
                 "bonusPerUpgrade": 1.0
             },
             {
-                "id": "Cooldown",
+                "id": "COOLDOWN",
                 "name": "cooldown",
                 "baseBonus": 10.0,
                 "maximum": 50,
                 "upgradeCost": 2.0,
                 "bonusPerUpgrade": 1.0
+            },
+            {
+                "id" : "RANGE",
+                "name" : "range",
+                "baseBonus" : 2.0,
+                "maximum" : 25,
+                "upgradeCost" : 0.1,
+                "bonusPerUpgrade" : 0.1
             }
         ],
         "slots": [
@@ -97,7 +105,7 @@
                 "bonusPerUpgrade": 1.0
             },
             {
-                "id": "Cooldown",
+                "id": "COOLDOWN",
                 "name": "cooldown",
                 "baseBonus": 10.0,
                 "maximum": 50,

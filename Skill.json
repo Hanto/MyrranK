@@ -8,7 +8,7 @@
     "id" : "SPEED",
     "name" : "speed",
     "baseBonus" : 6.0,
-    "actual" : 50,
+    "actual" : 0,
     "maximum" : 50,
     "upgradeCost" : 2.0,
     "bonusPerUpgrade" : 1.0
@@ -19,15 +19,23 @@
     "actual" : 0,
     "maximum" : 50,
     "upgradeCost" : 1.0,
-    "bonusPerUpgrade" : 1.0
+    "bonusPerUpgrade" : 4.0
   }, {
-    "id" : "Cooldown",
+    "id" : "COOLDOWN",
     "name" : "cooldown",
     "baseBonus" : 10.0,
-    "actual" : 0,
+    "actual" : 4,
     "maximum" : 50,
     "upgradeCost" : 2.0,
     "bonusPerUpgrade" : 1.0
+  }, {
+    "id" : "RANGE",
+    "name" : "range",
+    "baseBonus" : 2.0,
+    "actual" : 0,
+    "maximum" : 25,
+    "upgradeCost" : 0.1,
+    "bonusPerUpgrade" : 0.1
   } ],
   "slots" : [ {
     "id" : "IMPACT:1",

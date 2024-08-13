@@ -2,18 +2,17 @@ package com.myrran.application
 
 import com.badlogic.gdx.utils.Disposable
 import com.myrran.domain.events.Event
-import com.myrran.domain.events.WorldEvent
-import com.myrran.domain.events.WorldEvent.MobRemovedEvent
-import com.myrran.domain.events.WorldEvent.PlayerSpellCastedEvent
-import com.myrran.domain.misc.observer.JavaObservable
-import com.myrran.domain.misc.observer.Observable
+import com.myrran.domain.events.MobRemovedEvent
+import com.myrran.domain.events.PlayerSpellCastedEvent
+import com.myrran.domain.events.SpellCreatedEvent
 import com.myrran.domain.mob.Mob
 import com.myrran.domain.mob.MobFactory
 import com.myrran.domain.mob.MobId
-import com.myrran.domain.mob.player.Player
+import com.myrran.domain.mob.Player
 import com.myrran.infraestructure.controller.PlayerInputs
 import com.myrran.infraestructure.eventbus.EventDispatcher
 import com.myrran.infraestructure.eventbus.EventListener
+import com.myrran.infraestructure.eventbus.EventSender
 import com.badlogic.gdx.physics.box2d.World as Box2DWorld
 
 class World(
@@ -22,17 +21,16 @@ class World(
     val spellBook: SpellBook,
     val box2dWorld: Box2DWorld,
     val mobFactory: MobFactory,
-    val eventDispatcher: EventDispatcher,
-    private val observable: Observable<WorldEvent> = JavaObservable()
+    val eventDispatcher: EventDispatcher
 
-): Observable<WorldEvent> by observable, Disposable, EventListener
+): EventSender by eventDispatcher, EventListener, Disposable
 {
     private val mobs: MutableMap<MobId, Mob> = mutableMapOf()
     private var toBeRemoved: MutableList<MobId> = mutableListOf()
 
     init {
 
-        eventDispatcher.addListener(listener = this, PlayerSpellCastedEvent::class, MobRemovedEvent::class)
+        addListener(listener = this, PlayerSpellCastedEvent::class, MobRemovedEvent::class)
     }
 
     // UPDATE
@@ -64,14 +62,14 @@ class World(
     override fun dispose() {
 
         box2dWorld.dispose()
-        eventDispatcher.removeListener(this)
+        removeListener(listener = this)
     }
 
     override fun handleEvent(event: Event) {
 
         when (event) {
             is PlayerSpellCastedEvent -> castPlayerSpell(event)
-            is MobRemovedEvent -> toBeRemoved.remove(event.mobId)
+            is MobRemovedEvent -> toBeRemoved.add(event.mob.id)
             else -> Unit
         }
     }
@@ -88,6 +86,7 @@ class World(
         val skill = spellBook.created.findBy(event.skillId)!!
         val spell = mobFactory.createSpell(skill, event.origin.toBox2dUnits(), event.target.toBox2dUnits())
 
+        sendEvent(SpellCreatedEvent(spell))
         addMob(spell)
     }
 
@@ -97,6 +96,7 @@ class World(
 
     private fun removeMob(id: MobId) {
 
-        mobs.remove(id)?.also { mobFactory.destroyMob(it) }
+        mobs.remove(id)
+            ?.also { mobFactory.destroyMob(it) }
     }
 }

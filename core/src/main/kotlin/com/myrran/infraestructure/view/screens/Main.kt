@@ -33,6 +33,7 @@ import com.myrran.infraestructure.repositories.skilltemplate.SkillTemplateAdapte
 import com.myrran.infraestructure.repositories.skilltemplate.SkillTemplateRepository
 import com.myrran.infraestructure.view.mob.MobViewFactory
 import com.myrran.infraestructure.view.mob.player.PlayerViewAssets
+import com.myrran.infraestructure.view.mob.spell.SpellViewAssets
 import com.myrran.infraestructure.view.ui.skills.SkillViewAssets
 import com.myrran.infraestructure.view.ui.skills.SkillViewFactory
 import com.myrran.infraestructure.view.world.UIView
@@ -137,9 +138,13 @@ class Main : KtxGame<KtxScreen>() {
 
         val worldStage = Stage()
         val playerAssets = PlayerViewAssets(
-            characterTexture =  assetStorage.getTextureRegion("Atlas.atlas", "BAK/Player Sprites/Player"))
+            character =  assetStorage.getTextureRegion("Atlas.atlas", "BAK/Player Sprites/Player"))
+        val spellAssets = SpellViewAssets(
+            spellBolt = assetStorage.getTextureRegion("Atlas.atlas", "AnimacionesSpells/SpellBalls_01n")
+        )
         val mobViewFactory = MobViewFactory(
-            assets = playerAssets)
+            playerAssets = playerAssets,
+            spellAssets = spellAssets)
         val worldCamera = OrthographicCamera(
             Pixel(Gdx.graphics.width).toMeters().toFloat(),
             Pixel(Gdx.graphics.height).toMeters().toFloat())
