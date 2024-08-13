@@ -1,5 +1,8 @@
 package com.myrran.domain.skills.templates.skill
 
+import com.myrran.domain.mobs.spells.effect.EffectType
+import com.myrran.domain.mobs.spells.form.FormSkillType
+import com.myrran.domain.mobs.spells.spell.SkillType
 import com.myrran.domain.skills.created.effect.EffectSkillName
 import com.myrran.domain.skills.created.effect.EffectSkillSlotId
 import com.myrran.domain.skills.created.effect.EffectSkillSlotName
@@ -22,9 +25,6 @@ import com.myrran.domain.skills.templates.form.FormSlotTemplate
 import com.myrran.domain.skills.templates.form.FormTemplate
 import com.myrran.domain.skills.templates.form.FormTemplateId
 import com.myrran.domain.skills.templates.stat.StatUpgradeableTemplate
-import com.myrran.domain.spells.effect.EffectType
-import com.myrran.domain.spells.form.FormSkillType
-import com.myrran.domain.spells.spell.SkillType
 import org.junit.jupiter.api.Test
 
 class WorldSkillBookIT {

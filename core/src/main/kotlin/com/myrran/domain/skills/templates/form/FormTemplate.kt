@@ -1,5 +1,6 @@
 package com.myrran.domain.skills.templates.form
 
+import com.myrran.domain.mobs.spells.form.FormSkillType
 import com.myrran.domain.skills.created.effect.EffectSkillSlots
 import com.myrran.domain.skills.created.form.FormSkill
 import com.myrran.domain.skills.created.form.FormSkillId
@@ -8,7 +9,6 @@ import com.myrran.domain.skills.created.stat.Stats
 import com.myrran.domain.skills.lock.LockType
 import com.myrran.domain.skills.templates.effect.EffectSlotTemplate
 import com.myrran.domain.skills.templates.stat.StatTemplate
-import com.myrran.domain.spells.form.FormSkillType
 
 data class FormTemplate(
 

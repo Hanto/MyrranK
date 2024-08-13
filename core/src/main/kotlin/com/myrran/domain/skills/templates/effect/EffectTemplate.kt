@@ -1,12 +1,12 @@
 package com.myrran.domain.skills.templates.effect
 
+import com.myrran.domain.mobs.spells.effect.EffectType
 import com.myrran.domain.skills.created.effect.EffectSkill
 import com.myrran.domain.skills.created.effect.EffectSkillId
 import com.myrran.domain.skills.created.effect.EffectSkillName
 import com.myrran.domain.skills.created.stat.Stats
 import com.myrran.domain.skills.lock.LockType
 import com.myrran.domain.skills.templates.stat.StatTemplate
-import com.myrran.domain.spells.effect.EffectType
 
 data class EffectTemplate(
 

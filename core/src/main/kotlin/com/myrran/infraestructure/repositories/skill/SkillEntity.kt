@@ -1,9 +1,9 @@
 package com.myrran.infraestructure.repositories.skill
 
+import com.myrran.domain.mobs.spells.effect.EffectType
+import com.myrran.domain.mobs.spells.form.FormSkillType
+import com.myrran.domain.mobs.spells.spell.SkillType
 import com.myrran.domain.skills.lock.LockType
-import com.myrran.domain.spells.effect.EffectType
-import com.myrran.domain.spells.form.FormSkillType
-import com.myrran.domain.spells.spell.SkillType
 
 data class SkillEntity(
     val id: String,

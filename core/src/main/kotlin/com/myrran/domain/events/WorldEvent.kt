@@ -1,11 +1,11 @@
 package com.myrran.domain.events
 
-import com.myrran.domain.mob.Mob
-import com.myrran.domain.mob.MobId
-import com.myrran.domain.mob.steerable.metrics.Meter
-import com.myrran.domain.mob.steerable.metrics.Position
+import com.myrran.domain.mobs.Mob
+import com.myrran.domain.mobs.MobId
+import com.myrran.domain.mobs.spells.spell.Spell
+import com.myrran.domain.mobs.steerable.metrics.Meter
+import com.myrran.domain.mobs.steerable.metrics.Position
 import com.myrran.domain.skills.created.skill.SkillId
-import com.myrran.domain.spells.spell.Spell
 
 sealed interface WorldEvent: Event
 

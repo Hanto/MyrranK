@@ -1,5 +1,6 @@
 package com.myrran.domain.skills.templates.skill
 
+import com.myrran.domain.mobs.spells.spell.SkillType
 import com.myrran.domain.skills.created.form.FormSkillSlots
 import com.myrran.domain.skills.created.skill.Skill
 import com.myrran.domain.skills.created.skill.SkillId
@@ -7,7 +8,6 @@ import com.myrran.domain.skills.created.skill.SkillName
 import com.myrran.domain.skills.created.stat.Stats
 import com.myrran.domain.skills.templates.form.FormSlotTemplate
 import com.myrran.domain.skills.templates.stat.StatTemplate
-import com.myrran.domain.spells.spell.SkillType
 
 data class SkillTemplate(
 
