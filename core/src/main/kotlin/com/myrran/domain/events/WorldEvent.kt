@@ -2,8 +2,8 @@ package com.myrran.domain.events
 
 import com.myrran.domain.mob.Mob
 import com.myrran.domain.mob.MobId
-import com.myrran.domain.mob.metrics.Meter
-import com.myrran.domain.mob.metrics.Position
+import com.myrran.domain.mob.steerable.metrics.Meter
+import com.myrran.domain.mob.steerable.metrics.Position
 import com.myrran.domain.skills.created.skill.SkillId
 import com.myrran.domain.spells.spell.Spell
 

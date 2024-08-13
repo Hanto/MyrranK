@@ -1,17 +1,17 @@
 package com.myrran.infraestructure.view.mob
 
 import com.badlogic.gdx.graphics.g2d.Animation
-import com.myrran.domain.mob.Player
-import com.myrran.domain.mob.metrics.SizePixels
+import com.myrran.domain.mob.player.Player
+import com.myrran.domain.mob.steerable.metrics.SizePixels
 import com.myrran.domain.spells.spell.Spell
 import com.myrran.domain.spells.spell.SpellBolt
 import com.myrran.infraestructure.view.mob.player.PlayerAnimation
 import com.myrran.infraestructure.view.mob.player.PlayerView
 import com.myrran.infraestructure.view.mob.player.PlayerViewAssets
-import com.myrran.infraestructure.view.mob.spell.SpellAnimation
-import com.myrran.infraestructure.view.mob.spell.SpellBoltView
-import com.myrran.infraestructure.view.mob.spell.SpellView
-import com.myrran.infraestructure.view.mob.spell.SpellViewAssets
+import com.myrran.infraestructure.view.spell.SpellAnimation
+import com.myrran.infraestructure.view.spell.SpellBoltView
+import com.myrran.infraestructure.view.spell.SpellView
+import com.myrran.infraestructure.view.spell.SpellViewAssets
 import ktx.collections.toGdxArray
 
 class MobViewFactory(

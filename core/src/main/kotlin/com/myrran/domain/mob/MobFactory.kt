@@ -1,18 +1,21 @@
 package com.myrran.domain.mob
 
 import com.badlogic.gdx.math.Vector2
-import com.myrran.domain.mob.metrics.Meter
-import com.myrran.domain.mob.metrics.Pixel
-import com.myrran.domain.mob.metrics.SizePixels
-import com.myrran.domain.mob.metrics.Speed
+import com.myrran.domain.mob.player.Player
+import com.myrran.domain.mob.player.StateIddle
+import com.myrran.domain.mob.steerable.BodyFactory
 import com.myrran.domain.mob.steerable.MovableByBox2D
 import com.myrran.domain.mob.steerable.SpeedLimiter
 import com.myrran.domain.mob.steerable.SteerableByBox2D
+import com.myrran.domain.mob.steerable.metrics.Meter
+import com.myrran.domain.mob.steerable.metrics.Pixel
+import com.myrran.domain.mob.steerable.metrics.SizePixels
+import com.myrran.domain.mob.steerable.metrics.Speed
 import com.myrran.domain.skills.created.skill.Skill
-import com.myrran.domain.spells.SpellConstants.Companion.SIZE
-import com.myrran.domain.spells.WorldBox2D
 import com.myrran.domain.spells.spell.SkillType
 import com.myrran.domain.spells.spell.SpellBolt
+import com.myrran.domain.spells.spell.SpellConstants.Companion.SIZE
+import com.myrran.domain.spells.spell.WorldBox2D
 import com.myrran.infraestructure.eventbus.EventDispatcher
 
 class MobFactory(
@@ -26,7 +29,8 @@ class MobFactory(
 
         val body = bodyFactory.createSquareBody(worldBox2D, SizePixels(32, 32))
         val limiter = SpeedLimiter(
-            maxLinearSpeed = Speed(Meter(4f)))
+            maxLinearSpeed = Speed(Meter(4f))
+        )
         val location = MovableByBox2D(
             body = body,
             limiter = limiter)
@@ -55,7 +59,8 @@ class MobFactory(
 
         val body = bodyFactory.createCircleBody(worldBox2D, radius)
         val limiter = SpeedLimiter(
-            maxLinearSpeed = Speed(Meter(100f)))
+            maxLinearSpeed = Speed(Meter(100f))
+        )
         val location = MovableByBox2D(
             body = body,
             limiter = limiter)

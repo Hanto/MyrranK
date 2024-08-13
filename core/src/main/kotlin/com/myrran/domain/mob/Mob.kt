@@ -1,6 +1,6 @@
 package com.myrran.domain.mob
 
-import com.myrran.application.World
+import com.myrran.domain.World
 import com.myrran.domain.misc.Identifiable
 import com.myrran.domain.mob.steerable.Movable
 import com.myrran.domain.mob.steerable.Spatial

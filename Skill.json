@@ -32,7 +32,7 @@
     "id" : "RANGE",
     "name" : "range",
     "baseBonus" : 2.0,
-    "actual" : 0,
+    "actual" : 15,
     "maximum" : 25,
     "upgradeCost" : 0.1,
     "bonusPerUpgrade" : 0.1

@@ -5,7 +5,7 @@ import com.badlogic.gdx.ai.steer.Limiter
 import com.badlogic.gdx.ai.steer.SteeringAcceleration
 import com.badlogic.gdx.ai.steer.SteeringBehavior
 import com.badlogic.gdx.math.Vector2
-import com.myrran.domain.spells.WorldBox2D
+import com.myrran.domain.spells.spell.WorldBox2D
 
 class SteerableByBox2D(
 

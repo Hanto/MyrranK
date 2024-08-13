@@ -2,9 +2,9 @@ package com.myrran.infraestructure.view.screens
 
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.graphics.GL20
-import com.myrran.application.World
+import com.myrran.domain.World
 import com.myrran.infraestructure.assets.AssetStorage
-import com.myrran.infraestructure.view.world.View
+import com.myrran.infraestructure.view.View
 import ktx.app.KtxScreen
 
 class MainScreen(

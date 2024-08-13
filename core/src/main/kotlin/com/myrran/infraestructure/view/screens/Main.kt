@@ -11,19 +11,20 @@ import com.badlogic.gdx.graphics.Texture.TextureFilter.Linear
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import com.badlogic.gdx.math.Vector2
 import com.badlogic.gdx.scenes.scene2d.Stage
-import com.myrran.application.LearnedTemplates
-import com.myrran.application.SpellBook
 import com.myrran.badlogic.DaD
+import com.myrran.domain.World
 import com.myrran.domain.misc.DeSerializer
-import com.myrran.domain.mob.BodyFactory
 import com.myrran.domain.mob.MobFactory
-import com.myrran.domain.mob.metrics.Pixel
-import com.myrran.domain.spells.WorldBox2D
+import com.myrran.domain.mob.steerable.BodyFactory
+import com.myrran.domain.mob.steerable.metrics.Pixel
+import com.myrran.domain.skills.LearnedTemplates
+import com.myrran.domain.skills.SpellBook
+import com.myrran.domain.spells.spell.WorldBox2D
 import com.myrran.infraestructure.assets.AssetStorage
-import com.myrran.infraestructure.controller.DragAndDropManager
-import com.myrran.infraestructure.controller.PlayerController
-import com.myrran.infraestructure.controller.PlayerInputs
-import com.myrran.infraestructure.controller.SpellBookController
+import com.myrran.infraestructure.controller.player.PlayerController
+import com.myrran.infraestructure.controller.player.PlayerInputs
+import com.myrran.infraestructure.controller.skills.DragAndDropManager
+import com.myrran.infraestructure.controller.skills.SpellBookController
 import com.myrran.infraestructure.eventbus.EventDispatcher
 import com.myrran.infraestructure.repositories.assetsconfig.AssetsConfigRepository
 import com.myrran.infraestructure.repositories.learnedskilltemplate.LearnedSkillTemplateRepository
@@ -31,14 +32,14 @@ import com.myrran.infraestructure.repositories.skill.SkillAdapter
 import com.myrran.infraestructure.repositories.skill.SkillRepository
 import com.myrran.infraestructure.repositories.skilltemplate.SkillTemplateAdapter
 import com.myrran.infraestructure.repositories.skilltemplate.SkillTemplateRepository
+import com.myrran.infraestructure.view.UIView
+import com.myrran.infraestructure.view.View
+import com.myrran.infraestructure.view.WorldView
 import com.myrran.infraestructure.view.mob.MobViewFactory
 import com.myrran.infraestructure.view.mob.player.PlayerViewAssets
-import com.myrran.infraestructure.view.mob.spell.SpellViewAssets
-import com.myrran.infraestructure.view.ui.skills.SkillViewAssets
-import com.myrran.infraestructure.view.ui.skills.SkillViewFactory
-import com.myrran.infraestructure.view.world.UIView
-import com.myrran.infraestructure.view.world.View
-import com.myrran.infraestructure.view.world.WorldView
+import com.myrran.infraestructure.view.skills.SkillViewAssets
+import com.myrran.infraestructure.view.skills.SkillViewFactory
+import com.myrran.infraestructure.view.spell.SpellViewAssets
 import ktx.app.KtxGame
 import ktx.app.KtxScreen
 import ktx.app.clearScreen
@@ -126,7 +127,7 @@ class Main : KtxGame<KtxScreen>() {
             eventDispatcher = eventDispatcher,
             worldBox2D = worldBox2D)
         val player = mobFactory.createPlayer()
-        val world = com.myrran.application.World(
+        val world = World(
             player = player,
             spellBook = spellBook,
             worldBox2D = worldBox2D,
