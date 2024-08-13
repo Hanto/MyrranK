@@ -23,7 +23,7 @@ open class Sprite<ANIMATIOM_TYPE: Enum<ANIMATIOM_TYPE>>(
         val sizeMeters = sizePixels.toMeters()
 
         this.setSize(sizeMeters.width.toFloat(), sizeMeters.height.toFloat())
-        this.setOrigin((sizeMeters.width).toFloat() , (sizePixels.height).toFloat() )
+        this.setOrigin((sizeMeters.width/2).toFloat() , (sizePixels.height/2).toFloat() )
     }
 
     // MAIN:

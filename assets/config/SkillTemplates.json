@@ -64,10 +64,10 @@
             {
                 "id": "COOLDOWN",
                 "name": "cooldown",
-                "baseBonus": 10.0,
+                "baseBonus": 100.0,
                 "maximum": 50,
                 "upgradeCost": 2.0,
-                "bonusPerUpgrade": 1.0
+                "bonusPerUpgrade": -1.5
             },
             {
                 "id" : "RANGE",

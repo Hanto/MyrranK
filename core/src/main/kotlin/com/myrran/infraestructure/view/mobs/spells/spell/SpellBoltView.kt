@@ -26,8 +26,11 @@ class SpellBoltView(
 
     init {
 
-        val sizeMultiplier = (model.skill.getStat(SIZE)!!.totalBonus().value / 100 - 1)
+        val sizeMultiplier = model.skill.getStat(SIZE)!!.totalBonus().value / 100 - 1
         sizeBy(sizeMultiplier)
+        setOrigin(width/2, height/2)
+
+        rotateBy(model.linearVelocity.angleDeg() + 90)
 
         val range = model.skill.getStat(RANGE)!!.totalBonus().value
         alpha = 0f
