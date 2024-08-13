@@ -2,14 +2,14 @@ package com.myrran.infraestructure.view.mobs.player
 
 import com.badlogic.gdx.graphics.g2d.Animation
 import com.badlogic.gdx.graphics.g2d.TextureRegion
+import com.myrran.domain.mobs.common.metrics.SizePixels
 import com.myrran.domain.mobs.player.Player
 import com.myrran.domain.mobs.player.StateEast
 import com.myrran.domain.mobs.player.StateIddle
 import com.myrran.domain.mobs.player.StateNorth
 import com.myrran.domain.mobs.player.StateSouth
 import com.myrran.domain.mobs.player.StateWest
-import com.myrran.domain.mobs.steerable.metrics.SizePixels
-import com.myrran.infraestructure.view.mobs.Sprite
+import com.myrran.infraestructure.view.mobs.common.Sprite
 import ktx.math.minus
 
 class PlayerView(

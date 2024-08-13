@@ -1,4 +1,4 @@
-package com.myrran.domain.mobs.steerable
+package com.myrran.domain.mobs.common.steerable
 
 import com.badlogic.gdx.ai.steer.Limiter
 import com.badlogic.gdx.ai.utils.Location

@@ -1,10 +1,10 @@
 package com.myrran.infraestructure.view.mobs
 
 import com.badlogic.gdx.graphics.g2d.Animation
+import com.myrran.domain.mobs.common.metrics.SizePixels
 import com.myrran.domain.mobs.player.Player
 import com.myrran.domain.mobs.spells.spell.Spell
 import com.myrran.domain.mobs.spells.spell.SpellBolt
-import com.myrran.domain.mobs.steerable.metrics.SizePixels
 import com.myrran.infraestructure.view.mobs.player.PlayerAnimation
 import com.myrran.infraestructure.view.mobs.player.PlayerView
 import com.myrran.infraestructure.view.mobs.player.PlayerViewAssets

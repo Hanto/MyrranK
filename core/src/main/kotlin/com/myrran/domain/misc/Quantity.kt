@@ -7,7 +7,6 @@ data class Quantity<VALUE>(
     val total: Int
 
 ) {
-
     companion object {
 
         @JvmStatic

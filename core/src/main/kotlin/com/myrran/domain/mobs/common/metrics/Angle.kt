@@ -1,4 +1,4 @@
-package com.myrran.domain.mobs.steerable.metrics
+package com.myrran.domain.mobs.common.metrics
 
 interface Angle
 

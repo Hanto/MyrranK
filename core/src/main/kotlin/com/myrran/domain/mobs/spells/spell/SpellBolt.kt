@@ -5,12 +5,12 @@ import com.myrran.domain.World
 import com.myrran.domain.events.MobRemovedEvent
 import com.myrran.domain.mobs.Mob
 import com.myrran.domain.mobs.MobId
+import com.myrran.domain.mobs.common.steerable.Movable
+import com.myrran.domain.mobs.common.steerable.Spatial
+import com.myrran.domain.mobs.common.steerable.SteerableAI
+import com.myrran.domain.mobs.common.steerable.SteerableByBox2D
 import com.myrran.domain.mobs.spells.spell.SpellConstants.Companion.RANGE
 import com.myrran.domain.mobs.spells.spell.SpellConstants.Companion.SPEED
-import com.myrran.domain.mobs.steerable.Movable
-import com.myrran.domain.mobs.steerable.Spatial
-import com.myrran.domain.mobs.steerable.SteerableAI
-import com.myrran.domain.mobs.steerable.SteerableByBox2D
 import com.myrran.domain.skills.created.skill.Skill
 import com.myrran.infraestructure.eventbus.EventDispatcher
 import ktx.math.minus

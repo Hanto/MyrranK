@@ -1,13 +1,13 @@
-package com.myrran.domain.mobs.steerable
+package com.myrran.domain.mobs.common.steerable
 
 import com.badlogic.gdx.physics.box2d.Body
 import com.badlogic.gdx.physics.box2d.BodyDef
 import com.badlogic.gdx.physics.box2d.CircleShape
 import com.badlogic.gdx.physics.box2d.FixtureDef
 import com.badlogic.gdx.physics.box2d.PolygonShape
+import com.myrran.domain.mobs.common.metrics.Distance
+import com.myrran.domain.mobs.common.metrics.Size
 import com.myrran.domain.mobs.spells.spell.WorldBox2D
-import com.myrran.domain.mobs.steerable.metrics.Distance
-import com.myrran.domain.mobs.steerable.metrics.Size
 
 class BodyFactory
 {

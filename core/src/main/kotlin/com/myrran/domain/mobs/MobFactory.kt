@@ -1,20 +1,20 @@
 package com.myrran.domain.mobs
 
 import com.badlogic.gdx.math.Vector2
+import com.myrran.domain.mobs.common.metrics.Meter
+import com.myrran.domain.mobs.common.metrics.Pixel
+import com.myrran.domain.mobs.common.metrics.SizePixels
+import com.myrran.domain.mobs.common.metrics.Speed
+import com.myrran.domain.mobs.common.steerable.BodyFactory
+import com.myrran.domain.mobs.common.steerable.MovableByBox2D
+import com.myrran.domain.mobs.common.steerable.SpeedLimiter
+import com.myrran.domain.mobs.common.steerable.SteerableByBox2D
 import com.myrran.domain.mobs.player.Player
 import com.myrran.domain.mobs.player.StateIddle
 import com.myrran.domain.mobs.spells.spell.SkillType
 import com.myrran.domain.mobs.spells.spell.SpellBolt
 import com.myrran.domain.mobs.spells.spell.SpellConstants.Companion.SIZE
 import com.myrran.domain.mobs.spells.spell.WorldBox2D
-import com.myrran.domain.mobs.steerable.BodyFactory
-import com.myrran.domain.mobs.steerable.MovableByBox2D
-import com.myrran.domain.mobs.steerable.SpeedLimiter
-import com.myrran.domain.mobs.steerable.SteerableByBox2D
-import com.myrran.domain.mobs.steerable.metrics.Meter
-import com.myrran.domain.mobs.steerable.metrics.Pixel
-import com.myrran.domain.mobs.steerable.metrics.SizePixels
-import com.myrran.domain.mobs.steerable.metrics.Speed
 import com.myrran.domain.skills.created.skill.Skill
 import com.myrran.infraestructure.eventbus.EventDispatcher
 

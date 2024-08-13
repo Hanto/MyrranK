@@ -6,11 +6,11 @@ import com.badlogic.gdx.math.Interpolation
 import com.badlogic.gdx.scenes.scene2d.actions.Actions
 import com.badlogic.gdx.utils.Align
 import com.myrran.domain.mobs.MobId
+import com.myrran.domain.mobs.common.metrics.SizePixels
 import com.myrran.domain.mobs.spells.spell.SpellBolt
 import com.myrran.domain.mobs.spells.spell.SpellConstants.Companion.RANGE
 import com.myrran.domain.mobs.spells.spell.SpellConstants.Companion.SIZE
-import com.myrran.domain.mobs.steerable.metrics.SizePixels
-import com.myrran.infraestructure.view.mobs.Sprite
+import com.myrran.infraestructure.view.mobs.common.Sprite
 import ktx.actors.alpha
 import ktx.math.minus
 

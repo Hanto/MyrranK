@@ -15,9 +15,9 @@ import com.myrran.badlogic.DaD
 import com.myrran.domain.World
 import com.myrran.domain.misc.DeSerializer
 import com.myrran.domain.mobs.MobFactory
+import com.myrran.domain.mobs.common.metrics.Pixel
+import com.myrran.domain.mobs.common.steerable.BodyFactory
 import com.myrran.domain.mobs.spells.spell.WorldBox2D
-import com.myrran.domain.mobs.steerable.BodyFactory
-import com.myrran.domain.mobs.steerable.metrics.Pixel
 import com.myrran.domain.skills.LearnedTemplates
 import com.myrran.domain.skills.SpellBook
 import com.myrran.infraestructure.assets.AssetStorage

@@ -1,4 +1,4 @@
-package com.myrran.domain.mobs.steerable.metrics
+package com.myrran.domain.mobs.common.metrics
 
 import com.badlogic.gdx.graphics.OrthographicCamera
 import com.badlogic.gdx.math.Vector2

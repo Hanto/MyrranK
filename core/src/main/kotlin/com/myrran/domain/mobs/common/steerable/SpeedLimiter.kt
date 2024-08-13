@@ -1,12 +1,12 @@
-package com.myrran.domain.mobs.steerable
+package com.myrran.domain.mobs.common.steerable
 
 import com.badlogic.gdx.ai.steer.Limiter
-import com.myrran.domain.mobs.steerable.metrics.Acceleration
-import com.myrran.domain.mobs.steerable.metrics.AngularAcceleration
-import com.myrran.domain.mobs.steerable.metrics.AngularVelocity
-import com.myrran.domain.mobs.steerable.metrics.Meter
-import com.myrran.domain.mobs.steerable.metrics.Radian
-import com.myrran.domain.mobs.steerable.metrics.Speed
+import com.myrran.domain.mobs.common.metrics.Acceleration
+import com.myrran.domain.mobs.common.metrics.AngularAcceleration
+import com.myrran.domain.mobs.common.metrics.AngularVelocity
+import com.myrran.domain.mobs.common.metrics.Meter
+import com.myrran.domain.mobs.common.metrics.Radian
+import com.myrran.domain.mobs.common.metrics.Speed
 
 class SpeedLimiter(
 
