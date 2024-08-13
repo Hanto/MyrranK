@@ -16,7 +16,7 @@
     "id" : "SIZE",
     "name" : "size",
     "baseBonus" : 100.0,
-    "actual" : 0,
+    "actual" : 24,
     "maximum" : 50,
     "upgradeCost" : 1.0,
     "bonusPerUpgrade" : 4.0
@@ -24,7 +24,7 @@
     "id" : "COOLDOWN",
     "name" : "cooldown",
     "baseBonus" : 100.0,
-    "actual" : 50,
+    "actual" : 22,
     "maximum" : 50,
     "upgradeCost" : 2.0,
     "bonusPerUpgrade" : -1.5

@@ -4,6 +4,7 @@ import com.badlogic.gdx.ai.steer.Limiter
 import com.badlogic.gdx.ai.utils.Location
 import com.badlogic.gdx.math.Vector2
 import com.badlogic.gdx.physics.box2d.Body
+import ktx.math.minus
 
 data class MovableByBox2D(
 
@@ -49,9 +50,14 @@ data class MovableByBox2D(
 
         lastPosition = position.cpy() }
 
-    override fun getLastPosition(): Vector2 =
+    override fun getInterpolatedPosition(fractionOfTimestep: Float): Vector2 {
 
-        lastPosition
+        val offset = position.minus(lastPosition)
+
+        return Vector2(
+        lastPosition.x + offset.x * fractionOfTimestep,
+        lastPosition.y + offset.y * fractionOfTimestep )
+    }
 
     // VELOCITY: (Movible)
     //--------------------------------------------------------------------------------------------------------

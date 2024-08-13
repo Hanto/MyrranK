@@ -10,7 +10,6 @@ import com.myrran.domain.mobs.player.StateNorth
 import com.myrran.domain.mobs.player.StateSouth
 import com.myrran.domain.mobs.player.StateWest
 import com.myrran.infraestructure.view.mobs.common.Sprite
-import ktx.math.minus
 
 class PlayerView(
 
@@ -29,11 +28,8 @@ class PlayerView(
             is StateSouth -> setAnimation(PlayerAnimation.WALK_SOUTH)
             is StateIddle -> setAnimation(PlayerAnimation.IDDLE)
         }
-        val lastPosition = model.getLastPosition()
-        val offset = model.position.minus(lastPosition)
 
-        setPosition(
-            lastPosition.x + offset.x * fractionOfTimestep,
-            lastPosition.y + offset.y * fractionOfTimestep)
+        model.getInterpolatedPosition(fractionOfTimestep)
+            .also { setPosition(it.x, it.y) }
     }
 }

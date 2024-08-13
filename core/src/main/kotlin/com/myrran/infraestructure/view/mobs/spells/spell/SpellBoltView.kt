@@ -12,7 +12,6 @@ import com.myrran.domain.mobs.spells.spell.SpellConstants.Companion.RANGE
 import com.myrran.domain.mobs.spells.spell.SpellConstants.Companion.SIZE
 import com.myrran.infraestructure.view.mobs.common.Sprite
 import ktx.actors.alpha
-import ktx.math.minus
 
 class SpellBoltView(
 
@@ -42,12 +41,7 @@ class SpellBoltView(
 
     override fun update(fractionOfTimestep: Float) {
 
-        val lastPosition = model.getLastPosition()
-        val offset = model.position.minus(lastPosition)
-
-        setPosition(
-            lastPosition.x + offset.x * fractionOfTimestep,
-            lastPosition.y + offset.y * fractionOfTimestep,
-            Align.center)
+        model.getInterpolatedPosition(fractionOfTimestep)
+            .also { setPosition(it.x, it.y, Align.center) }
     }
 }
