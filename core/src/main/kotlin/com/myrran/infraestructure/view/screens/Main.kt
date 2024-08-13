@@ -10,7 +10,6 @@ import com.badlogic.gdx.graphics.Texture
 import com.badlogic.gdx.graphics.Texture.TextureFilter.Linear
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import com.badlogic.gdx.math.Vector2
-import com.badlogic.gdx.physics.box2d.World
 import com.badlogic.gdx.scenes.scene2d.Stage
 import com.myrran.application.LearnedTemplates
 import com.myrran.application.SpellBook
@@ -19,6 +18,7 @@ import com.myrran.domain.misc.DeSerializer
 import com.myrran.domain.mob.BodyFactory
 import com.myrran.domain.mob.MobFactory
 import com.myrran.domain.mob.metrics.Pixel
+import com.myrran.domain.spells.WorldBox2D
 import com.myrran.infraestructure.assets.AssetStorage
 import com.myrran.infraestructure.controller.DragAndDropManager
 import com.myrran.infraestructure.controller.PlayerController
@@ -119,17 +119,17 @@ class Main : KtxGame<KtxScreen>() {
         // WORLD:
         //----------------------------------------------------------------------------------------------------
 
-        val box2dWorld = World(Vector2(0f, 0f), true)
-        val bodyFactory = BodyFactory(
-            world = box2dWorld)
+        val worldBox2D = WorldBox2D(Vector2(0f, 0f), true)
+        val bodyFactory = BodyFactory()
         val mobFactory = MobFactory(
             bodyFactory = bodyFactory,
-            eventDispatcher = eventDispatcher)
+            eventDispatcher = eventDispatcher,
+            worldBox2D = worldBox2D)
         val player = mobFactory.createPlayer()
         val world = com.myrran.application.World(
             player = player,
             spellBook = spellBook,
-            box2dWorld = box2dWorld,
+            worldBox2D = worldBox2D,
             mobFactory = mobFactory,
             eventDispatcher = eventDispatcher)
 

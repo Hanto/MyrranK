@@ -7,7 +7,10 @@ import com.myrran.domain.mob.metrics.Meter
 import com.myrran.domain.mob.metrics.Pixel
 import com.myrran.domain.mob.metrics.Position
 import com.myrran.domain.mob.metrics.PositionMeters
-import com.myrran.domain.mob.steerable.SteeringComponent
+import com.myrran.domain.mob.steerable.Movable
+import com.myrran.domain.mob.steerable.Spatial
+import com.myrran.domain.mob.steerable.SteerableAI
+import com.myrran.domain.mob.steerable.SteerableByBox2D
 import com.myrran.domain.skills.created.skill.SkillId
 import com.myrran.infraestructure.controller.PlayerInputs
 import com.myrran.infraestructure.eventbus.EventDispatcher
@@ -15,25 +18,15 @@ import com.myrran.infraestructure.eventbus.EventDispatcher
 data class Player(
 
     override val id: MobId,
-    private val movable: SteeringComponent,
-    var state: State = StateIddle(Vector2(0f, 0f)),
-    val eventDispatcher: EventDispatcher,
+    override val steerable: SteerableByBox2D,
+    private val eventDispatcher: EventDispatcher,
 
-): Movable by movable, Mob
+    var state: State = StateIddle(Vector2(0f, 0f)),
+
+): SteerableAI by steerable, Spatial, Movable, Mob
 {
     var pointingAt: Position<Meter> = PositionMeters(0f, 0f)
     private var doCast = false
-
-    fun applyInputs(inputs: PlayerInputs) {
-
-        state = state.nextState(inputs)
-        val force = state.direction.cpy().scl(1000f)
-        movable.setLinearVelocity(state.direction, maxLinearSpeed)
-        //movable.spatial.applyForceToCenter(force)
-
-        doCast = inputs.doCast
-        //pointingAt = inputs.touchedWorld
-    }
 
     override fun act(deltaTime: Float, world: World) {
 
@@ -51,5 +44,12 @@ data class Player(
 
             doCast = false
         }
+    }
+
+    fun applyInputs(inputs: PlayerInputs) {
+
+        state = state.nextState(inputs)
+        steerable.setLinearVelocity(state.direction, maxLinearSpeed)
+        doCast = inputs.doCast
     }
 }

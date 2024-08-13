@@ -7,7 +7,8 @@ import com.badlogic.gdx.scenes.scene2d.actions.Actions
 import com.badlogic.gdx.utils.Align
 import com.myrran.domain.mob.MobId
 import com.myrran.domain.mob.metrics.SizePixels
-import com.myrran.domain.skills.created.stat.StatId
+import com.myrran.domain.spells.SpellConstants.Companion.RANGE
+import com.myrran.domain.spells.SpellConstants.Companion.SIZE
 import com.myrran.domain.spells.spell.SpellBolt
 import com.myrran.infraestructure.view.mob.Pixie
 import ktx.actors.alpha
@@ -25,10 +26,10 @@ class SpellBoltView(
 
     init {
 
-        val sizeMultiplier = (model.skill.getStat(StatId(SpellBolt.SIZE))!!.totalBonus().value / 100 - 1)
+        val sizeMultiplier = (model.skill.getStat(SIZE)!!.totalBonus().value / 100 - 1)
         sizeBy(sizeMultiplier)
 
-        val range = model.skill.getStat(StatId(SpellBolt.RANGE))!!.totalBonus().value
+        val range = model.skill.getStat(RANGE)!!.totalBonus().value
         alpha = 0f
         addAction(Actions.sequence(
             Actions.fadeIn(0.3f, Interpolation.circleOut),

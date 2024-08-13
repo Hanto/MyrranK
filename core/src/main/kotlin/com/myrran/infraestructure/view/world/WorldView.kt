@@ -47,7 +47,7 @@ class WorldView(
 
     fun render(deltaTime: Float, fractionOfTimestep: Float) {
 
-        box2dDebug.render(model.box2dWorld, camera.combined)
+        box2dDebug.render(model.worldBox2D, camera.combined)
 
         interpolatePositions(fractionOfTimestep)
         updatePlayerWithTheirTargets()

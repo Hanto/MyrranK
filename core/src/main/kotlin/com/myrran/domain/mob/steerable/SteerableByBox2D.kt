@@ -1,0 +1,78 @@
+package com.myrran.domain.mob.steerable
+
+import com.badlogic.ashley.core.Component
+import com.badlogic.gdx.ai.steer.Limiter
+import com.badlogic.gdx.ai.steer.SteeringAcceleration
+import com.badlogic.gdx.ai.steer.SteeringBehavior
+import com.badlogic.gdx.math.Vector2
+import com.myrran.domain.spells.WorldBox2D
+
+class SteerableByBox2D(
+
+    private val movable: MovableByBox2D,
+    private val speedLimiter: SpeedLimiter,
+    private var isFacingAutomatic: Boolean = false
+
+): SteerableAI, Movable by movable, Limiter by speedLimiter, Component
+{
+    private var steeringOutput: SteeringAcceleration<Vector2> = SteeringAcceleration(Vector2())
+    private var steeringBehavior: SteeringBehavior<Vector2>? = null
+    private var isTagged: Boolean = false
+
+    override fun getBoundingRadius(): Float =
+
+        1f
+
+    override fun isTagged(): Boolean =
+
+        isTagged
+
+    override fun setTagged(tagged: Boolean) {
+
+        isTagged = tagged
+    }
+
+    fun destroyBody(world: WorldBox2D) =
+
+        world.destroyBody(movable.body)
+
+    // STEERING:
+    //--------------------------------------------------------------------------------------------------------
+
+    fun update(deltaTime: Float) {
+
+        steeringBehavior?.calculateSteering(steeringOutput)
+            ?.let { applySteering(it, deltaTime) }
+    }
+
+    private fun applySteering(steering: SteeringAcceleration<Vector2>, deltaTime: Float) {
+
+        if (!steering.linear.isZero(speedLimiter.zeroLinearSpeedThreshold)) {
+
+            movable.applyForceToCenter(steering.linear) // Box2D internally scales the force by deltaTime
+        }
+
+        when (isFacingAutomatic) {
+
+            true -> orientationBasedOnSteering(steering)
+            false -> orientationBasedOnCurrentDirection()
+        }
+    }
+
+    private fun orientationBasedOnSteering(steering: SteeringAcceleration<Vector2>) {
+
+        if (steering.angular != 0f) {
+
+            movable.applyTorque(steeringOutput.angular) // Box2D internally scales the force by deltaTime
+        }
+    }
+
+    private fun orientationBasedOnCurrentDirection() {
+
+        if (!movable.getLinearVelocity().isZero(speedLimiter.zeroLinearSpeedThreshold)) {
+
+            val newOrientation = movable.vectorToAngle(movable.getLinearVelocity())
+            movable.orientation = newOrientation
+        }
+    }
+}

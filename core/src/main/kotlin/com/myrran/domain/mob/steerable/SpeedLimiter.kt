@@ -8,7 +8,7 @@ import com.myrran.domain.mob.metrics.Meter
 import com.myrran.domain.mob.metrics.Radian
 import com.myrran.domain.mob.metrics.Speed
 
-class SpeedLimits(
+class SpeedLimiter(
 
     private var zeroLinearSpeedTreshold: Speed<Meter> = Speed(Meter(0.001f)),
     private var maxLinearSpeed: Speed<Meter> = Speed(Meter(4f)),

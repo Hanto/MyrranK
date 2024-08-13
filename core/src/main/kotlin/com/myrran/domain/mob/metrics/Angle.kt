@@ -8,7 +8,6 @@ data class Degree(
 
 ): Angle
 {
-
     fun toFloat(): Float =
 
         value % 360

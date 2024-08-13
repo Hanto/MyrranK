@@ -9,17 +9,17 @@ import com.myrran.domain.mob.Mob
 import com.myrran.domain.mob.MobFactory
 import com.myrran.domain.mob.MobId
 import com.myrran.domain.mob.Player
+import com.myrran.domain.spells.WorldBox2D
 import com.myrran.infraestructure.controller.PlayerInputs
 import com.myrran.infraestructure.eventbus.EventDispatcher
 import com.myrran.infraestructure.eventbus.EventListener
 import com.myrran.infraestructure.eventbus.EventSender
-import com.badlogic.gdx.physics.box2d.World as Box2DWorld
 
 class World(
 
     val player: Player,
     val spellBook: SpellBook,
-    val box2dWorld: Box2DWorld,
+    val worldBox2D: WorldBox2D,
     val mobFactory: MobFactory,
     val eventDispatcher: EventDispatcher
 
@@ -39,7 +39,7 @@ class World(
     fun update(timesStep: Float) {
 
         // box2d simulation
-        box2dWorld.step(timesStep, 8, 3)
+        worldBox2D.step(timesStep, 8, 3)
 
         // mob IA
         player.act(timesStep, this)
@@ -61,7 +61,7 @@ class World(
 
     override fun dispose() {
 
-        box2dWorld.dispose()
+        worldBox2D.dispose()
         removeListener(listener = this)
     }
 

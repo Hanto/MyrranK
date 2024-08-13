@@ -5,16 +5,13 @@ import com.badlogic.gdx.physics.box2d.BodyDef
 import com.badlogic.gdx.physics.box2d.CircleShape
 import com.badlogic.gdx.physics.box2d.FixtureDef
 import com.badlogic.gdx.physics.box2d.PolygonShape
-import com.badlogic.gdx.physics.box2d.World
 import com.myrran.domain.mob.metrics.Distance
 import com.myrran.domain.mob.metrics.Size
+import com.myrran.domain.spells.WorldBox2D
 
-class BodyFactory(
-
-    private val world: World
-)
+class BodyFactory
 {
-    fun createSquareBody(size: Size<*>): Body {
+    fun createSquareBody(world: WorldBox2D, size: Size<*>, ): Body {
 
         val sizeInMeters = size.toBox2dUnits()
 
@@ -42,7 +39,7 @@ class BodyFactory(
         return body
     }
 
-    fun createCircleBody(radius: Distance): Body {
+    fun createCircleBody(world: WorldBox2D, radius: Distance): Body {
 
         val bd = BodyDef()
         bd.type = BodyDef.BodyType.KinematicBody
@@ -61,8 +58,4 @@ class BodyFactory(
         shape.dispose()
         return body
     }
-
-    fun destroyBody(body: Body) =
-
-        world.destroyBody(body)
 }

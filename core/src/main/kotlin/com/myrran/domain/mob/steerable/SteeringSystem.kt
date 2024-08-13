@@ -8,9 +8,9 @@ import com.badlogic.gdx.ai.GdxAI
 
 class SteeringSystem(
 
-    private val componentMapper: ComponentMapper<SteeringComponent>
+    private val componentMapper: ComponentMapper<SteerableByBox2D>
 
-): IteratingSystem(Family.all(SteeringComponent::class.java).get())
+): IteratingSystem(Family.all(SteerableByBox2D::class.java).get())
 {
     override fun update(deltaTime: Float) {
 

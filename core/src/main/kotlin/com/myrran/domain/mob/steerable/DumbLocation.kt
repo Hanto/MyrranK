@@ -3,7 +3,7 @@ package com.myrran.domain.mob.steerable
 import com.badlogic.gdx.ai.utils.Location
 import com.badlogic.gdx.math.Vector2
 
-data class DumbSpatial(
+data class DumbLocation(
 
     private var position: Vector2 = Vector2(0f,0f),
     private var orientation: Float = 0f
@@ -33,5 +33,5 @@ data class DumbSpatial(
 
     override fun newLocation(): Location<Vector2> =
 
-        DumbSpatial()
+        DumbLocation()
 }
