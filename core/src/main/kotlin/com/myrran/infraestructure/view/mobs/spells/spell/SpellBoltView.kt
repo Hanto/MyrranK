@@ -5,7 +5,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion
 import com.badlogic.gdx.math.Interpolation
 import com.badlogic.gdx.scenes.scene2d.actions.Actions
 import com.badlogic.gdx.utils.Align
-import com.myrran.domain.mobs.MobId
+import com.myrran.domain.mobs.common.MobId
 import com.myrran.domain.mobs.common.metrics.SizePixels
 import com.myrran.domain.mobs.spells.spell.SpellBolt
 import com.myrran.domain.mobs.spells.spell.SpellConstants.Companion.RANGE

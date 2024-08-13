@@ -5,9 +5,9 @@ import com.myrran.domain.events.Event
 import com.myrran.domain.events.MobRemovedEvent
 import com.myrran.domain.events.PlayerSpellCastedEvent
 import com.myrran.domain.events.SpellCreatedEvent
-import com.myrran.domain.mobs.Mob
-import com.myrran.domain.mobs.MobFactory
-import com.myrran.domain.mobs.MobId
+import com.myrran.domain.mobs.common.Mob
+import com.myrran.domain.mobs.common.MobFactory
+import com.myrran.domain.mobs.common.MobId
 import com.myrran.domain.mobs.player.Player
 import com.myrran.domain.mobs.spells.spell.WorldBox2D
 import com.myrran.domain.skills.SpellBook

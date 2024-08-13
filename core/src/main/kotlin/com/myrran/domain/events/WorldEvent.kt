@@ -1,7 +1,7 @@
 package com.myrran.domain.events
 
-import com.myrran.domain.mobs.Mob
-import com.myrran.domain.mobs.MobId
+import com.myrran.domain.mobs.common.Mob
+import com.myrran.domain.mobs.common.MobId
 import com.myrran.domain.mobs.common.metrics.Meter
 import com.myrran.domain.mobs.common.metrics.Position
 import com.myrran.domain.mobs.spells.spell.Spell

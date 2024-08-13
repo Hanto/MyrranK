@@ -3,8 +3,8 @@ package com.myrran.domain.mobs.spells.spell
 import com.badlogic.gdx.math.Vector2
 import com.myrran.domain.World
 import com.myrran.domain.events.MobRemovedEvent
-import com.myrran.domain.mobs.Mob
-import com.myrran.domain.mobs.MobId
+import com.myrran.domain.mobs.common.Mob
+import com.myrran.domain.mobs.common.MobId
 import com.myrran.domain.mobs.common.steerable.Movable
 import com.myrran.domain.mobs.common.steerable.Spatial
 import com.myrran.domain.mobs.common.steerable.SteerableAI

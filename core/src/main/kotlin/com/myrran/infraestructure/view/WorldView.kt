@@ -10,14 +10,14 @@ import com.myrran.domain.World
 import com.myrran.domain.events.Event
 import com.myrran.domain.events.MobRemovedEvent
 import com.myrran.domain.events.SpellCreatedEvent
-import com.myrran.domain.mobs.MobId
+import com.myrran.domain.mobs.common.MobId
 import com.myrran.domain.mobs.common.metrics.PositionPixels
 import com.myrran.domain.mobs.spells.spell.SpellBolt
 import com.myrran.infraestructure.controller.player.PlayerController
 import com.myrran.infraestructure.eventbus.EventDispatcher
 import com.myrran.infraestructure.eventbus.EventListener
 import com.myrran.infraestructure.eventbus.EventSender
-import com.myrran.infraestructure.view.mobs.MobViewFactory
+import com.myrran.infraestructure.view.mobs.common.MobViewFactory
 import com.myrran.infraestructure.view.mobs.player.PlayerView
 import com.myrran.infraestructure.view.mobs.spells.spell.SpellView
 

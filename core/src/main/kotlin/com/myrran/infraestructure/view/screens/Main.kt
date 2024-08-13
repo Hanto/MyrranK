@@ -14,7 +14,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage
 import com.myrran.badlogic.DaD
 import com.myrran.domain.World
 import com.myrran.domain.misc.DeSerializer
-import com.myrran.domain.mobs.MobFactory
+import com.myrran.domain.mobs.common.MobFactory
 import com.myrran.domain.mobs.common.metrics.Pixel
 import com.myrran.domain.mobs.common.steerable.BodyFactory
 import com.myrran.domain.mobs.spells.spell.WorldBox2D
@@ -35,7 +35,7 @@ import com.myrran.infraestructure.repositories.skilltemplate.SkillTemplateReposi
 import com.myrran.infraestructure.view.UIView
 import com.myrran.infraestructure.view.View
 import com.myrran.infraestructure.view.WorldView
-import com.myrran.infraestructure.view.mobs.MobViewFactory
+import com.myrran.infraestructure.view.mobs.common.MobViewFactory
 import com.myrran.infraestructure.view.mobs.player.PlayerViewAssets
 import com.myrran.infraestructure.view.mobs.spells.SpellViewAssets
 import com.myrran.infraestructure.view.skills.SkillViewAssets

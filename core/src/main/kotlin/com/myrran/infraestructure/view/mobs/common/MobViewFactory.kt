@@ -1,4 +1,4 @@
-package com.myrran.infraestructure.view.mobs
+package com.myrran.infraestructure.view.mobs.common
 
 import com.badlogic.gdx.graphics.g2d.Animation
 import com.myrran.domain.mobs.common.metrics.SizePixels

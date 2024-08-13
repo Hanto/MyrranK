@@ -1,4 +1,4 @@
-package com.myrran.domain.mobs
+package com.myrran.domain.mobs.common
 
 import com.myrran.domain.World
 import com.myrran.domain.misc.Identifiable

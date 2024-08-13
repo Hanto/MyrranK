@@ -1,4 +1,4 @@
-package com.myrran.domain.mobs
+package com.myrran.domain.mobs.common
 
 import java.util.UUID
 

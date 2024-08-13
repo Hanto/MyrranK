@@ -3,8 +3,8 @@ package com.myrran.domain.mobs.player
 import com.badlogic.gdx.math.Vector2
 import com.myrran.domain.World
 import com.myrran.domain.events.PlayerSpellCastedEvent
-import com.myrran.domain.mobs.Mob
-import com.myrran.domain.mobs.MobId
+import com.myrran.domain.mobs.common.Mob
+import com.myrran.domain.mobs.common.MobId
 import com.myrran.domain.mobs.common.metrics.Meter
 import com.myrran.domain.mobs.common.metrics.Pixel
 import com.myrran.domain.mobs.common.metrics.Position
