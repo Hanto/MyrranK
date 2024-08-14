@@ -1,7 +1,9 @@
 package com.myrran.infraestructure.view.mobs.player
 
+import box2dLight.PointLight
 import com.badlogic.gdx.graphics.g2d.Animation
 import com.badlogic.gdx.graphics.g2d.TextureRegion
+import com.badlogic.gdx.utils.Disposable
 import com.myrran.domain.mobs.common.metrics.SizePixels
 import com.myrran.domain.mobs.player.Player
 import com.myrran.domain.mobs.player.StateIddle
@@ -12,10 +14,11 @@ import com.myrran.infraestructure.view.mobs.common.Sprite
 class PlayerView(
 
     private val model: Player,
+    private val light: PointLight,
     animations: Map<PlayerAnimation, Animation<TextureRegion>>,
     size: SizePixels
 
-): Sprite<PlayerAnimation>(animations, PlayerAnimation.IDDLE, size)
+): Sprite<PlayerAnimation>(animations, PlayerAnimation.IDDLE, size), Disposable
 {
     fun update(fractionOfTimestep: Float) {
 
@@ -64,6 +67,10 @@ class PlayerView(
         setAnimation(newDirection.animation)
         oldDirection = newDirection
     }
+
+    override fun dispose() =
+
+        light.remove()
 
     // HELPER:
     //--------------------------------------------------------------------------------------------------------

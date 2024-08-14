@@ -1,7 +1,16 @@
 package com.myrran.infraestructure.view.mobs.common
 
+import box2dLight.PointLight
+import box2dLight.RayHandler
+import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.graphics.g2d.Animation
+import com.badlogic.gdx.physics.box2d.Filter
+import com.myrran.domain.mobs.common.metrics.Pixel
 import com.myrran.domain.mobs.common.metrics.SizePixels
+import com.myrran.domain.mobs.common.steerable.Box2dFilters.Companion.BODY
+import com.myrran.domain.mobs.common.steerable.Box2dFilters.Companion.LIGHT
+import com.myrran.domain.mobs.common.steerable.Box2dFilters.Companion.PLAYER
+import com.myrran.domain.mobs.common.steerable.Box2dFilters.Companion.WALLS
 import com.myrran.domain.mobs.player.Player
 import com.myrran.domain.mobs.spells.spell.Spell
 import com.myrran.domain.mobs.spells.spell.SpellBolt
@@ -13,17 +22,22 @@ import com.myrran.infraestructure.view.mobs.spells.spell.SpellAnimation
 import com.myrran.infraestructure.view.mobs.spells.spell.SpellBoltView
 import com.myrran.infraestructure.view.mobs.spells.spell.SpellView
 import ktx.collections.toGdxArray
+import kotlin.experimental.or
 
 class MobViewFactory(
 
     private val playerAssets: PlayerViewAssets,
     private val spellAssets: SpellViewAssets,
+    private val rayHandler: RayHandler
 )
 {
     companion object {
 
         private val size = SizePixels(32, 32)
     }
+
+    // PLAYER:
+    //--------------------------------------------------------------------------------------------------------
 
     fun createPlayer(model: Player): PlayerView {
 
@@ -33,12 +47,26 @@ class MobViewFactory(
             PlayerAnimation.WALK_WEST to Animation(0.2f, arrayOf(frames[1][0], frames[1][1], frames[1][2]).toGdxArray()),
             PlayerAnimation.WALK_EAST to Animation(0.2f, arrayOf(frames[2][0], frames[2][1], frames[2][2]).toGdxArray()),
             PlayerAnimation.WALK_NORTH to Animation(0.2f, arrayOf(frames[3][0], frames[3][1], frames[3][2]).toGdxArray()),
-            PlayerAnimation.CASTING to Animation(0.25f, arrayOf(frames[4][6]).toGdxArray()),
-            PlayerAnimation.IDDLE to Animation(0.5f, arrayOf(frames[2][3], frames[2][4], frames[2][5]).toGdxArray())
+            PlayerAnimation.IDDLE to Animation(0.5f, arrayOf(frames[2][3], frames[2][4], frames[2][5]).toGdxArray()),
+            PlayerAnimation.CASTING to Animation(0.25f, arrayOf(frames[4][6]).toGdxArray())
         )
 
-        return PlayerView(model, animations, size)
+        val filter = Filter()
+            .also { it.categoryBits = LIGHT }
+            .also { it.maskBits = PLAYER or BODY or WALLS}
+
+        val light = PointLight(rayHandler, 300)
+            .also { it.setContactFilter(filter) }
+            .also { it.isSoft = true }
+            .also { it.setSoftnessLength(30f) }
+
+        model.steerable.attachLight(light)
+
+        return PlayerView(model, light, animations, size)
     }
+
+    // SPELLS:
+    //--------------------------------------------------------------------------------------------------------
 
     fun createSpell(spell: Spell): SpellView =
 
@@ -46,13 +74,30 @@ class MobViewFactory(
             is SpellBolt -> createSpellBolt(spell)
         }
 
+    // SPELL BOLT:
+    //--------------------------------------------------------------------------------------------------------
+
     private fun createSpellBolt(model: SpellBolt): SpellBoltView {
 
         val frames = spellAssets.spellBolt.split(size.width.value(), size.height.value())
         val animations = mapOf(
             SpellAnimation.GLOW to Animation(0.1f,  arrayOf(frames[0][3], frames[0][4], frames[0][5], frames[0][4]).toGdxArray()))
 
-        return SpellBoltView(model, animations, size)
-    }
+        val filter = Filter()
+            .also { it.categoryBits = LIGHT }
+            .also { it.maskBits = BODY or WALLS }
 
+        val light = PointLight(rayHandler, 50)
+            .also { it.setContactFilter(filter) }
+            .also { it.isSoft = true }
+            .also { it.setSoftnessLength(20f) }
+
+        light.color = Color(0.6f, 0.0f, 0.0f, 0.5f)
+        light.distance = Pixel(256 ).toBox2DUnits()
+        light.ignoreAttachedBody = true
+
+        model.steerable.attachLight(light)
+
+        return SpellBoltView(model, light, animations, size)
+    }
 }

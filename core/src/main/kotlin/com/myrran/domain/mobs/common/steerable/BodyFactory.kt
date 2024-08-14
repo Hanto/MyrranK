@@ -7,53 +7,53 @@ import com.badlogic.gdx.physics.box2d.FixtureDef
 import com.badlogic.gdx.physics.box2d.PolygonShape
 import com.myrran.domain.mobs.common.metrics.Distance
 import com.myrran.domain.mobs.common.metrics.Size
+import com.myrran.domain.mobs.common.steerable.Box2dFilters.Companion.BODY
+import com.myrran.domain.mobs.common.steerable.Box2dFilters.Companion.BULLET
+import com.myrran.domain.mobs.common.steerable.Box2dFilters.Companion.LIGHT
+import com.myrran.domain.mobs.common.steerable.Box2dFilters.Companion.PLAYER
+import com.myrran.domain.mobs.common.steerable.Box2dFilters.Companion.WALLS
 import com.myrran.domain.mobs.spells.spell.WorldBox2D
+import kotlin.experimental.or
 
 class BodyFactory
 {
-    fun createSquareBody(world: WorldBox2D, size: Size<*>, ): Body {
-
-        val sizeInMeters = size.toBox2dUnits()
+    fun createPlayerBody(world: WorldBox2D, size: Size<*>, ): Body {
 
         val bd = BodyDef()
-        bd.type = BodyDef.BodyType.KinematicBody
-        bd.position.set(0f, 0f)
-        bd.fixedRotation = true
+            .also { it.type = BodyDef.BodyType.KinematicBody }
+            .also { it.fixedRotation = true }
 
+        val dimensions = size.toBox2dUnits().scl(0.5f)
         val shape = PolygonShape()
-
-        sizeInMeters.scl(0.5f)
-        shape.setAsBox(sizeInMeters.x, sizeInMeters.y, sizeInMeters, 0f)
+            .also { it.setAsBox(dimensions.x, dimensions.y, dimensions, 0f) }
 
         val fixDef = FixtureDef()
-        fixDef.shape = shape
-        //fixDef.density = 60f
+            .also { it.shape = shape }
+            .also { it.filter.categoryBits = PLAYER }
+            .also { it.filter.maskBits = BODY or BULLET or LIGHT }
 
         val body = world.createBody(bd)
-        body.createFixture(fixDef)
-        //body.gravityScale = 0f
-        //body.linearDamping = 0.3f
-        //body.isSleepingAllowed = false
+            .also { it.createFixture(fixDef) }
 
         shape.dispose()
         return body
     }
 
-    fun createCircleBody(world: WorldBox2D, radius: Distance): Body {
+    fun createSpellBoltBody(world: WorldBox2D, radius: Distance): Body {
 
         val bd = BodyDef()
-        bd.type = BodyDef.BodyType.KinematicBody
-        bd.position.set(0f, 0f)
-        bd.fixedRotation = true
+            .also { it.type = BodyDef.BodyType.KinematicBody }
 
         val shape = CircleShape()
-        shape.radius = radius.toBox2DUnits()
+            .also { it.radius = radius.toBox2DUnits() }
 
         val fixDef = FixtureDef()
-        fixDef.shape = shape
+            .also { it.shape = shape }
+            .also { it.filter.categoryBits = BULLET }
+            .also { it.filter.maskBits = BODY or WALLS }
 
         val body = world.createBody(bd)
-        body.createFixture(fixDef)
+            .also { it.createFixture(fixDef) }
 
         shape.dispose()
         return body

@@ -33,7 +33,7 @@ class World(
 
     init {
 
-        addListener(listener = this, PlayerSpellCastedEvent::class, MobRemovedEvent::class)
+        addListener(this, PlayerSpellCastedEvent::class, MobRemovedEvent::class)
     }
 
     // UPDATE
@@ -65,7 +65,7 @@ class World(
     override fun dispose() {
 
         worldBox2D.dispose()
-        removeListener(listener = this)
+        removeListener( this)
     }
 
     override fun handleEvent(event: Event) {

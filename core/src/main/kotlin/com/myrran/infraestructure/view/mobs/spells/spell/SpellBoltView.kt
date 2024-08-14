@@ -1,10 +1,12 @@
 package com.myrran.infraestructure.view.mobs.spells.spell
 
+import box2dLight.PointLight
 import com.badlogic.gdx.graphics.g2d.Animation
 import com.badlogic.gdx.graphics.g2d.TextureRegion
 import com.badlogic.gdx.math.Interpolation
 import com.badlogic.gdx.scenes.scene2d.actions.Actions
 import com.badlogic.gdx.utils.Align
+import com.badlogic.gdx.utils.Disposable
 import com.myrran.domain.mobs.common.MobId
 import com.myrran.domain.mobs.common.metrics.SizePixels
 import com.myrran.domain.mobs.spells.spell.SpellBolt
@@ -16,10 +18,11 @@ import ktx.actors.alpha
 class SpellBoltView(
 
     private val model: SpellBolt,
+    private val light: PointLight,
     animations: Map<SpellAnimation, Animation<TextureRegion>>,
     size: SizePixels
 
-): Sprite<SpellAnimation>(animations, SpellAnimation.GLOW, size), SpellView
+): Sprite<SpellAnimation>(animations, SpellAnimation.GLOW, size), SpellView, Disposable
 {
     override val id: MobId = model.id
 
@@ -44,4 +47,8 @@ class SpellBoltView(
         model.getInterpolatedPosition(fractionOfTimestep)
             .also { setPosition(it.x, it.y, Align.center) }
     }
+
+    override fun dispose() =
+
+        light.remove()
 }

@@ -1,5 +1,6 @@
 package com.myrran.domain.mobs.common.steerable
 
+import box2dLight.PointLight
 import com.badlogic.ashley.core.Component
 import com.badlogic.gdx.ai.steer.Limiter
 import com.badlogic.gdx.ai.steer.SteeringAcceleration
@@ -35,6 +36,10 @@ class SteerableByBox2DComponent(
     fun destroyBody(world: WorldBox2D) =
 
         world.destroyBody(movable.body)
+
+    fun attachLight(light: PointLight) =
+
+        light.attachToBody(movable.body)
 
     // STEERING:
     //--------------------------------------------------------------------------------------------------------

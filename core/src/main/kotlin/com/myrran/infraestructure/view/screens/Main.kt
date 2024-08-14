@@ -1,5 +1,6 @@
 package com.myrran.infraestructure.view.screens
 
+import box2dLight.RayHandler
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.InputMultiplexer
 import com.badlogic.gdx.ai.msg.MessageDispatcher
@@ -141,13 +142,15 @@ class Main : KtxGame<KtxScreen>() {
         //----------------------------------------------------------------------------------------------------
 
         val worldStage = Stage()
+        val rayHandler = RayHandler(worldBox2D)
         val playerAssets = PlayerViewAssets(
             character =  assetStorage.getTextureRegion("Atlas.atlas", "BAK/Player Sprites/Player"))
         val spellAssets = SpellViewAssets(
             spellBolt = assetStorage.getTextureRegion("Atlas.atlas", "AnimacionesSpells/SpellBalls_01n"))
         val mobViewFactory = MobViewFactory(
             playerAssets = playerAssets,
-            spellAssets = spellAssets)
+            spellAssets = spellAssets,
+            rayHandler = rayHandler)
         val worldCamera = OrthographicCamera(
             Pixel(Gdx.graphics.width).toMeters().toFloat(),
             Pixel(Gdx.graphics.height).toMeters().toFloat())
@@ -156,6 +159,7 @@ class Main : KtxGame<KtxScreen>() {
             stage = worldStage,
             camera = worldCamera,
             mobViewFactory = mobViewFactory,
+            rayHandler = rayHandler,
             eventDispatcher = eventDispatcher)
 
         // VIEW:

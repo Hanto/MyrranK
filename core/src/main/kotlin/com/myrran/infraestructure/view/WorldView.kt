@@ -1,5 +1,6 @@
 package com.myrran.infraestructure.view
 
+import box2dLight.RayHandler
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.graphics.OrthographicCamera
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer
@@ -26,6 +27,7 @@ class WorldView(
     private val stage: Stage,
     private val camera: OrthographicCamera,
     private val mobViewFactory: MobViewFactory,
+    private val rayHandler: RayHandler,
     private val eventDispatcher: EventDispatcher,
 
 ): EventSender by eventDispatcher, EventListener, Disposable
@@ -37,10 +39,11 @@ class WorldView(
 
     init {
 
+        rayHandler.setAmbientLight(0.5f)
         stage.addActor(playerView)
         //camera.zoom = 0.5f
         stage.viewport.camera = camera
-        addListener(listener = this, SpellCreatedEvent::class, MobRemovedEvent::class)
+        addListener(this, SpellCreatedEvent::class, MobRemovedEvent::class)
     }
 
     fun render(deltaTime: Float, fractionOfTimestep: Float) {
@@ -53,6 +56,9 @@ class WorldView(
         //camera.position.set(playerView.x, playerView.y, 0f)
         camera.update()
 
+        rayHandler.setCombinedMatrix(camera)
+        rayHandler.updateAndRender()
+
         stage.act(deltaTime)
         stage.draw()
     }
@@ -62,9 +68,12 @@ class WorldView(
 
     override fun dispose() {
 
+        playerView.dispose()
         stage.dispose()
         box2dDebug.dispose()
-        removeListener(listener = this)
+        rayHandler.dispose()
+        spellViews.values.forEach { it.dispose() }
+        removeListener( this)
     }
 
     override fun handleEvent(event: Event) {
@@ -101,7 +110,7 @@ class WorldView(
 
         when (event.mob) {
 
-            is SpellBolt -> spellViews.remove(event.mob.id)?.also { (it as Actor).remove() }
+            is SpellBolt -> spellViews.remove(event.mob.id)?.also { (it as Actor).remove() }?.also { it.dispose() }
             else -> Unit
         }
     }

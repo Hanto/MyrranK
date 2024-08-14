@@ -33,7 +33,7 @@ class MobFactory(
 {
     fun createPlayer(): Player {
 
-        val body = bodyFactory.createSquareBody(worldBox2D, SizePixels(32, 32))
+        val body = bodyFactory.createPlayerBody(worldBox2D, SizePixels(32, 32))
         val limiter = SpeedLimiter(
             maxLinearSpeed = Speed(Meter(4f)))
         val location = MovableByBox2D(
@@ -67,7 +67,7 @@ class MobFactory(
         val duration = Second(skill.getStat(RANGE)!!.totalBonus().value)
         val consumable = ConsumableComponent(duration)
 
-        val body = bodyFactory.createCircleBody(worldBox2D, radius)
+        val body = bodyFactory.createSpellBoltBody(worldBox2D, radius)
         val limiter = SpeedLimiter(
             maxLinearSpeed = Speed(Meter(100f)))
         val location = MovableByBox2D(
@@ -90,7 +90,11 @@ class MobFactory(
 
     fun destroyMob(mob: Mob) {
 
-        if (mob.steerable is SteerableByBox2DComponent)
-            (mob.steerable as SteerableByBox2DComponent).destroyBody(worldBox2D)
+        if (mob.steerable is SteerableByBox2DComponent) {
+
+            val steerableBox2d = mob.steerable as SteerableByBox2DComponent
+            steerableBox2d.destroyBody(worldBox2D)
+        }
+
     }
 }
