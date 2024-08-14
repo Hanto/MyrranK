@@ -42,6 +42,9 @@ class SpellBoltView(
             Actions.fadeOut(0.3f, Interpolation.circleOut)))
     }
 
+    // UPDATE:
+    //--------------------------------------------------------------------------------------------------------
+
     override fun update(fractionOfTimestep: Float) {
 
         model.getInterpolatedPosition(fractionOfTimestep)
