@@ -12,6 +12,7 @@ import com.myrran.infraestructure.view.skills.created.skill.SkillViews
 import com.myrran.infraestructure.view.skills.templates.effect.EffectTemplateViews
 import com.myrran.infraestructure.view.skills.templates.form.FormTemplateViews
 import com.myrran.infraestructure.view.skills.templates.skill.SkillTemplateViews
+import com.myrran.infraestructure.view.ui.TextView
 
 class UIView(
 
@@ -27,6 +28,7 @@ class UIView(
     private val effectTemplates = EffectTemplateViews(SkillViewId(), spellBook, assets, skillViewFactory)
     private val formTemplates = FormTemplateViews(SkillViewId(), spellBook, assets, skillViewFactory)
     private val createdSkills = SkillViews(SkillViewId(), spellBook, assets, bookController, skillViewFactory)
+    private val fps = TextView("FPS: ", assets.font20)
 
     init {
 
@@ -34,6 +36,7 @@ class UIView(
         stage.addActor(formTemplates)
         stage.addActor(effectTemplates)
         stage.addActor(createdSkills)
+        stage.addActor(fps).also { fps.setPosition(10f ,2f) }
 
         effectTemplates.setPosition(533f, 154f)
         formTemplates.setPosition(268f, 154f)
@@ -44,6 +47,8 @@ class UIView(
     fun render(deltaTime: Float) {
 
         stage.act(deltaTime)
+
+        fps.setText("FPS: ${Gdx.graphics.framesPerSecond}")
 
         stage.draw()
     }
