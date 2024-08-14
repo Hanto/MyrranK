@@ -1,95 +1,125 @@
 package com.myrran.domain.mobs.player
 
-import com.badlogic.gdx.math.Vector2
 import com.myrran.infraestructure.controller.player.PlayerInputs
 
-data class StateIddle(override val direction: Vector2): State {
+// must remain iddle to cast spells, they are casted after expending the required casting time
+//------------------------------------------------------------------------------------------------------------
 
-    override fun nextState(inputs: PlayerInputs): State {
+data object StateTacticalIddle : State, StateIddle {
 
-        val nextDirection = inputs.calculateDirection(direction)
+    override fun nextState(inputs: PlayerInputs, player: Player): State =
 
-        return when {
-            nextDirection.goesEast() -> StateEast(nextDirection)
-            nextDirection.goesWest() -> StateWest(nextDirection)
-            nextDirection.goesNorth() -> StateNorth(nextDirection)
-            nextDirection.goesSouth() -> StateSouth(nextDirection)
-            else -> StateIddle(nextDirection)
+        when {
+
+            inputs.tryToCast && player.isReadyToCast() -> {
+
+                player.startCasting()
+                    .let { StateTacticalCasting }
+            }
+            inputs.isMoving() -> {
+
+                player.setLinearVelocity(inputs.calculateDirection(), player.maxLinearSpeed)
+                    .let { StateTacticalMoving }
+            }
+            else -> StateTacticalIddle
+        }
+}
+
+data object StateTacticalMoving: State, StateMoving {
+
+    override fun nextState(inputs: PlayerInputs, player: Player): State =
+
+        when {
+
+            inputs.isMoving() -> {
+
+                player.setLinearVelocity(inputs.calculateDirection(), player.maxLinearSpeed)
+                    .let { StateTacticalMoving }
+            }
+            inputs.tryToCast && player.isReadyToCast() -> {
+
+                player.setLinearVelocity(inputs.calculateDirection(), 0f)
+                    .let { player.startCasting() }
+                    .let { StateTacticalCasting }
+            }
+            else -> {
+
+                player.setLinearVelocity(inputs.calculateDirection(), 0f)
+                    .let { StateTacticalIddle }
+            }
+        }
+}
+
+data object StateTacticalCasting: State {
+
+    override fun nextState(inputs: PlayerInputs, player: Player): State =
+
+        when {
+
+            inputs.isMoving() -> {
+
+                player.setLinearVelocity(inputs.calculateDirection(), player.maxLinearSpeed)
+                    .let { player.stopCasting() }
+                    .let { StateTacticalMoving }
+            }
+            player.isReadyToCast() && inputs.tryToCast -> {
+
+                player.castSpell()
+                    .let { player.startCasting() }
+                    .let { StateTacticalCasting }
+            }
+            player.isReadyToCast() && !inputs.tryToCast -> {
+
+                player.castSpell()
+                    .let { StateTacticalIddle }
+            }
+            else -> StateTacticalCasting
+        }
+}
+
+// can cast spells on the run, they only trigger a cooldown on use:
+//------------------------------------------------------------------------------------------------------------
+
+data object StateActionIddle: State, StateIddle {
+
+    override fun nextState(inputs: PlayerInputs, player: Player): State {
+
+        if (inputs.tryToCast && player.isReadyToCast())
+            player.castSpell().also { player.startCasting() }
+
+        return when(inputs.isMoving()) {
+
+            true -> player.setLinearVelocity(inputs.calculateDirection(), player.maxLinearSpeed)
+                .let { StateActionMoving }
+
+            false -> StateActionIddle
         }
     }
 }
 
-data class StateEast(override val direction: Vector2): State {
+data object StateActionMoving: State, StateMoving {
 
-    override fun nextState(inputs: PlayerInputs): State {
+    override fun nextState(inputs: PlayerInputs, player: Player): State {
 
-        val nextDirection = inputs.calculateDirection(direction)
+        if (inputs.tryToCast && player.isReadyToCast())
+            player.castSpell().also { player.startCasting() }
 
-        return when {
-            nextDirection.goesEast() -> StateEast(nextDirection)
-            nextDirection.goesWest() -> StateWest(nextDirection)
-            nextDirection.goesNorth() -> StateNorth(nextDirection)
-            nextDirection.goesSouth() -> StateSouth(nextDirection)
-            else -> StateIddle(nextDirection)
+        return when(inputs.isMoving()) {
+
+            true -> player.setLinearVelocity(inputs.calculateDirection(), player.maxLinearSpeed)
+                .let { StateActionMoving }
+
+            false -> player.setLinearVelocity(inputs.calculateDirection(), 0f)
+                .let { StateActionIddle }
         }
     }
 }
 
-data class StateWest(override val direction: Vector2): State {
-
-    override fun nextState(inputs: PlayerInputs): State {
-
-        val nextDirection = inputs.calculateDirection(direction)
-
-        return when {
-            nextDirection.goesEast() -> StateEast(nextDirection)
-            nextDirection.goesWest() -> StateWest(nextDirection)
-            nextDirection.goesNorth() -> StateNorth(nextDirection)
-            nextDirection.goesSouth() -> StateSouth(nextDirection)
-            else -> StateIddle(nextDirection)
-        }
-    }
-}
-
-data class StateNorth(override val direction: Vector2): State {
-
-    override fun nextState(inputs: PlayerInputs): State {
-
-        val nextDirection = inputs.calculateDirection(direction)
-
-        return when {
-            nextDirection.goesNorth() -> StateNorth(nextDirection)
-            nextDirection.goesSouth() -> StateSouth(nextDirection)
-            nextDirection.goesEast() -> StateEast(nextDirection)
-            nextDirection.goesWest() -> StateWest(nextDirection)
-            else -> StateIddle(nextDirection)
-        }
-    }
-}
-
-data class StateSouth(override val direction: Vector2): State {
-
-    override fun nextState(inputs: PlayerInputs): State {
-
-        val nextDirection = inputs.calculateDirection(direction)
-
-        return when {
-            nextDirection.goesNorth() -> StateNorth(nextDirection)
-            nextDirection.goesSouth() -> StateSouth(nextDirection)
-            nextDirection.goesEast() -> StateEast(nextDirection)
-            nextDirection.goesWest() -> StateWest(nextDirection)
-            else -> StateIddle(nextDirection)
-        }
-    }
-}
 
 sealed interface State {
 
-    val direction: Vector2
-    fun nextState(inputs: PlayerInputs): State
+    fun nextState(inputs: PlayerInputs, player: Player): State
 }
 
-private fun Vector2.goesNorth() = this.y > 0
-private fun Vector2.goesSouth() = this.y < 0
-private fun Vector2.goesWest() = this.x < 0
-private fun Vector2.goesEast() = this.x > 0
+sealed interface StateIddle: State
+sealed interface StateMoving: State

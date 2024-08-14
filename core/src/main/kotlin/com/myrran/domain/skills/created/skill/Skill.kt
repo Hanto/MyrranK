@@ -14,7 +14,7 @@ import com.myrran.domain.misc.observer.JavaObservable
 import com.myrran.domain.misc.observer.Observable
 import com.myrran.domain.mobs.common.metrics.Second
 import com.myrran.domain.mobs.spells.spell.SkillType
-import com.myrran.domain.mobs.spells.spell.SpellConstants
+import com.myrran.domain.mobs.spells.spell.SpellConstants.Companion.COOLDOWN
 import com.myrran.domain.skills.created.effect.EffectSkill
 import com.myrran.domain.skills.created.effect.EffectSkillSlotId
 import com.myrran.domain.skills.created.form.FormSkill
@@ -53,7 +53,7 @@ data class Skill(
 
     fun getCastingTime(): Second =
 
-        Second(getStat(SpellConstants.COOLDOWN)!!.totalBonus().value / 100)
+        Second(getStat(COOLDOWN)!!.totalBonus().value / 100)
 
     // FORM SKILLS:
     //--------------------------------------------------------------------------------------------------------

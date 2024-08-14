@@ -1,6 +1,5 @@
 package com.myrran.domain.mobs.common
 
-import com.badlogic.gdx.math.Vector2
 import com.myrran.domain.mobs.common.caster.CasterComponent
 import com.myrran.domain.mobs.common.consumable.ConsumableComponent
 import com.myrran.domain.mobs.common.metrics.Meter
@@ -14,20 +13,22 @@ import com.myrran.domain.mobs.common.steerable.MovableByBox2D
 import com.myrran.domain.mobs.common.steerable.SpeedLimiter
 import com.myrran.domain.mobs.common.steerable.SteerableByBox2DComponent
 import com.myrran.domain.mobs.player.Player
-import com.myrran.domain.mobs.player.StateIddle
+import com.myrran.domain.mobs.player.StateTacticalIddle
 import com.myrran.domain.mobs.spells.spell.SkillType
 import com.myrran.domain.mobs.spells.spell.SpellBolt
 import com.myrran.domain.mobs.spells.spell.SpellConstants.Companion.RANGE
 import com.myrran.domain.mobs.spells.spell.SpellConstants.Companion.SIZE
 import com.myrran.domain.mobs.spells.spell.WorldBox2D
 import com.myrran.domain.skills.created.skill.Skill
+import com.myrran.infraestructure.controller.player.PlayerInputs
 import com.myrran.infraestructure.eventbus.EventDispatcher
 
 class MobFactory(
 
     private val worldBox2D: WorldBox2D,
     private val bodyFactory: BodyFactory,
-    private val eventDispatcher: EventDispatcher
+    private val eventDispatcher: EventDispatcher,
+    private val playerInputs: PlayerInputs,
 )
 {
     fun createPlayer(): Player {
@@ -45,8 +46,9 @@ class MobFactory(
         val player = Player(
             id = MobId(),
             steerable = movable,
-            state = StateIddle(Vector2(0f,0f)),
+            state = StateTacticalIddle,
             eventDispatcher = eventDispatcher,
+            inputs = playerInputs,
             caster = caster)
 
         return player

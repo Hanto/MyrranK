@@ -3,18 +3,17 @@ package com.myrran.infraestructure.controller.player
 import com.badlogic.gdx.Input
 import com.badlogic.gdx.Input.Buttons
 import com.badlogic.gdx.InputProcessor
-import com.badlogic.gdx.graphics.OrthographicCamera
 import com.myrran.domain.World
 
 class PlayerController(
 
     private val world: World,
-    private val worldCamera: OrthographicCamera,
-    private val playerInputs: PlayerInputs,
 
 ): InputProcessor
 {
     override fun keyDown(keycode: Int): Boolean {
+
+        val playerInputs = world.player.inputs
 
         when(keycode) {
 
@@ -23,12 +22,12 @@ class PlayerController(
             Input.Keys.A -> playerInputs.goWest = true
             Input.Keys.D -> playerInputs.goEast = true
         }
-
-        world.applyPlayerInputs(playerInputs)
         return true
     }
 
     override fun keyUp(keycode: Int): Boolean {
+
+        val playerInputs = world.player.inputs
 
         when(keycode) {
 
@@ -37,28 +36,28 @@ class PlayerController(
             Input.Keys.A -> playerInputs.goWest = false
             Input.Keys.D -> playerInputs.goEast = false
         }
-
-        world.applyPlayerInputs(playerInputs)
         return true
     }
 
     override fun touchDown(screenX: Int, screenY: Int, pointer: Int, button: Int): Boolean {
 
+        val playerInputs = world.player.inputs
+
         when(button) {
 
             Buttons.RIGHT -> playerInputs.tryToCast = true
         }
-        world.applyPlayerInputs(playerInputs)
         return false
     }
 
     override fun touchUp(screenX: Int, screenY: Int, pointer: Int, button: Int): Boolean {
 
+        val playerInputs = world.player.inputs
+
         when(button) {
 
             Buttons.RIGHT -> playerInputs.tryToCast = false
         }
-        world.applyPlayerInputs(playerInputs)
         return false
     }
 

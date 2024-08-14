@@ -1,16 +1,17 @@
 package com.myrran.domain.mobs.common.caster
 
 import com.myrran.domain.mobs.common.metrics.PositionMeters
-import com.myrran.domain.mobs.common.metrics.Second
-import com.myrran.domain.skills.created.skill.SkillId
+import com.myrran.domain.skills.created.skill.Skill
 
 interface Caster {
 
-    var selectedSkillId: SkillId?
     var pointingAt: PositionMeters
 
     fun isReadyToCast(): Boolean
-    fun setCastingTime(castingTime: Second)
+    fun getSelectedSkill(): Skill?
+    fun changeSelecctedSkillTo(newSkill: Skill)
+    fun startCasting()
+    fun stopCasting()
     fun updateCastingTime(deltaTime: Float)
     fun updateTarget(target: PositionMeters)
 }

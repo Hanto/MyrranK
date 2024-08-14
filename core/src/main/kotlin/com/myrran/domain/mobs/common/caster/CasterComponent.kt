@@ -2,11 +2,11 @@ package com.myrran.domain.mobs.common.caster
 
 import com.myrran.domain.mobs.common.metrics.PositionMeters
 import com.myrran.domain.mobs.common.metrics.Second
-import com.myrran.domain.skills.created.skill.SkillId
+import com.myrran.domain.skills.created.skill.Skill
 
 class CasterComponent(
 
-    override var selectedSkillId: SkillId? = SkillId.from("5e2d588d-cc7e-4475-87da-622409e4eb31"),
+    private var selectedSkill: Skill? = null,
     override var pointingAt: PositionMeters = PositionMeters(0f,0f)
 
 ): Caster
@@ -15,14 +15,34 @@ class CasterComponent(
     private var requiredTime: Second = Second(0)
     private var expendedTime: Second = Second(0)
 
+    override fun getSelectedSkill(): Skill? =
+
+        selectedSkill
+
+    override fun changeSelecctedSkillTo(newSkill: Skill) {
+
+        if (!isCasting)
+            selectedSkill = newSkill
+    }
+
     override fun isReadyToCast(): Boolean =
 
-        !isCasting && selectedSkillId != null
+        !isCasting && selectedSkill != null
 
-    override fun setCastingTime(castingTime: Second) {
+    override fun startCasting() {
 
-        isCasting = true
-        requiredTime = castingTime
+        if (isReadyToCast()) {
+
+            isCasting = true
+            expendedTime = Second(0)
+            requiredTime = selectedSkill!!.getCastingTime()
+        }
+    }
+
+    override fun stopCasting() {
+
+        isCasting = false
+        expendedTime = Second(0)
     }
 
     override fun updateCastingTime(deltaTime: Float) {
@@ -31,11 +51,8 @@ class CasterComponent(
 
             expendedTime += Second.fromBox2DUnits(deltaTime)
 
-            if (expendedTime >= requiredTime) {
-
-                isCasting = false
-                expendedTime = Second(0)
-            }
+            if (expendedTime >= requiredTime)
+                stopCasting()
         }
     }
 

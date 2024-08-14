@@ -5,5 +5,6 @@ enum class PlayerAnimation {
     WALK_WEST,
     WALK_NORTH,
     WALK_SOUTH,
-    IDDLE
+    IDDLE,
+    CASTING
 }

@@ -13,7 +13,6 @@ import com.myrran.domain.events.SpellCreatedEvent
 import com.myrran.domain.mobs.common.MobId
 import com.myrran.domain.mobs.common.metrics.PositionPixels
 import com.myrran.domain.mobs.spells.spell.SpellBolt
-import com.myrran.infraestructure.controller.player.PlayerController
 import com.myrran.infraestructure.eventbus.EventDispatcher
 import com.myrran.infraestructure.eventbus.EventListener
 import com.myrran.infraestructure.eventbus.EventSender
@@ -27,7 +26,6 @@ class WorldView(
     private val stage: Stage,
     private val camera: OrthographicCamera,
     private val mobViewFactory: MobViewFactory,
-    private val playerController: PlayerController,
     private val eventDispatcher: EventDispatcher,
 
 ): EventSender by eventDispatcher, EventListener, Disposable
@@ -47,7 +45,7 @@ class WorldView(
 
     fun render(deltaTime: Float, fractionOfTimestep: Float) {
 
-        box2dDebug.render(model.worldBox2D, camera.combined)
+        //box2dDebug.render(model.worldBox2D, camera.combined)
 
         interpolatePositions(fractionOfTimestep)
         updatePlayerWithTheirTargets()

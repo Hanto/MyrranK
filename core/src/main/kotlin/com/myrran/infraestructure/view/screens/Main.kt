@@ -70,10 +70,10 @@ class Main : KtxGame<KtxScreen>() {
         assetStorage.load(initialAssets)
         assetStorage.finishLoading()
 
-        // UI VIEW:
+        // WORLD:
         //----------------------------------------------------------------------------------------------------
 
-        val uiStage = Stage()
+        val worldBox2D = WorldBox2D(Vector2(0f, 0f), true)
         val skillAdapter = SkillAdapter()
         val skillRepository = SkillRepository(
             skillAdapter = skillAdapter,
@@ -90,6 +90,26 @@ class Main : KtxGame<KtxScreen>() {
         val spellBook = SpellBook(
             created = skillRepository,
             learned = learnedTemplates)
+        val playerInputs = PlayerInputs()
+        val bodyFactory = BodyFactory()
+        val mobFactory = MobFactory(
+            bodyFactory = bodyFactory,
+            eventDispatcher = eventDispatcher,
+            worldBox2D = worldBox2D,
+            playerInputs = playerInputs)
+        val player = mobFactory.createPlayer()
+        player.changeSelecctedSkillTo(spellBook.findAllPlayerSkills().first())
+        val world = World(
+            player = player,
+            spellBook = spellBook,
+            worldBox2D = worldBox2D,
+            mobFactory = mobFactory,
+            eventDispatcher = eventDispatcher)
+
+        // UI VIEW:
+        //----------------------------------------------------------------------------------------------------
+
+        val uiStage = Stage()
         val skillViewAssets = SkillViewAssets(
             font20 = assetStorage.getFont("20.fnt"),
             font14 = assetStorage.getFont("14.fnt"),
@@ -107,32 +127,15 @@ class Main : KtxGame<KtxScreen>() {
                 "SkillIcon" to assetStorage.getTextureRegion("Atlas.atlas", "TexturasIconos/FireBall"),
                 "EffectIcon" to assetStorage.getTextureRegion("Atlas.atlas", "TexturasIconos/Editar"),
                 "FormIcon" to assetStorage.getTextureRegion("Atlas.atlas", "TexturasIconos/Muros")))
-        val bookController = SpellBookController(spellBook)
-        val dragAndDropManager = DragAndDropManager(DaD(), DaD())
-        val skillViewFactory = SkillViewFactory(dragAndDropManager, skillViewAssets)
+        val bookController = SpellBookController(book = spellBook)
+        val dragAndDropManager = DragAndDropManager(effectDaDs = DaD(), formDaDs = DaD())
+        val skillViewFactory = SkillViewFactory(dragAndDropManager =  dragAndDropManager, assets = skillViewAssets)
         val uiView = UIView(
             spellBook = spellBook,
             stage = uiStage,
             assets = skillViewAssets,
             bookController = bookController,
             skillViewFactory = skillViewFactory)
-
-        // WORLD:
-        //----------------------------------------------------------------------------------------------------
-
-        val worldBox2D = WorldBox2D(Vector2(0f, 0f), true)
-        val bodyFactory = BodyFactory()
-        val mobFactory = MobFactory(
-            bodyFactory = bodyFactory,
-            eventDispatcher = eventDispatcher,
-            worldBox2D = worldBox2D)
-        val player = mobFactory.createPlayer()
-        val world = World(
-            player = player,
-            spellBook = spellBook,
-            worldBox2D = worldBox2D,
-            mobFactory = mobFactory,
-            eventDispatcher = eventDispatcher)
 
         // WORLD VIEW:
         //----------------------------------------------------------------------------------------------------
@@ -141,30 +144,24 @@ class Main : KtxGame<KtxScreen>() {
         val playerAssets = PlayerViewAssets(
             character =  assetStorage.getTextureRegion("Atlas.atlas", "BAK/Player Sprites/Player"))
         val spellAssets = SpellViewAssets(
-            spellBolt = assetStorage.getTextureRegion("Atlas.atlas", "AnimacionesSpells/SpellBalls_01n")
-        )
+            spellBolt = assetStorage.getTextureRegion("Atlas.atlas", "AnimacionesSpells/SpellBalls_01n"))
         val mobViewFactory = MobViewFactory(
             playerAssets = playerAssets,
             spellAssets = spellAssets)
         val worldCamera = OrthographicCamera(
             Pixel(Gdx.graphics.width).toMeters().toFloat(),
             Pixel(Gdx.graphics.height).toMeters().toFloat())
-        val playerInputs = PlayerInputs()
-        val playerController = PlayerController(
-            world = world,
-            worldCamera = worldCamera,
-            playerInputs = playerInputs)
         val worldView = WorldView(
             model = world,
             stage = worldStage,
             camera = worldCamera,
             mobViewFactory = mobViewFactory,
-            playerController = playerController,
             eventDispatcher = eventDispatcher)
 
         // VIEW:
         //----------------------------------------------------------------------------------------------------
 
+        val playerController = PlayerController(world = world)
         val inputMultiplexer = InputMultiplexer()
         inputMultiplexer.addProcessor(uiStage)
         inputMultiplexer.addProcessor(worldStage)

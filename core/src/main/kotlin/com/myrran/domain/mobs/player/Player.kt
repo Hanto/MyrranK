@@ -1,6 +1,5 @@
 package com.myrran.domain.mobs.player
 
-import com.badlogic.gdx.math.Vector2
 import com.myrran.domain.World
 import com.myrran.domain.events.PlayerSpellCastedEvent
 import com.myrran.domain.mobs.common.Mob
@@ -21,33 +20,24 @@ data class Player(
 
     override val id: MobId,
     override val steerable: SteerableByBox2DComponent,
-    private val eventDispatcher: EventDispatcher,
+    val eventDispatcher: EventDispatcher,
 
+    var inputs: PlayerInputs,
     private val caster: CasterComponent,
-    var state: State = StateIddle(Vector2(0f, 0f)),
+    var state: State,
 
 ): Steerable by steerable, Spatial, Movable, Mob, Caster by caster
 {
-    private var tryToCast = false
-
-    fun applyInputs(inputs: PlayerInputs) {
-
-        state = state.nextState(inputs)
-        steerable.setLinearVelocity(state.direction, maxLinearSpeed)
-        tryToCast = inputs.tryToCast
-    }
-
     override fun act(deltaTime: Float, world: World) {
 
         caster.updateCastingTime(deltaTime)
 
-        if (tryToCast && caster.isReadyToCast()) {
-
-            eventDispatcher.sendEvent(PlayerSpellCastedEvent(
-                caster = caster,
-                origin = getCenter()) )
-        }
+        state = state.nextState(inputs, this)
     }
+
+    fun castSpell() =
+
+        eventDispatcher.sendEvent(PlayerSpellCastedEvent(this, getCenter()))
 
     private fun getCenter(): PositionMeters =
         PositionMeters(

@@ -33,6 +33,7 @@ class MobViewFactory(
             PlayerAnimation.WALK_WEST to Animation(0.2f, arrayOf(frames[1][0], frames[1][1], frames[1][2]).toGdxArray()),
             PlayerAnimation.WALK_EAST to Animation(0.2f, arrayOf(frames[2][0], frames[2][1], frames[2][2]).toGdxArray()),
             PlayerAnimation.WALK_NORTH to Animation(0.2f, arrayOf(frames[3][0], frames[3][1], frames[3][2]).toGdxArray()),
+            PlayerAnimation.CASTING to Animation(0.25f, arrayOf(frames[4][6]).toGdxArray()),
             PlayerAnimation.IDDLE to Animation(0.5f, arrayOf(frames[2][3], frames[2][4], frames[2][5]).toGdxArray())
         )
 

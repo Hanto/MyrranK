@@ -13,7 +13,7 @@ import com.myrran.domain.mobs.common.metrics.PositionMeters
 import com.myrran.domain.mobs.player.Player
 import com.myrran.domain.mobs.spells.spell.WorldBox2D
 import com.myrran.domain.skills.SpellBook
-import com.myrran.infraestructure.controller.player.PlayerInputs
+import com.myrran.domain.skills.created.skill.SkillId
 import com.myrran.infraestructure.eventbus.EventDispatcher
 import com.myrran.infraestructure.eventbus.EventListener
 import com.myrran.infraestructure.eventbus.EventSender
@@ -77,22 +77,21 @@ class World(
         }
     }
 
-    // MISC:
+    // PLAYER ACTIONS:
     //--------------------------------------------------------------------------------------------------------
 
-    fun applyPlayerInputs(inputs: PlayerInputs) =
+    private fun castPlayerSpell(caster: Caster, origin: PositionMeters) =
 
-        player.applyInputs(inputs)
+        mobFactory.createSpell(caster.getSelectedSkill()!!, origin, caster.pointingAt)
+            .also { addMob(it) }
+            .also { sendEvent(SpellCreatedEvent(it)) }
 
-    private fun castPlayerSpell(caster: Caster, origin: PositionMeters) {
+    private fun pickPlayerSpell(skillId: SkillId) =
 
-        val skill = spellBook.findPlayerSkill(caster.selectedSkillId!!)!!
-        val spell = mobFactory.createSpell(skill, origin, caster.pointingAt)
-        caster.setCastingTime(skill.getCastingTime())
+        player.changeSelecctedSkillTo(spellBook.findPlayerSkill(skillId)!!)
 
-        addMob(spell)
-        sendEvent(SpellCreatedEvent(spell))
-    }
+    // MISC:
+    //--------------------------------------------------------------------------------------------------------
 
     private fun addMob(mob: Mob) {
 

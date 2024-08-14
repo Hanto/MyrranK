@@ -8,7 +8,7 @@
     "id" : "SPEED",
     "name" : "speed",
     "baseBonus" : 6.0,
-    "actual" : 18,
+    "actual" : 50,
     "maximum" : 50,
     "upgradeCost" : 2.0,
     "bonusPerUpgrade" : 1.0
@@ -16,7 +16,7 @@
     "id" : "SIZE",
     "name" : "size",
     "baseBonus" : 100.0,
-    "actual" : 24,
+    "actual" : 50,
     "maximum" : 50,
     "upgradeCost" : 1.0,
     "bonusPerUpgrade" : 4.0
@@ -24,7 +24,7 @@
     "id" : "COOLDOWN",
     "name" : "cooldown",
     "baseBonus" : 100.0,
-    "actual" : 22,
+    "actual" : 50,
     "maximum" : 50,
     "upgradeCost" : 2.0,
     "bonusPerUpgrade" : -1.5

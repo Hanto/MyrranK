@@ -20,7 +20,9 @@ data class PlayerInputs(
         private val WEST = Vector2(-1f, 0f)
     }
 
-    fun calculateDirection(oldDirection: Vector2): Vector2 {
+    private var oldDirection: Vector2 = Vector2(0f,0f)
+
+    fun calculateDirection(): Vector2 {
 
         val forces:MutableList<Vector2> = mutableListOf()
 
@@ -50,7 +52,11 @@ data class PlayerInputs(
         }
 
         return forces.fold(Vector2(0f, 0f)) { acc, next -> acc.plus(next) }.nor()
+            .also { oldDirection = it }
     }
+
+    fun isMoving(): Boolean =
+        !calculateDirection().isZero
 
     private fun Vector2.goesNorth() = this.y > 0
     private fun Vector2.goesEast() = this.x > 0
