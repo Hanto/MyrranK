@@ -68,11 +68,11 @@ class WorldView(
 
     override fun dispose() {
 
+        spellViews.values.forEach { it.dispose() }
         playerView.dispose()
         stage.dispose()
         box2dDebug.dispose()
         rayHandler.dispose()
-        spellViews.values.forEach { it.dispose() }
         removeListener( this)
     }
 
