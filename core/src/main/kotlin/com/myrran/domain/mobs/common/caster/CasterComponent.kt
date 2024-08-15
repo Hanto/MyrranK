@@ -15,10 +15,6 @@ class CasterComponent(
     private var requiredTime: Second = Second(0)
     private var expendedTime: Second = Second(0)
 
-    override fun isCasting(): Boolean =
-
-        isCasting
-
     override fun getSelectedSkill(): Skill? =
 
         selectedSkill
@@ -28,6 +24,10 @@ class CasterComponent(
         if (!isCasting)
             selectedSkill = newSkill
     }
+
+    override fun isCasting(): Boolean =
+
+        isCasting
 
     override fun isReadyToCast(): Boolean =
 
@@ -49,6 +49,14 @@ class CasterComponent(
         expendedTime = Second(0)
     }
 
+    override fun getCastingInfo(): Caster.CastingInfo =
+
+        when (requiredTime.isZero())
+        {
+            true -> Caster.CastingInfo(requiredTime, expendedTime, 0f)
+            false -> Caster.CastingInfo(requiredTime, expendedTime, (expendedTime / requiredTime).coerceAtMost(1f))
+        }
+
     override fun updateCastingTime(deltaTime: Float) {
 
         if (isCasting) {
@@ -64,13 +72,5 @@ class CasterComponent(
 
         pointingAt = target
     }
-
-    override fun getCastingInfo(): Caster.CastingInfo =
-
-        when (requiredTime.isZero())
-        {
-            true -> Caster.CastingInfo(requiredTime, expendedTime, 0f)
-            false -> Caster.CastingInfo(requiredTime, expendedTime, (expendedTime / requiredTime).coerceAtMost(1f))
-        }
 
 }

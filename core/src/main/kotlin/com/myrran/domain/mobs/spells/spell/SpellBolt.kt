@@ -27,7 +27,7 @@ class SpellBolt(
     origin: PositionMeters,
     target: PositionMeters,
 
-): Steerable by steerable, Spatial, Movable, Mob, Spell, Consumable by consumable
+): Mob, Spell, Steerable by steerable, Spatial, Movable, Consumable by consumable
 {
     init {
 

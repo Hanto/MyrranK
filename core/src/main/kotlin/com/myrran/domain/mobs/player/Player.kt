@@ -26,7 +26,7 @@ data class Player(
     private val caster: CasterComponent,
     var state: State,
 
-): Steerable by steerable, Spatial, Movable, Mob, Caster by caster
+): Mob, Steerable by steerable, Spatial, Movable, Caster by caster
 {
     override fun act(deltaTime: Float, world: World) {
 
