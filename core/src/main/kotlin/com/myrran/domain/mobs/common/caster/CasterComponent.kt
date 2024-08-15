@@ -60,4 +60,8 @@ class CasterComponent(
 
         pointingAt = target
     }
+
+    override fun getCastingInfo(): Caster.CastingInfo =
+
+        Caster.CastingInfo(requiredTime, expendedTime, requiredTime / expendedTime)
 }

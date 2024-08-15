@@ -8,13 +8,13 @@ import com.myrran.domain.mobs.player.Player
 import com.myrran.domain.mobs.player.StateIddle
 import com.myrran.domain.mobs.player.StateMoving
 import com.myrran.domain.mobs.player.StateTacticalCasting
-import com.myrran.infraestructure.view.mobs.common.Sprite
+import com.myrran.infraestructure.view.mobs.common.SpriteAnimated
 import com.myrran.infraestructure.view.mobs.common.StaticSprite
 
 class PlayerView(
 
     private val model: Player,
-    private val character: Sprite<PlayerAnimation>,
+    private val character: SpriteAnimated<PlayerAnimation>,
     private val sombra: StaticSprite,
     private val light: PointLight,
 

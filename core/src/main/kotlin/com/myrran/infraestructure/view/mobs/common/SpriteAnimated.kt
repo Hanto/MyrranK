@@ -8,11 +8,10 @@ import com.badlogic.gdx.scenes.scene2d.Actor
 import com.myrran.domain.mobs.common.metrics.SizePixels
 import ktx.actors.alpha
 
-open class Sprite<ANIMATIOM_TYPE: Enum<ANIMATIOM_TYPE>>(
+open class SpriteAnimated<ANIMATIOM_TYPE: Enum<ANIMATIOM_TYPE>>(
 
     private val animations: Map<ANIMATIOM_TYPE, Animation<TextureRegion>>,
     private var currentAnimation: ANIMATIOM_TYPE,
-    sizePixels: SizePixels
 
 ): Actor()
 {
@@ -20,10 +19,11 @@ open class Sprite<ANIMATIOM_TYPE: Enum<ANIMATIOM_TYPE>>(
 
     init {
 
-        val sizeMeters = sizePixels.toMeters()
+        val sizeMeters = animations.values.first().keyFrames.first()
+            .let { SizePixels(it.regionWidth, it.regionHeight) }.toMeters()
 
         this.setSize(sizeMeters.width.toFloat(), sizeMeters.height.toFloat())
-        this.setOrigin((sizeMeters.width/2).toFloat() , (sizePixels.height/2).toFloat() )
+        this.setOrigin((sizeMeters.width/2).toFloat() , (sizeMeters.height/2).toFloat() )
     }
 
     // MAIN:

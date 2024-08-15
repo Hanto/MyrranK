@@ -9,16 +9,15 @@ import ktx.actors.alpha
 class StaticSprite(
 
     private val texture: TextureRegion,
-    sizePixels: SizePixels
 
 ): Actor()
 {
     init {
 
-        val sizeMeters = sizePixels.toMeters()
+        val sizeMeters = SizePixels(texture.regionWidth, texture.regionHeight).toMeters()
 
         this.setSize(sizeMeters.width.toFloat(), sizeMeters.height.toFloat())
-        this.setOrigin((sizeMeters.width/2).toFloat() , (sizePixels.height/2).toFloat() )
+        this.setOrigin((sizeMeters.width/2).toFloat() , (sizeMeters.height/2).toFloat() )
     }
 
     override fun draw(batch: Batch, parentAlpha: Float) {

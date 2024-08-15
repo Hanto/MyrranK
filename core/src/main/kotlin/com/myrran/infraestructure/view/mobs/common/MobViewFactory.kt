@@ -49,9 +49,9 @@ class MobViewFactory(
             PlayerAnimation.WALK_NORTH to Animation(0.2f, arrayOf(frames[3][0], frames[3][1], frames[3][2]).toGdxArray()),
             PlayerAnimation.IDDLE to Animation(0.5f, arrayOf(frames[2][3], frames[2][4], frames[2][5]).toGdxArray()),
             PlayerAnimation.CASTING to Animation(0.25f, arrayOf(frames[4][6]).toGdxArray()) )
-        val characterSprite = Sprite(characterAnimations, PlayerAnimation.IDDLE, size)
+        val characterSprite = SpriteAnimated(characterAnimations, PlayerAnimation.IDDLE)
 
-        val shadow = StaticSprite(playerAssets.sombra, SizePixels(31, 11))
+        val shadow = StaticSprite(playerAssets.sombra)
 
         val filter = Filter()
             .also { it.categoryBits = LIGHT }

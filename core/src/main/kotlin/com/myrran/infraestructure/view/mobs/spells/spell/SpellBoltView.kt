@@ -12,7 +12,7 @@ import com.myrran.domain.mobs.common.metrics.SizePixels
 import com.myrran.domain.mobs.spells.spell.SpellBolt
 import com.myrran.domain.mobs.spells.spell.SpellConstants.Companion.RANGE
 import com.myrran.domain.mobs.spells.spell.SpellConstants.Companion.SIZE
-import com.myrran.infraestructure.view.mobs.common.Sprite
+import com.myrran.infraestructure.view.mobs.common.SpriteAnimated
 import ktx.actors.alpha
 
 class SpellBoltView(
@@ -22,7 +22,7 @@ class SpellBoltView(
     animations: Map<SpellAnimation, Animation<TextureRegion>>,
     size: SizePixels
 
-): Sprite<SpellAnimation>(animations, SpellAnimation.GLOW, size), SpellView, Disposable
+): SpriteAnimated<SpellAnimation>(animations, SpellAnimation.GLOW), SpellView, Disposable
 {
     override val id: MobId = model.id
 
