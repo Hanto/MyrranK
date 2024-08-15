@@ -5,6 +5,7 @@ import com.badlogic.gdx.scenes.scene2d.Group
 import com.badlogic.gdx.utils.Disposable
 import com.myrran.domain.mobs.common.MobId
 import com.myrran.domain.mobs.common.metrics.Pixel
+import com.myrran.domain.mobs.common.metrics.PositionMeters
 import com.myrran.domain.mobs.player.Player
 import com.myrran.domain.mobs.player.StateIddle
 import com.myrran.domain.mobs.player.StateMoving
@@ -17,7 +18,7 @@ class PlayerView(
 
     private val model: Player,
     private val character: SpriteAnimated<PlayerAnimation>,
-    private val sombra: SpriteStatic,
+    private val shadow: SpriteStatic,
     private val castingBar: SpriteStatic,
     private val light: PointLight,
 
@@ -27,12 +28,12 @@ class PlayerView(
 
     init {
 
-        addActor(sombra)
+        addActor(shadow)
         addActor(character)
         addActor(castingBar)
         setOrigin(character.width/2, character.height/2)
-        sombra.moveBy(0f, Pixel(-5).toBox2DUnits())
-        castingBar.moveBy(0f, Pixel(36).toBox2DUnits())
+        shadow.moveBy(0f, Pixel(-5).toFloat())
+        castingBar.moveBy(0f, 36f)
     }
 
     // UPDATE:
@@ -49,7 +50,8 @@ class PlayerView(
         //castingBar.update()
 
         model.getInterpolatedPosition(fractionOfTimestep)
-            .also { setPosition(it.x, it.y) }
+            .let { PositionMeters(it.x, it.y).toPixels() }
+            .also { setPosition(it.x.toFloat(), it.y.toFloat()) }
     }
 
     // WALKING ANIMATION:

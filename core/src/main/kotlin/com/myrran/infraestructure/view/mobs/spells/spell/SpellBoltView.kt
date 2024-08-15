@@ -8,6 +8,7 @@ import com.badlogic.gdx.scenes.scene2d.actions.Actions
 import com.badlogic.gdx.utils.Align
 import com.badlogic.gdx.utils.Disposable
 import com.myrran.domain.mobs.common.MobId
+import com.myrran.domain.mobs.common.metrics.PositionMeters
 import com.myrran.domain.mobs.common.metrics.SizePixels
 import com.myrran.domain.mobs.spells.spell.SpellBolt
 import com.myrran.domain.mobs.spells.spell.SpellConstants.Companion.RANGE
@@ -49,7 +50,8 @@ class SpellBoltView(
     override fun update(fractionOfTimestep: Float) {
 
         model.getInterpolatedPosition(fractionOfTimestep)
-            .also { setPosition(it.x, it.y, Align.center) }
+            .let { PositionMeters(it.x, it.y).toPixels() }
+            .also { setPosition(it.x.toFloat(), it.y.toFloat(), Align.center) }
     }
 
     override fun dispose() =

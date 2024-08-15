@@ -2,7 +2,6 @@ package com.myrran.infraestructure.view
 
 import box2dLight.RayHandler
 import com.badlogic.gdx.Gdx
-import com.badlogic.gdx.graphics.OrthographicCamera
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer
 import com.badlogic.gdx.scenes.scene2d.Actor
 import com.badlogic.gdx.scenes.scene2d.Stage
@@ -17,6 +16,7 @@ import com.myrran.domain.mobs.spells.spell.SpellBolt
 import com.myrran.infraestructure.eventbus.EventDispatcher
 import com.myrran.infraestructure.eventbus.EventListener
 import com.myrran.infraestructure.eventbus.EventSender
+import com.myrran.infraestructure.view.common.Camera
 import com.myrran.infraestructure.view.mobs.common.MobView
 import com.myrran.infraestructure.view.mobs.common.MobViewFactory
 import com.myrran.infraestructure.view.mobs.player.PlayerView
@@ -25,7 +25,7 @@ class WorldView(
 
     private val model: World,
     private val stage: Stage,
-    private val camera: OrthographicCamera,
+    private val camera: Camera,
     private val mobViewFactory: MobViewFactory,
     private val rayHandler: RayHandler,
     private val eventDispatcher: EventDispatcher,
@@ -41,8 +41,9 @@ class WorldView(
 
         rayHandler.setAmbientLight(0.5f)
         stage.addActor(playerView)
-        camera.zoom = 0.125f
-        stage.viewport.camera = camera
+        camera.cameraBox2D.zoom = 0.25f
+        camera.cameraPixel.zoom = 0.25f
+        stage.viewport.camera = camera.cameraPixel
         addListener(this, SpellCreatedEvent::class, MobRemovedEvent::class)
     }
 
@@ -56,7 +57,7 @@ class WorldView(
         //camera.position.set(playerView.x, playerView.y, 0f)
         camera.update()
 
-        rayHandler.setCombinedMatrix(camera)
+        rayHandler.setCombinedMatrix(camera.cameraBox2D)
         rayHandler.updateAndRender()
 
         stage.act(deltaTime)
@@ -96,7 +97,7 @@ class WorldView(
 
     private fun updatePlayerWithTheirTargets() {
 
-        model.player.updateTarget(PositionPixels(Gdx.input.x, Gdx.input.y).toWorldPosition(camera))
+        model.player.updateTarget(PositionPixels(Gdx.input.x, Gdx.input.y).toWorldPosition(camera.cameraBox2D))
     }
 
     private fun createSpell(event: SpellCreatedEvent) {

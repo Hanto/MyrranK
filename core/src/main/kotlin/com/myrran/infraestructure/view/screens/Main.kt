@@ -36,6 +36,7 @@ import com.myrran.infraestructure.repositories.skilltemplate.SkillTemplateReposi
 import com.myrran.infraestructure.view.UIView
 import com.myrran.infraestructure.view.View
 import com.myrran.infraestructure.view.WorldView
+import com.myrran.infraestructure.view.common.Camera
 import com.myrran.infraestructure.view.mobs.common.MobViewFactory
 import com.myrran.infraestructure.view.mobs.player.PlayerViewAssets
 import com.myrran.infraestructure.view.mobs.spells.SpellViewAssets
@@ -155,12 +156,18 @@ class Main : KtxGame<KtxScreen>() {
             spellAssets = spellAssets,
             rayHandler = rayHandler)
         val worldCamera = OrthographicCamera(
+            Pixel(Gdx.graphics.width).toFloat(),
+            Pixel(Gdx.graphics.height).toFloat())
+        val worldCameraBox2d = OrthographicCamera(
             Pixel(Gdx.graphics.width).toMeters().toFloat(),
             Pixel(Gdx.graphics.height).toMeters().toFloat())
+        val camera = Camera(
+            cameraPixel = worldCamera,
+            cameraBox2D = worldCameraBox2d)
         val worldView = WorldView(
             model = world,
             stage = worldStage,
-            camera = worldCamera,
+            camera = camera,
             mobViewFactory = mobViewFactory,
             rayHandler = rayHandler,
             eventDispatcher = eventDispatcher)

@@ -14,7 +14,7 @@ class SpriteStatic(
 {
     init {
 
-        val sizeMeters = SizePixels(texture.regionWidth, texture.regionHeight).toMeters()
+        val sizeMeters = SizePixels(texture.regionWidth, texture.regionHeight)
 
         setSize(sizeMeters.width.toFloat(), sizeMeters.height.toFloat())
         setOrigin((sizeMeters.width/2).toFloat() , (sizeMeters.height/2).toFloat() )
