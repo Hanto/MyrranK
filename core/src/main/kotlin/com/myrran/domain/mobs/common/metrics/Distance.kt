@@ -15,7 +15,7 @@ data class Pixel(
 
     fun toFloat(): Float =
 
-        value
+        value.toInt().toFloat()
 
     fun value(): Int =
 
@@ -23,7 +23,7 @@ data class Pixel(
 
     fun toMeters(): Meter =
 
-        Meter(value * METERS_TO_PIXEL)
+        Meter(value * PIXEL_TO_METERS)
 
     override fun toBox2DUnits(): Float =
 
@@ -50,7 +50,7 @@ data class Meter(
 
     fun toPixel(): Pixel =
 
-        Pixel(value * PIXEL_TO_METERS)
+        Pixel(value * METERS_TO_PIXEL)
 
     override fun toBox2DUnits(): Float =
 
@@ -65,5 +65,5 @@ data class Meter(
         Meter(value / int)
 }
 
-private const val METERS_TO_PIXEL: Float = 0.032f
-private const val PIXEL_TO_METERS: Float = 31.25f
+private const val PIXEL_TO_METERS: Float = 0.032f
+private const val METERS_TO_PIXEL: Float = 31.25f
