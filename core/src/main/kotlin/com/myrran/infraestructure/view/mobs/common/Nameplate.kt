@@ -1,5 +1,6 @@
 package com.myrran.infraestructure.view.mobs.common
 
+import com.badlogic.gdx.graphics.g2d.Batch
 import com.badlogic.gdx.graphics.g2d.TextureRegion
 import com.badlogic.gdx.scenes.scene2d.Actor
 import com.myrran.domain.mobs.common.caster.Caster
@@ -12,4 +13,7 @@ class Nameplate(
 
 ): Actor()
 {
+    override fun draw(batch: Batch, parentAlpha: Float) {
+
+    }
 }

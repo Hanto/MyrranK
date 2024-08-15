@@ -17,9 +17,9 @@ import com.myrran.domain.mobs.spells.spell.SpellBolt
 import com.myrran.infraestructure.eventbus.EventDispatcher
 import com.myrran.infraestructure.eventbus.EventListener
 import com.myrran.infraestructure.eventbus.EventSender
+import com.myrran.infraestructure.view.mobs.common.MobView
 import com.myrran.infraestructure.view.mobs.common.MobViewFactory
 import com.myrran.infraestructure.view.mobs.player.PlayerView
-import com.myrran.infraestructure.view.mobs.spells.spell.SpellView
 
 class WorldView(
 
@@ -33,7 +33,7 @@ class WorldView(
 ): EventSender by eventDispatcher, EventListener, Disposable
 {
     private val playerView: PlayerView = mobViewFactory.createPlayer(model.player)
-    private val spellViews: MutableMap<MobId, SpellView> = mutableMapOf()
+    private val spellViews: MutableMap<MobId, MobView> = mutableMapOf()
     private val box2dDebug: Box2DDebugRenderer = Box2DDebugRenderer()
     //private val cameraTarget: Location<Vector2> = playerView
 

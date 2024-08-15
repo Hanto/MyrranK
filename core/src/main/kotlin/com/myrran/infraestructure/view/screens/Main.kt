@@ -145,7 +145,9 @@ class Main : KtxGame<KtxScreen>() {
         val rayHandler = RayHandler(worldBox2D)
         val playerAssets = PlayerViewAssets(
             character =  assetStorage.getTextureRegion("Atlas.atlas", "BAK/Player Sprites/Player"),
-            sombra = assetStorage.getTextureRegion("Atlas.atlas", "BAK/Player Sprites/Sombra"))
+            shadow = assetStorage.getTextureRegion("Atlas.atlas", "BAK/Player Sprites/Sombra"),
+            nameplateForeground = assetStorage.getTextureRegion("Atlas.atlas", "BAK/Player Sprites/Nameplate"),
+            nameplateBackground = assetStorage.getTextureRegion("Atlas.atlas", "BAK/Player Sprites/NameplateFondo"))
         val spellAssets = SpellViewAssets(
             spellBolt = assetStorage.getTextureRegion("Atlas.atlas", "AnimacionesSpells/SpellBalls_01n"))
         val mobViewFactory = MobViewFactory(

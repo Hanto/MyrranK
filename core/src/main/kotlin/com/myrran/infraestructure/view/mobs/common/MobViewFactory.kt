@@ -20,7 +20,6 @@ import com.myrran.infraestructure.view.mobs.player.PlayerViewAssets
 import com.myrran.infraestructure.view.mobs.spells.SpellViewAssets
 import com.myrran.infraestructure.view.mobs.spells.spell.SpellAnimation
 import com.myrran.infraestructure.view.mobs.spells.spell.SpellBoltView
-import com.myrran.infraestructure.view.mobs.spells.spell.SpellView
 import ktx.collections.toGdxArray
 import kotlin.experimental.or
 
@@ -51,7 +50,7 @@ class MobViewFactory(
             PlayerAnimation.CASTING to Animation(0.25f, arrayOf(frames[4][6]).toGdxArray()) )
         val characterSprite = SpriteAnimated(characterAnimations, PlayerAnimation.IDDLE)
 
-        val shadow = StaticSprite(playerAssets.sombra)
+        val shadow = StaticSprite(playerAssets.shadow)
 
         val filter = Filter()
             .also { it.categoryBits = LIGHT }
@@ -71,7 +70,7 @@ class MobViewFactory(
     // SPELLS:
     //--------------------------------------------------------------------------------------------------------
 
-    fun createSpell(spell: Spell): SpellView =
+    fun createSpell(spell: Spell): MobView =
 
         when (spell) {
             is SpellBolt -> createSpellBolt(spell)

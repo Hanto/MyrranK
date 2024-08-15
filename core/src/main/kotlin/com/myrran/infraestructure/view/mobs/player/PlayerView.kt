@@ -3,11 +3,13 @@ package com.myrran.infraestructure.view.mobs.player
 import box2dLight.PointLight
 import com.badlogic.gdx.scenes.scene2d.Group
 import com.badlogic.gdx.utils.Disposable
+import com.myrran.domain.mobs.common.MobId
 import com.myrran.domain.mobs.common.metrics.Pixel
 import com.myrran.domain.mobs.player.Player
 import com.myrran.domain.mobs.player.StateIddle
 import com.myrran.domain.mobs.player.StateMoving
 import com.myrran.domain.mobs.player.StateTacticalCasting
+import com.myrran.infraestructure.view.mobs.common.MobView
 import com.myrran.infraestructure.view.mobs.common.SpriteAnimated
 import com.myrran.infraestructure.view.mobs.common.StaticSprite
 
@@ -18,8 +20,10 @@ class PlayerView(
     private val sombra: StaticSprite,
     private val light: PointLight,
 
-): Group(), Disposable
+): Group(), MobView, Disposable
 {
+    override val id: MobId = model.id
+
     init {
 
         addActor(sombra)
@@ -31,7 +35,7 @@ class PlayerView(
     // UPDATE:
     //--------------------------------------------------------------------------------------------------------
 
-    fun update(fractionOfTimestep: Float) {
+    override fun update(fractionOfTimestep: Float) {
 
         when (model.state) {
             is StateIddle -> character.setAnimation(PlayerAnimation.IDDLE)

@@ -4,5 +4,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion
 
 data class PlayerViewAssets(
     val character: TextureRegion,
-    val sombra: TextureRegion
+    val shadow: TextureRegion,
+    val nameplateForeground: TextureRegion,
+    val nameplateBackground: TextureRegion
 )
