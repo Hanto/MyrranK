@@ -1,8 +1,6 @@
 package com.myrran.domain.mobs.common.metrics
 
-import com.badlogic.gdx.graphics.OrthographicCamera
 import com.badlogic.gdx.math.Vector2
-import com.badlogic.gdx.math.Vector3
 
 interface Position<T: Distance> {
     val x: T
@@ -27,12 +25,6 @@ data class PositionPixels(
     override fun toBox2dUnits(): Vector2 =
 
         Vector2(x.toBox2DUnits(), y.toBox2DUnits())
-
-    fun toWorldPosition(camera: OrthographicCamera): PositionMeters {
-
-        val worldCoordinates = camera.unproject(Vector3(x.toFloat(), y.toFloat(), 0f))
-        return PositionMeters(worldCoordinates.x, worldCoordinates.y)
-    }
 }
 
 data class PositionMeters(
@@ -51,10 +43,4 @@ data class PositionMeters(
     override fun toBox2dUnits(): Vector2 =
 
         Vector2(x.toBox2DUnits(), y.toBox2DUnits())
-
-    fun toScreenPosition(camera: OrthographicCamera): PositionPixels {
-
-        val screenCoordinates = camera.project(Vector3(x.toFloat(), y.toFloat(), 0f))
-        return PositionPixels(screenCoordinates.x, screenCoordinates.y)
-    }
 }

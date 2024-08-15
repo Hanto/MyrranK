@@ -15,6 +15,10 @@ class CasterComponent(
     private var requiredTime: Second = Second(0)
     private var expendedTime: Second = Second(0)
 
+    override fun isCasting(): Boolean =
+
+        isCasting
+
     override fun getSelectedSkill(): Skill? =
 
         selectedSkill

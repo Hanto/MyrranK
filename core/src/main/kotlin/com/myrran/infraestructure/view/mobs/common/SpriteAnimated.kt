@@ -4,8 +4,8 @@ import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.graphics.g2d.Animation
 import com.badlogic.gdx.graphics.g2d.Batch
 import com.badlogic.gdx.graphics.g2d.TextureRegion
-import com.badlogic.gdx.math.Vector2
 import com.badlogic.gdx.scenes.scene2d.Actor
+import com.myrran.domain.mobs.common.metrics.SizePixels
 import ktx.actors.alpha
 
 open class SpriteAnimated<ANIMATIOM_TYPE: Enum<ANIMATIOM_TYPE>>(
@@ -19,11 +19,11 @@ open class SpriteAnimated<ANIMATIOM_TYPE: Enum<ANIMATIOM_TYPE>>(
 
     init {
 
-        val sizeMeters = animations.values.first().keyFrames.first()
-            .let { Vector2(it.regionWidth.toFloat(), it.regionHeight.toFloat()) }
+        val sizePixels = animations.values.first().keyFrames.first()
+            .let { SizePixels(it.regionWidth, it.regionHeight) }
 
-        this.setSize(sizeMeters.x, sizeMeters.y)
-        this.setOrigin(sizeMeters.x/2 , sizeMeters.y/2 )
+        this.setSize(sizePixels.width.toFloat(), sizePixels.height.toFloat())
+        this.setOrigin(sizePixels.width.toFloat()/2 , sizePixels.height.toFloat()/2 )
     }
 
     // MAIN:

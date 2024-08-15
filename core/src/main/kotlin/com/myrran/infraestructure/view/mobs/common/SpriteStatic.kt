@@ -14,10 +14,10 @@ class SpriteStatic(
 {
     init {
 
-        val sizeMeters = SizePixels(texture.regionWidth, texture.regionHeight)
+        val sizePixels = SizePixels(texture.regionWidth, texture.regionHeight)
 
-        setSize(sizeMeters.width.toFloat(), sizeMeters.height.toFloat())
-        setOrigin((sizeMeters.width/2).toFloat() , (sizeMeters.height/2).toFloat() )
+        setSize(sizePixels.width.toFloat(), sizePixels.height.toFloat())
+        setOrigin(sizePixels.width.toFloat()/2 , sizePixels.height.toFloat()/2)
     }
 
     override fun draw(batch: Batch, parentAlpha: Float) {

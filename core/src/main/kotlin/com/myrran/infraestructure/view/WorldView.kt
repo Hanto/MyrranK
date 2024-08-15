@@ -41,9 +41,9 @@ class WorldView(
 
         rayHandler.setAmbientLight(0.5f)
         stage.addActor(playerView)
-        camera.cameraBox2D.zoom = 0.25f
-        camera.cameraPixel.zoom = 0.25f
-        stage.viewport.camera = camera.cameraPixel
+
+        camera.zoom(0.25f)
+        camera.assignCameraToStage(stage)
         addListener(this, SpellCreatedEvent::class, MobRemovedEvent::class)
     }
 
@@ -51,13 +51,13 @@ class WorldView(
 
         //box2dDebug.render(model.worldBox2D, camera.combined)
 
-        interpolatePositions(fractionOfTimestep)
+        updatePositionUsingInterpolation(fractionOfTimestep)
         updatePlayerWithTheirTargets()
 
         //camera.position.set(playerView.x, playerView.y, 0f)
         camera.update()
+        camera.updateRayHandler(rayHandler)
 
-        rayHandler.setCombinedMatrix(camera.cameraBox2D)
         rayHandler.updateAndRender()
 
         stage.act(deltaTime)
@@ -89,23 +89,22 @@ class WorldView(
     // MISC:
     //--------------------------------------------------------------------------------------------------------
 
-    private fun interpolatePositions(fractionOfTimestep: Float) {
+    private fun updatePositionUsingInterpolation(fractionOfTimestep: Float) {
 
         playerView.update(fractionOfTimestep)
         spellViews.values.forEach { it.update(fractionOfTimestep) }
     }
 
-    private fun updatePlayerWithTheirTargets() {
+    private fun updatePlayerWithTheirTargets() =
 
-        model.player.updateTarget(PositionPixels(Gdx.input.x, Gdx.input.y).toWorldPosition(camera.cameraBox2D))
-    }
+        camera.toWorldCoordinates(PositionPixels(Gdx.input.x, Gdx.input.y))
+            .also { model.player.updateTarget(it) }
 
-    private fun createSpell(event: SpellCreatedEvent) {
+    private fun createSpell(event: SpellCreatedEvent) =
 
-        val mob = mobViewFactory.createSpell(event.spell)
-        spellViews[mob.id] = mob
-        stage.addActor(mob as Actor)
-    }
+        mobViewFactory.createSpell(event.spell)
+            .also { spellViews[it.id] = it }
+            .also { stage.addActor(it as Actor) }
 
     private fun removeMob(event: MobRemovedEvent) {
 

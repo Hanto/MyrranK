@@ -8,6 +8,7 @@ interface Caster {
 
     var pointingAt: PositionMeters
 
+    fun isCasting(): Boolean
     fun getCastingInfo(): CastingInfo
     fun isReadyToCast(): Boolean
     fun getSelectedSkill(): Skill?

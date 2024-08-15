@@ -4,12 +4,12 @@ import box2dLight.PointLight
 import com.badlogic.gdx.scenes.scene2d.Group
 import com.badlogic.gdx.utils.Disposable
 import com.myrran.domain.mobs.common.MobId
-import com.myrran.domain.mobs.common.metrics.Pixel
 import com.myrran.domain.mobs.common.metrics.PositionMeters
 import com.myrran.domain.mobs.player.Player
 import com.myrran.domain.mobs.player.StateIddle
 import com.myrran.domain.mobs.player.StateMoving
 import com.myrran.domain.mobs.player.StateTacticalCasting
+import com.myrran.infraestructure.view.mobs.common.CastingBar
 import com.myrran.infraestructure.view.mobs.common.MobView
 import com.myrran.infraestructure.view.mobs.common.SpriteAnimated
 import com.myrran.infraestructure.view.mobs.common.SpriteStatic
@@ -19,7 +19,7 @@ class PlayerView(
     private val model: Player,
     private val character: SpriteAnimated<PlayerAnimation>,
     private val shadow: SpriteStatic,
-    private val castingBar: SpriteStatic,
+    private val castingBar: CastingBar,
     private val light: PointLight,
 
 ): Group(), MobView, Disposable
@@ -32,8 +32,8 @@ class PlayerView(
         addActor(character)
         addActor(castingBar)
         setOrigin(character.width/2, character.height/2)
-        shadow.moveBy(0f, Pixel(-5).toFloat())
-        castingBar.moveBy(0f, 36f)
+        shadow.moveBy(0f, -5f)
+        castingBar.moveBy(-2f, 36f)
     }
 
     // UPDATE:
@@ -46,8 +46,6 @@ class PlayerView(
             is StateTacticalCasting -> character.setAnimation(PlayerAnimation.CASTING)
             is StateMoving-> setWalkingAnimation()
         }
-
-        //castingBar.update()
 
         model.getInterpolatedPosition(fractionOfTimestep)
             .let { PositionMeters(it.x, it.y).toPixels() }

@@ -64,10 +64,9 @@ class MobViewFactory(
 
         model.steerable.attachLight(light)
 
-        val castingBar = CastingBar(model, (playerAssets.nameplateForeground), (playerAssets.nameplateBackground))
-        val castingBarSprite = SpriteStatic(playerAssets.nameplateBackground)
+        val castingBar = CastingBar(model, playerAssets.nameplateForeground, playerAssets.nameplateBackground)
 
-        return PlayerView(model, characterSprite, shadow, castingBarSprite, light)
+        return PlayerView(model, characterSprite, shadow, castingBar, light)
     }
 
     // SPELLS:
