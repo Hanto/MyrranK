@@ -42,19 +42,19 @@ class WorldView(
         rayHandler.setAmbientLight(0.5f)
         stage.addActor(playerView)
 
-        camera.zoom(0.25f)
+        //camera.zoom(0.25f)
         camera.assignCameraToStage(stage)
         addListener(this, SpellCreatedEvent::class, MobRemovedEvent::class)
     }
 
     fun render(deltaTime: Float, fractionOfTimestep: Float) {
 
-        //box2dDebug.render(model.worldBox2D, camera.combined)
+        //box2dDebug.render(model.worldBox2D, camera.cameraBox2D.combined)
 
         updatePositionUsingInterpolation(fractionOfTimestep)
         updatePlayerWithTheirTargets()
 
-        //camera.position.set(playerView.x, playerView.y, 0f)
+        //camera.setPosition(PositionPixels(playerView.x, playerView.y))
         camera.update()
         camera.updateRayHandler(rayHandler)
 

@@ -42,6 +42,7 @@ class PlayerView(
     override fun update(fractionOfTimestep: Float) {
 
         when (model.state) {
+
             is StateIddle -> character.setAnimation(PlayerAnimation.IDDLE)
             is StateTacticalCasting -> character.setAnimation(PlayerAnimation.CASTING)
             is StateMoving-> setWalkingAnimation()
@@ -50,6 +51,8 @@ class PlayerView(
         model.getInterpolatedPosition(fractionOfTimestep)
             .let { PositionMeters(it.x, it.y).toPixels() }
             .also { setPosition(it.x.toFloat(), it.y.toFloat()) }
+
+        castingBar.update()
     }
 
     // WALKING ANIMATION:

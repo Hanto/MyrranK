@@ -101,6 +101,6 @@ class MobViewFactory(
 
         model.steerable.attachLight(light)
 
-        return SpellBoltView(model, light, animations, size)
+        return SpellBoltView(model, light, animations)
     }
 }

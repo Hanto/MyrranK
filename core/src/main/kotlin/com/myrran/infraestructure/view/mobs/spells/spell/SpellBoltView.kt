@@ -8,8 +8,8 @@ import com.badlogic.gdx.scenes.scene2d.actions.Actions
 import com.badlogic.gdx.utils.Align
 import com.badlogic.gdx.utils.Disposable
 import com.myrran.domain.mobs.common.MobId
+import com.myrran.domain.mobs.common.metrics.Pixel
 import com.myrran.domain.mobs.common.metrics.PositionMeters
-import com.myrran.domain.mobs.common.metrics.SizePixels
 import com.myrran.domain.mobs.spells.spell.SpellBolt
 import com.myrran.domain.mobs.spells.spell.SpellConstants.Companion.RANGE
 import com.myrran.domain.mobs.spells.spell.SpellConstants.Companion.SIZE
@@ -22,7 +22,6 @@ class SpellBoltView(
     private val model: SpellBolt,
     private val light: PointLight,
     animations: Map<SpellAnimation, Animation<TextureRegion>>,
-    size: SizePixels
 
 ): SpriteAnimated<SpellAnimation>(animations, SpellAnimation.GLOW), MobView, Disposable
 {
@@ -30,8 +29,10 @@ class SpellBoltView(
 
     init {
 
-        val sizeMultiplier = model.skill.getStat(SIZE)!!.totalBonus().value / 100 - 1
-        sizeBy(sizeMultiplier)
+        val sizeMultiplier = (model.skill.getStat(SIZE)!!.totalBonus().value / 100 - 1)
+        val increasedSize = Pixel(width) * sizeMultiplier
+        sizeBy(increasedSize.toFloat())
+
         setOrigin(width/2, height/2)
 
         rotateBy(model.linearVelocity.angleDeg() + 90)

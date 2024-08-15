@@ -23,7 +23,7 @@ open class SpriteAnimated<ANIMATIOM_TYPE: Enum<ANIMATIOM_TYPE>>(
             .let { SizePixels(it.regionWidth, it.regionHeight) }
 
         this.setSize(sizePixels.width.toFloat(), sizePixels.height.toFloat())
-        this.setOrigin(sizePixels.width.toFloat()/2 , sizePixels.height.toFloat()/2 )
+        this.setOrigin(sizePixels.width.toFloat()/2 , sizePixels.height.toFloat()/2)
     }
 
     // MAIN:
