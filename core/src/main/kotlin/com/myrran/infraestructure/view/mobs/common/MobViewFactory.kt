@@ -42,14 +42,16 @@ class MobViewFactory(
     fun createPlayer(model: Player): PlayerView {
 
         val frames = playerAssets.character.split(size.width.value(), size.height.value())
-        val animations = mapOf(
+        val characterAnimations = mapOf(
             PlayerAnimation.WALK_SOUTH to Animation(0.2f, arrayOf(frames[0][0], frames[0][1], frames[0][2]).toGdxArray()),
             PlayerAnimation.WALK_WEST to Animation(0.2f, arrayOf(frames[1][0], frames[1][1], frames[1][2]).toGdxArray()),
             PlayerAnimation.WALK_EAST to Animation(0.2f, arrayOf(frames[2][0], frames[2][1], frames[2][2]).toGdxArray()),
             PlayerAnimation.WALK_NORTH to Animation(0.2f, arrayOf(frames[3][0], frames[3][1], frames[3][2]).toGdxArray()),
             PlayerAnimation.IDDLE to Animation(0.5f, arrayOf(frames[2][3], frames[2][4], frames[2][5]).toGdxArray()),
-            PlayerAnimation.CASTING to Animation(0.25f, arrayOf(frames[4][6]).toGdxArray())
-        )
+            PlayerAnimation.CASTING to Animation(0.25f, arrayOf(frames[4][6]).toGdxArray()) )
+        val characterSprite = Sprite(characterAnimations, PlayerAnimation.IDDLE, size)
+
+        val shadow = StaticSprite(playerAssets.sombra, SizePixels(31, 11))
 
         val filter = Filter()
             .also { it.categoryBits = LIGHT }
@@ -57,12 +59,13 @@ class MobViewFactory(
 
         val light = PointLight(rayHandler, 300)
             .also { it.setContactFilter(filter) }
-            .also { it.isSoft = true }
+            .also { it.isSoft = false }
             .also { it.setSoftnessLength(30f) }
+            .also { it.ignoreAttachedBody }
 
         model.steerable.attachLight(light)
 
-        return PlayerView(model, light, animations, size)
+        return PlayerView(model, characterSprite, shadow, light)
     }
 
     // SPELLS:
@@ -91,10 +94,9 @@ class MobViewFactory(
             .also { it.setContactFilter(filter) }
             .also { it.isSoft = true }
             .also { it.setSoftnessLength(20f) }
-
-        light.color = Color(0.6f, 0.0f, 0.0f, 0.5f)
-        light.distance = Pixel(256 ).toBox2DUnits()
-        light.ignoreAttachedBody = true
+            .also { it.color = Color(0.6f, 0.0f, 0.0f, 0.5f) }
+            .also { it.distance = Pixel(256).toBox2DUnits() }
+            .also { it.ignoreAttachedBody = true }
 
         model.steerable.attachLight(light)
 

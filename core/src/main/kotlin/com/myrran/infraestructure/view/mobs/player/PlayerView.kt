@@ -1,36 +1,50 @@
 package com.myrran.infraestructure.view.mobs.player
 
 import box2dLight.PointLight
-import com.badlogic.gdx.graphics.g2d.Animation
-import com.badlogic.gdx.graphics.g2d.TextureRegion
+import com.badlogic.gdx.scenes.scene2d.Group
 import com.badlogic.gdx.utils.Disposable
-import com.myrran.domain.mobs.common.metrics.SizePixels
+import com.myrran.domain.mobs.common.metrics.Pixel
 import com.myrran.domain.mobs.player.Player
 import com.myrran.domain.mobs.player.StateIddle
 import com.myrran.domain.mobs.player.StateMoving
 import com.myrran.domain.mobs.player.StateTacticalCasting
 import com.myrran.infraestructure.view.mobs.common.Sprite
+import com.myrran.infraestructure.view.mobs.common.StaticSprite
 
 class PlayerView(
 
     private val model: Player,
+    private val character: Sprite<PlayerAnimation>,
+    private val sombra: StaticSprite,
     private val light: PointLight,
-    animations: Map<PlayerAnimation, Animation<TextureRegion>>,
-    size: SizePixels
 
-): Sprite<PlayerAnimation>(animations, PlayerAnimation.IDDLE, size), Disposable
+): Group(), Disposable
 {
+    init {
+
+        addActor(sombra)
+        addActor(character)
+        setOrigin(character.width/2, character.height/2)
+        sombra.moveBy(0f, Pixel(-5).toBox2DUnits())
+    }
+
+    // UPDATE:
+    //--------------------------------------------------------------------------------------------------------
+
     fun update(fractionOfTimestep: Float) {
 
         when (model.state) {
-            is StateIddle -> setAnimation(PlayerAnimation.IDDLE)
-            is StateTacticalCasting -> setAnimation(PlayerAnimation.CASTING)
+            is StateIddle -> character.setAnimation(PlayerAnimation.IDDLE)
+            is StateTacticalCasting -> character.setAnimation(PlayerAnimation.CASTING)
             is StateMoving-> setWalkingAnimation()
         }
 
         model.getInterpolatedPosition(fractionOfTimestep)
             .also { setPosition(it.x, it.y) }
     }
+
+    // WALKING ANIMATION:
+    //--------------------------------------------------------------------------------------------------------
 
     private var oldDirection: Direction = Direction.STOP
 
@@ -64,7 +78,7 @@ class PlayerView(
             }
         }
 
-        setAnimation(newDirection.animation)
+        character.setAnimation(newDirection.animation)
         oldDirection = newDirection
     }
 
@@ -98,4 +112,3 @@ class PlayerView(
         STOP(PlayerAnimation.IDDLE)
     }
 }
-
