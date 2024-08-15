@@ -24,7 +24,7 @@
     "id" : "COOLDOWN",
     "name" : "cooldown",
     "baseBonus" : 100.0,
-    "actual" : 33,
+    "actual" : 50,
     "maximum" : 50,
     "upgradeCost" : 2.0,
     "bonusPerUpgrade" : -1.5

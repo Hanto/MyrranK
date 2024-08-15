@@ -50,7 +50,7 @@ class MobViewFactory(
             PlayerAnimation.CASTING to Animation(0.25f, arrayOf(frames[4][6]).toGdxArray()) )
         val characterSprite = SpriteAnimated(characterAnimations, PlayerAnimation.IDDLE)
 
-        val shadow = StaticSprite(playerAssets.shadow)
+        val shadow = SpriteStatic(playerAssets.shadow)
 
         val filter = Filter()
             .also { it.categoryBits = LIGHT }
@@ -64,7 +64,10 @@ class MobViewFactory(
 
         model.steerable.attachLight(light)
 
-        return PlayerView(model, characterSprite, shadow, light)
+        val castingBar = CastingBar(model, (playerAssets.nameplateForeground), (playerAssets.nameplateBackground))
+        val castingBarSprite = SpriteStatic(playerAssets.nameplateBackground)
+
+        return PlayerView(model, characterSprite, shadow, castingBarSprite, light)
     }
 
     // SPELLS:

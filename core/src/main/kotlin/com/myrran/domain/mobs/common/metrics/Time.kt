@@ -35,4 +35,8 @@ data class Second(
     operator fun compareTo(other: Second): Int =
 
         value.compareTo(other.value)
+
+    fun isZero(): Boolean =
+
+        value == 0f
 }

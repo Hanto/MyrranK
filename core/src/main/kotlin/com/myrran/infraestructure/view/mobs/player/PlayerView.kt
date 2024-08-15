@@ -11,13 +11,14 @@ import com.myrran.domain.mobs.player.StateMoving
 import com.myrran.domain.mobs.player.StateTacticalCasting
 import com.myrran.infraestructure.view.mobs.common.MobView
 import com.myrran.infraestructure.view.mobs.common.SpriteAnimated
-import com.myrran.infraestructure.view.mobs.common.StaticSprite
+import com.myrran.infraestructure.view.mobs.common.SpriteStatic
 
 class PlayerView(
 
     private val model: Player,
     private val character: SpriteAnimated<PlayerAnimation>,
-    private val sombra: StaticSprite,
+    private val sombra: SpriteStatic,
+    private val castingBar: SpriteStatic,
     private val light: PointLight,
 
 ): Group(), MobView, Disposable
@@ -28,8 +29,10 @@ class PlayerView(
 
         addActor(sombra)
         addActor(character)
+        addActor(castingBar)
         setOrigin(character.width/2, character.height/2)
         sombra.moveBy(0f, Pixel(-5).toBox2DUnits())
+        castingBar.moveBy(0f, Pixel(36).toBox2DUnits())
     }
 
     // UPDATE:
@@ -42,6 +45,8 @@ class PlayerView(
             is StateTacticalCasting -> character.setAnimation(PlayerAnimation.CASTING)
             is StateMoving-> setWalkingAnimation()
         }
+
+        //castingBar.update()
 
         model.getInterpolatedPosition(fractionOfTimestep)
             .also { setPosition(it.x, it.y) }

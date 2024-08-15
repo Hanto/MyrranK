@@ -63,5 +63,10 @@ class CasterComponent(
 
     override fun getCastingInfo(): Caster.CastingInfo =
 
-        Caster.CastingInfo(requiredTime, expendedTime, requiredTime / expendedTime)
+        when (requiredTime.isZero())
+        {
+            true -> Caster.CastingInfo(requiredTime, expendedTime, 0f)
+            false -> Caster.CastingInfo(requiredTime, expendedTime, (expendedTime / requiredTime).coerceAtMost(1f))
+        }
+
 }

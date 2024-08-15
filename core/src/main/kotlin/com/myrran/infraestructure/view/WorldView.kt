@@ -41,7 +41,7 @@ class WorldView(
 
         rayHandler.setAmbientLight(0.5f)
         stage.addActor(playerView)
-        //camera.zoom = 0.5f
+        camera.zoom = 0.125f
         stage.viewport.camera = camera
         addListener(this, SpellCreatedEvent::class, MobRemovedEvent::class)
     }
