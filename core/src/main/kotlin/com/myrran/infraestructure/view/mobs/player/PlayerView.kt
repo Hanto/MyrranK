@@ -2,6 +2,7 @@ package com.myrran.infraestructure.view.mobs.player
 
 import box2dLight.PointLight
 import com.badlogic.gdx.scenes.scene2d.Group
+import com.badlogic.gdx.utils.Align
 import com.badlogic.gdx.utils.Disposable
 import com.myrran.domain.mobs.common.MobId
 import com.myrran.domain.mobs.common.metrics.PositionMeters
@@ -31,6 +32,7 @@ class PlayerView(
         addActor(shadow)
         addActor(character)
         addActor(castingBar)
+        setSize(character.width, character.height)
         setOrigin(character.width/2, character.height/2)
         shadow.moveBy(0f, -5f)
         castingBar.moveBy(-2f, 36f)
@@ -50,7 +52,7 @@ class PlayerView(
 
         model.getInterpolatedPosition(fractionOfTimestep)
             .let { PositionMeters(it.x, it.y).toPixels() }
-            .also { setPosition(it.x.toFloat(), it.y.toFloat()) }
+            .also { setPosition(it.x.toFloat(), it.y.toFloat(), Align.center) }
 
         castingBar.update()
     }

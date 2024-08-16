@@ -6,8 +6,6 @@ import com.myrran.domain.mobs.common.Mob
 import com.myrran.domain.mobs.common.MobId
 import com.myrran.domain.mobs.common.caster.Caster
 import com.myrran.domain.mobs.common.caster.CasterComponent
-import com.myrran.domain.mobs.common.metrics.Meter
-import com.myrran.domain.mobs.common.metrics.Pixel
 import com.myrran.domain.mobs.common.metrics.PositionMeters
 import com.myrran.domain.mobs.common.steerable.Movable
 import com.myrran.domain.mobs.common.steerable.Spatial
@@ -37,10 +35,5 @@ data class Player(
 
     fun castSpell() =
 
-        eventDispatcher.sendEvent(PlayerSpellCastedEvent(this, getCenter()))
-
-    private fun getCenter(): PositionMeters =
-        PositionMeters(
-            Meter(position.x) + Pixel(16).toMeters(),
-            Meter(position.y) + Pixel(16).toMeters())
+        eventDispatcher.sendEvent(PlayerSpellCastedEvent(this, PositionMeters(position.x, position.y)))
 }

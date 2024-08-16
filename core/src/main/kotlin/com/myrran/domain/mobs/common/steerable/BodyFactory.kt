@@ -4,8 +4,8 @@ import com.badlogic.gdx.physics.box2d.Body
 import com.badlogic.gdx.physics.box2d.BodyDef
 import com.badlogic.gdx.physics.box2d.CircleShape
 import com.badlogic.gdx.physics.box2d.FixtureDef
-import com.badlogic.gdx.physics.box2d.PolygonShape
 import com.myrran.domain.mobs.common.metrics.Distance
+import com.myrran.domain.mobs.common.metrics.Pixel
 import com.myrran.domain.mobs.common.metrics.Size
 import com.myrran.domain.mobs.common.steerable.Box2dFilters.Companion.BODY
 import com.myrran.domain.mobs.common.steerable.Box2dFilters.Companion.BULLET
@@ -21,11 +21,14 @@ class BodyFactory
 
         val bd = BodyDef()
             .also { it.type = BodyDef.BodyType.KinematicBody }
-            .also { it.fixedRotation = true }
+            .also { it.fixedRotation = false }
 
-        val dimensions = size.toBox2dUnits().scl(0.5f)
+        /*val dimensions = size.toBox2dUnits().scl(0.5f)
         val shape = PolygonShape()
-            .also { it.setAsBox(dimensions.x, dimensions.y, dimensions, 0f) }
+            .also { it.setAsBox(dimensions.x, dimensions.y, dimensions, 0f) } */
+
+        val shape = CircleShape()
+            .also { it.radius = Pixel(16).toBox2DUnits()}
 
         val fixDef = FixtureDef()
             .also { it.shape = shape }

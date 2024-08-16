@@ -11,7 +11,7 @@ import com.myrran.domain.mobs.common.metrics.PositionPixels
 class Camera(
 
     private val cameraPixel: OrthographicCamera,
-    private val cameraBox2D: OrthographicCamera
+    val cameraBox2D: OrthographicCamera
 )
 {
     fun setPosition(position: PositionPixels) {
