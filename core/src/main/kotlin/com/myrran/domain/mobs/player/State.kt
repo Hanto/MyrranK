@@ -18,7 +18,7 @@ data object StateTacticalIddle : State, StateIddle {
             }
             inputs.isMoving() -> {
 
-                player.applyImpulse(inputs.calculateDirection(), player.maxLinearSpeed)
+                player.applyImpulse(inputs.calculateDirection(), player.maxLinearAcceleration)
                     .let { StateTacticalMoving }
             }
             else -> StateTacticalIddle
@@ -33,7 +33,7 @@ data object StateTacticalMoving: State, StateMoving {
 
             inputs.isMoving() -> {
 
-                player.applyImpulse(inputs.calculateDirection(), player.maxLinearSpeed)
+                player.applyImpulse(inputs.calculateDirection(), player.maxLinearAcceleration)
                     .let { StateTacticalMoving }
             }
             inputs.tryToCast && player.isReadyToCast() -> {
@@ -58,7 +58,7 @@ data object StateTacticalCasting: State {
 
             inputs.isMoving() -> {
 
-                player.applyImpulse(inputs.calculateDirection(), player.maxLinearSpeed)
+                player.applyImpulse(inputs.calculateDirection(), player.maxLinearAcceleration)
                     .let { StateTacticalMoving }
             }
             player.isReadyToCast() && inputs.tryToCast -> {
@@ -88,7 +88,7 @@ data object StateActionIddle: State, StateIddle {
 
         return when(inputs.isMoving()) {
 
-            true -> player.applyImpulse(inputs.calculateDirection(), player.maxLinearSpeed)
+            true -> player.applyImpulse(inputs.calculateDirection(), player.maxLinearAcceleration)
                 .let { StateActionMoving }
 
             false -> StateActionIddle
@@ -105,7 +105,7 @@ data object StateActionMoving: State, StateMoving {
 
         return when(inputs.isMoving()) {
 
-            true -> player.applyImpulse(inputs.calculateDirection(), player.maxLinearSpeed)
+            true -> player.applyImpulse(inputs.calculateDirection(), player.maxLinearAcceleration)
                 .let { StateActionMoving }
 
             false -> player.setLinearVelocity(inputs.calculateDirection(), 0f)

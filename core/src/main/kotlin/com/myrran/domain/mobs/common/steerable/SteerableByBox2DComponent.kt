@@ -6,6 +6,7 @@ import com.badlogic.gdx.ai.steer.Limiter
 import com.badlogic.gdx.ai.steer.SteeringAcceleration
 import com.badlogic.gdx.ai.steer.SteeringBehavior
 import com.badlogic.gdx.math.Vector2
+import com.myrran.domain.mobs.common.metrics.Pixel
 import com.myrran.domain.mobs.spells.spell.WorldBox2D
 
 class SteerableByBox2DComponent(
@@ -22,7 +23,7 @@ class SteerableByBox2DComponent(
 
     override fun getBoundingRadius(): Float =
 
-        1f
+        Pixel(20).toBox2DUnits()
 
     override fun isTagged(): Boolean =
 

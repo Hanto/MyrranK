@@ -39,7 +39,8 @@ class MobFactory(
 
         val body = bodyFactory.createPlayerBody(worldBox2D, Pixel(16))
         val limiter = SpeedLimiter(
-            maxLinearSpeed = Speed(Meter(4f)))
+            maxLinearSpeed = Speed(Meter(4f)),
+            maxLinearAcceleration = Acceleration(Meter(500f)))
         val location = MovableByBox2D(
             body = body,
             limiter = limiter)
@@ -64,7 +65,7 @@ class MobFactory(
         val body = bodyFactory.createEnemyBody(worldBox2D, Pixel(16))
         val limiter = SpeedLimiter(
             maxLinearSpeed = Speed(Meter(2f)),
-            maxLinearAcceleration = Acceleration(Meter(12f)),
+            maxLinearAcceleration = Acceleration(Meter(500f)),
             maxAngularSpeed = AngularVelocity(Radian(6f)),
             maxAngularAcceleration = AngularAcceleration(Radian(12f))
             )

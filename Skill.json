@@ -16,7 +16,7 @@
     "id" : "SIZE",
     "name" : "size",
     "baseBonus" : 100.0,
-    "actual" : 26,
+    "actual" : 34,
     "maximum" : 50,
     "upgradeCost" : 1.0,
     "bonusPerUpgrade" : 4.0

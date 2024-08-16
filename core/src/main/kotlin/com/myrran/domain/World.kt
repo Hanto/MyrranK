@@ -6,6 +6,7 @@ import com.myrran.domain.events.Event
 import com.myrran.domain.events.MobRemovedEvent
 import com.myrran.domain.events.PlayerSpellCastedEvent
 import com.myrran.domain.events.SpellCreatedEvent
+import com.myrran.domain.mobs.common.ColissionListener
 import com.myrran.domain.mobs.common.Mob
 import com.myrran.domain.mobs.common.MobFactory
 import com.myrran.domain.mobs.common.MobId
@@ -35,6 +36,7 @@ class World(
     init {
 
         addListener(this, PlayerSpellCastedEvent::class, MobRemovedEvent::class, EnemyCreatedEvent::class)
+        worldBox2D.setContactListener(ColissionListener())
     }
 
     // UPDATE

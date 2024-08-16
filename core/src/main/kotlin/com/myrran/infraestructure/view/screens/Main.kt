@@ -196,12 +196,22 @@ class Main : KtxGame<KtxScreen>() {
         val enemy01 = mobFactory.createEnemy()
         enemy01.position = PositionPixels(-200, -200).toMeters().toBox2dUnits()
         eventDispatcher.sendEvent(EnemyCreatedEvent(enemy01))
-        enemy01.steerable.steeringBehavior = SteeringBehaviorsFactory().pursue(enemy01, player)
+        enemy01.steerable.steeringBehavior = SteeringBehaviorsFactory().pursueAndEvadeEnemies(enemy01, player)
 
         val enemy02 = mobFactory.createEnemy()
         enemy02.position = PositionPixels(200, -200).toMeters().toBox2dUnits()
         eventDispatcher.sendEvent(EnemyCreatedEvent(enemy02))
-        enemy02.steerable.steeringBehavior = SteeringBehaviorsFactory().pursue(enemy02, player)
+        enemy02.steerable.steeringBehavior = SteeringBehaviorsFactory().pursueAndEvadeEnemies(enemy02, player)
+
+        val enemy03 = mobFactory.createEnemy()
+        enemy03.position = PositionPixels(200, 200).toMeters().toBox2dUnits()
+        eventDispatcher.sendEvent(EnemyCreatedEvent(enemy03))
+        enemy03.steerable.steeringBehavior = SteeringBehaviorsFactory().pursueAndEvadeEnemies(enemy03, player)
+
+        val enemy04 = mobFactory.createEnemy()
+        enemy04.position = PositionPixels(200, 300).toMeters().toBox2dUnits()
+        eventDispatcher.sendEvent(EnemyCreatedEvent(enemy04))
+        enemy04.steerable.steeringBehavior = SteeringBehaviorsFactory().pursueAndEvadeEnemies(enemy04, player)
     }
 }
 
