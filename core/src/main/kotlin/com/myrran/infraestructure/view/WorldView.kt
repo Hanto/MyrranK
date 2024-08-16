@@ -39,7 +39,7 @@ class WorldView(
 
     init {
 
-        rayHandler.setAmbientLight(0.5f)
+        rayHandler.setAmbientLight(0.8f)
         stage.addActor(playerView)
 
         //camera.zoom(0.25f)
