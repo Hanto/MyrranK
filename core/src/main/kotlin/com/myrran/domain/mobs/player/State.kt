@@ -18,7 +18,7 @@ data object StateTacticalIddle : State, StateIddle {
             }
             inputs.isMoving() -> {
 
-                player.setLinearVelocity(inputs.calculateDirection(), player.maxLinearSpeed)
+                player.applyImpulse(inputs.calculateDirection(), player.maxLinearSpeed)
                     .let { StateTacticalMoving }
             }
             else -> StateTacticalIddle
@@ -33,7 +33,7 @@ data object StateTacticalMoving: State, StateMoving {
 
             inputs.isMoving() -> {
 
-                player.setLinearVelocity(inputs.calculateDirection(), player.maxLinearSpeed)
+                player.applyImpulse(inputs.calculateDirection(), player.maxLinearSpeed)
                     .let { StateTacticalMoving }
             }
             inputs.tryToCast && player.isReadyToCast() -> {
@@ -58,8 +58,7 @@ data object StateTacticalCasting: State {
 
             inputs.isMoving() -> {
 
-                player.setLinearVelocity(inputs.calculateDirection(), player.maxLinearSpeed)
-                    .let { player.stopCasting() }
+                player.applyImpulse(inputs.calculateDirection(), player.maxLinearSpeed)
                     .let { StateTacticalMoving }
             }
             player.isReadyToCast() && inputs.tryToCast -> {
@@ -89,7 +88,7 @@ data object StateActionIddle: State, StateIddle {
 
         return when(inputs.isMoving()) {
 
-            true -> player.setLinearVelocity(inputs.calculateDirection(), player.maxLinearSpeed)
+            true -> player.applyImpulse(inputs.calculateDirection(), player.maxLinearSpeed)
                 .let { StateActionMoving }
 
             false -> StateActionIddle
@@ -106,7 +105,7 @@ data object StateActionMoving: State, StateMoving {
 
         return when(inputs.isMoving()) {
 
-            true -> player.setLinearVelocity(inputs.calculateDirection(), player.maxLinearSpeed)
+            true -> player.applyImpulse(inputs.calculateDirection(), player.maxLinearSpeed)
                 .let { StateActionMoving }
 
             false -> player.setLinearVelocity(inputs.calculateDirection(), 0f)

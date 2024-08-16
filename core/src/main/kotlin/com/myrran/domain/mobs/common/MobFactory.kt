@@ -17,7 +17,7 @@ import com.myrran.domain.mobs.common.steerable.SpeedLimiter
 import com.myrran.domain.mobs.common.steerable.SteerableByBox2DComponent
 import com.myrran.domain.mobs.mob.Enemy
 import com.myrran.domain.mobs.player.Player
-import com.myrran.domain.mobs.player.StateTacticalIddle
+import com.myrran.domain.mobs.player.StateActionIddle
 import com.myrran.domain.mobs.spells.spell.SkillType
 import com.myrran.domain.mobs.spells.spell.SpellBolt
 import com.myrran.domain.mobs.spells.spell.SpellConstants.Companion.RANGE
@@ -50,11 +50,12 @@ class MobFactory(
         val player = Player(
             id = MobId(),
             steerable = movable,
-            state = StateTacticalIddle,
+            state = StateActionIddle,
             eventDispatcher = eventDispatcher,
             inputs = playerInputs,
             caster = caster)
 
+        body.userData = player
         return player
     }
 
@@ -78,6 +79,7 @@ class MobFactory(
             steerable = movable,
             eventDispatcher = eventDispatcher)
 
+        body.userData = enemy
         return enemy
     }
 
@@ -112,6 +114,7 @@ class MobFactory(
             eventDispatcher = eventDispatcher,
             consumable = consumable)
 
+        body.userData = spell
         return spell
     }
 

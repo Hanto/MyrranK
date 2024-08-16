@@ -103,10 +103,10 @@ class PlayerView(
     // HELPER:
     //--------------------------------------------------------------------------------------------------------
 
-    private fun Player.goesNorth() = linearVelocity.y > 0
-    private fun Player.goesSouth() = linearVelocity.y < 0
-    private fun Player.goesWest() = linearVelocity.x < 0
-    private fun Player.goesEast() = linearVelocity.x > 0
+    private fun Player.goesNorth() = linearVelocity.y > 0.2f
+    private fun Player.goesSouth() = linearVelocity.y < -0.2f
+    private fun Player.goesWest() = linearVelocity.x < -0.2f
+    private fun Player.goesEast() = linearVelocity.x > 0.2f
 
     private fun Player.direction(): Direction =
 

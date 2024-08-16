@@ -4,6 +4,7 @@ import com.badlogic.gdx.ai.steer.Steerable
 import com.badlogic.gdx.ai.steer.SteeringBehavior
 import com.badlogic.gdx.ai.steer.behaviors.Arrive
 import com.badlogic.gdx.ai.steer.behaviors.Flee
+import com.badlogic.gdx.ai.steer.behaviors.Pursue
 import com.badlogic.gdx.ai.steer.behaviors.Seek
 import com.badlogic.gdx.ai.steer.behaviors.Wander
 import com.badlogic.gdx.math.MathUtils
@@ -21,10 +22,15 @@ class SteeringBehaviorsFactory
             .setWanderRate(MathUtils.PI * 2)
     }
 
+
     fun seek(seeker: Steerable<Vector2>, target: Steerable<Vector2>): SteeringBehavior<Vector2> {
 
         return Seek(seeker, target)
     }
+
+    fun pursue(seeker: Steerable<Vector2>, target: Steerable<Vector2>): SteeringBehavior<Vector2> =
+
+        Pursue(seeker, target)
 
     fun flee(runner: Steerable<Vector2>, fleeingFrom: Steerable<Vector2>): SteeringBehavior<Vector2> {
 

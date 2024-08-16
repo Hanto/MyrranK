@@ -54,7 +54,7 @@ class WorldView(
         updatePositionUsingInterpolation(fractionOfTimestep)
         updatePlayerWithTheirTargets()
 
-        //camera.setPosition(PositionPixels(playerView.x, playerView.y))
+        camera.setPosition(PositionPixels(playerView.x, playerView.y))
         camera.update()
         camera.updateRayHandler(rayHandler)
 

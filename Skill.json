@@ -3,12 +3,12 @@
   "templateId" : "BOLT_1",
   "type" : "BOLT",
   "name" : "Bolt",
-  "customName" : "Bolt",
+  "customName" : "Custom FireBolt",
   "stats" : [ {
     "id" : "SPEED",
     "name" : "speed",
     "baseBonus" : 6.0,
-    "actual" : 10,
+    "actual" : 6,
     "maximum" : 50,
     "upgradeCost" : 2.0,
     "bonusPerUpgrade" : 1.0
@@ -16,7 +16,7 @@
     "id" : "SIZE",
     "name" : "size",
     "baseBonus" : 100.0,
-    "actual" : 0,
+    "actual" : 26,
     "maximum" : 50,
     "upgradeCost" : 1.0,
     "bonusPerUpgrade" : 4.0

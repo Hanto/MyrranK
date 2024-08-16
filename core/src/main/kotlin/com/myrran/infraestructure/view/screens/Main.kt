@@ -18,6 +18,7 @@ import com.myrran.domain.events.EnemyCreatedEvent
 import com.myrran.domain.misc.DeSerializer
 import com.myrran.domain.mobs.common.MobFactory
 import com.myrran.domain.mobs.common.metrics.Pixel
+import com.myrran.domain.mobs.common.metrics.PositionPixels
 import com.myrran.domain.mobs.common.steerable.BodyFactory
 import com.myrran.domain.mobs.common.steerable.SteeringBehaviorsFactory
 import com.myrran.domain.mobs.spells.spell.WorldBox2D
@@ -192,9 +193,15 @@ class Main : KtxGame<KtxScreen>() {
         addScreen(MainScreen(assetStorage, world, view))
         setScreen<MainScreen>()
 
-        val enemy = mobFactory.createEnemy()
-        eventDispatcher.sendEvent(EnemyCreatedEvent(enemy))
-        enemy.steerable.steeringBehavior = SteeringBehaviorsFactory().seek(enemy, player)
+        val enemy01 = mobFactory.createEnemy()
+        enemy01.position = PositionPixels(-200, -200).toMeters().toBox2dUnits()
+        eventDispatcher.sendEvent(EnemyCreatedEvent(enemy01))
+        enemy01.steerable.steeringBehavior = SteeringBehaviorsFactory().pursue(enemy01, player)
+
+        val enemy02 = mobFactory.createEnemy()
+        enemy02.position = PositionPixels(200, -200).toMeters().toBox2dUnits()
+        eventDispatcher.sendEvent(EnemyCreatedEvent(enemy02))
+        enemy02.steerable.steeringBehavior = SteeringBehaviorsFactory().pursue(enemy02, player)
     }
 }
 

@@ -18,7 +18,7 @@ class BodyFactory
     fun createPlayerBody(world: WorldBox2D, radius: Distance): Body {
 
         val bd = BodyDef()
-            .also { it.type = BodyDef.BodyType.KinematicBody }
+            .also { it.type = BodyDef.BodyType.DynamicBody }
             .also { it.fixedRotation = false }
 
         val shape = CircleShape()
@@ -48,7 +48,7 @@ class BodyFactory
         val fixDef = FixtureDef()
             .also { it.shape = shape }
             .also { it.filter.categoryBits = ENEMY }
-            .also { it.filter.maskBits = PLAYER or BULLET or LIGHT_PLAYER }
+            .also { it.filter.maskBits = PLAYER or ENEMY or BULLET or LIGHT_PLAYER }
 
         val body = world.createBody(bd)
             .also { it.createFixture(fixDef) }
