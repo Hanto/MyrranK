@@ -8,7 +8,7 @@
     "id" : "SPEED",
     "name" : "speed",
     "baseBonus" : 6.0,
-    "actual" : 0,
+    "actual" : 10,
     "maximum" : 50,
     "upgradeCost" : 2.0,
     "bonusPerUpgrade" : 1.0

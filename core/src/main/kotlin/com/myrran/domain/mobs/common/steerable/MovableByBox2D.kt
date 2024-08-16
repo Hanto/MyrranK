@@ -64,7 +64,9 @@ data class MovableByBox2D(
 
     override fun setLinearVelocity(direction: Vector2, value: Float) {
 
-        body.linearVelocity = direction.nor().scl(value).limit(limiter.maxLinearSpeed) }
+        body.linearVelocity = direction.nor().scl(value).limit(limiter.maxLinearSpeed)
+        orientation = direction.angleRad()
+    }
 
     override fun getLinearVelocity(): Vector2 =
 
