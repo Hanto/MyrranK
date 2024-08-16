@@ -14,10 +14,12 @@ import com.badlogic.gdx.math.Vector2
 import com.badlogic.gdx.scenes.scene2d.Stage
 import com.myrran.badlogic.DaD
 import com.myrran.domain.World
+import com.myrran.domain.events.EnemyCreatedEvent
 import com.myrran.domain.misc.DeSerializer
 import com.myrran.domain.mobs.common.MobFactory
 import com.myrran.domain.mobs.common.metrics.Pixel
 import com.myrran.domain.mobs.common.steerable.BodyFactory
+import com.myrran.domain.mobs.common.steerable.SteeringBehaviorsFactory
 import com.myrran.domain.mobs.spells.spell.WorldBox2D
 import com.myrran.domain.skills.LearnedTemplates
 import com.myrran.domain.skills.SpellBook
@@ -189,6 +191,10 @@ class Main : KtxGame<KtxScreen>() {
 
         addScreen(MainScreen(assetStorage, world, view))
         setScreen<MainScreen>()
+
+        val enemy = mobFactory.createEnemy()
+        eventDispatcher.sendEvent(EnemyCreatedEvent(enemy))
+        enemy.steerable.steeringBehavior = SteeringBehaviorsFactory().seek(enemy, player)
     }
 }
 

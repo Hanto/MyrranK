@@ -16,8 +16,8 @@ class SteerableByBox2DComponent(
 
 ): Steerable, Movable by movable, Limiter by speedLimiter, Component
 {
+    var steeringBehavior: SteeringBehavior<Vector2>? = null
     private var steeringOutput: SteeringAcceleration<Vector2> = SteeringAcceleration(Vector2())
-    private var steeringBehavior: SteeringBehavior<Vector2>? = null
     private var isTagged: Boolean = false
 
     override fun getBoundingRadius(): Float =

@@ -7,8 +7,9 @@ import com.badlogic.gdx.graphics.g2d.Animation
 import com.badlogic.gdx.physics.box2d.Filter
 import com.myrran.domain.mobs.common.metrics.Pixel
 import com.myrran.domain.mobs.common.metrics.SizePixels
-import com.myrran.domain.mobs.common.steerable.Box2dFilters.Companion.BODY
-import com.myrran.domain.mobs.common.steerable.Box2dFilters.Companion.LIGHT
+import com.myrran.domain.mobs.common.steerable.Box2dFilters.Companion.ENEMY
+import com.myrran.domain.mobs.common.steerable.Box2dFilters.Companion.LIGHT_PLAYER
+import com.myrran.domain.mobs.common.steerable.Box2dFilters.Companion.LIGHT_SPELLS
 import com.myrran.domain.mobs.common.steerable.Box2dFilters.Companion.PLAYER
 import com.myrran.domain.mobs.common.steerable.Box2dFilters.Companion.WALLS
 import com.myrran.domain.mobs.player.Player
@@ -53,8 +54,8 @@ class MobViewFactory(
         val shadow = SpriteStatic(playerAssets.shadow)
 
         val filter = Filter()
-            .also { it.categoryBits = LIGHT }
-            .also { it.maskBits = PLAYER or BODY or WALLS}
+            .also { it.categoryBits = LIGHT_PLAYER }
+            .also { it.maskBits = PLAYER or ENEMY or WALLS}
 
         val light = PointLight(rayHandler, 300)
             .also { it.setContactFilter(filter) }
@@ -88,8 +89,8 @@ class MobViewFactory(
             SpellAnimation.GLOW to Animation(0.1f,  arrayOf(frames[0][3], frames[0][4], frames[0][5], frames[0][4]).toGdxArray()))
 
         val filter = Filter()
-            .also { it.categoryBits = LIGHT }
-            .also { it.maskBits = BODY or WALLS }
+            .also { it.categoryBits = LIGHT_SPELLS }
+            .also { it.maskBits = WALLS }
 
         val light = PointLight(rayHandler, 50)
             .also { it.setContactFilter(filter) }

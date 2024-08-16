@@ -2,16 +2,20 @@ package com.myrran.domain.mobs.common
 
 import com.myrran.domain.mobs.common.caster.CasterComponent
 import com.myrran.domain.mobs.common.consumable.ConsumableComponent
+import com.myrran.domain.mobs.common.metrics.Acceleration
+import com.myrran.domain.mobs.common.metrics.AngularAcceleration
+import com.myrran.domain.mobs.common.metrics.AngularVelocity
 import com.myrran.domain.mobs.common.metrics.Meter
 import com.myrran.domain.mobs.common.metrics.Pixel
 import com.myrran.domain.mobs.common.metrics.PositionMeters
+import com.myrran.domain.mobs.common.metrics.Radian
 import com.myrran.domain.mobs.common.metrics.Second
-import com.myrran.domain.mobs.common.metrics.SizePixels
 import com.myrran.domain.mobs.common.metrics.Speed
 import com.myrran.domain.mobs.common.steerable.BodyFactory
 import com.myrran.domain.mobs.common.steerable.MovableByBox2D
 import com.myrran.domain.mobs.common.steerable.SpeedLimiter
 import com.myrran.domain.mobs.common.steerable.SteerableByBox2DComponent
+import com.myrran.domain.mobs.mob.Enemy
 import com.myrran.domain.mobs.player.Player
 import com.myrran.domain.mobs.player.StateTacticalIddle
 import com.myrran.domain.mobs.spells.spell.SkillType
@@ -33,7 +37,7 @@ class MobFactory(
 {
     fun createPlayer(): Player {
 
-        val body = bodyFactory.createPlayerBody(worldBox2D, SizePixels(32, 32))
+        val body = bodyFactory.createPlayerBody(worldBox2D, Pixel(16))
         val limiter = SpeedLimiter(
             maxLinearSpeed = Speed(Meter(4f)))
         val location = MovableByBox2D(
@@ -52,6 +56,29 @@ class MobFactory(
             caster = caster)
 
         return player
+    }
+
+    fun createEnemy(): Enemy {
+
+        val body = bodyFactory.createEnemyBody(worldBox2D, Pixel(16))
+        val limiter = SpeedLimiter(
+            maxLinearSpeed = Speed(Meter(2f)),
+            maxLinearAcceleration = Acceleration(Meter(12f)),
+            maxAngularSpeed = AngularVelocity(Radian(6f)),
+            maxAngularAcceleration = AngularAcceleration(Radian(12f))
+            )
+        val location = MovableByBox2D(
+            body = body,
+            limiter = limiter)
+        val movable = SteerableByBox2DComponent(
+            movable = location,
+            speedLimiter = limiter)
+        val enemy = Enemy(
+            id = MobId(),
+            steerable = movable,
+            eventDispatcher = eventDispatcher)
+
+        return enemy
     }
 
     fun createSpell(skill: Skill, origin: PositionMeters, target: PositionMeters) =

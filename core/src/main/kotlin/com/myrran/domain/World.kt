@@ -1,6 +1,7 @@
 package com.myrran.domain
 
 import com.badlogic.gdx.utils.Disposable
+import com.myrran.domain.events.EnemyCreatedEvent
 import com.myrran.domain.events.Event
 import com.myrran.domain.events.MobRemovedEvent
 import com.myrran.domain.events.PlayerSpellCastedEvent
@@ -33,7 +34,7 @@ class World(
 
     init {
 
-        addListener(this, PlayerSpellCastedEvent::class, MobRemovedEvent::class)
+        addListener(this, PlayerSpellCastedEvent::class, MobRemovedEvent::class, EnemyCreatedEvent::class)
     }
 
     // UPDATE
@@ -72,6 +73,7 @@ class World(
 
         when (event) {
             is PlayerSpellCastedEvent -> castPlayerSpell(event.caster, event.origin)
+            is EnemyCreatedEvent -> addMob(event.mob)
             is MobRemovedEvent -> toBeRemoved.add(event.mob.id)
             else -> Unit
         }
