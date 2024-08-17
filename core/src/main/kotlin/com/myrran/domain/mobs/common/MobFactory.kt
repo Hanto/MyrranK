@@ -11,6 +11,7 @@ import com.myrran.domain.mobs.common.metrics.PositionMeters
 import com.myrran.domain.mobs.common.metrics.Radian
 import com.myrran.domain.mobs.common.metrics.Second
 import com.myrran.domain.mobs.common.metrics.Speed
+import com.myrran.domain.mobs.common.proximity.ProximityComponent
 import com.myrran.domain.mobs.common.steerable.BodyFactory
 import com.myrran.domain.mobs.common.steerable.MovableByBox2D
 import com.myrran.domain.mobs.common.steerable.SpeedLimiter
@@ -75,10 +76,13 @@ class MobFactory(
         val movable = SteerableByBox2DComponent(
             movable = location,
             speedLimiter = limiter)
+        val proximity = ProximityComponent(
+            owner = movable)
         val enemy = Enemy(
             id = MobId(),
             steerable = movable,
-            eventDispatcher = eventDispatcher)
+            eventDispatcher = eventDispatcher,
+            proximity = proximity)
 
         body.userData = enemy
         return enemy

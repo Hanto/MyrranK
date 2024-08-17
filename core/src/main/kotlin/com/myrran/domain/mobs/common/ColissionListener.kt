@@ -6,18 +6,19 @@ import com.badlogic.gdx.physics.box2d.ContactListener
 import com.badlogic.gdx.physics.box2d.Fixture
 import com.badlogic.gdx.physics.box2d.Manifold
 import com.myrran.domain.mobs.common.steerable.Box2dFilters.Companion.ENEMY_SENSOR
+import com.myrran.domain.mobs.common.steerable.Steerable
 import com.myrran.domain.mobs.mob.Enemy
 
 class ColissionListener: ContactListener {
 
     override fun beginContact(contact: Contact) {
 
-        doIf(contact, { it.filterData.categoryBits == ENEMY_SENSOR }, { a: Enemy, b: Mob -> a.enemiesNear.add(b) })
+        doIf(contact, { it.filterData.categoryBits == ENEMY_SENSOR }, { a: Enemy, b: Steerable -> a.addNeighbor(b) })
     }
 
     override fun endContact(contact: Contact) {
 
-        doIf(contact, { it.filterData.categoryBits == ENEMY_SENSOR }, { a: Enemy, b: Mob -> a.enemiesNear.remove(b) })
+        doIf(contact, { it.filterData.categoryBits == ENEMY_SENSOR }, { a: Enemy, b: Steerable -> a.removeNeighbor(b) })
     }
 
     private fun <T: Any, D: Any>doIf(contact: Contact, condition: (Fixture) -> Boolean, doThis: (T, D) -> Unit ) {

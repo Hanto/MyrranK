@@ -205,12 +205,12 @@ class Main : KtxGame<KtxScreen>() {
 
         val enemy03 = mobFactory.createEnemy()
         enemy03.position = PositionPixels(200, 200).toMeters().toBox2dUnits()
-        eventDispatcher.sendEvent(EnemyCreatedEvent(enemy03))
+        //eventDispatcher.sendEvent(EnemyCreatedEvent(enemy03))
         enemy03.steerable.steeringBehavior = SteeringBehaviorsFactory().pursueAndEvadeEnemies(enemy03, player)
 
         val enemy04 = mobFactory.createEnemy()
         enemy04.position = PositionPixels(200, 300).toMeters().toBox2dUnits()
-        eventDispatcher.sendEvent(EnemyCreatedEvent(enemy04))
+        //eventDispatcher.sendEvent(EnemyCreatedEvent(enemy04))
         enemy04.steerable.steeringBehavior = SteeringBehaviorsFactory().pursueAndEvadeEnemies(enemy04, player)
     }
 }

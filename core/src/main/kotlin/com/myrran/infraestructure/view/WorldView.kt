@@ -50,6 +50,7 @@ class WorldView(
     fun render(deltaTime: Float, fractionOfTimestep: Float) {
 
         box2dDebug.render(model.worldBox2D, camera.cameraBox2D.combined)
+        box2dDebug.isDrawVelocities = true
 
         updatePositionUsingInterpolation(fractionOfTimestep)
         updatePlayerWithTheirTargets()

@@ -45,7 +45,7 @@ class World(
     fun update(timesStep: Float) {
 
         // box2d simulation
-        worldBox2D.step(timesStep, 8, 3)
+        worldBox2D.step(timesStep, 6, 2)
 
         // mob IA
         player.act(timesStep, this)

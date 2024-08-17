@@ -1,19 +1,25 @@
 package com.myrran.domain.mobs.common.steerable
 
+import com.badlogic.gdx.math.Vector2
 import com.badlogic.gdx.physics.box2d.Body
 import com.badlogic.gdx.physics.box2d.BodyDef
 import com.badlogic.gdx.physics.box2d.CircleShape
 import com.badlogic.gdx.physics.box2d.FixtureDef
+import com.badlogic.gdx.physics.box2d.PolygonShape
+import com.myrran.domain.mobs.common.metrics.Degree
 import com.myrran.domain.mobs.common.metrics.Distance
 import com.myrran.domain.mobs.common.metrics.Pixel
 import com.myrran.domain.mobs.common.steerable.Box2dFilters.Companion.BULLET
 import com.myrran.domain.mobs.common.steerable.Box2dFilters.Companion.ENEMY
+import com.myrran.domain.mobs.common.steerable.Box2dFilters.Companion.ENEMY_LOS
 import com.myrran.domain.mobs.common.steerable.Box2dFilters.Companion.ENEMY_SENSOR
 import com.myrran.domain.mobs.common.steerable.Box2dFilters.Companion.LIGHT_PLAYER
 import com.myrran.domain.mobs.common.steerable.Box2dFilters.Companion.PLAYER
 import com.myrran.domain.mobs.common.steerable.Box2dFilters.Companion.WALLS
 import com.myrran.domain.mobs.spells.spell.WorldBox2D
 import kotlin.experimental.or
+import kotlin.math.cos
+import kotlin.math.sin
 
 class BodyFactory
 {
@@ -55,7 +61,7 @@ class BodyFactory
             .also { it.density = 100f }
 
         val shapeSensor = CircleShape()
-            .also { it.radius = Pixel(50).toBox2DUnits() }
+            .also { it.radius = Pixel(60).toBox2DUnits() }
 
         val fixDefSensor = FixtureDef()
             .also { it.shape = shapeSensor }
@@ -63,12 +69,20 @@ class BodyFactory
             .also { it.filter.maskBits = ENEMY or PLAYER }
             .also { it.isSensor = true }
 
+        val cone = createCone(Pixel(300), Degree(45f))
+        val fixCone = FixtureDef()
+            .also { it.shape = cone }
+            .also { it.filter.categoryBits =  ENEMY_LOS}
+            .also { it.isSensor = true }
+
         val body = world.createBody(bd)
             .also { it.createFixture(fixDef) }
             .also { it.createFixture(fixDefSensor) }
+            .also { it.createFixture(fixCone) }
 
         shape.dispose()
         shapeSensor.dispose()
+        cone.dispose()
         return body
     }
 
@@ -90,5 +104,23 @@ class BodyFactory
 
         shape.dispose()
         return body
+    }
+
+    // HELPER:
+    //--------------------------------------------------------------------------------------------------------
+
+    private fun createCone(radius: Distance, angle: Degree): PolygonShape {
+
+        val vertices = mutableListOf(Vector2(0f, 0f))
+
+        for (i in 0..6) {
+
+            val radians = (angle * i / 6 - angle / 2).toRadians().toFloat()
+            val vector = Vector2(radius.toBox2DUnits() * cos(radians), radius.toBox2DUnits() * sin(radians))
+            vertices.add(vector)
+        }
+
+        return PolygonShape()
+            .also { it.set(vertices.toTypedArray()) }
     }
 }
