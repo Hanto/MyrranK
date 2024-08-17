@@ -3,9 +3,6 @@ package com.myrran.domain.mobs.common.steerable
 import com.badlogic.gdx.math.Vector2
 import com.badlogic.gdx.physics.box2d.Body
 import com.badlogic.gdx.physics.box2d.BodyDef
-import com.badlogic.gdx.physics.box2d.CircleShape
-import com.badlogic.gdx.physics.box2d.FixtureDef
-import com.badlogic.gdx.physics.box2d.PolygonShape
 import com.myrran.domain.mobs.common.metrics.Degree
 import com.myrran.domain.mobs.common.metrics.Distance
 import com.myrran.domain.mobs.common.metrics.Pixel
@@ -17,99 +14,79 @@ import com.myrran.domain.mobs.common.steerable.Box2dFilters.Companion.LIGHT_PLAY
 import com.myrran.domain.mobs.common.steerable.Box2dFilters.Companion.PLAYER
 import com.myrran.domain.mobs.common.steerable.Box2dFilters.Companion.WALLS
 import com.myrran.domain.mobs.spells.spell.WorldBox2D
+import ktx.box2d.body
+import ktx.box2d.circle
+import ktx.box2d.polygon
 import kotlin.experimental.or
 import kotlin.math.cos
 import kotlin.math.sin
 
 class BodyFactory
 {
-    fun createPlayerBody(world: WorldBox2D, radius: Distance): Body {
+    fun createPlayerBody(world: WorldBox2D, radius: Distance): Body =
 
-        val bd = BodyDef()
-            .also { it.type = BodyDef.BodyType.DynamicBody }
-            .also { it.fixedRotation = false }
+        world.body {
 
-        val shape = CircleShape()
-            .also { it.radius = radius.toBox2DUnits()}
+            type= BodyDef.BodyType.DynamicBody
+            fixedRotation = true
 
-        val fixDef = FixtureDef()
-            .also { it.shape = shape }
-            .also { it.filter.categoryBits = PLAYER }
-            .also { it.filter.maskBits = BULLET or LIGHT_PLAYER or ENEMY_SENSOR or ENEMY }
-            .also { it.density = 100f }
+            circle {
 
-        val body = world.createBody(bd)
-            .also { it.createFixture(fixDef) }
+                it.radius = radius.toBox2DUnits()
+                filter.categoryBits = PLAYER
+                filter.maskBits = BULLET or LIGHT_PLAYER or ENEMY_SENSOR or ENEMY
+                density = 100f
+            }
+        }
 
-        shape.dispose()
-        return body
+    fun createEnemyBody(world: WorldBox2D, radius: Distance): Body =
+
+        world.body {
+
+            type = BodyDef.BodyType.DynamicBody
+            fixedRotation = false
+
+            circle {
+
+                it.radius = radius.toBox2DUnits()
+                filter.categoryBits = ENEMY
+                filter.maskBits = PLAYER or ENEMY or BULLET or LIGHT_PLAYER or ENEMY_SENSOR
+                density = 100f
+            }
+            circle {
+
+                it.radius = Pixel(60).toBox2DUnits()
+                filter.categoryBits = ENEMY_SENSOR
+                filter.maskBits = ENEMY or PLAYER
+                isSensor = true
+            }
+            polygon {
+
+                it.set(createConeVertices(Pixel(300), Degree(45f)))
+                filter.categoryBits = ENEMY_LOS
+                isSensor = true
+            }
     }
 
-    fun createEnemyBody(world: WorldBox2D, radius: Distance): Body {
+    fun createSpellBoltBody(world: WorldBox2D, radius: Distance): Body =
 
-        val bd = BodyDef()
-            .also { it.type = BodyDef.BodyType.DynamicBody }
-            .also { it.fixedRotation = false }
+        world.body {
 
-        val shape = CircleShape()
-            .also { it.radius = radius.toBox2DUnits() }
+            type = BodyDef.BodyType.KinematicBody
+            fixedRotation = false
 
-        val fixDef = FixtureDef()
-            .also { it.shape = shape }
-            .also { it.filter.categoryBits = ENEMY }
-            .also { it.filter.maskBits = PLAYER or ENEMY or BULLET or LIGHT_PLAYER or ENEMY_SENSOR }
-            .also { it.density = 100f }
+            circle {
 
-        val shapeSensor = CircleShape()
-            .also { it.radius = Pixel(60).toBox2DUnits() }
-
-        val fixDefSensor = FixtureDef()
-            .also { it.shape = shapeSensor }
-            .also { it.filter.categoryBits = ENEMY_SENSOR }
-            .also { it.filter.maskBits = ENEMY or PLAYER }
-            .also { it.isSensor = true }
-
-        val cone = createCone(Pixel(300), Degree(45f))
-        val fixCone = FixtureDef()
-            .also { it.shape = cone }
-            .also { it.filter.categoryBits =  ENEMY_LOS}
-            .also { it.isSensor = true }
-
-        val body = world.createBody(bd)
-            .also { it.createFixture(fixDef) }
-            .also { it.createFixture(fixDefSensor) }
-            .also { it.createFixture(fixCone) }
-
-        shape.dispose()
-        shapeSensor.dispose()
-        cone.dispose()
-        return body
-    }
-
-    fun createSpellBoltBody(world: WorldBox2D, radius: Distance): Body {
-
-        val bd = BodyDef()
-            .also { it.type = BodyDef.BodyType.KinematicBody }
-
-        val shape = CircleShape()
-            .also { it.radius = radius.toBox2DUnits() }
-
-        val fixDef = FixtureDef()
-            .also { it.shape = shape }
-            .also { it.filter.categoryBits = BULLET }
-            .also { it.filter.maskBits = ENEMY or WALLS }
-
-        val body = world.createBody(bd)
-            .also { it.createFixture(fixDef) }
-
-        shape.dispose()
-        return body
-    }
+                it.radius = radius.toBox2DUnits()
+                filter.categoryBits = BULLET
+                filter.maskBits = ENEMY or WALLS
+            }
+        }
 
     // HELPER:
     //--------------------------------------------------------------------------------------------------------
 
-    private fun createCone(radius: Distance, angle: Degree): PolygonShape {
+    private fun createConeVertices(radius: Distance, angle: Degree): Array<Vector2> {
 
         val vertices = mutableListOf(Vector2(0f, 0f))
 
@@ -119,8 +96,6 @@ class BodyFactory
             val vector = Vector2(radius.toBox2DUnits() * cos(radians), radius.toBox2DUnits() * sin(radians))
             vertices.add(vector)
         }
-
-        return PolygonShape()
-            .also { it.set(vertices.toTypedArray()) }
+        return vertices.toTypedArray()
     }
 }
