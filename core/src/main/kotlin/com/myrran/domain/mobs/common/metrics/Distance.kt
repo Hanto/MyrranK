@@ -29,13 +29,13 @@ data class Pixel(
 
         toMeters().toFloat()
 
-    operator fun div(int: Int): Pixel =
+    operator fun div(number: Number): Pixel =
 
-        Pixel(value / int)
+        Pixel(value / number.toFloat())
 
-    operator fun times(int: Float): Pixel =
+    operator fun times(number: Number): Pixel =
 
-        Pixel(value * int)
+        Pixel(value * number.toFloat())
 }
 
 data class Meter(
@@ -60,9 +60,9 @@ data class Meter(
 
         Meter(value + other.value)
 
-    operator fun div(int: Int): Meter =
+    operator fun div(number: Number): Meter =
 
-        Meter(value / int)
+        Meter(value / number.toFloat())
 }
 
 private const val PIXEL_TO_METERS: Float = 0.032f

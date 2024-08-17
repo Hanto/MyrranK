@@ -15,6 +15,22 @@ data class Degree(
     fun toRadians(): Radian =
 
         Radian(0.01745330f * value)
+
+    operator fun times(number: Number) =
+
+        Degree(value * number.toFloat())
+
+    operator fun div(number: Number) =
+
+        Degree(value / number.toFloat())
+
+    operator fun minus(number: Number) =
+
+        Degree(value - number.toFloat())
+
+    operator fun minus(other: Degree) =
+
+        Degree(value - other.value)
 }
 
 data class Radian(
