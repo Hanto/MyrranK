@@ -104,6 +104,6 @@ class World(
     private fun removeMob(id: MobId) {
 
         mobs.remove(id)
-            ?.also { mobFactory.destroyMob(it) }
+            ?.also { if (it is Disposable) it.dispose() }
     }
 }

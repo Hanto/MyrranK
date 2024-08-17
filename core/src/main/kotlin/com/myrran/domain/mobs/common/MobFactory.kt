@@ -44,7 +44,8 @@ class MobFactory(
             maxLinearAcceleration = Acceleration(Meter(500f)))
         val location = MovableByBox2D(
             body = body,
-            limiter = limiter)
+            limiter = limiter,
+            destroyFunction = { worldBox2D.destroyBody(body) })
         val movable = SteerableByBox2DComponent(
             movable = location,
             speedLimiter = limiter)
@@ -72,7 +73,8 @@ class MobFactory(
             )
         val location = MovableByBox2D(
             body = body,
-            limiter = limiter)
+            limiter = limiter,
+            destroyFunction = { worldBox2D.destroyBody(body) })
         val movable = SteerableByBox2DComponent(
             movable = location,
             speedLimiter = limiter)
@@ -106,7 +108,8 @@ class MobFactory(
             maxLinearSpeed = Speed(Meter(100f)))
         val location = MovableByBox2D(
             body = body,
-            limiter = limiter)
+            limiter = limiter,
+            destroyFunction = { worldBox2D.destroyBody(body) })
         val movable = SteerableByBox2DComponent(
             movable = location,
             speedLimiter = limiter)
@@ -121,15 +124,5 @@ class MobFactory(
 
         body.userData = spell
         return spell
-    }
-
-    fun destroyMob(mob: Mob) {
-
-        if (mob.steerable is SteerableByBox2DComponent) {
-
-            val steerableBox2d = mob.steerable as SteerableByBox2DComponent
-            steerableBox2d.destroyBody(worldBox2D)
-        }
-
     }
 }

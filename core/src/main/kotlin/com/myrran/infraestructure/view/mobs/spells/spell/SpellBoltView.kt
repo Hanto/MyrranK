@@ -6,7 +6,6 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion
 import com.badlogic.gdx.math.Interpolation
 import com.badlogic.gdx.scenes.scene2d.actions.Actions
 import com.badlogic.gdx.utils.Align
-import com.badlogic.gdx.utils.Disposable
 import com.myrran.domain.mobs.common.MobId
 import com.myrran.domain.mobs.common.metrics.Pixel
 import com.myrran.domain.mobs.common.metrics.PositionMeters
@@ -23,7 +22,7 @@ class SpellBoltView(
     private val light: PointLight,
     animations: Map<SpellAnimation, Animation<TextureRegion>>,
 
-): SpriteAnimated<SpellAnimation>(animations, SpellAnimation.GLOW), MobView, Disposable
+): SpriteAnimated<SpellAnimation>(animations, SpellAnimation.GLOW), MobView
 {
     override val id: MobId = model.id
 

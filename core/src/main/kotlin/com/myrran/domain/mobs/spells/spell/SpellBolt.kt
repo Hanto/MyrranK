@@ -1,5 +1,6 @@
 package com.myrran.domain.mobs.spells.spell
 
+import com.badlogic.gdx.utils.Disposable
 import com.myrran.domain.World
 import com.myrran.domain.events.MobRemovedEvent
 import com.myrran.domain.mobs.common.Mob
@@ -27,7 +28,7 @@ class SpellBolt(
     origin: PositionMeters,
     target: PositionMeters,
 
-): Mob, Spell, Steerable by steerable, Spatial, Movable, Consumable by consumable
+): Mob, Spell, Steerable by steerable, Spatial, Movable, Consumable by consumable, Disposable
 {
     init {
 
@@ -44,4 +45,8 @@ class SpellBolt(
         if (consumable.updateDuration(deltaTime).isConsumed)
             eventDispatcher.sendEvent(MobRemovedEvent(this))
     }
+
+    override fun dispose() =
+
+        steerable.dispose()
 }

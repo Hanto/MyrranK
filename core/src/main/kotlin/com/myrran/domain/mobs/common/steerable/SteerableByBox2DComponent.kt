@@ -1,11 +1,11 @@
 package com.myrran.domain.mobs.common.steerable
 
 import box2dLight.PointLight
-import com.badlogic.ashley.core.Component
 import com.badlogic.gdx.ai.steer.Limiter
 import com.badlogic.gdx.ai.steer.SteeringAcceleration
 import com.badlogic.gdx.ai.steer.SteeringBehavior
 import com.badlogic.gdx.math.Vector2
+import com.badlogic.gdx.utils.Disposable
 import com.myrran.domain.mobs.common.metrics.Pixel
 import com.myrran.domain.mobs.spells.spell.WorldBox2D
 
@@ -15,7 +15,7 @@ class SteerableByBox2DComponent(
     private val speedLimiter: SpeedLimiter,
     private var isFacingAutomatic: Boolean = false
 
-): Steerable, Movable by movable, Limiter by speedLimiter, Component
+): Steerable, Movable by movable, Limiter by speedLimiter, Disposable
 {
     var steeringBehavior: SteeringBehavior<Vector2>? = null
     private var steeringOutput: SteeringAcceleration<Vector2> = SteeringAcceleration(Vector2())
@@ -41,6 +41,13 @@ class SteerableByBox2DComponent(
     fun attachLight(light: PointLight) =
 
         light.attachToBody(movable.body)
+
+    // DISPOSABLE:
+    //--------------------------------------------------------------------------------------------------------
+
+    override fun dispose() =
+
+        movable.dispose()
 
     // STEERING:
     //--------------------------------------------------------------------------------------------------------

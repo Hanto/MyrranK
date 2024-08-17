@@ -4,14 +4,16 @@ import com.badlogic.gdx.ai.steer.Limiter
 import com.badlogic.gdx.ai.utils.Location
 import com.badlogic.gdx.math.Vector2
 import com.badlogic.gdx.physics.box2d.Body
+import com.badlogic.gdx.utils.Disposable
 import ktx.math.minus
 
 data class MovableByBox2D(
 
     val body: Body,
-    private val limiter: Limiter
+    private val limiter: Limiter,
+    private val destroyFunction: () -> Unit
 
-): Spatial, Movable
+): Spatial, Movable, Disposable
 {
     private var lastPosition: Vector2 = Vector2(0f, 0f)
 
@@ -94,4 +96,11 @@ data class MovableByBox2D(
         body.applyTorque(angular, true)
         body.angularVelocity = body.angularVelocity.coerceAtMost(limiter.maxAngularSpeed)
     }
+
+    // DISPOSABLE:
+    //--------------------------------------------------------------------------------------------------------
+
+    override fun dispose() =
+
+        destroyFunction.invoke()
 }
