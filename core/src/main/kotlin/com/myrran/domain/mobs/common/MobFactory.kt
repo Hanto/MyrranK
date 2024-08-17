@@ -69,8 +69,7 @@ class MobFactory(
             maxLinearSpeed = Speed(Meter(2f)),
             maxLinearAcceleration = Acceleration(Meter(500f)),
             maxAngularSpeed = AngularVelocity(Radian(6f)),
-            maxAngularAcceleration = AngularAcceleration(Radian(12f))
-            )
+            maxAngularAcceleration = AngularAcceleration(Radian(12f)))
         val location = MovableByBox2D(
             body = body,
             limiter = limiter,
@@ -102,7 +101,6 @@ class MobFactory(
         val radius = Pixel(16) * sizeMultiplier / 100
         val duration = Second(skill.getStat(RANGE)!!.totalBonus().value)
         val consumable = ConsumableComponent(duration)
-
         val body = bodyFactory.createSpellBoltBody(worldBox2D, radius)
         val limiter = SpeedLimiter(
             maxLinearSpeed = Speed(Meter(100f)))

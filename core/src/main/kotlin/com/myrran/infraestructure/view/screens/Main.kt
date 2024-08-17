@@ -14,7 +14,7 @@ import com.badlogic.gdx.math.Vector2
 import com.badlogic.gdx.scenes.scene2d.Stage
 import com.myrran.badlogic.DaD
 import com.myrran.domain.World
-import com.myrran.domain.events.EnemyCreatedEvent
+import com.myrran.domain.events.MobCreatedEvent
 import com.myrran.domain.misc.DeSerializer
 import com.myrran.domain.mobs.common.MobFactory
 import com.myrran.domain.mobs.common.metrics.Pixel
@@ -195,12 +195,12 @@ class Main : KtxGame<KtxScreen>() {
 
         val enemy01 = mobFactory.createEnemy()
         enemy01.position = PositionPixels(-200, -200).toMeters().toBox2dUnits()
-        eventDispatcher.sendEvent(EnemyCreatedEvent(enemy01))
+        eventDispatcher.sendEvent(MobCreatedEvent(enemy01))
         enemy01.steerable.steeringBehavior = SteeringBehaviorsFactory().pursueAndEvadeEnemies(enemy01, player)
 
         val enemy02 = mobFactory.createEnemy()
         enemy02.position = PositionPixels(200, -200).toMeters().toBox2dUnits()
-        eventDispatcher.sendEvent(EnemyCreatedEvent(enemy02))
+        eventDispatcher.sendEvent(MobCreatedEvent(enemy02))
         enemy02.steerable.steeringBehavior = SteeringBehaviorsFactory().pursueAndEvadeEnemies(enemy02, player)
 
         val enemy03 = mobFactory.createEnemy()

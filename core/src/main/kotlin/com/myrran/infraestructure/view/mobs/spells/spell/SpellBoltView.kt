@@ -6,6 +6,8 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion
 import com.badlogic.gdx.math.Interpolation
 import com.badlogic.gdx.scenes.scene2d.actions.Actions
 import com.badlogic.gdx.utils.Align
+import com.badlogic.gdx.utils.Disposable
+import com.myrran.domain.misc.Identifiable
 import com.myrran.domain.mobs.common.MobId
 import com.myrran.domain.mobs.common.metrics.Pixel
 import com.myrran.domain.mobs.common.metrics.PositionMeters
@@ -22,9 +24,12 @@ class SpellBoltView(
     private val light: PointLight,
     animations: Map<SpellAnimation, Animation<TextureRegion>>,
 
-): SpriteAnimated<SpellAnimation>(animations, SpellAnimation.GLOW), MobView
+): SpriteAnimated<SpellAnimation>(animations, SpellAnimation.GLOW), MobView, Identifiable<MobId>, Disposable
 {
     override val id: MobId = model.id
+
+    // INIT:
+    //--------------------------------------------------------------------------------------------------------
 
     init {
 
@@ -44,17 +49,19 @@ class SpellBoltView(
             Actions.fadeOut(0.3f, Interpolation.circleOut)))
     }
 
-    // UPDATE:
+    // MAIN:
     //--------------------------------------------------------------------------------------------------------
 
-    override fun update(fractionOfTimestep: Float) {
+    override fun updatePosition(fractionOfTimestep: Float) {
 
         model.getInterpolatedPosition(fractionOfTimestep)
             .let { PositionMeters(it.x, it.y).toPixels() }
             .also { setPosition(it.x.toFloat(), it.y.toFloat(), Align.center) }
     }
 
-    override fun dispose() =
+    override fun dispose() {
 
         light.remove()
+        remove()
+    }
 }

@@ -6,5 +6,5 @@ import com.myrran.domain.mobs.common.MobId
 
 interface MobView: Identifiable<MobId>, Disposable {
 
-    fun update(fractionOfTimestep: Float)
+    fun updatePosition(fractionOfTimestep: Float)
 }

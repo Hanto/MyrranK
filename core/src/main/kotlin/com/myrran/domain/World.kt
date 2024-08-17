@@ -1,8 +1,8 @@
 package com.myrran.domain
 
 import com.badlogic.gdx.utils.Disposable
-import com.myrran.domain.events.EnemyCreatedEvent
 import com.myrran.domain.events.Event
+import com.myrran.domain.events.MobCreatedEvent
 import com.myrran.domain.events.MobRemovedEvent
 import com.myrran.domain.events.PlayerSpellCastedEvent
 import com.myrran.domain.events.SpellCreatedEvent
@@ -35,7 +35,7 @@ class World(
 
     init {
 
-        addListener(this, PlayerSpellCastedEvent::class, MobRemovedEvent::class, EnemyCreatedEvent::class)
+        addListener(this, PlayerSpellCastedEvent::class, MobRemovedEvent::class, MobCreatedEvent::class)
         worldBox2D.setContactListener(ColissionListener())
     }
 
@@ -48,8 +48,8 @@ class World(
         worldBox2D.step(timesStep, 6, 2)
 
         // mob IA
-        player.act(timesStep, this)
-        mobs.values.forEach { it.act(timesStep, this) }
+        player.act(timesStep)
+        mobs.values.forEach { it.act(timesStep) }
 
         // death mobs
         toBeRemoved.forEach { removeMob(it) }
@@ -74,9 +74,9 @@ class World(
     override fun handleEvent(event: Event) {
 
         when (event) {
-            is PlayerSpellCastedEvent -> castPlayerSpell(event.caster, event.origin)
-            is EnemyCreatedEvent -> addMob(event.mob)
+            is MobCreatedEvent -> addMob(event.mob)
             is MobRemovedEvent -> toBeRemoved.add(event.mob.id)
+            is PlayerSpellCastedEvent -> castPlayerSpell(event.caster, event.origin)
             else -> Unit
         }
     }
@@ -104,6 +104,6 @@ class World(
     private fun removeMob(id: MobId) {
 
         mobs.remove(id)
-            ?.also { if (it is Disposable) it.dispose() }
+            ?.also { it.dispose() }
     }
 }

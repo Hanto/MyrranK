@@ -4,6 +4,7 @@ import box2dLight.PointLight
 import com.badlogic.gdx.scenes.scene2d.Group
 import com.badlogic.gdx.utils.Align
 import com.badlogic.gdx.utils.Disposable
+import com.myrran.domain.misc.Identifiable
 import com.myrran.domain.mobs.common.MobId
 import com.myrran.domain.mobs.common.metrics.PositionMeters
 import com.myrran.domain.mobs.player.Player
@@ -23,9 +24,12 @@ class PlayerView(
     private val castingBar: CastingBar,
     private val light: PointLight,
 
-): Group(), MobView, Disposable
+): Group(), MobView, Identifiable<MobId>, Disposable
 {
     override val id: MobId = model.id
+
+    // INIT:
+    //--------------------------------------------------------------------------------------------------------
 
     init {
 
@@ -38,10 +42,17 @@ class PlayerView(
         castingBar.moveBy(-2f, 36f)
     }
 
-    // UPDATE:
+    // MAIN:
     //--------------------------------------------------------------------------------------------------------
 
-    override fun update(fractionOfTimestep: Float) {
+    override fun updatePosition(fractionOfTimestep: Float) {
+
+        model.getInterpolatedPosition(fractionOfTimestep)
+            .let { PositionMeters(it.x, it.y).toPixels() }
+            .also { setPosition(it.x.toFloat(), it.y.toFloat(), Align.center) }
+    }
+
+    override fun act(deltaTime: Float) {
 
         when (model.state) {
 
@@ -50,12 +61,13 @@ class PlayerView(
             is StateMoving-> setWalkingAnimation()
         }
 
-        model.getInterpolatedPosition(fractionOfTimestep)
-            .let { PositionMeters(it.x, it.y).toPixels() }
-            .also { setPosition(it.x.toFloat(), it.y.toFloat(), Align.center) }
-
         castingBar.update()
+        super.act(deltaTime)
     }
+
+    override fun dispose() =
+
+        light.remove()
 
     // WALKING ANIMATION:
     //--------------------------------------------------------------------------------------------------------
@@ -95,10 +107,6 @@ class PlayerView(
         character.setAnimation(newDirection.animation)
         oldDirection = newDirection
     }
-
-    override fun dispose() =
-
-        light.remove()
 
     // HELPER:
     //--------------------------------------------------------------------------------------------------------

@@ -21,7 +21,7 @@ data class SpellCreatedEvent(
 
 ): WorldEvent
 
-data class EnemyCreatedEvent(
+data class MobCreatedEvent(
 
     val mob: Enemy
 

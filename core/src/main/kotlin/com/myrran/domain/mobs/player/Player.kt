@@ -1,7 +1,8 @@
 package com.myrran.domain.mobs.player
 
-import com.myrran.domain.World
+import com.badlogic.gdx.utils.Disposable
 import com.myrran.domain.events.PlayerSpellCastedEvent
+import com.myrran.domain.misc.Identifiable
 import com.myrran.domain.mobs.common.Mob
 import com.myrran.domain.mobs.common.MobId
 import com.myrran.domain.mobs.common.caster.Caster
@@ -24,14 +25,26 @@ data class Player(
     private val caster: CasterComponent,
     var state: State,
 
-): Mob, Steerable by steerable, Spatial, Movable, Caster by caster
+): Mob, Identifiable<MobId>, Steerable by steerable, Spatial, Movable, Disposable,
+    Caster by caster
 {
-    override fun act(deltaTime: Float, world: World) {
+    // MAIN:
+    //--------------------------------------------------------------------------------------------------------
+
+    override fun act(deltaTime: Float) {
 
         caster.updateCastingTime(deltaTime)
 
         state = state.nextState(inputs, this)
     }
+
+    override fun dispose() {
+
+        steerable.dispose()
+    }
+
+    // OTHER:
+    //--------------------------------------------------------------------------------------------------------
 
     fun castSpell() =
 

@@ -1,8 +1,8 @@
 package com.myrran.domain.mobs.spells.spell
 
 import com.badlogic.gdx.utils.Disposable
-import com.myrran.domain.World
 import com.myrran.domain.events.MobRemovedEvent
+import com.myrran.domain.misc.Identifiable
 import com.myrran.domain.mobs.common.Mob
 import com.myrran.domain.mobs.common.MobId
 import com.myrran.domain.mobs.common.consumable.Consumable
@@ -28,8 +28,12 @@ class SpellBolt(
     origin: PositionMeters,
     target: PositionMeters,
 
-): Mob, Spell, Steerable by steerable, Spatial, Movable, Consumable by consumable, Disposable
+): Mob, Identifiable<MobId>, Steerable by steerable, Spatial, Movable, Disposable,
+    Spell, Consumable by consumable
 {
+    // INIT:
+    //--------------------------------------------------------------------------------------------------------
+
     init {
 
         steerable.position = origin.toBox2dUnits()
@@ -40,7 +44,10 @@ class SpellBolt(
         steerable.setLinearVelocity(direction, speed.value)
     }
 
-    override fun act(deltaTime: Float, world: World) {
+    // MAIN:
+    //--------------------------------------------------------------------------------------------------------
+
+    override fun act(deltaTime: Float) {
 
         if (consumable.updateDuration(deltaTime).isConsumed)
             eventDispatcher.sendEvent(MobRemovedEvent(this))

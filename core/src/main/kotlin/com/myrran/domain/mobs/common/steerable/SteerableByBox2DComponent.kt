@@ -7,7 +7,6 @@ import com.badlogic.gdx.ai.steer.SteeringBehavior
 import com.badlogic.gdx.math.Vector2
 import com.badlogic.gdx.utils.Disposable
 import com.myrran.domain.mobs.common.metrics.Pixel
-import com.myrran.domain.mobs.spells.spell.WorldBox2D
 
 class SteerableByBox2DComponent(
 
@@ -33,10 +32,6 @@ class SteerableByBox2DComponent(
 
         isTagged = tagged
     }
-
-    fun destroyBody(world: WorldBox2D) =
-
-        world.destroyBody(movable.body)
 
     fun attachLight(light: PointLight) =
 

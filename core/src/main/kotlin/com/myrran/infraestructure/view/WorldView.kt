@@ -8,6 +8,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage
 import com.badlogic.gdx.utils.Disposable
 import com.myrran.domain.World
 import com.myrran.domain.events.Event
+import com.myrran.domain.events.MobCreatedEvent
 import com.myrran.domain.events.MobRemovedEvent
 import com.myrran.domain.events.SpellCreatedEvent
 import com.myrran.domain.mobs.common.MobId
@@ -39,6 +40,7 @@ class WorldView(
 
     init {
 
+        box2dDebug.isDrawVelocities = true
         rayHandler.setAmbientLight(0.8f)
         stage.addActor(playerView)
 
@@ -50,7 +52,6 @@ class WorldView(
     fun render(deltaTime: Float, fractionOfTimestep: Float) {
 
         box2dDebug.render(model.worldBox2D, camera.cameraBox2D.combined)
-        box2dDebug.isDrawVelocities = true
 
         updatePositionUsingInterpolation(fractionOfTimestep)
         updatePlayerWithTheirTargets()
@@ -81,8 +82,9 @@ class WorldView(
     override fun handleEvent(event: Event) {
 
         when (event) {
-            is SpellCreatedEvent -> createSpell(event)
+            is MobCreatedEvent -> Unit
             is MobRemovedEvent -> removeMob(event)
+            is SpellCreatedEvent -> createSpell(event)
             else -> Unit
         }
     }
@@ -92,8 +94,8 @@ class WorldView(
 
     private fun updatePositionUsingInterpolation(fractionOfTimestep: Float) {
 
-        playerView.update(fractionOfTimestep)
-        spellViews.values.forEach { it.update(fractionOfTimestep) }
+        playerView.updatePosition(fractionOfTimestep)
+        spellViews.values.forEach { it.updatePosition(fractionOfTimestep) }
     }
 
     private fun updatePlayerWithTheirTargets() =
@@ -111,7 +113,7 @@ class WorldView(
 
         when (event.mob) {
 
-            is SpellBolt -> spellViews.remove(event.mob.id)?.also { (it as Actor).remove() }?.also { it.dispose() }
+            is SpellBolt -> spellViews.remove(event.mob.id)?.also { it.dispose() }
             else -> Unit
         }
     }
