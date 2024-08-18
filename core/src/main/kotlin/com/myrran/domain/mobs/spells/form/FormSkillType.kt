@@ -1,8 +1,7 @@
 package com.myrran.domain.mobs.spells.form
 
-import com.myrran.domain.skills.created.form.FormSkill
+enum class FormSkillType {
 
-enum class FormSkillType(val builder: (formSkill: FormSkill) -> Form) {
-
-    EXPLOSION( builder = { formSkill: FormSkill -> Explosion(formSkill) } )
+    CIRCLE,
+    POINT
 }

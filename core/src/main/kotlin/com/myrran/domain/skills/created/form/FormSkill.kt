@@ -1,6 +1,5 @@
 package com.myrran.domain.skills.created.form
 
-import com.myrran.domain.mobs.spells.form.Form
 import com.myrran.domain.mobs.spells.form.FormSkillType
 import com.myrran.domain.skills.created.effect.EffectSkill
 import com.myrran.domain.skills.created.effect.EffectSkillSlot
@@ -28,9 +27,6 @@ data class FormSkill(
 
 ): FormSkillSlotContent, StatsI by stats
 {
-    fun createForm(): Form =
-
-        type.builder.invoke(this.copy())
 
     // EFFECTSKILLS:
     //--------------------------------------------------------------------------------------------------------
