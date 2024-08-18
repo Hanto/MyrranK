@@ -5,11 +5,17 @@ import com.myrran.domain.mobs.common.metrics.Second
 
 class ConsumableComponent(
 
-    private val maximumDuration: Second
+    private var maximumDuration: Second
 
 ): Consumable
 {
     private var currentDuration: Second = Second(0f)
+
+    override fun willExpireIn(seconds: Second) {
+
+        currentDuration = Second(0)
+        maximumDuration = seconds
+    }
 
     override fun updateDuration(deltaTime: Float): IsConsumed {
 

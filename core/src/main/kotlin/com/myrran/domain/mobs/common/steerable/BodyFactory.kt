@@ -6,12 +6,12 @@ import com.badlogic.gdx.physics.box2d.BodyDef
 import com.myrran.domain.mobs.common.metrics.Degree
 import com.myrran.domain.mobs.common.metrics.Distance
 import com.myrran.domain.mobs.common.metrics.Pixel
-import com.myrran.domain.mobs.common.steerable.Box2dFilters.Companion.BULLET
 import com.myrran.domain.mobs.common.steerable.Box2dFilters.Companion.ENEMY
 import com.myrran.domain.mobs.common.steerable.Box2dFilters.Companion.ENEMY_LOS
 import com.myrran.domain.mobs.common.steerable.Box2dFilters.Companion.ENEMY_SENSOR
 import com.myrran.domain.mobs.common.steerable.Box2dFilters.Companion.LIGHT_PLAYER
 import com.myrran.domain.mobs.common.steerable.Box2dFilters.Companion.PLAYER
+import com.myrran.domain.mobs.common.steerable.Box2dFilters.Companion.SPELL
 import com.myrran.domain.mobs.common.steerable.Box2dFilters.Companion.WALLS
 import com.myrran.domain.mobs.spells.spell.WorldBox2D
 import ktx.box2d.body
@@ -34,7 +34,7 @@ class BodyFactory
 
                 it.radius = radius.toBox2DUnits()
                 filter.categoryBits = PLAYER
-                filter.maskBits = BULLET or LIGHT_PLAYER or ENEMY_SENSOR or ENEMY
+                filter.maskBits = SPELL or LIGHT_PLAYER or ENEMY_SENSOR or ENEMY or ENEMY_LOS
                 density = 100f
             }
         }
@@ -50,7 +50,7 @@ class BodyFactory
 
                 it.radius = radius.toBox2DUnits()
                 filter.categoryBits = ENEMY
-                filter.maskBits = PLAYER or ENEMY or BULLET or LIGHT_PLAYER or ENEMY_SENSOR
+                filter.maskBits = PLAYER or ENEMY or SPELL or LIGHT_PLAYER or ENEMY_SENSOR
                 density = 100f
             }
             circle {
@@ -64,6 +64,7 @@ class BodyFactory
 
                 it.set(createConeVertices(Pixel(300), Degree(45f)))
                 filter.categoryBits = ENEMY_LOS
+                filter.maskBits = PLAYER
                 isSensor = true
             }
     }
@@ -78,7 +79,7 @@ class BodyFactory
             circle {
 
                 it.radius = radius.toBox2DUnits()
-                filter.categoryBits = BULLET
+                filter.categoryBits = SPELL
                 filter.maskBits = ENEMY or WALLS
             }
         }

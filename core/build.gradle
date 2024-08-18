@@ -49,6 +49,8 @@ dependencies {
     api "org.jetbrains.kotlinx:kotlinx-coroutines-core:$kotlinxCoroutinesVersion"
 
     implementation 'com.fasterxml.jackson.module:jackson-module-kotlin:2.17.2'
+    implementation("io.arrow-kt:arrow-core:1.2.4")
+    implementation("io.arrow-kt:arrow-fx-coroutines:1.2.4")
 
     testImplementation 'org.assertj:assertj-core:3.26.3'
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'

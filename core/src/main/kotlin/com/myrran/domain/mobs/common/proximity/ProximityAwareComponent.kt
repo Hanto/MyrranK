@@ -4,13 +4,13 @@ import com.badlogic.gdx.ai.steer.Proximity.ProximityCallback
 import com.badlogic.gdx.ai.steer.Steerable
 import com.badlogic.gdx.math.Vector2
 
-class ProximityComponent(
+class ProximityAwareComponent(
 
     private var owner: Steerable<Vector2>
 
-): Proximity
+): ProximityAware
 {
-    private var steerablesNear: MutableList<Steerable<Vector2>> = mutableListOf()
+    private val steerablesNear: MutableList<Steerable<Vector2>> = mutableListOf()
 
     override fun setOwner(newOwner: Steerable<Vector2>) {
 

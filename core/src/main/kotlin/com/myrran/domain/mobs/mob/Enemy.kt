@@ -4,8 +4,8 @@ import com.badlogic.gdx.utils.Disposable
 import com.myrran.domain.misc.Identifiable
 import com.myrran.domain.mobs.common.Mob
 import com.myrran.domain.mobs.common.MobId
-import com.myrran.domain.mobs.common.proximity.Proximity
-import com.myrran.domain.mobs.common.proximity.ProximityComponent
+import com.myrran.domain.mobs.common.proximity.ProximityAware
+import com.myrran.domain.mobs.common.proximity.ProximityAwareComponent
 import com.myrran.domain.mobs.common.steerable.Movable
 import com.myrran.domain.mobs.common.steerable.Spatial
 import com.myrran.domain.mobs.common.steerable.Steerable
@@ -18,10 +18,10 @@ data class Enemy(
     override val steerable: SteerableByBox2DComponent,
     val eventDispatcher: EventDispatcher,
 
-    private val proximity: ProximityComponent
+    private val proximity: ProximityAwareComponent
 
 ): Mob, Identifiable<MobId>, Steerable by steerable, Spatial, Movable, Disposable,
-    Proximity by proximity
+    ProximityAware by proximity
 {
     // MAIN:
     //--------------------------------------------------------------------------------------------------------
