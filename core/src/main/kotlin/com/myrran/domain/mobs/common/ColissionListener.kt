@@ -9,7 +9,7 @@ import com.badlogic.gdx.physics.box2d.ContactImpulse
 import com.badlogic.gdx.physics.box2d.ContactListener
 import com.badlogic.gdx.physics.box2d.Manifold
 import com.myrran.domain.mobs.common.ColissionListener.ContactType.EnemySensorToSteerable
-import com.myrran.domain.mobs.common.ColissionListener.ContactType.FormWithEnemy
+import com.myrran.domain.mobs.common.ColissionListener.ContactType.FormWithMob
 import com.myrran.domain.mobs.common.ColissionListener.ContactType.SpellWithEnemyOrWall
 import com.myrran.domain.mobs.common.ColissionListener.ContactType.Unknown
 import com.myrran.domain.mobs.common.corporeal.Box2dFilters.Companion.ENEMY_SENSOR
@@ -33,7 +33,7 @@ class ColissionListener: ContactListener {
         when (val type = contact.type()) {
 
             is SpellWithEnemyOrWall -> type.spell.addCollision(type.enemyOrWall, contact.contactPoint())
-            is FormWithEnemy -> if (contact.hasLineOfSightWith(type.enemy)) type.form.addCollision(type.enemy, contact.contactPoint())
+            is FormWithMob -> if (contact.hasLineOfSightWith(type.enemy)) type.form.addCollision(type.enemy, contact.contactPoint())
             is EnemySensorToSteerable -> type.enemy.addNeighbor(type.neighbor)
             is Unknown -> Unit
         }
@@ -44,7 +44,7 @@ class ColissionListener: ContactListener {
         when (val type = contact.type()) {
 
             is SpellWithEnemyOrWall -> Unit
-            is FormWithEnemy -> Unit
+            is FormWithMob -> Unit
             is EnemySensorToSteerable -> type.enemy.removeNeighbor(type.neighbor)
             is Unknown -> Unit
         }
@@ -64,7 +64,7 @@ class ColissionListener: ContactListener {
     sealed interface ContactType {
 
         data class SpellWithEnemyOrWall(val spell: Spell, val enemyOrWall: Corporeal): ContactType
-        data class FormWithEnemy(val form: Form, val enemy: Mob): ContactType
+        data class FormWithMob(val form: Form, val enemy: Mob): ContactType
         data class EnemySensorToSteerable(val enemy: Enemy, val neighbor: Steerable): ContactType
         data object Unknown: ContactType
     }
@@ -72,7 +72,7 @@ class ColissionListener: ContactListener {
     private fun Contact.type(): ContactType =
 
         withClassesAndBits(Spell::class, Corporeal::class, SPELL) { a, b -> SpellWithEnemyOrWall(a, b) }
-            .flatMap { withClassesAndBits(Form:: class, Enemy::class, SPELL) { a, b -> FormWithEnemy(a, b) } }
+            .flatMap { withClassesAndBits(Form:: class, Mob::class, SPELL) { a, b -> FormWithMob(a, b) } }
             .flatMap { withClassesAndBits(Enemy::class, Steerable::class, ENEMY_SENSOR) { a, b -> EnemySensorToSteerable(a, b) } }
             .fold( ifLeft = { it }, ifRight = { Unknown } )
 

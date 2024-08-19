@@ -11,7 +11,8 @@ class SpellConstants {
         val COOLDOWN = StatId("COOLDOWN")
         val SPEED = StatId("SPEED")
         val SIZE = StatId("SIZE")
-        val RANGE = StatId("RANGE")
+        val EXPIRATION = StatId("EXPIRATION")
+        val PENETRATION = StatId("PENETRATION")
 
 
         val IMPACT_SLOT = FormSkillSlotId("IMPACT:1")

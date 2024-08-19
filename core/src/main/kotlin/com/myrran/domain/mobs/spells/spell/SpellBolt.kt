@@ -16,7 +16,9 @@ import com.myrran.domain.mobs.common.metrics.PositionMeters
 import com.myrran.domain.mobs.common.metrics.Second
 import com.myrran.domain.mobs.common.steerable.Steerable
 import com.myrran.domain.mobs.common.steerable.SteerableComponent
+import com.myrran.domain.mobs.spells.spell.SpellConstants.Companion.EXPIRATION
 import com.myrran.domain.mobs.spells.spell.SpellConstants.Companion.IMPACT_SLOT
+import com.myrran.domain.mobs.spells.spell.SpellConstants.Companion.PENETRATION
 import com.myrran.domain.mobs.spells.spell.SpellConstants.Companion.SPEED
 import com.myrran.domain.skills.created.form.CollisionType
 import com.myrran.domain.skills.created.form.FormSkill
@@ -44,12 +46,18 @@ class SpellBolt(
 
     init {
 
+        // initial position:
         steerable.position = origin.toBox2dUnits()
         steerable.saveLastPosition()
 
+        // direction:
         val direction = target.toBox2dUnits().minus(position).nor()
         val speed = skill.getStat(SPEED)!!.totalBonus()
         steerable.applyImpulse(direction, speed.value)
+
+        // expiration time:
+        val expirationTime = skill.getStat(EXPIRATION)!!.totalBonus().value.let { Second(it) }
+        consumable.willExpireIn(expirationTime)
     }
 
     // MAIN:
@@ -63,8 +71,11 @@ class SpellBolt(
 
         if (collisioner.hasCollisions() && state == State.NOT_EXPLODED ) {
 
-            consumable.willExpireIn(Second(0.0f))
+            // penetration:
+            val penetration = skill.getStat(PENETRATION)!!.totalBonus().value.let { Second(it) }
+            consumable.willExpireIn(penetration)
 
+            // impact slot:
             skill.getFormSkill(IMPACT_SLOT)?.also { createForm(it) }
 
             collisioner.removeCollisions()

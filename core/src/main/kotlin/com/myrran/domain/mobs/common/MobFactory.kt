@@ -14,7 +14,6 @@ import com.myrran.domain.mobs.common.metrics.Meter
 import com.myrran.domain.mobs.common.metrics.Pixel
 import com.myrran.domain.mobs.common.metrics.PositionMeters
 import com.myrran.domain.mobs.common.metrics.Radian
-import com.myrran.domain.mobs.common.metrics.Second
 import com.myrran.domain.mobs.common.metrics.Size
 import com.myrran.domain.mobs.common.metrics.Speed
 import com.myrran.domain.mobs.common.proximity.ProximityAwareComponent
@@ -28,7 +27,6 @@ import com.myrran.domain.mobs.spells.form.FormPoint
 import com.myrran.domain.mobs.spells.form.FormSkillType
 import com.myrran.domain.mobs.spells.spell.SkillType
 import com.myrran.domain.mobs.spells.spell.SpellBolt
-import com.myrran.domain.mobs.spells.spell.SpellConstants.Companion.RANGE
 import com.myrran.domain.mobs.spells.spell.SpellConstants.Companion.SIZE
 import com.myrran.domain.mobs.spells.spell.WorldBox2D
 import com.myrran.domain.mobs.wall.Wall
@@ -107,8 +105,7 @@ class MobFactory(
 
         val sizeMultiplier = skill.getStat(SIZE)!!.totalBonus().value / 100
         val radius = Pixel(16) * sizeMultiplier
-        val duration = Second(skill.getStat(RANGE)!!.totalBonus().value)
-        val consumable = ConsumableComponent(duration)
+        val consumable = ConsumableComponent()
         val body = bodyFactory.createSpellBoltBody(worldBox2D, radius)
         val limiter = MovementLimiter(
             maxLinearSpeed = Speed(Meter(100f)))
@@ -142,8 +139,7 @@ class MobFactory(
     private fun createFormPoint(formSkill: FormSkill, origin: PositionMeters, direction: Vector2): Form {
 
         val radius = Pixel(2)
-        val duration = Second(0.1f)
-        val consumable = ConsumableComponent(duration)
+        val consumable = ConsumableComponent()
         val body = bodyFactory.createCircleForm(worldBox2D, radius)
         val limiter = MovementLimiter(
             maxLinearSpeed = Speed(Meter(0f)))
@@ -171,8 +167,7 @@ class MobFactory(
 
         val sizeMultiplier = formSkill.getStat(StatId("RADIUS"))!!.totalBonus().value / 100
         val radius = Pixel(64) * sizeMultiplier
-        val duration = Second(0.1f)
-        val consumable = ConsumableComponent(duration)
+        val consumable = ConsumableComponent()
         val body = bodyFactory.createCircleForm(worldBox2D, radius)
         val limiter = MovementLimiter(
             maxLinearSpeed = Speed(Meter(0f)))

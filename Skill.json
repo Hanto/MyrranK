@@ -8,7 +8,7 @@
     "id" : "SPEED",
     "name" : "speed",
     "baseBonus" : 6.0,
-    "actual" : 50,
+    "actual" : 16,
     "maximum" : 50,
     "upgradeCost" : 2.0,
     "bonusPerUpgrade" : 1.0
@@ -29,10 +29,18 @@
     "upgradeCost" : 2.0,
     "bonusPerUpgrade" : -1.5
   }, {
-    "id" : "RANGE",
-    "name" : "range",
+    "id" : "PENETRATION",
+    "name" : "penetration",
+    "baseBonus" : 0.0,
+    "actual" : 0,
+    "maximum" : 20,
+    "upgradeCost" : 2.0,
+    "bonusPerUpgrade" : 0.1
+  }, {
+    "id" : "EXPIRATION",
+    "name" : "expiration",
     "baseBonus" : 2.0,
-    "actual" : 8,
+    "actual" : 0,
     "maximum" : 25,
     "upgradeCost" : 0.1,
     "bonusPerUpgrade" : 0.1
@@ -42,7 +50,7 @@
     "name" : "Impact",
     "lock" : [ "A", "B", "C", "D" ],
     "content" : {
-      "id" : "30a293ef-9794-4869-b0d1-61cf02f830ae",
+      "id" : "01368870-2aed-4c60-8d87-bffe7dde8998",
       "templateId" : "CIRCLE_1",
       "type" : "CIRCLE",
       "name" : "Circle",
@@ -51,10 +59,18 @@
         "id" : "RADIUS",
         "name" : "radius",
         "baseBonus" : 100.0,
-        "actual" : 26,
+        "actual" : 6,
         "maximum" : 50,
         "upgradeCost" : 1.0,
         "bonusPerUpgrade" : 4.0
+      }, {
+        "id" : "EXPIRATION",
+        "name" : "expiration",
+        "baseBonus" : 0.0,
+        "actual" : 50,
+        "maximum" : 50,
+        "upgradeCost" : 1.0,
+        "bonusPerUpgrade" : 0.3
       } ],
       "slots" : [ {
         "id" : "DEBUFF_1",

@@ -5,7 +5,7 @@ import com.myrran.domain.mobs.common.metrics.Second
 
 class ConsumableComponent(
 
-    private var maximumDuration: Second
+    private var maximumDuration: Second = Second(1)
 
 ): Consumable
 {

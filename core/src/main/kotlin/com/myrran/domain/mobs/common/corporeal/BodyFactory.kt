@@ -99,7 +99,7 @@ class BodyFactory
 
                 it.radius = radius.toBox2DUnits()
                 filter.categoryBits = SPELL
-                filter.maskBits = ENEMY
+                filter.maskBits = ENEMY or PLAYER
                 isSensor = true
             }
         }

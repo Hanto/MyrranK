@@ -12,7 +12,7 @@ import com.myrran.domain.mobs.common.MobId
 import com.myrran.domain.mobs.common.metrics.Pixel
 import com.myrran.domain.mobs.common.metrics.PositionMeters
 import com.myrran.domain.mobs.spells.spell.SpellBolt
-import com.myrran.domain.mobs.spells.spell.SpellConstants.Companion.RANGE
+import com.myrran.domain.mobs.spells.spell.SpellConstants.Companion.EXPIRATION
 import com.myrran.domain.mobs.spells.spell.SpellConstants.Companion.SIZE
 import com.myrran.infraestructure.view.mobs.common.MobView
 import com.myrran.infraestructure.view.mobs.common.SpriteAnimated
@@ -41,7 +41,7 @@ class SpellBoltView(
 
         rotateBy(model.linearVelocity.angleDeg() + 90)
 
-        val range = model.skill.getStat(RANGE)!!.totalBonus().value
+        val range = model.skill.getStat(EXPIRATION)!!.totalBonus().value
         alpha = 0f
         addAction(Actions.sequence(
             Actions.fadeIn(0.3f, Interpolation.circleOut),

@@ -20,6 +20,9 @@ class SteerableComponent(
     private var steeringOutput: SteeringAcceleration<Vector2> = SteeringAcceleration(Vector2())
     private var isTagged: Boolean = false
 
+    // STEERABLE:
+    //--------------------------------------------------------------------------------------------------------
+
     override fun getBoundingRadius(): Float =
 
         Pixel(20).toBox2DUnits()
