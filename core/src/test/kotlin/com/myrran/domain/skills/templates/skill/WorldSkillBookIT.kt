@@ -69,9 +69,9 @@ class WorldSkillBookIT {
             )
         )
 
-        val explosion = FormTemplate(
+        val CIRCLE = FormTemplate(
             id = FormTemplateId("EXPLOSION_1"),
-            type = FormSkillType.EXPLOSION,
+            type = FormSkillType.CIRCLE,
             name = FormSkillName("Explosion"),
             stats = listOf(
                 StatUpgradeableTemplate(
