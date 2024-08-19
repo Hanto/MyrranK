@@ -30,7 +30,7 @@ import com.myrran.domain.mobs.spells.form.FormPoint
 import com.myrran.domain.mobs.spells.form.FormSkillType
 import com.myrran.domain.mobs.spells.spell.SkillType
 import com.myrran.domain.mobs.spells.spell.SpellBolt
-import com.myrran.domain.mobs.wall.Wall
+import com.myrran.domain.mstatics.wall.Wall
 import com.myrran.domain.skills.created.form.FormSkill
 import com.myrran.domain.skills.created.skill.Skill
 import com.myrran.domain.skills.created.stat.StatId
@@ -200,7 +200,6 @@ class MobFactory(
         val body = bodyFactory.createWall(worldBox2D, size)
 
         val wall = Wall(
-            id = MobId(),
             steerable = SteerableComponent(
                 corporeal = CorporealComponent(
                     body = body,

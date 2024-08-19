@@ -2,7 +2,7 @@ package com.myrran.domain.mobs.common.collisionable
 
 import com.myrran.domain.misc.metrics.PositionMeters
 import com.myrran.domain.mobs.common.corporeal.Corporeal
-import com.myrran.domain.mobs.wall.Wall
+import com.myrran.domain.mstatics.wall.Wall
 
 class CollisionerComponent: Collisioner
 {
