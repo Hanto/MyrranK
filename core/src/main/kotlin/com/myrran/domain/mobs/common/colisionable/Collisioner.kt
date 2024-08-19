@@ -1,5 +1,6 @@
 package com.myrran.domain.mobs.common.colisionable
 
+import com.myrran.domain.mobs.common.colisionable.CollisionerComponent.Collision
 import com.myrran.domain.mobs.common.metrics.PositionMeters
 import com.myrran.domain.mobs.common.steerable.Steerable
 

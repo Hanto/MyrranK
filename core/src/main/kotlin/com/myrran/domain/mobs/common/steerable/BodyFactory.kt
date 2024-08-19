@@ -6,6 +6,7 @@ import com.badlogic.gdx.physics.box2d.BodyDef
 import com.myrran.domain.mobs.common.metrics.Degree
 import com.myrran.domain.mobs.common.metrics.Distance
 import com.myrran.domain.mobs.common.metrics.Pixel
+import com.myrran.domain.mobs.common.metrics.Size
 import com.myrran.domain.mobs.common.steerable.Box2dFilters.Companion.ENEMY
 import com.myrran.domain.mobs.common.steerable.Box2dFilters.Companion.ENEMY_LOS
 import com.myrran.domain.mobs.common.steerable.Box2dFilters.Companion.ENEMY_SENSOR
@@ -15,6 +16,7 @@ import com.myrran.domain.mobs.common.steerable.Box2dFilters.Companion.SPELL
 import com.myrran.domain.mobs.common.steerable.Box2dFilters.Companion.WALLS
 import com.myrran.domain.mobs.spells.spell.WorldBox2D
 import ktx.box2d.body
+import ktx.box2d.box
 import ktx.box2d.circle
 import ktx.box2d.polygon
 import kotlin.experimental.or
@@ -34,7 +36,7 @@ class BodyFactory
 
                 it.radius = radius.toBox2DUnits()
                 filter.categoryBits = PLAYER
-                filter.maskBits = SPELL or LIGHT_PLAYER or ENEMY_SENSOR or ENEMY or ENEMY_LOS
+                filter.maskBits = SPELL or LIGHT_PLAYER or ENEMY_SENSOR or ENEMY or ENEMY_LOS or WALLS
                 density = 100f
             }
         }
@@ -50,7 +52,7 @@ class BodyFactory
 
                 it.radius = radius.toBox2DUnits()
                 filter.categoryBits = ENEMY
-                filter.maskBits = PLAYER or ENEMY or SPELL or LIGHT_PLAYER or ENEMY_SENSOR
+                filter.maskBits = PLAYER or ENEMY or SPELL or LIGHT_PLAYER or ENEMY_SENSOR or WALLS
                 density = 100f
             }
             circle {
@@ -73,6 +75,22 @@ class BodyFactory
 
         world.body {
 
+            type = BodyDef.BodyType.DynamicBody
+            fixedRotation = false
+
+            circle {
+
+                it.radius = radius.toBox2DUnits()
+                filter.categoryBits = SPELL
+                filter.maskBits = ENEMY or WALLS
+                isSensor = false
+            }
+        }
+
+    fun createCircleSubForm(world: WorldBox2D, radius: Distance): Body =
+
+        world.body {
+
             type = BodyDef.BodyType.KinematicBody
             fixedRotation = false
 
@@ -81,6 +99,22 @@ class BodyFactory
                 it.radius = radius.toBox2DUnits()
                 filter.categoryBits = SPELL
                 filter.maskBits = ENEMY or WALLS
+                isSensor = true
+            }
+        }
+
+    fun createWall(world: WorldBox2D, size: Size<*>) =
+
+        world.body {
+
+            type = BodyDef.BodyType.StaticBody
+            fixedRotation = true
+
+            box( size.width.toBox2DUnits(), size.height.toBox2DUnits()) {
+
+                filter.categoryBits = WALLS
+                filter.maskBits = ENEMY or SPELL or PLAYER
+                restitution = 1f
             }
         }
 
