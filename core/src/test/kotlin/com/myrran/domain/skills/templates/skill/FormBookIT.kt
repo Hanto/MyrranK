@@ -6,6 +6,7 @@ import com.myrran.domain.mobs.spells.spell.SkillType
 import com.myrran.domain.skills.created.effect.EffectSkillName
 import com.myrran.domain.skills.created.effect.EffectSkillSlotId
 import com.myrran.domain.skills.created.effect.EffectSkillSlotName
+import com.myrran.domain.skills.created.form.CollisionType
 import com.myrran.domain.skills.created.form.FormSkillName
 import com.myrran.domain.skills.created.form.FormSkillSlotId
 import com.myrran.domain.skills.created.form.FormSkillSlotName
@@ -72,6 +73,7 @@ class FormBookIT {
             id = FormTemplateId("EXPLOSION_1"),
             type = FormSkillType.CIRCLE,
             name = FormSkillName("Explosion"),
+            collisionType = CollisionType.ON_SINGLE_COLLISION_POINT,
             stats = listOf(
                 StatUpgradeableTemplate(
                     id = StatId("RADIUS"),
@@ -99,7 +101,7 @@ class FormBookIT {
 
         val fire = EffectTemplate(
             id = EffectTemplateId("FIRE_1"),
-            type = EffectType.FIRE,
+            type = EffectType.DAMAGE,
             name = EffectSkillName("Fire"),
             stats = listOf(
                 StatUpgradeableTemplate(

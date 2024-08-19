@@ -9,16 +9,33 @@ data class VulnerableComponent(
 {
     constructor(actualHPs: Int, maxHps: Int): this(HP(actualHPs.toFloat()), HP(maxHps.toFloat()))
 
+    private var damageReceived: MutableList<Damage> = mutableListOf()
+
     override fun getHPs(): HP =
         actualHPs
 
     override fun getMaxHps(): HP =
         maxHPs
 
-    override fun receiveDamage(damage: HP) {
-        actualHPs = (actualHPs - damage).atMin(HP(0f)) }
+    override fun reduceHps(hps: HP) {
 
-    override fun receiveHealing(healing: HP) {
-        actualHPs = (actualHPs + healing).atMax(maxHPs)
-    }
+        actualHPs = (actualHPs - hps).atMin(HP(0f)) }
+
+    override fun increaseHps(hps: HP) {
+        actualHPs = (actualHPs + hps).atMax(maxHPs) }
+
+    // RAW DAMAGE:
+    //--------------------------------------------------------------------------------------------------------
+
+    override fun receiveDamage(damage: Damage) {
+
+        damageReceived.add(damage) }
+
+    override fun retrieveDamage(): List<Damage> =
+
+        damageReceived
+
+    override fun clearAllDamage() =
+
+        damageReceived.clear()
 }

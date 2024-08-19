@@ -59,7 +59,7 @@ class FormCircle(
 
         if (collisioner.hasCollisions()) {
 
-            collisioner.retrieveCollisions().size.also { println(it) }
+            collisioner.retrieveCollisions()
             collisioner.removeCollisions()
         }
     }
