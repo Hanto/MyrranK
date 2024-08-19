@@ -18,10 +18,10 @@ import com.myrran.domain.events.MobCreatedEvent
 import com.myrran.domain.misc.DeSerializer
 import com.myrran.domain.mobs.common.ColissionListener
 import com.myrran.domain.mobs.common.MobFactory
+import com.myrran.domain.mobs.common.corporeal.BodyFactory
 import com.myrran.domain.mobs.common.metrics.Pixel
 import com.myrran.domain.mobs.common.metrics.PositionPixels
 import com.myrran.domain.mobs.common.metrics.SizeMeters
-import com.myrran.domain.mobs.common.steerable.BodyFactory
 import com.myrran.domain.mobs.spells.spell.WorldBox2D
 import com.myrran.domain.skills.LearnedTemplates
 import com.myrran.domain.skills.SpellBook

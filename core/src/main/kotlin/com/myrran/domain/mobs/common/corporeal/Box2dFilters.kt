@@ -1,4 +1,4 @@
-package com.myrran.domain.mobs.common.steerable
+package com.myrran.domain.mobs.common.corporeal
 
 class Box2dFilters {
 

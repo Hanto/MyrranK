@@ -1,15 +1,15 @@
-package com.myrran.domain.mobs.common.colisionable
+package com.myrran.domain.mobs.common.collisionable
 
+import com.myrran.domain.mobs.common.corporeal.Corporeal
 import com.myrran.domain.mobs.common.metrics.PositionMeters
-import com.myrran.domain.mobs.common.steerable.Steerable
 
 class CollisionerComponent: Collisioner
 {
     private val collidedWith: MutableList<Collision> = mutableListOf()
 
-    override fun addCollision(solid: Steerable, pointOfCollision: PositionMeters) {
+    override fun addCollision(corporeal: Corporeal, pointOfCollision: PositionMeters) {
 
-        collidedWith.add(Collision(solid, pointOfCollision)) }
+        collidedWith.add(Collision(corporeal, pointOfCollision)) }
 
     override fun removeCollisions() {
 
@@ -27,8 +27,7 @@ class CollisionerComponent: Collisioner
     //--------------------------------------------------------------------------------------------------------
 
     data class Collision(
-        val steerable: Steerable,
+        val corporeal: Corporeal,
         val pointOfCollision: PositionMeters
     )
 }
-

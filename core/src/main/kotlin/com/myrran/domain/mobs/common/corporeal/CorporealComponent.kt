@@ -1,4 +1,4 @@
-package com.myrran.domain.mobs.common.steerable
+package com.myrran.domain.mobs.common.corporeal
 
 import com.badlogic.gdx.ai.steer.Limiter
 import com.badlogic.gdx.ai.utils.Location
@@ -7,13 +7,13 @@ import com.badlogic.gdx.physics.box2d.Body
 import com.badlogic.gdx.utils.Disposable
 import ktx.math.minus
 
-data class MovableByBox2D(
+data class CorporealComponent(
 
     val body: Body,
     private val limiter: Limiter,
     private val destroyFunction: () -> Unit
 
-): Spatial, Movable, Disposable
+): Corporeal, Spatial, Movable, Limiter by limiter, Disposable
 {
     private var lastPosition: Vector2 = Vector2(0f, 0f)
 

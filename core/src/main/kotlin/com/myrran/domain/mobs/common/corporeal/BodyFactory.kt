@@ -1,19 +1,19 @@
-package com.myrran.domain.mobs.common.steerable
+package com.myrran.domain.mobs.common.corporeal
 
 import com.badlogic.gdx.math.Vector2
 import com.badlogic.gdx.physics.box2d.Body
 import com.badlogic.gdx.physics.box2d.BodyDef
+import com.myrran.domain.mobs.common.corporeal.Box2dFilters.Companion.ENEMY
+import com.myrran.domain.mobs.common.corporeal.Box2dFilters.Companion.ENEMY_LOS
+import com.myrran.domain.mobs.common.corporeal.Box2dFilters.Companion.ENEMY_SENSOR
+import com.myrran.domain.mobs.common.corporeal.Box2dFilters.Companion.LIGHT_PLAYER
+import com.myrran.domain.mobs.common.corporeal.Box2dFilters.Companion.PLAYER
+import com.myrran.domain.mobs.common.corporeal.Box2dFilters.Companion.SPELL
+import com.myrran.domain.mobs.common.corporeal.Box2dFilters.Companion.WALLS
 import com.myrran.domain.mobs.common.metrics.Degree
 import com.myrran.domain.mobs.common.metrics.Distance
 import com.myrran.domain.mobs.common.metrics.Pixel
 import com.myrran.domain.mobs.common.metrics.Size
-import com.myrran.domain.mobs.common.steerable.Box2dFilters.Companion.ENEMY
-import com.myrran.domain.mobs.common.steerable.Box2dFilters.Companion.ENEMY_LOS
-import com.myrran.domain.mobs.common.steerable.Box2dFilters.Companion.ENEMY_SENSOR
-import com.myrran.domain.mobs.common.steerable.Box2dFilters.Companion.LIGHT_PLAYER
-import com.myrran.domain.mobs.common.steerable.Box2dFilters.Companion.PLAYER
-import com.myrran.domain.mobs.common.steerable.Box2dFilters.Companion.SPELL
-import com.myrran.domain.mobs.common.steerable.Box2dFilters.Companion.WALLS
 import com.myrran.domain.mobs.spells.spell.WorldBox2D
 import ktx.box2d.body
 import ktx.box2d.box
@@ -77,6 +77,7 @@ class BodyFactory
 
             type = BodyDef.BodyType.DynamicBody
             fixedRotation = false
+            bullet = true
 
             circle {
 
@@ -87,7 +88,7 @@ class BodyFactory
             }
         }
 
-    fun createCircleSubForm(world: WorldBox2D, radius: Distance): Body =
+    fun createCircleForm(world: WorldBox2D, radius: Distance): Body =
 
         world.body {
 
@@ -98,7 +99,7 @@ class BodyFactory
 
                 it.radius = radius.toBox2DUnits()
                 filter.categoryBits = SPELL
-                filter.maskBits = ENEMY or WALLS
+                filter.maskBits = ENEMY
                 isSensor = true
             }
         }

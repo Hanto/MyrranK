@@ -5,22 +5,22 @@ import com.myrran.domain.events.MobRemovedEvent
 import com.myrran.domain.misc.Identifiable
 import com.myrran.domain.mobs.common.Mob
 import com.myrran.domain.mobs.common.MobId
-import com.myrran.domain.mobs.common.colisionable.Collisioner
-import com.myrran.domain.mobs.common.colisionable.CollisionerComponent
+import com.myrran.domain.mobs.common.collisionable.Collisioner
+import com.myrran.domain.mobs.common.collisionable.CollisionerComponent
 import com.myrran.domain.mobs.common.consumable.Consumable
 import com.myrran.domain.mobs.common.consumable.ConsumableComponent
+import com.myrran.domain.mobs.common.corporeal.Movable
+import com.myrran.domain.mobs.common.corporeal.Spatial
 import com.myrran.domain.mobs.common.metrics.PositionMeters
-import com.myrran.domain.mobs.common.steerable.Movable
-import com.myrran.domain.mobs.common.steerable.Spatial
 import com.myrran.domain.mobs.common.steerable.Steerable
-import com.myrran.domain.mobs.common.steerable.SteerableByBox2DComponent
+import com.myrran.domain.mobs.common.steerable.SteerableComponent
 import com.myrran.domain.skills.created.form.FormSkill
 import com.myrran.infraestructure.eventbus.EventDispatcher
 
 class FormCircle(
 
     override val id: MobId,
-    override val steerable: SteerableByBox2DComponent,
+    override val steerable: SteerableComponent,
     private val eventDispatcher: EventDispatcher,
 
     private val consumable: ConsumableComponent,
@@ -48,8 +48,11 @@ class FormCircle(
         if (consumable.updateDuration(deltaTime).isConsumed)
             eventDispatcher.sendEvent(MobRemovedEvent(this))
 
-        collisioner.retrieveCollisions().forEach { println(it) }
-        collisioner.removeCollisions()
+        if (collisioner.hasCollisions()) {
+
+            collisioner.retrieveCollisions().size.also { println(it) }
+            collisioner.removeCollisions()
+        }
     }
 
     override fun dispose() =

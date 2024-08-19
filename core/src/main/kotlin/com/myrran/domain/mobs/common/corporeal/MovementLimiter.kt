@@ -1,4 +1,4 @@
-package com.myrran.domain.mobs.common.steerable
+package com.myrran.domain.mobs.common.corporeal
 
 import com.badlogic.gdx.ai.steer.Limiter
 import com.myrran.domain.mobs.common.metrics.Acceleration
@@ -8,7 +8,7 @@ import com.myrran.domain.mobs.common.metrics.Meter
 import com.myrran.domain.mobs.common.metrics.Radian
 import com.myrran.domain.mobs.common.metrics.Speed
 
-class SpeedLimiter(
+class MovementLimiter(
 
     private var zeroLinearSpeedTreshold: Speed<Meter> = Speed(Meter(0.001f)),
     private var maxLinearSpeed: Speed<Meter> = Speed(Meter(4f)),

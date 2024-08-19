@@ -7,25 +7,24 @@ import com.myrran.domain.mobs.common.Mob
 import com.myrran.domain.mobs.common.MobId
 import com.myrran.domain.mobs.common.caster.Caster
 import com.myrran.domain.mobs.common.caster.CasterComponent
+import com.myrran.domain.mobs.common.corporeal.Corporeal
 import com.myrran.domain.mobs.common.metrics.PositionMeters
-import com.myrran.domain.mobs.common.steerable.Movable
-import com.myrran.domain.mobs.common.steerable.Spatial
 import com.myrran.domain.mobs.common.steerable.Steerable
-import com.myrran.domain.mobs.common.steerable.SteerableByBox2DComponent
+import com.myrran.domain.mobs.common.steerable.SteerableComponent
 import com.myrran.infraestructure.controller.player.PlayerInputs
 import com.myrran.infraestructure.eventbus.EventDispatcher
 
 data class Player(
 
     override val id: MobId,
-    override val steerable: SteerableByBox2DComponent,
+    override val steerable: SteerableComponent,
     val eventDispatcher: EventDispatcher,
 
     var inputs: PlayerInputs,
     private val caster: CasterComponent,
     var state: State,
 
-): Mob, Identifiable<MobId>, Steerable by steerable, Spatial, Movable, Disposable,
+): Mob, Identifiable<MobId>, Steerable by steerable, Corporeal, Disposable,
     Caster by caster
 {
     // MAIN:

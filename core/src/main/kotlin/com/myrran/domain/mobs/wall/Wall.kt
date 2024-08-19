@@ -1,11 +1,12 @@
 package com.myrran.domain.mobs.wall
 
+import com.myrran.domain.mobs.common.corporeal.Corporeal
 import com.myrran.domain.mobs.common.steerable.Steerable
-import com.myrran.domain.mobs.common.steerable.SteerableByBox2DComponent
+import com.myrran.domain.mobs.common.steerable.SteerableComponent
 
 class Wall(
 
-    val steerable: SteerableByBox2DComponent,
+    val steerable: SteerableComponent,
 
-): Steerable by steerable
+): Steerable by steerable, Corporeal
 

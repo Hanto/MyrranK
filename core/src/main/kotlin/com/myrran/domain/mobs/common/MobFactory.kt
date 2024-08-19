@@ -2,8 +2,11 @@ package com.myrran.domain.mobs.common
 
 import com.badlogic.gdx.math.Vector2
 import com.myrran.domain.mobs.common.caster.CasterComponent
-import com.myrran.domain.mobs.common.colisionable.CollisionerComponent
+import com.myrran.domain.mobs.common.collisionable.CollisionerComponent
 import com.myrran.domain.mobs.common.consumable.ConsumableComponent
+import com.myrran.domain.mobs.common.corporeal.BodyFactory
+import com.myrran.domain.mobs.common.corporeal.CorporealComponent
+import com.myrran.domain.mobs.common.corporeal.MovementLimiter
 import com.myrran.domain.mobs.common.metrics.Acceleration
 import com.myrran.domain.mobs.common.metrics.AngularAcceleration
 import com.myrran.domain.mobs.common.metrics.AngularVelocity
@@ -15,10 +18,7 @@ import com.myrran.domain.mobs.common.metrics.Second
 import com.myrran.domain.mobs.common.metrics.Size
 import com.myrran.domain.mobs.common.metrics.Speed
 import com.myrran.domain.mobs.common.proximity.ProximityAwareComponent
-import com.myrran.domain.mobs.common.steerable.BodyFactory
-import com.myrran.domain.mobs.common.steerable.MovableByBox2D
-import com.myrran.domain.mobs.common.steerable.SpeedLimiter
-import com.myrran.domain.mobs.common.steerable.SteerableByBox2DComponent
+import com.myrran.domain.mobs.common.steerable.SteerableComponent
 import com.myrran.domain.mobs.mob.Enemy
 import com.myrran.domain.mobs.player.Player
 import com.myrran.domain.mobs.player.StateActionIddle
@@ -49,16 +49,15 @@ class MobFactory(
     fun createPlayer(): Player {
 
         val body = bodyFactory.createPlayerBody(worldBox2D, Pixel(16))
-        val limiter = SpeedLimiter(
+        val limiter = MovementLimiter(
             maxLinearSpeed = Speed(Meter(4f)),
             maxLinearAcceleration = Acceleration(Meter(500f)))
-        val location = MovableByBox2D(
+        val location = CorporealComponent(
             body = body,
             limiter = limiter,
             destroyFunction = { worldBox2D.destroyBody(body) })
-        val movable = SteerableByBox2DComponent(
-            movable = location,
-            speedLimiter = limiter)
+        val movable = SteerableComponent(
+            corporeal = location)
         val caster = CasterComponent()
         val player = Player(
             id = MobId(),
@@ -75,18 +74,17 @@ class MobFactory(
     fun createEnemy(): Enemy {
 
         val body = bodyFactory.createEnemyBody(worldBox2D, Pixel(16))
-        val limiter = SpeedLimiter(
+        val limiter = MovementLimiter(
             maxLinearSpeed = Speed(Meter(2f)),
             maxLinearAcceleration = Acceleration(Meter(500f)),
             maxAngularSpeed = AngularVelocity(Radian(6f)),
             maxAngularAcceleration = AngularAcceleration(Radian(12f)))
-        val location = MovableByBox2D(
+        val location = CorporealComponent(
             body = body,
             limiter = limiter,
             destroyFunction = { worldBox2D.destroyBody(body) })
-        val movable = SteerableByBox2DComponent(
-            movable = location,
-            speedLimiter = limiter)
+        val movable = SteerableComponent(
+            corporeal = location)
         val proximity = ProximityAwareComponent(
             owner = movable)
         val enemy = Enemy(
@@ -112,15 +110,14 @@ class MobFactory(
         val duration = Second(skill.getStat(RANGE)!!.totalBonus().value)
         val consumable = ConsumableComponent(duration)
         val body = bodyFactory.createSpellBoltBody(worldBox2D, radius)
-        val limiter = SpeedLimiter(
+        val limiter = MovementLimiter(
             maxLinearSpeed = Speed(Meter(100f)))
-        val location = MovableByBox2D(
+        val location = CorporealComponent(
             body = body,
             limiter = limiter,
             destroyFunction = { worldBox2D.destroyBody(body) })
-        val movable = SteerableByBox2DComponent(
-            movable = location,
-            speedLimiter = limiter)
+        val movable = SteerableComponent(
+            corporeal = location)
         val spell = SpellBolt(
             id = MobId(),
             skill = skill.copy(),
@@ -147,16 +144,15 @@ class MobFactory(
         val radius = Pixel(2)
         val duration = Second(0.1f)
         val consumable = ConsumableComponent(duration)
-        val body = bodyFactory.createCircleSubForm(worldBox2D, radius)
-        val limiter = SpeedLimiter(
+        val body = bodyFactory.createCircleForm(worldBox2D, radius)
+        val limiter = MovementLimiter(
             maxLinearSpeed = Speed(Meter(0f)))
-        val location = MovableByBox2D(
+        val location = CorporealComponent(
             body = body,
             limiter = limiter,
             destroyFunction = { worldBox2D.destroyBody(body) })
-        val movable = SteerableByBox2DComponent(
-            movable = location,
-            speedLimiter = limiter)
+        val movable = SteerableComponent(
+            corporeal = location)
         val form = FormPoint(
             id = MobId(),
             formSkill = formSkill.copy(),
@@ -177,16 +173,15 @@ class MobFactory(
         val radius = Pixel(64) * sizeMultiplier
         val duration = Second(0.1f)
         val consumable = ConsumableComponent(duration)
-        val body = bodyFactory.createCircleSubForm(worldBox2D, radius)
-        val limiter = SpeedLimiter(
+        val body = bodyFactory.createCircleForm(worldBox2D, radius)
+        val limiter = MovementLimiter(
             maxLinearSpeed = Speed(Meter(0f)))
-        val location = MovableByBox2D(
+        val location = CorporealComponent(
             body = body,
             limiter = limiter,
             destroyFunction = { worldBox2D.destroyBody(body) })
-        val movable = SteerableByBox2DComponent(
-            movable = location,
-            speedLimiter = limiter)
+        val movable = SteerableComponent(
+            corporeal = location)
         val form = FormCircle(
             id = MobId(),
             formSkill = formSkill.copy(),
@@ -205,13 +200,12 @@ class MobFactory(
         val body = bodyFactory.createWall(worldBox2D, size)
 
         val wall = Wall(
-            steerable = SteerableByBox2DComponent(
-                movable = MovableByBox2D(
+            steerable = SteerableComponent(
+                corporeal = CorporealComponent(
                     body = body,
-                    limiter = SpeedLimiter(),
+                    limiter = MovementLimiter(),
                     destroyFunction = { worldBox2D.destroyBody(body) }
-                ),
-                speedLimiter = SpeedLimiter(),
+                )
             )
         )
         body.userData = wall

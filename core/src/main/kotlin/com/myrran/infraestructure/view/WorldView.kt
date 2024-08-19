@@ -40,7 +40,7 @@ class WorldView(
 
     init {
 
-        box2dDebug.isDrawVelocities = true
+        //box2dDebug.isDrawVelocities = true
         rayHandler.setAmbientLight(0.8f)
         stage.addActor(playerView)
 
