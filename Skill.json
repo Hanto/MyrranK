@@ -42,10 +42,11 @@
     "name" : "Impact",
     "lock" : [ "A", "B", "C", "D" ],
     "content" : {
-      "id" : "62ee2cdc-98a4-42ae-bfb8-f4549c8313ea",
+      "id" : "8a0919c9-e63e-4dc1-9fe6-0f95c981e8cb",
       "templateId" : "CIRCLE_1",
       "type" : "CIRCLE",
       "name" : "Circle",
+      "collisionType" : "ON_SINGLE_COLLISION_POINT",
       "stats" : [ {
         "id" : "RADIUS",
         "name" : "radius",

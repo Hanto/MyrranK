@@ -2,6 +2,7 @@ package com.myrran.domain.skills.templates.form
 
 import com.myrran.domain.mobs.spells.form.FormSkillType
 import com.myrran.domain.skills.created.effect.EffectSkillSlots
+import com.myrran.domain.skills.created.form.CollisionType
 import com.myrran.domain.skills.created.form.FormSkill
 import com.myrran.domain.skills.created.form.FormSkillId
 import com.myrran.domain.skills.created.form.FormSkillName
@@ -15,6 +16,7 @@ data class FormTemplate(
     val id: FormTemplateId,
     val type: FormSkillType,
     val name: FormSkillName,
+    val collisionType: CollisionType,
     val stats: Collection<StatTemplate>,
     val slots: Collection<EffectSlotTemplate>,
     val keys: Collection<LockType>
@@ -28,6 +30,7 @@ data class FormTemplate(
             templateId = id,
             type = type,
             name = name,
+            collisionType = collisionType,
             stats = Stats( stats.map { it.toStat() }.associateBy { it.id } ),
             slots = EffectSkillSlots( slots.map { it.toEffectSkillSlot() }.associateBy { it.id } ),
             keys =  keys

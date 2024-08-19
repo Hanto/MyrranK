@@ -18,6 +18,7 @@ import com.myrran.domain.mobs.common.steerable.Steerable
 import com.myrran.domain.mobs.common.steerable.SteerableByBox2DComponent
 import com.myrran.domain.mobs.spells.spell.SpellConstants.Companion.IMPACT_SLOT
 import com.myrran.domain.mobs.spells.spell.SpellConstants.Companion.SPEED
+import com.myrran.domain.skills.created.form.CollisionType
 import com.myrran.domain.skills.created.form.FormSkill
 import com.myrran.domain.skills.created.skill.Skill
 import com.myrran.infraestructure.eventbus.EventDispatcher
@@ -64,8 +65,7 @@ class SpellBolt(
 
             consumable.willExpireIn(Second(0.0f))
 
-            skill.getFormSkill(IMPACT_SLOT)
-                ?.also { createFormForEveryCollison(it) }
+            skill.getFormSkill(IMPACT_SLOT)?.also { createForm(it) }
 
             collisioner.removeCollisions()
             state = State.EXPLODED
@@ -77,6 +77,15 @@ class SpellBolt(
     override fun dispose() =
 
         steerable.dispose()
+
+    private fun createForm(skillForm: FormSkill) {
+
+        when (skillForm.collisionType) {
+
+            CollisionType.ON_EVERY_COLLISION_POINT -> createFormForEveryCollison(skillForm)
+            CollisionType.ON_SINGLE_COLLISION_POINT -> createFormAtTheCenter(skillForm)
+        }
+    }
 
     private fun createFormForEveryCollison(skillForm: FormSkill) {
 

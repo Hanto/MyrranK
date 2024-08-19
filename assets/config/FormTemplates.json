@@ -3,6 +3,7 @@
         "id": "POINT_1",
         "type": "POINT",
         "name": "Point",
+        "collisionType": "ON_EVERY_COLLISION_POINT",
         "stats": [
             {
                 "id": "RADIUS",
@@ -28,6 +29,7 @@
         "id": "CIRCLE_1",
         "type": "CIRCLE",
         "name": "Circle",
+        "collisionType": "ON_SINGLE_COLLISION_POINT",
         "stats": [
             {
                 "id": "RADIUS",
@@ -56,6 +58,7 @@
         "id": "TRAIL_1",
         "type": "CIRCLE",
         "name": "Trail",
+        "collisionType": "ON_SINGLE_COLLISION_POINT",
         "stats": [
             {
                 "id": "WIDE",
@@ -94,6 +97,7 @@
         "id": "CONE_1",
         "type": "CIRCLE",
         "name": "Cone",
+        "collisionType": "ON_SINGLE_COLLISION_POINT",
         "stats": [
             {
                 "id": "WIDE",

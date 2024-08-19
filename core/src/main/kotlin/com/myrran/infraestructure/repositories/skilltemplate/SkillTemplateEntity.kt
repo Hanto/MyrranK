@@ -3,6 +3,7 @@ package com.myrran.infraestructure.repositories.skilltemplate
 import com.myrran.domain.mobs.spells.effect.EffectType
 import com.myrran.domain.mobs.spells.form.FormSkillType
 import com.myrran.domain.mobs.spells.spell.SkillType
+import com.myrran.domain.skills.created.form.CollisionType
 import com.myrran.domain.skills.lock.LockType
 
 data class SkillTemplateEntity(
@@ -17,6 +18,7 @@ data class FormTemplateEntity(
     val id: String,
     val type: FormSkillType,
     val name: String,
+    val collisionType: CollisionType,
     val stats: List<StatTemplateEntity>,
     val slots: List<SlotTemplateEntity>,
     val keys: List<LockType>

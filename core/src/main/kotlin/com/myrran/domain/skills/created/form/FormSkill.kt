@@ -21,6 +21,7 @@ data class FormSkill(
     val templateId: FormTemplateId,
     val type: FormSkillType,
     val name: FormSkillName,
+    val collisionType: CollisionType,
     val stats: Stats,
     val slots: EffectSkillSlots,
     val keys: Collection<LockType>

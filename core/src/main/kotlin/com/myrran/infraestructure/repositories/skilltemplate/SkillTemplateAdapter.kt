@@ -54,6 +54,7 @@ class SkillTemplateAdapter {
             id = domain.id.value,
             type = domain.type,
             name = domain.name.value,
+            collisionType = domain.collisionType,
             stats = domain.stats.map { fromDomain(it) },
             slots = domain.slots.map { fromDomain(it) },
             keys = domain.keys.toList()
@@ -65,6 +66,7 @@ class SkillTemplateAdapter {
             id = FormTemplateId(entity.id),
             type = entity.type,
             name = FormSkillName(entity.name),
+            collisionType = entity.collisionType,
             stats = entity.stats.map { toDomain(it) },
             slots = entity.slots.map { toDomainEffectSkillSlot(it) },
             keys = entity.keys

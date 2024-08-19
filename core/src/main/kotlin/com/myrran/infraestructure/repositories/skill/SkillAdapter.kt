@@ -95,6 +95,7 @@ class SkillAdapter
             templateId = domain.templateId.value,
             type = domain.type,
             name = domain.name.value,
+            collisionType = domain.collisionType,
             stats = domain.getStats().map { fromDomain(it) },
             slots = domain.slots.getEffectSkillSlots().map { fromDomain(it) },
             keys = domain.keys
@@ -107,6 +108,7 @@ class SkillAdapter
             templateId = FormTemplateId(entity.templateId),
             type = entity.type,
             name = FormSkillName(entity.name),
+            collisionType = entity.collisionType,
             stats = Stats(entity.stats.map { toDomain(it) }.associateBy { it.id } ),
             slots = EffectSkillSlots(entity.slots.map { toDomain(it) }.associateBy { it.id } ),
             keys = entity.keys
