@@ -1,12 +1,14 @@
 package com.myrran.domain
 
+import com.badlogic.gdx.math.Vector2
+import com.badlogic.gdx.physics.box2d.ContactListener
 import com.badlogic.gdx.utils.Disposable
 import com.myrran.domain.events.Event
+import com.myrran.domain.events.FormSpellCastedEvent
 import com.myrran.domain.events.MobCreatedEvent
 import com.myrran.domain.events.MobRemovedEvent
 import com.myrran.domain.events.PlayerSpellCastedEvent
 import com.myrran.domain.events.SpellCreatedEvent
-import com.myrran.domain.mobs.common.ColissionListener
 import com.myrran.domain.mobs.common.Mob
 import com.myrran.domain.mobs.common.MobFactory
 import com.myrran.domain.mobs.common.MobId
@@ -15,6 +17,7 @@ import com.myrran.domain.mobs.common.metrics.PositionMeters
 import com.myrran.domain.mobs.player.Player
 import com.myrran.domain.mobs.spells.spell.WorldBox2D
 import com.myrran.domain.skills.SpellBook
+import com.myrran.domain.skills.created.form.FormSkill
 import com.myrran.domain.skills.created.skill.SkillId
 import com.myrran.infraestructure.eventbus.EventDispatcher
 import com.myrran.infraestructure.eventbus.EventListener
@@ -26,17 +29,20 @@ class World(
     val spellBook: SpellBook,
     val worldBox2D: WorldBox2D,
     val mobFactory: MobFactory,
-    val eventDispatcher: EventDispatcher
+    val eventDispatcher: EventDispatcher,
+    worldBox2dContactListener: ContactListener,
 
 ): EventSender by eventDispatcher, EventListener, Disposable
 {
     private val mobs: MutableMap<MobId, Mob> = mutableMapOf()
     private var toBeRemoved: MutableList<MobId> = mutableListOf()
+    private var toBeAdded: MutableList<Mob> = mutableListOf()
 
     init {
 
-        addListener(this, PlayerSpellCastedEvent::class, MobRemovedEvent::class, MobCreatedEvent::class)
-        worldBox2D.setContactListener(ColissionListener())
+        worldBox2D.setContactListener(worldBox2dContactListener)
+        addListener(this, PlayerSpellCastedEvent::class, MobCreatedEvent::class, MobRemovedEvent::class,
+            FormSpellCastedEvent::class)
     }
 
     // UPDATE
@@ -51,9 +57,9 @@ class World(
         player.act(timesStep)
         mobs.values.forEach { it.act(timesStep) }
 
-        // death mobs
-        toBeRemoved.forEach { removeMob(it) }
-        toBeRemoved.clear()
+        // new-removed mobs
+        removeMobs()
+        addMobs()
     }
 
     fun saveLastPosition() {
@@ -74,9 +80,10 @@ class World(
     override fun handleEvent(event: Event) {
 
         when (event) {
-            is MobCreatedEvent -> addMob(event.mob)
+            is MobCreatedEvent -> toBeAdded.add(event.mob)
             is MobRemovedEvent -> toBeRemoved.add(event.mob.id)
             is PlayerSpellCastedEvent -> castPlayerSpell(event.caster, event.origin)
+            is FormSpellCastedEvent -> createFormSpell(event.formSkill, event.origin, event.direction)
             else -> Unit
         }
     }
@@ -87,8 +94,13 @@ class World(
     private fun castPlayerSpell(caster: Caster, origin: PositionMeters) =
 
         mobFactory.createSpell(caster.getSelectedSkill()!!, origin, caster.pointingAt)
-            .also { addMob(it) }
+            .also { toBeAdded.add(it) }
             .also { sendEvent(SpellCreatedEvent(it)) }
+
+    private fun createFormSpell(skill: FormSkill, origin: PositionMeters, direction: Vector2) =
+
+        mobFactory.createFormSpell(skill, origin, direction)
+            .also { toBeAdded.add(it) }
 
     private fun pickPlayerSpell(skillId: SkillId) =
 
@@ -97,13 +109,15 @@ class World(
     // MISC:
     //--------------------------------------------------------------------------------------------------------
 
-    private fun addMob(mob: Mob) {
+    private fun addMobs() {
 
-        mobs[mob.id] = mob }
+        toBeAdded.forEach { mobs[it.id] = it }
+        toBeAdded.clear()
+    }
 
-    private fun removeMob(id: MobId) {
+    private fun removeMobs() {
 
-        mobs.remove(id)
-            ?.also { it.dispose() }
+        toBeRemoved.forEach { mobId -> mobs.remove(mobId)?.also { it.dispose() } }
+        toBeRemoved.clear()
     }
 }
