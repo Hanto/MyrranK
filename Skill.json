@@ -1,16 +1,24 @@
 [ {
-  "id" : "5e2d588d-cc7e-4475-87da-622409e4eb31",
+  "id" : "28d12e1b-c03e-4438-bd72-14c1136b968f",
   "templateId" : "BOLT_1",
   "type" : "BOLT",
   "name" : "Bolt",
-  "customName" : "Custom FireBolt",
+  "customName" : "Bolt",
   "stats" : [ {
     "id" : "SPEED",
     "name" : "speed",
     "baseBonus" : 6.0,
-    "actual" : 16,
+    "actual" : 10,
     "maximum" : 50,
     "upgradeCost" : 2.0,
+    "bonusPerUpgrade" : 1.0
+  }, {
+    "id" : "PENETRATION",
+    "name" : "penetration",
+    "baseBonus" : 1.0,
+    "actual" : 1,
+    "maximum" : 10,
+    "upgradeCost" : 1.0,
     "bonusPerUpgrade" : 1.0
   }, {
     "id" : "SIZE",
@@ -29,14 +37,6 @@
     "upgradeCost" : 2.0,
     "bonusPerUpgrade" : -1.5
   }, {
-    "id" : "PENETRATION",
-    "name" : "penetration",
-    "baseBonus" : 0.0,
-    "actual" : 0,
-    "maximum" : 20,
-    "upgradeCost" : 2.0,
-    "bonusPerUpgrade" : 0.1
-  }, {
     "id" : "EXPIRATION",
     "name" : "expiration",
     "baseBonus" : 2.0,
@@ -50,32 +50,32 @@
     "name" : "Impact",
     "lock" : [ "A", "B", "C", "D" ],
     "content" : {
-      "id" : "67a9c5ce-b635-480c-952e-320cd4d62b62",
-      "templateId" : "POINT_1",
-      "type" : "POINT",
-      "name" : "Point",
-      "collisionType" : "ON_EVERY_COLLISION_POINT",
+      "id" : "6510f7b5-7353-4b97-bd1f-167b695dc47b",
+      "templateId" : "CIRCLE_1",
+      "type" : "CIRCLE",
+      "name" : "Circle",
+      "collisionType" : "ON_SINGLE_COLLISION_POINT",
       "stats" : [ {
         "id" : "RADIUS",
         "name" : "radius",
-        "baseBonus" : 1.0,
-        "actual" : null,
-        "maximum" : null,
-        "upgradeCost" : null,
-        "bonusPerUpgrade" : null
+        "baseBonus" : 100.0,
+        "actual" : 14,
+        "maximum" : 50,
+        "upgradeCost" : 1.0,
+        "bonusPerUpgrade" : 4.0
       }, {
         "id" : "EXPIRATION",
         "name" : "expiration",
         "baseBonus" : 0.0,
-        "actual" : null,
-        "maximum" : null,
-        "upgradeCost" : null,
-        "bonusPerUpgrade" : null
+        "actual" : 15,
+        "maximum" : 50,
+        "upgradeCost" : 1.0,
+        "bonusPerUpgrade" : 0.3
       } ],
       "slots" : [ {
         "id" : "DEBUFF_1",
         "name" : "Debuff 1",
-        "lock" : [ "a", "b" ],
+        "lock" : [ "c", "d" ],
         "content" : null
       } ],
       "keys" : [ "A", "B", "C", "D" ]

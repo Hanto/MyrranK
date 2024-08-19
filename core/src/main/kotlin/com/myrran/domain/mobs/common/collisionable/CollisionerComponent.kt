@@ -2,6 +2,7 @@ package com.myrran.domain.mobs.common.collisionable
 
 import com.myrran.domain.misc.metrics.PositionMeters
 import com.myrran.domain.mobs.common.corporeal.Corporeal
+import com.myrran.domain.mobs.wall.Wall
 
 class CollisionerComponent: Collisioner
 {
@@ -22,6 +23,10 @@ class CollisionerComponent: Collisioner
     override fun hasCollisions(): Boolean =
 
         collidedWith.isNotEmpty()
+
+    override fun hasCollidedAWall(): Boolean =
+
+        collidedWith.any { it.corporeal is Wall }
 
     // COLLISION:
     //--------------------------------------------------------------------------------------------------------

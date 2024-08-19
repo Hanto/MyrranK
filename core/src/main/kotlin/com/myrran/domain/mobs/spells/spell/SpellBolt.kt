@@ -41,6 +41,8 @@ class SpellBolt(
 ): Mob, Identifiable<MobId>, Steerable by steerable, Spatial, Movable, Disposable,
     Spell, Consumable by consumable, Collisioner by collisioner
 {
+    private var penetration = 1
+
     // INIT:
     //--------------------------------------------------------------------------------------------------------
 
@@ -58,36 +60,38 @@ class SpellBolt(
         // expiration time:
         val expirationTime = skill.getStat(EXPIRATION)!!.totalBonus().value.let { Second(it) }
         consumable.willExpireIn(expirationTime)
+
+        // penetration:
+        penetration = skill.getStat(PENETRATION)!!.totalBonus().value.toInt()
     }
 
     // MAIN:
     //--------------------------------------------------------------------------------------------------------
 
-    private var state = State.NOT_EXPLODED
     override fun act(deltaTime: Float) {
 
         if (consumable.updateDuration(deltaTime).isConsumed)
             eventDispatcher.sendEvent(MobRemovedEvent(this))
 
-        if (collisioner.hasCollisions() && state == State.NOT_EXPLODED ) {
+        if (penetration <= 0 || collisioner.hasCollidedAWall())
+            consumable.willExpireIn(Second(0))
 
-            // penetration:
-            val penetration = skill.getStat(PENETRATION)!!.totalBonus().value.let { Second(it) }
-            consumable.willExpireIn(penetration)
+        if (collisioner.hasCollisions()) {
 
             // impact slot:
             skill.getFormSkill(IMPACT_SLOT)?.also { createForm(it) }
 
+            penetration--
             collisioner.removeCollisions()
-            state = State.EXPLODED
         }
     }
-
-    private enum class State {  NOT_EXPLODED, EXPLODED }
 
     override fun dispose() =
 
         steerable.dispose()
+
+    // FORM CREATION:
+    //--------------------------------------------------------------------------------------------------------
 
     private fun createForm(skillForm: FormSkill) {
 
