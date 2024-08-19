@@ -1,4 +1,4 @@
-package com.myrran.domain.skills
+package com.myrran.domain.world
 
 import com.myrran.domain.events.EffectSkillChangedEvent
 import com.myrran.domain.events.EffectSkillRemovedEvent

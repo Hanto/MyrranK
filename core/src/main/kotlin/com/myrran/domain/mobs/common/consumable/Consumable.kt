@@ -1,6 +1,6 @@
 package com.myrran.domain.mobs.common.consumable
 
-import com.myrran.domain.mobs.common.metrics.Second
+import com.myrran.domain.misc.metrics.Second
 
 interface Consumable {
 

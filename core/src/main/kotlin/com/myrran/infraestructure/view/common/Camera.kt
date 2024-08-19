@@ -4,9 +4,9 @@ import box2dLight.RayHandler
 import com.badlogic.gdx.graphics.OrthographicCamera
 import com.badlogic.gdx.math.Vector3
 import com.badlogic.gdx.scenes.scene2d.Stage
-import com.myrran.domain.mobs.common.metrics.Pixel
-import com.myrran.domain.mobs.common.metrics.PositionMeters
-import com.myrran.domain.mobs.common.metrics.PositionPixels
+import com.myrran.domain.misc.metrics.Pixel
+import com.myrran.domain.misc.metrics.PositionMeters
+import com.myrran.domain.misc.metrics.PositionPixels
 
 class Camera(
 

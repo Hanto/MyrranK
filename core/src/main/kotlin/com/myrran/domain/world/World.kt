@@ -1,4 +1,4 @@
-package com.myrran.domain
+package com.myrran.domain.world
 
 import com.badlogic.gdx.math.Vector2
 import com.badlogic.gdx.physics.box2d.ContactListener
@@ -9,14 +9,13 @@ import com.myrran.domain.events.MobCreatedEvent
 import com.myrran.domain.events.MobRemovedEvent
 import com.myrran.domain.events.PlayerSpellCastedEvent
 import com.myrran.domain.events.SpellCreatedEvent
+import com.myrran.domain.misc.constants.WorldBox2D
+import com.myrran.domain.misc.metrics.PositionMeters
 import com.myrran.domain.mobs.common.Mob
 import com.myrran.domain.mobs.common.MobFactory
 import com.myrran.domain.mobs.common.MobId
 import com.myrran.domain.mobs.common.caster.Caster
-import com.myrran.domain.mobs.common.metrics.PositionMeters
 import com.myrran.domain.mobs.player.Player
-import com.myrran.domain.mobs.spells.spell.WorldBox2D
-import com.myrran.domain.skills.SpellBook
 import com.myrran.domain.skills.created.form.FormSkill
 import com.myrran.domain.skills.created.skill.SkillId
 import com.myrran.infraestructure.eventbus.EventDispatcher

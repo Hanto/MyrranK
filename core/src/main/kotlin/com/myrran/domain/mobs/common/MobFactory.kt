@@ -1,22 +1,24 @@
 package com.myrran.domain.mobs.common
 
 import com.badlogic.gdx.math.Vector2
+import com.myrran.domain.misc.constants.SpellConstants.Companion.SIZE
+import com.myrran.domain.misc.constants.WorldBox2D
+import com.myrran.domain.misc.metrics.Acceleration
+import com.myrran.domain.misc.metrics.AngularAcceleration
+import com.myrran.domain.misc.metrics.AngularVelocity
+import com.myrran.domain.misc.metrics.Meter
+import com.myrran.domain.misc.metrics.Pixel
+import com.myrran.domain.misc.metrics.PositionMeters
+import com.myrran.domain.misc.metrics.Radian
+import com.myrran.domain.misc.metrics.Size
+import com.myrran.domain.misc.metrics.Speed
 import com.myrran.domain.mobs.common.caster.CasterComponent
 import com.myrran.domain.mobs.common.collisionable.CollisionerComponent
 import com.myrran.domain.mobs.common.consumable.ConsumableComponent
 import com.myrran.domain.mobs.common.corporeal.BodyFactory
 import com.myrran.domain.mobs.common.corporeal.CorporealComponent
 import com.myrran.domain.mobs.common.corporeal.MovementLimiter
-import com.myrran.domain.mobs.common.metrics.Acceleration
-import com.myrran.domain.mobs.common.metrics.AngularAcceleration
-import com.myrran.domain.mobs.common.metrics.AngularVelocity
-import com.myrran.domain.mobs.common.metrics.Meter
-import com.myrran.domain.mobs.common.metrics.Pixel
-import com.myrran.domain.mobs.common.metrics.PositionMeters
-import com.myrran.domain.mobs.common.metrics.Radian
-import com.myrran.domain.mobs.common.metrics.Size
-import com.myrran.domain.mobs.common.metrics.Speed
-import com.myrran.domain.mobs.common.proximity.ProximityAwareComponent
+import com.myrran.domain.mobs.common.proximityaware.ProximityAwareComponent
 import com.myrran.domain.mobs.common.steerable.SteerableComponent
 import com.myrran.domain.mobs.mob.Enemy
 import com.myrran.domain.mobs.player.Player
@@ -27,8 +29,6 @@ import com.myrran.domain.mobs.spells.form.FormPoint
 import com.myrran.domain.mobs.spells.form.FormSkillType
 import com.myrran.domain.mobs.spells.spell.SkillType
 import com.myrran.domain.mobs.spells.spell.SpellBolt
-import com.myrran.domain.mobs.spells.spell.SpellConstants.Companion.SIZE
-import com.myrran.domain.mobs.spells.spell.WorldBox2D
 import com.myrran.domain.mobs.wall.Wall
 import com.myrran.domain.skills.created.form.FormSkill
 import com.myrran.domain.skills.created.skill.Skill
@@ -49,7 +49,8 @@ class MobFactory(
         val body = bodyFactory.createPlayerBody(worldBox2D, Pixel(16))
         val limiter = MovementLimiter(
             maxLinearSpeed = Speed(Meter(4f)),
-            maxLinearAcceleration = Acceleration(Meter(500f)))
+            maxLinearAcceleration = Acceleration(Meter(500f))
+        )
         val corporeal = CorporealComponent(
             body = body,
             limiter = limiter,
@@ -76,7 +77,8 @@ class MobFactory(
             maxLinearSpeed = Speed(Meter(2f)),
             maxLinearAcceleration = Acceleration(Meter(500f)),
             maxAngularSpeed = AngularVelocity(Radian(6f)),
-            maxAngularAcceleration = AngularAcceleration(Radian(12f)))
+            maxAngularAcceleration = AngularAcceleration(Radian(12f))
+        )
         val corporeal = CorporealComponent(
             body = body,
             limiter = limiter,
@@ -105,10 +107,10 @@ class MobFactory(
 
         val sizeMultiplier = skill.getStat(SIZE)!!.totalBonus().value / 100
         val radius = Pixel(16) * sizeMultiplier
-        val consumable = ConsumableComponent()
         val body = bodyFactory.createSpellBoltBody(worldBox2D, radius)
         val limiter = MovementLimiter(
-            maxLinearSpeed = Speed(Meter(100f)))
+            maxLinearSpeed = Speed(Meter(100f))
+        )
         val corporeal = CorporealComponent(
             body = body,
             limiter = limiter,
@@ -122,7 +124,7 @@ class MobFactory(
             target = target,
             steerable = steerable,
             eventDispatcher = eventDispatcher,
-            consumable = consumable,
+            consumable = ConsumableComponent(),
             collisioner = CollisionerComponent())
 
         body.userData = spell
@@ -139,10 +141,10 @@ class MobFactory(
     private fun createFormPoint(formSkill: FormSkill, origin: PositionMeters, direction: Vector2): Form {
 
         val radius = Pixel(2)
-        val consumable = ConsumableComponent()
         val body = bodyFactory.createCircleForm(worldBox2D, radius)
         val limiter = MovementLimiter(
-            maxLinearSpeed = Speed(Meter(0f)))
+            maxLinearSpeed = Speed(Meter(0f))
+        )
         val corporeal = CorporealComponent(
             body = body,
             limiter = limiter,
@@ -156,7 +158,7 @@ class MobFactory(
             direction = direction,
             steerable = steerable,
             eventDispatcher = eventDispatcher,
-            consumable = consumable,
+            consumable = ConsumableComponent(),
             collisioner = CollisionerComponent())
 
         body.userData = form
@@ -167,10 +169,10 @@ class MobFactory(
 
         val sizeMultiplier = formSkill.getStat(StatId("RADIUS"))!!.totalBonus().value / 100
         val radius = Pixel(64) * sizeMultiplier
-        val consumable = ConsumableComponent()
         val body = bodyFactory.createCircleForm(worldBox2D, radius)
         val limiter = MovementLimiter(
-            maxLinearSpeed = Speed(Meter(0f)))
+            maxLinearSpeed = Speed(Meter(0f))
+        )
         val corporeal = CorporealComponent(
             body = body,
             limiter = limiter,
@@ -184,7 +186,7 @@ class MobFactory(
             direction = direction,
             steerable = steerable,
             eventDispatcher = eventDispatcher,
-            consumable = consumable,
+            consumable = ConsumableComponent(),
             collisioner = CollisionerComponent())
 
         body.userData = form
@@ -196,6 +198,7 @@ class MobFactory(
         val body = bodyFactory.createWall(worldBox2D, size)
 
         val wall = Wall(
+            id = MobId(),
             steerable = SteerableComponent(
                 corporeal = CorporealComponent(
                     body = body,

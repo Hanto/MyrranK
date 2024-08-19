@@ -1,4 +1,4 @@
-package com.myrran.domain.mobs.common.proximity
+package com.myrran.domain.mobs.common.proximityaware
 
 import com.badlogic.gdx.ai.steer.Proximity.ProximityCallback
 import com.badlogic.gdx.ai.steer.Steerable

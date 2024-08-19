@@ -5,8 +5,8 @@ import com.badlogic.gdx.scenes.scene2d.Group
 import com.badlogic.gdx.utils.Align
 import com.badlogic.gdx.utils.Disposable
 import com.myrran.domain.misc.Identifiable
+import com.myrran.domain.misc.metrics.PositionMeters
 import com.myrran.domain.mobs.common.MobId
-import com.myrran.domain.mobs.common.metrics.PositionMeters
 import com.myrran.domain.mobs.player.Player
 import com.myrran.domain.mobs.player.StateIddle
 import com.myrran.domain.mobs.player.StateMoving

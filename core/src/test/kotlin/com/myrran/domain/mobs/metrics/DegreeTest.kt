@@ -1,6 +1,6 @@
 package com.myrran.domain.mobs.metrics
 
-import com.myrran.domain.mobs.common.metrics.Degree
+import com.myrran.domain.misc.metrics.Degree
 import org.junit.jupiter.api.Test
 
 class DegreeTest {

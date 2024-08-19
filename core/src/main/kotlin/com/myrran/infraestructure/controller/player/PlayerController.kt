@@ -3,7 +3,7 @@ package com.myrran.infraestructure.controller.player
 import com.badlogic.gdx.Input
 import com.badlogic.gdx.Input.Buttons
 import com.badlogic.gdx.InputProcessor
-import com.myrran.domain.World
+import com.myrran.domain.world.World
 
 class PlayerController(
 

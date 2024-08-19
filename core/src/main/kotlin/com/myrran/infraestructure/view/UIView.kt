@@ -3,7 +3,7 @@ package com.myrran.infraestructure.view
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.scenes.scene2d.Stage
 import com.badlogic.gdx.utils.Disposable
-import com.myrran.domain.skills.SpellBook
+import com.myrran.domain.world.SpellBook
 import com.myrran.infraestructure.controller.skills.SpellBookController
 import com.myrran.infraestructure.view.skills.SkillViewAssets
 import com.myrran.infraestructure.view.skills.SkillViewFactory

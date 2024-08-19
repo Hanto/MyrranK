@@ -5,9 +5,9 @@ import com.badlogic.gdx.ai.steer.SteeringAcceleration
 import com.badlogic.gdx.ai.steer.SteeringBehavior
 import com.badlogic.gdx.math.Vector2
 import com.badlogic.gdx.utils.Disposable
+import com.myrran.domain.misc.metrics.Pixel
 import com.myrran.domain.mobs.common.corporeal.Corporeal
 import com.myrran.domain.mobs.common.corporeal.CorporealComponent
-import com.myrran.domain.mobs.common.metrics.Pixel
 
 class SteerableComponent(
 

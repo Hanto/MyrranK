@@ -8,12 +8,12 @@ import com.badlogic.gdx.scenes.scene2d.actions.Actions
 import com.badlogic.gdx.utils.Align
 import com.badlogic.gdx.utils.Disposable
 import com.myrran.domain.misc.Identifiable
+import com.myrran.domain.misc.constants.SpellConstants.Companion.EXPIRATION
+import com.myrran.domain.misc.constants.SpellConstants.Companion.SIZE
+import com.myrran.domain.misc.metrics.Pixel
+import com.myrran.domain.misc.metrics.PositionMeters
 import com.myrran.domain.mobs.common.MobId
-import com.myrran.domain.mobs.common.metrics.Pixel
-import com.myrran.domain.mobs.common.metrics.PositionMeters
 import com.myrran.domain.mobs.spells.spell.SpellBolt
-import com.myrran.domain.mobs.spells.spell.SpellConstants.Companion.EXPIRATION
-import com.myrran.domain.mobs.spells.spell.SpellConstants.Companion.SIZE
 import com.myrran.infraestructure.view.mobs.common.MobView
 import com.myrran.infraestructure.view.mobs.common.SpriteAnimated
 import ktx.actors.alpha

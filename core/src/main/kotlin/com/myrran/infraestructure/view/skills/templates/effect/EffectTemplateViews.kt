@@ -16,8 +16,8 @@ import com.myrran.domain.events.SkillRemovedEvent
 import com.myrran.domain.events.SkillStatUpgradedEvent
 import com.myrran.domain.misc.Identifiable
 import com.myrran.domain.misc.observer.Observer
-import com.myrran.domain.skills.SpellBook
 import com.myrran.domain.skills.templates.effect.EffectTemplateId
+import com.myrran.domain.world.SpellBook
 import com.myrran.infraestructure.view.skills.SkillViewAssets
 import com.myrran.infraestructure.view.skills.SkillViewFactory
 import com.myrran.infraestructure.view.skills.SkillViewId

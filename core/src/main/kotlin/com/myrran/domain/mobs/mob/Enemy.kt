@@ -5,8 +5,8 @@ import com.myrran.domain.misc.Identifiable
 import com.myrran.domain.mobs.common.Mob
 import com.myrran.domain.mobs.common.MobId
 import com.myrran.domain.mobs.common.corporeal.Corporeal
-import com.myrran.domain.mobs.common.proximity.ProximityAware
-import com.myrran.domain.mobs.common.proximity.ProximityAwareComponent
+import com.myrran.domain.mobs.common.proximityaware.ProximityAware
+import com.myrran.domain.mobs.common.proximityaware.ProximityAwareComponent
 import com.myrran.domain.mobs.common.steerable.Steerable
 import com.myrran.domain.mobs.common.steerable.SteerableComponent
 import com.myrran.infraestructure.eventbus.EventDispatcher

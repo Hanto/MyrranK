@@ -8,6 +8,7 @@ import com.badlogic.gdx.physics.box2d.Contact
 import com.badlogic.gdx.physics.box2d.ContactImpulse
 import com.badlogic.gdx.physics.box2d.ContactListener
 import com.badlogic.gdx.physics.box2d.Manifold
+import com.myrran.domain.misc.metrics.PositionMeters
 import com.myrran.domain.mobs.common.ColissionListener.ContactType.EnemySensorToSteerable
 import com.myrran.domain.mobs.common.ColissionListener.ContactType.FormWithMob
 import com.myrran.domain.mobs.common.ColissionListener.ContactType.SpellWithEnemyOrWall
@@ -16,7 +17,6 @@ import com.myrran.domain.mobs.common.corporeal.Box2dFilters.Companion.ENEMY_SENS
 import com.myrran.domain.mobs.common.corporeal.Box2dFilters.Companion.SPELL
 import com.myrran.domain.mobs.common.corporeal.Box2dFilters.Companion.WALLS
 import com.myrran.domain.mobs.common.corporeal.Corporeal
-import com.myrran.domain.mobs.common.metrics.PositionMeters
 import com.myrran.domain.mobs.common.steerable.Steerable
 import com.myrran.domain.mobs.mob.Enemy
 import com.myrran.domain.mobs.spells.form.Form

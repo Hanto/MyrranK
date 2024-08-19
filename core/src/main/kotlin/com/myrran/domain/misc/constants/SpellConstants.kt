@@ -1,4 +1,4 @@
-package com.myrran.domain.mobs.spells.spell
+package com.myrran.domain.misc.constants
 
 import com.badlogic.gdx.physics.box2d.World
 import com.myrran.domain.skills.created.form.FormSkillSlotId
@@ -18,5 +18,4 @@ class SpellConstants {
         val IMPACT_SLOT = FormSkillSlotId("IMPACT:1")
     }
 }
-
 typealias WorldBox2D = World

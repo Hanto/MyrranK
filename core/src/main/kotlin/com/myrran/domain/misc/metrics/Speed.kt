@@ -1,4 +1,4 @@
-package com.myrran.domain.mobs.common.metrics
+package com.myrran.domain.misc.metrics
 
 data class Speed<T: Distance>(
 

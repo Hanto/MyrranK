@@ -4,6 +4,12 @@ import com.badlogic.gdx.utils.Disposable
 import com.myrran.domain.events.FormSpellCastedEvent
 import com.myrran.domain.events.MobRemovedEvent
 import com.myrran.domain.misc.Identifiable
+import com.myrran.domain.misc.constants.SpellConstants.Companion.EXPIRATION
+import com.myrran.domain.misc.constants.SpellConstants.Companion.IMPACT_SLOT
+import com.myrran.domain.misc.constants.SpellConstants.Companion.PENETRATION
+import com.myrran.domain.misc.constants.SpellConstants.Companion.SPEED
+import com.myrran.domain.misc.metrics.PositionMeters
+import com.myrran.domain.misc.metrics.Second
 import com.myrran.domain.mobs.common.Mob
 import com.myrran.domain.mobs.common.MobId
 import com.myrran.domain.mobs.common.collisionable.Collisioner
@@ -12,14 +18,8 @@ import com.myrran.domain.mobs.common.consumable.Consumable
 import com.myrran.domain.mobs.common.consumable.ConsumableComponent
 import com.myrran.domain.mobs.common.corporeal.Movable
 import com.myrran.domain.mobs.common.corporeal.Spatial
-import com.myrran.domain.mobs.common.metrics.PositionMeters
-import com.myrran.domain.mobs.common.metrics.Second
 import com.myrran.domain.mobs.common.steerable.Steerable
 import com.myrran.domain.mobs.common.steerable.SteerableComponent
-import com.myrran.domain.mobs.spells.spell.SpellConstants.Companion.EXPIRATION
-import com.myrran.domain.mobs.spells.spell.SpellConstants.Companion.IMPACT_SLOT
-import com.myrran.domain.mobs.spells.spell.SpellConstants.Companion.PENETRATION
-import com.myrran.domain.mobs.spells.spell.SpellConstants.Companion.SPEED
 import com.myrran.domain.skills.created.form.CollisionType
 import com.myrran.domain.skills.created.form.FormSkill
 import com.myrran.domain.skills.created.skill.Skill

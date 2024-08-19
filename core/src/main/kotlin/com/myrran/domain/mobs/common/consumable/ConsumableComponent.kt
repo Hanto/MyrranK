@@ -1,7 +1,7 @@
 package com.myrran.domain.mobs.common.consumable
 
+import com.myrran.domain.misc.metrics.Second
 import com.myrran.domain.mobs.common.consumable.Consumable.IsConsumed
-import com.myrran.domain.mobs.common.metrics.Second
 
 class ConsumableComponent(
 

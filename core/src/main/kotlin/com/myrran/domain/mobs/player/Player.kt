@@ -3,12 +3,12 @@ package com.myrran.domain.mobs.player
 import com.badlogic.gdx.utils.Disposable
 import com.myrran.domain.events.PlayerSpellCastedEvent
 import com.myrran.domain.misc.Identifiable
+import com.myrran.domain.misc.metrics.PositionMeters
 import com.myrran.domain.mobs.common.Mob
 import com.myrran.domain.mobs.common.MobId
 import com.myrran.domain.mobs.common.caster.Caster
 import com.myrran.domain.mobs.common.caster.CasterComponent
 import com.myrran.domain.mobs.common.corporeal.Corporeal
-import com.myrran.domain.mobs.common.metrics.PositionMeters
 import com.myrran.domain.mobs.common.steerable.Steerable
 import com.myrran.domain.mobs.common.steerable.SteerableComponent
 import com.myrran.infraestructure.controller.player.PlayerInputs

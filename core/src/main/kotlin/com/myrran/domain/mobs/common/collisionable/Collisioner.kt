@@ -1,8 +1,8 @@
 package com.myrran.domain.mobs.common.collisionable
 
+import com.myrran.domain.misc.metrics.PositionMeters
 import com.myrran.domain.mobs.common.collisionable.CollisionerComponent.Collision
 import com.myrran.domain.mobs.common.corporeal.Corporeal
-import com.myrran.domain.mobs.common.metrics.PositionMeters
 
 interface Collisioner
 {

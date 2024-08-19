@@ -1,6 +1,5 @@
 package com.myrran.infraestructure.controller.skills
 
-import com.myrran.domain.skills.SpellBook
 import com.myrran.domain.skills.created.effect.EffectSkillSlot
 import com.myrran.domain.skills.created.effect.EffectSkillSlotId
 import com.myrran.domain.skills.created.form.FormSkillSlot
@@ -13,6 +12,7 @@ import com.myrran.domain.skills.created.stat.StatId
 import com.myrran.domain.skills.templates.effect.EffectTemplateId
 import com.myrran.domain.skills.templates.form.FormTemplateId
 import com.myrran.domain.skills.templates.skill.SkillTemplateId
+import com.myrran.domain.world.SpellBook
 
 // BOOK
 //------------------------------------------------------------------------------------------------------------

@@ -1,4 +1,4 @@
-package com.myrran.domain.mobs.common.metrics
+package com.myrran.domain.misc.metrics
 
 import com.badlogic.gdx.math.Vector2
 

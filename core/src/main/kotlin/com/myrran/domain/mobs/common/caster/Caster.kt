@@ -1,7 +1,7 @@
 package com.myrran.domain.mobs.common.caster
 
-import com.myrran.domain.mobs.common.metrics.PositionMeters
-import com.myrran.domain.mobs.common.metrics.Second
+import com.myrran.domain.misc.metrics.PositionMeters
+import com.myrran.domain.misc.metrics.Second
 import com.myrran.domain.skills.created.skill.Skill
 
 interface Caster {
