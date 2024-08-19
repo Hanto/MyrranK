@@ -1,5 +1,6 @@
 package com.myrran.domain.mobs.common
 
+import com.badlogic.gdx.math.Vector2
 import com.myrran.domain.mobs.common.caster.CasterComponent
 import com.myrran.domain.mobs.common.colisionable.CollisionerComponent
 import com.myrran.domain.mobs.common.consumable.ConsumableComponent
@@ -11,6 +12,7 @@ import com.myrran.domain.mobs.common.metrics.Pixel
 import com.myrran.domain.mobs.common.metrics.PositionMeters
 import com.myrran.domain.mobs.common.metrics.Radian
 import com.myrran.domain.mobs.common.metrics.Second
+import com.myrran.domain.mobs.common.metrics.Size
 import com.myrran.domain.mobs.common.metrics.Speed
 import com.myrran.domain.mobs.common.proximity.ProximityAwareComponent
 import com.myrran.domain.mobs.common.steerable.BodyFactory
@@ -20,12 +22,19 @@ import com.myrran.domain.mobs.common.steerable.SteerableByBox2DComponent
 import com.myrran.domain.mobs.mob.Enemy
 import com.myrran.domain.mobs.player.Player
 import com.myrran.domain.mobs.player.StateActionIddle
+import com.myrran.domain.mobs.spells.form.Form
+import com.myrran.domain.mobs.spells.form.FormCircle
+import com.myrran.domain.mobs.spells.form.FormPoint
+import com.myrran.domain.mobs.spells.form.FormSkillType
 import com.myrran.domain.mobs.spells.spell.SkillType
 import com.myrran.domain.mobs.spells.spell.SpellBolt
 import com.myrran.domain.mobs.spells.spell.SpellConstants.Companion.RANGE
 import com.myrran.domain.mobs.spells.spell.SpellConstants.Companion.SIZE
 import com.myrran.domain.mobs.spells.spell.WorldBox2D
+import com.myrran.domain.mobs.wall.Wall
+import com.myrran.domain.skills.created.form.FormSkill
 import com.myrran.domain.skills.created.skill.Skill
+import com.myrran.domain.skills.created.stat.StatId
 import com.myrran.infraestructure.controller.player.PlayerInputs
 import com.myrran.infraestructure.eventbus.EventDispatcher
 
@@ -98,8 +107,8 @@ class MobFactory(
 
     private fun createSpellBolt(skill: Skill, origin: PositionMeters, target: PositionMeters): SpellBolt {
 
-        val sizeMultiplier = skill.getStat(SIZE)!!.totalBonus().value
-        val radius = Pixel(16) * sizeMultiplier / 100
+        val sizeMultiplier = skill.getStat(SIZE)!!.totalBonus().value / 100
+        val radius = Pixel(16) * sizeMultiplier
         val duration = Second(skill.getStat(RANGE)!!.totalBonus().value)
         val consumable = ConsumableComponent(duration)
         val body = bodyFactory.createSpellBoltBody(worldBox2D, radius)
@@ -120,10 +129,92 @@ class MobFactory(
             steerable = movable,
             eventDispatcher = eventDispatcher,
             consumable = consumable,
-            collisioner = CollisionerComponent()
-        )
+            collisioner = CollisionerComponent())
 
         body.userData = spell
         return spell
+    }
+
+    fun createFormSpell(formSkill: FormSkill, origin: PositionMeters, direction: Vector2): Form =
+
+        when (formSkill.type) {
+            FormSkillType.CIRCLE -> createFormCircle(formSkill, origin)
+            FormSkillType.POINT -> createFormPoint(formSkill, origin, direction)
+        }
+
+    private fun createFormPoint(formSkill: FormSkill, origin: PositionMeters, direction: Vector2): Form {
+
+        val radius = Pixel(2)
+        val duration = Second(0.1f)
+        val consumable = ConsumableComponent(duration)
+        val body = bodyFactory.createCircleSubForm(worldBox2D, radius)
+        val limiter = SpeedLimiter(
+            maxLinearSpeed = Speed(Meter(0f)))
+        val location = MovableByBox2D(
+            body = body,
+            limiter = limiter,
+            destroyFunction = { worldBox2D.destroyBody(body) })
+        val movable = SteerableByBox2DComponent(
+            movable = location,
+            speedLimiter = limiter)
+        val form = FormPoint(
+            id = MobId(),
+            formSkill = formSkill.copy(),
+            origin = origin,
+            direction = direction,
+            steerable = movable,
+            eventDispatcher = eventDispatcher,
+            consumable = consumable,
+            collisioner = CollisionerComponent())
+
+        body.userData = form
+        return form
+    }
+
+    private fun createFormCircle(formSkill: FormSkill, origin: PositionMeters): Form {
+
+        val sizeMultiplier = formSkill.getStat(StatId("RADIUS"))!!.totalBonus().value / 100
+        val radius = Pixel(64) * sizeMultiplier
+        val duration = Second(0.1f)
+        val consumable = ConsumableComponent(duration)
+        val body = bodyFactory.createCircleSubForm(worldBox2D, radius)
+        val limiter = SpeedLimiter(
+            maxLinearSpeed = Speed(Meter(0f)))
+        val location = MovableByBox2D(
+            body = body,
+            limiter = limiter,
+            destroyFunction = { worldBox2D.destroyBody(body) })
+        val movable = SteerableByBox2DComponent(
+            movable = location,
+            speedLimiter = limiter)
+        val form = FormCircle(
+            id = MobId(),
+            formSkill = formSkill.copy(),
+            origin = origin,
+            steerable = movable,
+            eventDispatcher = eventDispatcher,
+            consumable = consumable,
+            collisioner = CollisionerComponent())
+
+        body.userData = form
+        return form
+    }
+
+    fun createWall(size: Size<*>): Wall {
+
+        val body = bodyFactory.createWall(worldBox2D, size)
+
+        val wall = Wall(
+            steerable = SteerableByBox2DComponent(
+                movable = MovableByBox2D(
+                    body = body,
+                    limiter = SpeedLimiter(),
+                    destroyFunction = { worldBox2D.destroyBody(body) }
+                ),
+                speedLimiter = SpeedLimiter(),
+            )
+        )
+        body.userData = wall
+        return wall
     }
 }

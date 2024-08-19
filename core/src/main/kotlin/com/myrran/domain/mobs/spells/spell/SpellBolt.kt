@@ -1,6 +1,7 @@
 package com.myrran.domain.mobs.spells.spell
 
 import com.badlogic.gdx.utils.Disposable
+import com.myrran.domain.events.FormSpellCastedEvent
 import com.myrran.domain.events.MobRemovedEvent
 import com.myrran.domain.misc.Identifiable
 import com.myrran.domain.mobs.common.Mob
@@ -15,7 +16,9 @@ import com.myrran.domain.mobs.common.steerable.Movable
 import com.myrran.domain.mobs.common.steerable.Spatial
 import com.myrran.domain.mobs.common.steerable.Steerable
 import com.myrran.domain.mobs.common.steerable.SteerableByBox2DComponent
+import com.myrran.domain.mobs.spells.spell.SpellConstants.Companion.IMPACT_SLOT
 import com.myrran.domain.mobs.spells.spell.SpellConstants.Companion.SPEED
+import com.myrran.domain.skills.created.form.FormSkill
 import com.myrran.domain.skills.created.skill.Skill
 import com.myrran.infraestructure.eventbus.EventDispatcher
 import ktx.math.minus
@@ -35,8 +38,6 @@ class SpellBolt(
 ): Mob, Identifiable<MobId>, Steerable by steerable, Spatial, Movable, Disposable,
     Spell, Consumable by consumable, Collisioner by collisioner
 {
-    private var state = State.FLYING
-
     // INIT:
     //--------------------------------------------------------------------------------------------------------
 
@@ -47,27 +48,52 @@ class SpellBolt(
 
         val direction = target.toBox2dUnits().minus(position).nor()
         val speed = skill.getStat(SPEED)!!.totalBonus()
-        steerable.setLinearVelocity(direction, speed.value)
+        steerable.applyImpulse(direction, speed.value)
     }
 
     // MAIN:
     //--------------------------------------------------------------------------------------------------------
 
+    private var state = State.NOT_EXPLODED
     override fun act(deltaTime: Float) {
 
         if (consumable.updateDuration(deltaTime).isConsumed)
             eventDispatcher.sendEvent(MobRemovedEvent(this))
 
-        if (collisioner.hasCollided() && state == State.FLYING) {
+        if (collisioner.hasCollisions() && state == State.NOT_EXPLODED ) {
 
-            state = State.COLLIDED
-            consumable.willExpireIn(Second(0.05f))
+            consumable.willExpireIn(Second(0.0f))
+
+            skill.getFormSkill(IMPACT_SLOT)
+                ?.also { createFormForEveryCollison(it) }
+
+            collisioner.removeCollisions()
+            state = State.EXPLODED
         }
     }
+
+    private enum class State {  NOT_EXPLODED, EXPLODED }
 
     override fun dispose() =
 
         steerable.dispose()
 
-    private enum class State { FLYING, COLLIDED }
+    private fun createFormForEveryCollison(skillForm: FormSkill) {
+
+        collisioner.retrieveCollisions().forEach {
+
+            eventDispatcher.sendEvent(FormSpellCastedEvent(
+                formSkill = skillForm,
+                origin = PositionMeters(it.pointOfCollision.x, it.pointOfCollision.y),
+                direction = steerable.linearVelocity.cpy().nor() ))
+        }
+    }
+
+    private fun createFormAtTheCenter(skillForm: FormSkill) {
+
+        eventDispatcher.sendEvent(FormSpellCastedEvent(
+            formSkill = skillForm,
+            origin = PositionMeters(position.x, position.y),
+            direction = steerable.linearVelocity.cpy().nor() ))
+    }
 }
