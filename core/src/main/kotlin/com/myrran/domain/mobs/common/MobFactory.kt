@@ -20,6 +20,7 @@ import com.myrran.domain.mobs.common.corporeal.CorporealComponent
 import com.myrran.domain.mobs.common.corporeal.MovementLimiter
 import com.myrran.domain.mobs.common.proximityaware.ProximityAwareComponent
 import com.myrran.domain.mobs.common.steerable.SteerableComponent
+import com.myrran.domain.mobs.common.vulnerable.VulnerableComponent
 import com.myrran.domain.mobs.mob.Enemy
 import com.myrran.domain.mobs.player.Player
 import com.myrran.domain.mobs.player.StateActionIddle
@@ -64,6 +65,7 @@ class MobFactory(
             state = StateActionIddle,
             eventDispatcher = eventDispatcher,
             inputs = playerInputs,
+            vulnerable = VulnerableComponent(200, 200),
             caster = caster)
 
         body.userData = player

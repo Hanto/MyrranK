@@ -11,6 +11,8 @@ import com.myrran.domain.mobs.common.caster.CasterComponent
 import com.myrran.domain.mobs.common.corporeal.Corporeal
 import com.myrran.domain.mobs.common.steerable.Steerable
 import com.myrran.domain.mobs.common.steerable.SteerableComponent
+import com.myrran.domain.mobs.common.vulnerable.Vulnerable
+import com.myrran.domain.mobs.common.vulnerable.VulnerableComponent
 import com.myrran.infraestructure.controller.player.PlayerInputs
 import com.myrran.infraestructure.eventbus.EventDispatcher
 
@@ -21,11 +23,12 @@ data class Player(
     val eventDispatcher: EventDispatcher,
 
     var inputs: PlayerInputs,
+    private val vulnerable: VulnerableComponent,
     private val caster: CasterComponent,
     var state: State,
 
 ): Mob, Identifiable<MobId>, Steerable by steerable, Corporeal, Disposable,
-    Caster by caster
+    Vulnerable by vulnerable, Caster by caster
 {
     // MAIN:
     //--------------------------------------------------------------------------------------------------------

@@ -67,7 +67,7 @@
         "id" : "EXPIRATION",
         "name" : "expiration",
         "baseBonus" : 0.0,
-        "actual" : 15,
+        "actual" : 3,
         "maximum" : 50,
         "upgradeCost" : 1.0,
         "bonusPerUpgrade" : 0.3
@@ -76,7 +76,22 @@
         "id" : "DEBUFF_1",
         "name" : "Debuff 1",
         "lock" : [ "c", "d" ],
-        "content" : null
+        "content" : {
+          "id" : "7a58aeac-8099-497a-9ad4-95bcb833d9ad",
+          "templateId" : "DAMAGE_1",
+          "type" : "DAMAGE",
+          "name" : "Damage",
+          "stats" : [ {
+            "id" : "DAMAGE",
+            "name" : "damage",
+            "baseBonus" : 10.0,
+            "actual" : 0,
+            "maximum" : 50,
+            "upgradeCost" : 4.0,
+            "bonusPerUpgrade" : 5.0
+          } ],
+          "keys" : [ "a", "b", "c", "d", "e" ]
+        }
       } ],
       "keys" : [ "A", "B", "C", "D" ]
     }

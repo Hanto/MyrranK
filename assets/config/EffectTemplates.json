@@ -1,7 +1,7 @@
 [
     {
         "id": "DOT_1",
-        "type": "FIRE",
+        "type": "DOT",
         "name": "Dot",
         "stats": [
             {
@@ -147,7 +147,7 @@
     },
     {
         "id": "DAMAGE_1",
-        "type": "BOMB",
+        "type": "DAMAGE",
         "name": "Damage",
         "stats": [
             {

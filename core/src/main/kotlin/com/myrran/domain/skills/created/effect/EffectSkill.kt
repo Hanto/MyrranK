@@ -1,6 +1,5 @@
 package com.myrran.domain.skills.created.effect
 
-import com.myrran.domain.mobs.spells.effect.Effect
 import com.myrran.domain.mobs.spells.effect.EffectType
 import com.myrran.domain.skills.created.stat.Stats
 import com.myrran.domain.skills.created.stat.StatsI
@@ -17,11 +16,6 @@ data class EffectSkill(
     val keys: Collection<LockType>
 
 ): EffectSkillSlotContent, StatsI by stats
-{
-    fun createEffect(): Effect =
-
-        type.builder.invoke(this.copy())
-}
 
 sealed interface EffectSkillSlotContent {
 
