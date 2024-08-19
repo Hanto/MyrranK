@@ -1,9 +1,11 @@
 package com.myrran.infraestructure.view.screens
 
 import com.badlogic.gdx.Gdx
+import com.badlogic.gdx.ai.GdxAI
 import com.badlogic.gdx.graphics.GL20
 import com.myrran.domain.world.World
 import com.myrran.infraestructure.assets.AssetStorage
+import com.myrran.infraestructure.eventbus.EventDispatcher
 import com.myrran.infraestructure.view.View
 import ktx.app.KtxScreen
 
@@ -12,6 +14,7 @@ class MainScreen(
     private val assetStorage: AssetStorage,
     private val world: World,
     private val view: View,
+    private val eventDispatcher: EventDispatcher,
 
 ): KtxScreen
 {
@@ -21,6 +24,9 @@ class MainScreen(
     override fun render(delta: Float) {
 
         clearScreen()
+
+        GdxAI.getTimepiece().update(delta)
+        eventDispatcher.update()
 
         timeStep += delta.coerceAtMost(0.3f)
 

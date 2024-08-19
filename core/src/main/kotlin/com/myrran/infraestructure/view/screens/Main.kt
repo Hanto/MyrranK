@@ -193,7 +193,7 @@ class Main : KtxGame<KtxScreen>() {
             inputMultiplexer = inputMultiplexer,
             batch = SpriteBatch())
 
-        addScreen(MainScreen(assetStorage, world, view))
+        addScreen(MainScreen(assetStorage, world, view, eventDispatcher))
         setScreen<MainScreen>()
 
         val enemy01 = mobFactory.createEnemy()

@@ -76,7 +76,7 @@ class SpellBolt(
         if (penetration <= 0 || collisioner.hasCollidedAWall())
             consumable.willExpireIn(Second(0))
 
-        if (collisioner.hasCollisions()) {
+        if (penetration > 0 && collisioner.hasCollisions()) {
 
             // impact slot:
             skill.getFormSkill(IMPACT_SLOT)?.also { createForm(it) }
