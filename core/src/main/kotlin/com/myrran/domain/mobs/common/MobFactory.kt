@@ -52,16 +52,16 @@ class MobFactory(
         val limiter = MovementLimiter(
             maxLinearSpeed = Speed(Meter(4f)),
             maxLinearAcceleration = Acceleration(Meter(500f)))
-        val location = CorporealComponent(
+        val corporeal = CorporealComponent(
             body = body,
             limiter = limiter,
             destroyFunction = { worldBox2D.destroyBody(body) })
-        val movable = SteerableComponent(
-            corporeal = location)
+        val steerable = SteerableComponent(
+            corporeal = corporeal)
         val caster = CasterComponent()
         val player = Player(
             id = MobId(),
-            steerable = movable,
+            steerable = steerable,
             state = StateActionIddle,
             eventDispatcher = eventDispatcher,
             inputs = playerInputs,
@@ -79,17 +79,17 @@ class MobFactory(
             maxLinearAcceleration = Acceleration(Meter(500f)),
             maxAngularSpeed = AngularVelocity(Radian(6f)),
             maxAngularAcceleration = AngularAcceleration(Radian(12f)))
-        val location = CorporealComponent(
+        val corporeal = CorporealComponent(
             body = body,
             limiter = limiter,
             destroyFunction = { worldBox2D.destroyBody(body) })
-        val movable = SteerableComponent(
-            corporeal = location)
+        val steerable = SteerableComponent(
+            corporeal = corporeal)
         val proximity = ProximityAwareComponent(
-            owner = movable)
+            owner = steerable)
         val enemy = Enemy(
             id = MobId(),
-            steerable = movable,
+            steerable = steerable,
             eventDispatcher = eventDispatcher,
             proximity = proximity)
 
@@ -112,18 +112,18 @@ class MobFactory(
         val body = bodyFactory.createSpellBoltBody(worldBox2D, radius)
         val limiter = MovementLimiter(
             maxLinearSpeed = Speed(Meter(100f)))
-        val location = CorporealComponent(
+        val corporeal = CorporealComponent(
             body = body,
             limiter = limiter,
             destroyFunction = { worldBox2D.destroyBody(body) })
-        val movable = SteerableComponent(
-            corporeal = location)
+        val steerable = SteerableComponent(
+            corporeal = corporeal)
         val spell = SpellBolt(
             id = MobId(),
             skill = skill.copy(),
             origin = origin,
             target = target,
-            steerable = movable,
+            steerable = steerable,
             eventDispatcher = eventDispatcher,
             consumable = consumable,
             collisioner = CollisionerComponent())
@@ -135,7 +135,7 @@ class MobFactory(
     fun createFormSpell(formSkill: FormSkill, origin: PositionMeters, direction: Vector2): Form =
 
         when (formSkill.type) {
-            FormSkillType.CIRCLE -> createFormCircle(formSkill, origin)
+            FormSkillType.CIRCLE -> createFormCircle(formSkill, origin, direction)
             FormSkillType.POINT -> createFormPoint(formSkill, origin, direction)
         }
 
@@ -147,18 +147,18 @@ class MobFactory(
         val body = bodyFactory.createCircleForm(worldBox2D, radius)
         val limiter = MovementLimiter(
             maxLinearSpeed = Speed(Meter(0f)))
-        val location = CorporealComponent(
+        val corporeal = CorporealComponent(
             body = body,
             limiter = limiter,
             destroyFunction = { worldBox2D.destroyBody(body) })
-        val movable = SteerableComponent(
-            corporeal = location)
+        val steerable = SteerableComponent(
+            corporeal = corporeal)
         val form = FormPoint(
             id = MobId(),
             formSkill = formSkill.copy(),
             origin = origin,
             direction = direction,
-            steerable = movable,
+            steerable = steerable,
             eventDispatcher = eventDispatcher,
             consumable = consumable,
             collisioner = CollisionerComponent())
@@ -167,7 +167,7 @@ class MobFactory(
         return form
     }
 
-    private fun createFormCircle(formSkill: FormSkill, origin: PositionMeters): Form {
+    private fun createFormCircle(formSkill: FormSkill, origin: PositionMeters, direction: Vector2): Form {
 
         val sizeMultiplier = formSkill.getStat(StatId("RADIUS"))!!.totalBonus().value / 100
         val radius = Pixel(64) * sizeMultiplier
@@ -176,17 +176,18 @@ class MobFactory(
         val body = bodyFactory.createCircleForm(worldBox2D, radius)
         val limiter = MovementLimiter(
             maxLinearSpeed = Speed(Meter(0f)))
-        val location = CorporealComponent(
+        val corporeal = CorporealComponent(
             body = body,
             limiter = limiter,
             destroyFunction = { worldBox2D.destroyBody(body) })
-        val movable = SteerableComponent(
-            corporeal = location)
+        val steerable = SteerableComponent(
+            corporeal = corporeal)
         val form = FormCircle(
             id = MobId(),
             formSkill = formSkill.copy(),
             origin = origin,
-            steerable = movable,
+            direction = direction,
+            steerable = steerable,
             eventDispatcher = eventDispatcher,
             consumable = consumable,
             collisioner = CollisionerComponent())

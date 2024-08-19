@@ -41,8 +41,8 @@ class World(
     init {
 
         worldBox2D.setContactListener(worldBox2dContactListener)
-        addListener(this, PlayerSpellCastedEvent::class, MobCreatedEvent::class, MobRemovedEvent::class,
-            FormSpellCastedEvent::class)
+        addListener(this, PlayerSpellCastedEvent::class, FormSpellCastedEvent::class,
+            MobCreatedEvent::class, MobRemovedEvent::class)
     }
 
     // UPDATE

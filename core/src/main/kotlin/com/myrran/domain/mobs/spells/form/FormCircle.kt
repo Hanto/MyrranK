@@ -1,5 +1,6 @@
 package com.myrran.domain.mobs.spells.form
 
+import com.badlogic.gdx.math.Vector2
 import com.badlogic.gdx.utils.Disposable
 import com.myrran.domain.events.MobRemovedEvent
 import com.myrran.domain.misc.Identifiable
@@ -27,6 +28,7 @@ class FormCircle(
     private val collisioner: CollisionerComponent,
     val formSkill: FormSkill,
     origin: PositionMeters,
+    direction: Vector2,
 
 ): Mob, Identifiable<MobId>, Steerable by steerable, Spatial, Movable, Disposable,
     Form, Consumable by consumable, Collisioner by collisioner
