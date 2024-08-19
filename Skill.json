@@ -8,7 +8,7 @@
     "id" : "SPEED",
     "name" : "speed",
     "baseBonus" : 6.0,
-    "actual" : 16,
+    "actual" : 18,
     "maximum" : 50,
     "upgradeCost" : 2.0,
     "bonusPerUpgrade" : 1.0
@@ -32,7 +32,7 @@
     "id" : "RANGE",
     "name" : "range",
     "baseBonus" : 2.0,
-    "actual" : 0,
+    "actual" : 2,
     "maximum" : 25,
     "upgradeCost" : 0.1,
     "bonusPerUpgrade" : 0.1
@@ -41,6 +41,27 @@
     "id" : "IMPACT:1",
     "name" : "Impact",
     "lock" : [ "A", "B", "C", "D" ],
-    "content" : null
+    "content" : {
+      "id" : "62ee2cdc-98a4-42ae-bfb8-f4549c8313ea",
+      "templateId" : "CIRCLE_1",
+      "type" : "CIRCLE",
+      "name" : "Circle",
+      "stats" : [ {
+        "id" : "RADIUS",
+        "name" : "radius",
+        "baseBonus" : 100.0,
+        "actual" : 0,
+        "maximum" : 50,
+        "upgradeCost" : 1.0,
+        "bonusPerUpgrade" : 4.0
+      } ],
+      "slots" : [ {
+        "id" : "DEBUFF_1",
+        "name" : "Debuff 1",
+        "lock" : [ "c", "d" ],
+        "content" : null
+      } ],
+      "keys" : [ "A", "B", "C", "D" ]
+    }
   } ]
 } ]

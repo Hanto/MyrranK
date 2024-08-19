@@ -1,7 +1,7 @@
 [
     {
         "id": "POINT_1",
-        "type": "EXPLOSION",
+        "type": "POINT",
         "name": "Point",
         "stats": [
             {
@@ -26,16 +26,16 @@
     },
     {
         "id": "CIRCLE_1",
-        "type": "EXPLOSION",
+        "type": "CIRCLE",
         "name": "Circle",
         "stats": [
             {
                 "id": "RADIUS",
                 "name": "radius",
-                "baseBonus": 10.0,
-                "maximum": 20,
-                "upgradeCost": 2.0,
-                "bonusPerUpgrade": 1.0
+                "baseBonus": 100.0,
+                "maximum": 50,
+                "upgradeCost": 1.0,
+                "bonusPerUpgrade": 4.0
             }
         ],
         "slots": [
@@ -54,7 +54,7 @@
     },
     {
         "id": "TRAIL_1",
-        "type": "EXPLOSION",
+        "type": "CIRCLE",
         "name": "Trail",
         "stats": [
             {
@@ -92,7 +92,7 @@
     },
     {
         "id": "CONE_1",
-        "type": "EXPLOSION",
+        "type": "CIRCLE",
         "name": "Cone",
         "stats": [
             {
