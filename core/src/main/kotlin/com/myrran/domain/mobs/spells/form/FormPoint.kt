@@ -57,7 +57,7 @@ class FormPoint(
         if (consumable.updateDuration(deltaTime).isConsumed)
             eventDispatcher.sendEvent(MobRemovedEvent(this))
 
-        collisioner.retrieveCollisions()
+        collisioner.retrieveCollisions().size.also { println(it) }
         collisioner.removeCollisions()
     }
 

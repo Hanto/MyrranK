@@ -1,9 +1,11 @@
 package com.myrran.domain.mobs.common
 
+import com.badlogic.gdx.math.Vector2
 import com.badlogic.gdx.physics.box2d.Contact
 import com.badlogic.gdx.physics.box2d.ContactImpulse
 import com.badlogic.gdx.physics.box2d.ContactListener
 import com.badlogic.gdx.physics.box2d.Manifold
+import com.myrran.domain.misc.metrics.Position
 import com.myrran.domain.misc.metrics.PositionMeters
 import com.myrran.domain.mobs.common.ColissionListener.ContactType.EnemySensorToSteerable
 import com.myrran.domain.mobs.common.ColissionListener.ContactType.FormWithMob
@@ -19,6 +21,7 @@ import com.myrran.domain.mobs.spells.form.Form
 import com.myrran.domain.mobs.spells.spell.Spell
 import ktx.box2d.RayCast
 import ktx.box2d.rayCast
+import ktx.math.minus
 
 
 class ColissionListener: ContactListener {
@@ -75,12 +78,16 @@ class ColissionListener: ContactListener {
 
     private fun Contact.hasLineOfSightWith(corporeal: Corporeal): Boolean {
 
-        if (corporeal.position == contactPoint().toBox2dUnits())
+        // if body moves too fast, collision point can be inside the wall, that's why needs to be moved back
+        val moveContactPointBackBy = direction(contactPoint(), corporeal.position).scl(0.5f)
+        val contactPoint = contactPoint().toBox2dUnits().minus(moveContactPointBackBy)
+
+        if (corporeal.position == contactPoint)
             return true
 
         var hasLos = true
 
-        this.fixtureA.body.world.rayCast(corporeal.position, contactPoint().toBox2dUnits()) { fixture, _, _, _ ->
+        this.fixtureA.body.world.rayCast(corporeal.position, contactPoint) { fixture, _, _, _ ->
 
             when(fixture.filterData.categoryBits == WALLS) {
 
@@ -94,6 +101,9 @@ class ColissionListener: ContactListener {
     private fun Contact.contactPoint(): PositionMeters =
 
         this.worldManifold.points.first().let { PositionMeters(it.x, it.y) }
+
+    private fun direction(positionA: Position<*>, positionB: Vector2): Vector2 =
+        positionA.toBox2dUnits().minus(positionB).nor()
 
     // CONTACT TYPES:
     //--------------------------------------------------------------------------------------------------------

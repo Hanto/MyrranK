@@ -35,6 +35,7 @@ data class PositionMeters(
 ): Position<Meter>
 {
     constructor(x: Float, y: Float): this(Meter(x), Meter(y))
+    constructor(vector2: Vector2): this(Meter(vector2.x), Meter(vector2.y))
 
     fun toPixels(): PositionPixels =
 

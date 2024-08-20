@@ -24,7 +24,7 @@
     "id" : "SIZE",
     "name" : "size",
     "baseBonus" : 100.0,
-    "actual" : 20,
+    "actual" : 50,
     "maximum" : 50,
     "upgradeCost" : 1.0,
     "bonusPerUpgrade" : 4.0
@@ -50,7 +50,7 @@
     "name" : "Impact",
     "lock" : [ "A", "B", "C", "D" ],
     "content" : {
-      "id" : "43ca0f21-d9aa-4992-bdec-aa50d9025b7a",
+      "id" : "6cad4f3e-e8e5-4a49-a964-2b3fb216b8c9",
       "templateId" : "CIRCLE_1",
       "type" : "CIRCLE",
       "name" : "Circle",
@@ -59,7 +59,7 @@
         "id" : "RADIUS",
         "name" : "radius",
         "baseBonus" : 100.0,
-        "actual" : 28,
+        "actual" : 14,
         "maximum" : 50,
         "upgradeCost" : 1.0,
         "bonusPerUpgrade" : 4.0
@@ -67,7 +67,7 @@
         "id" : "EXPIRATION",
         "name" : "expiration",
         "baseBonus" : 0.0,
-        "actual" : 4,
+        "actual" : 1,
         "maximum" : 50,
         "upgradeCost" : 1.0,
         "bonusPerUpgrade" : 0.3
