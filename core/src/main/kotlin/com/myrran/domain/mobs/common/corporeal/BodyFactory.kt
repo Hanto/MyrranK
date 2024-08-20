@@ -15,6 +15,10 @@ import com.myrran.domain.mobs.common.corporeal.Box2dFilters.Companion.LIGHT_PLAY
 import com.myrran.domain.mobs.common.corporeal.Box2dFilters.Companion.PLAYER
 import com.myrran.domain.mobs.common.corporeal.Box2dFilters.Companion.SPELL
 import com.myrran.domain.mobs.common.corporeal.Box2dFilters.Companion.WALLS
+import com.myrran.domain.mobs.common.corporeal.Box2dFixtureIds.Companion.BODY
+import com.myrran.domain.mobs.common.corporeal.Box2dFixtureIds.Companion.CONE_OF_SIGHT
+import com.myrran.domain.mobs.common.corporeal.Box2dFixtureIds.Companion.PROXIMITY
+import com.myrran.domain.mobs.common.corporeal.FixtureUserData.FixtureInfo
 import ktx.box2d.body
 import ktx.box2d.box
 import ktx.box2d.circle
@@ -35,6 +39,7 @@ class BodyFactory
             circle {
 
                 it.radius = radius.toBox2DUnits()
+                userData = FixtureInfo(BODY)
                 filter.categoryBits = PLAYER
                 filter.maskBits = SPELL or LIGHT_PLAYER or ENEMY_SENSOR or ENEMY or ENEMY_LOS or WALLS
                 density = 100f
@@ -51,6 +56,7 @@ class BodyFactory
             circle {
 
                 it.radius = radius.toBox2DUnits()
+                userData = FixtureInfo(BODY)
                 filter.categoryBits = ENEMY
                 filter.maskBits = PLAYER or ENEMY or SPELL or LIGHT_PLAYER or ENEMY_SENSOR or WALLS
                 density = 100f
@@ -58,6 +64,7 @@ class BodyFactory
             circle {
 
                 it.radius = Pixel(60).toBox2DUnits()
+                userData = FixtureInfo(PROXIMITY)
                 filter.categoryBits = ENEMY_SENSOR
                 filter.maskBits = ENEMY or PLAYER
                 isSensor = true
@@ -65,6 +72,7 @@ class BodyFactory
             polygon {
 
                 it.set(createConeVertices(Pixel(300), Degree(45f)))
+                userData = FixtureInfo(CONE_OF_SIGHT)
                 filter.categoryBits = ENEMY_LOS
                 filter.maskBits = PLAYER
                 isSensor = true
@@ -82,6 +90,7 @@ class BodyFactory
             circle {
 
                 it.radius = radius.toBox2DUnits()
+                userData = FixtureInfo(BODY)
                 filter.categoryBits = SPELL
                 filter.maskBits = ENEMY or WALLS
                 isSensor = false
@@ -98,6 +107,7 @@ class BodyFactory
             circle {
 
                 it.radius = radius.toBox2DUnits()
+                userData = FixtureInfo(BODY)
                 filter.categoryBits = SPELL
                 filter.maskBits = ENEMY or PLAYER
                 isSensor = true
@@ -113,6 +123,7 @@ class BodyFactory
 
             box( size.width.toBox2DUnits(), size.height.toBox2DUnits()) {
 
+                userData = FixtureInfo(BODY)
                 filter.categoryBits = WALLS
                 filter.maskBits = ENEMY or SPELL or PLAYER
                 restitution = 1f

@@ -14,3 +14,13 @@ class Box2dFilters {
         const val ENEMY_LOS: Short =    0b010000000
     }
 }
+
+class Box2dFixtureIds {
+
+    companion object {
+
+        val BODY = FixtureId("BODY")
+        val PROXIMITY = FixtureId("BODY")
+        val CONE_OF_SIGHT = FixtureId("BODY")
+    }
+}
