@@ -21,10 +21,10 @@ import com.myrran.domain.misc.constants.WorldBox2D
 import com.myrran.domain.misc.metrics.Pixel
 import com.myrran.domain.misc.metrics.PositionPixels
 import com.myrran.domain.misc.metrics.SizeMeters
-import com.myrran.domain.mobs.common.ColissionListener
 import com.myrran.domain.world.LearnedTemplates
 import com.myrran.domain.world.SpellBook
 import com.myrran.domain.world.World
+import com.myrran.domain.world.collisionsystem.ColissionListener
 import com.myrran.infraestructure.assets.AssetStorage
 import com.myrran.infraestructure.controller.player.PlayerController
 import com.myrran.infraestructure.controller.player.PlayerInputs
@@ -111,7 +111,8 @@ class Main : KtxGame<KtxScreen>() {
             worldBox2D = worldBox2D,
             mobFactory = mobFactory,
             eventDispatcher = eventDispatcher,
-            worldBox2dContactListener = ColissionListener())
+            worldBox2dContactListener = ColissionListener()
+        )
 
         // UI VIEW:
         //----------------------------------------------------------------------------------------------------

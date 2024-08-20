@@ -1,4 +1,4 @@
-package com.myrran.domain.mobs.common
+package com.myrran.domain.world.collisionsystem
 
 import com.badlogic.gdx.math.Vector2
 import com.badlogic.gdx.physics.box2d.Contact
@@ -16,10 +16,10 @@ import com.myrran.domain.entities.mob.spells.form.Form
 import com.myrran.domain.entities.mob.spells.spell.Spell
 import com.myrran.domain.misc.metrics.Position
 import com.myrran.domain.misc.metrics.PositionMeters
-import com.myrran.domain.mobs.common.ColissionListener.ContactType.EnemySensorToSteerable
-import com.myrran.domain.mobs.common.ColissionListener.ContactType.FormWithMob
-import com.myrran.domain.mobs.common.ColissionListener.ContactType.SpellWithEnemyOrWall
-import com.myrran.domain.mobs.common.ColissionListener.ContactType.Unknown
+import com.myrran.domain.world.collisionsystem.ColissionListener.ContactType.EnemySensorToSteerable
+import com.myrran.domain.world.collisionsystem.ColissionListener.ContactType.FormWithMob
+import com.myrran.domain.world.collisionsystem.ColissionListener.ContactType.SpellWithEnemyOrWall
+import com.myrran.domain.world.collisionsystem.ColissionListener.ContactType.Unknown
 import ktx.box2d.RayCast
 import ktx.box2d.rayCast
 import ktx.math.minus

@@ -1,4 +1,4 @@
-package com.myrran.domain.mobs.common
+package com.myrran.domain.world.collisionsystem
 
 import com.badlogic.gdx.physics.box2d.Contact
 import com.badlogic.gdx.physics.box2d.Fixture
