@@ -4,13 +4,13 @@ import box2dLight.PointLight
 import com.badlogic.gdx.scenes.scene2d.Group
 import com.badlogic.gdx.utils.Align
 import com.badlogic.gdx.utils.Disposable
+import com.myrran.domain.entities.common.EntityId
+import com.myrran.domain.entities.mob.player.Player
+import com.myrran.domain.entities.mob.player.StateIddle
+import com.myrran.domain.entities.mob.player.StateMoving
+import com.myrran.domain.entities.mob.player.StateTacticalCasting
 import com.myrran.domain.misc.Identifiable
 import com.myrran.domain.misc.metrics.PositionMeters
-import com.myrran.domain.mobs.common.MobId
-import com.myrran.domain.mobs.player.Player
-import com.myrran.domain.mobs.player.StateIddle
-import com.myrran.domain.mobs.player.StateMoving
-import com.myrran.domain.mobs.player.StateTacticalCasting
 import com.myrran.infraestructure.view.mobs.common.CastingBar
 import com.myrran.infraestructure.view.mobs.common.MobView
 import com.myrran.infraestructure.view.mobs.common.SpriteAnimated
@@ -24,9 +24,9 @@ class PlayerView(
     private val castingBar: CastingBar,
     private val light: PointLight,
 
-): Group(), MobView, Identifiable<MobId>, Disposable
+): Group(), MobView, Identifiable<EntityId>, Disposable
 {
-    override val id: MobId = model.id
+    override val id: EntityId = model.id
 
     // INIT:
     //--------------------------------------------------------------------------------------------------------
@@ -58,7 +58,7 @@ class PlayerView(
 
             is StateIddle -> character.setAnimation(PlayerAnimation.IDDLE)
             is StateTacticalCasting -> character.setAnimation(PlayerAnimation.CASTING)
-            is StateMoving-> setWalkingAnimation()
+            is StateMoving -> setWalkingAnimation()
         }
 
         castingBar.update()

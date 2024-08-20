@@ -3,6 +3,11 @@ package com.myrran.domain.world
 import com.badlogic.gdx.math.Vector2
 import com.badlogic.gdx.physics.box2d.ContactListener
 import com.badlogic.gdx.utils.Disposable
+import com.myrran.domain.entities.common.EntityId
+import com.myrran.domain.entities.common.Mob
+import com.myrran.domain.entities.common.caster.Caster
+import com.myrran.domain.entities.mob.common.MobFactory
+import com.myrran.domain.entities.mob.player.Player
 import com.myrran.domain.events.Event
 import com.myrran.domain.events.FormSpellCastedEvent
 import com.myrran.domain.events.MobCreatedEvent
@@ -11,11 +16,6 @@ import com.myrran.domain.events.PlayerSpellCastedEvent
 import com.myrran.domain.events.SpellCreatedEvent
 import com.myrran.domain.misc.constants.WorldBox2D
 import com.myrran.domain.misc.metrics.PositionMeters
-import com.myrran.domain.mobs.common.Mob
-import com.myrran.domain.mobs.common.MobFactory
-import com.myrran.domain.mobs.common.MobId
-import com.myrran.domain.mobs.common.caster.Caster
-import com.myrran.domain.mobs.player.Player
 import com.myrran.domain.skills.created.form.FormSkill
 import com.myrran.domain.skills.created.skill.SkillId
 import com.myrran.infraestructure.eventbus.EventDispatcher
@@ -33,8 +33,8 @@ class World(
 
 ): EventSender by eventDispatcher, EventListener, Disposable
 {
-    private val mobs: MutableMap<MobId, Mob> = mutableMapOf()
-    private var toBeRemoved: MutableList<MobId> = mutableListOf()
+    private val mobs: MutableMap<EntityId, Mob> = mutableMapOf()
+    private var toBeRemoved: MutableList<EntityId> = mutableListOf()
     private var toBeAdded: MutableList<Mob> = mutableListOf()
 
     init {

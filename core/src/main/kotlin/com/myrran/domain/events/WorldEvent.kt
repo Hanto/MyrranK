@@ -1,11 +1,11 @@
 package com.myrran.domain.events
 
 import com.badlogic.gdx.math.Vector2
+import com.myrran.domain.entities.common.Mob
+import com.myrran.domain.entities.common.caster.Caster
+import com.myrran.domain.entities.mob.enemy.Enemy
+import com.myrran.domain.entities.mob.spells.spell.Spell
 import com.myrran.domain.misc.metrics.PositionMeters
-import com.myrran.domain.mobs.common.Mob
-import com.myrran.domain.mobs.common.caster.Caster
-import com.myrran.domain.mobs.mob.Enemy
-import com.myrran.domain.mobs.spells.spell.Spell
 import com.myrran.domain.skills.created.form.FormSkill
 
 sealed interface WorldEvent: Event

@@ -1,6 +1,6 @@
 package com.myrran.domain.skills.templates.effect
 
-import com.myrran.domain.mobs.spells.effect.EffectType
+import com.myrran.domain.entities.mob.spells.effect.EffectType
 import com.myrran.domain.skills.created.effect.EffectSkill
 import com.myrran.domain.skills.created.effect.EffectSkillId
 import com.myrran.domain.skills.created.effect.EffectSkillName

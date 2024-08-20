@@ -13,6 +13,8 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import com.badlogic.gdx.math.Vector2
 import com.badlogic.gdx.scenes.scene2d.Stage
 import com.myrran.badlogic.DaD
+import com.myrran.domain.entities.common.corporeal.BodyFactory
+import com.myrran.domain.entities.mob.common.MobFactory
 import com.myrran.domain.events.MobCreatedEvent
 import com.myrran.domain.misc.DeSerializer
 import com.myrran.domain.misc.constants.WorldBox2D
@@ -20,8 +22,6 @@ import com.myrran.domain.misc.metrics.Pixel
 import com.myrran.domain.misc.metrics.PositionPixels
 import com.myrran.domain.misc.metrics.SizeMeters
 import com.myrran.domain.mobs.common.ColissionListener
-import com.myrran.domain.mobs.common.MobFactory
-import com.myrran.domain.mobs.common.corporeal.BodyFactory
 import com.myrran.domain.world.LearnedTemplates
 import com.myrran.domain.world.SpellBook
 import com.myrran.domain.world.World

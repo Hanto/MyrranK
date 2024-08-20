@@ -1,8 +1,8 @@
 package com.myrran.infraestructure.repositories.skilltemplate
 
-import com.myrran.domain.mobs.spells.effect.EffectType
-import com.myrran.domain.mobs.spells.form.FormSkillType
-import com.myrran.domain.mobs.spells.spell.SkillType
+import com.myrran.domain.entities.mob.spells.effect.EffectType
+import com.myrran.domain.entities.mob.spells.form.FormSkillType
+import com.myrran.domain.entities.mob.spells.spell.SkillType
 import com.myrran.domain.skills.created.form.CollisionType
 import com.myrran.domain.skills.lock.LockType
 

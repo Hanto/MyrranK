@@ -1,6 +1,6 @@
 package com.myrran.domain.skills.templates.skill
 
-import com.myrran.domain.mobs.spells.spell.SkillType
+import com.myrran.domain.entities.mob.spells.spell.SkillType
 import com.myrran.domain.skills.created.form.FormSkillSlots
 import com.myrran.domain.skills.created.skill.Skill
 import com.myrran.domain.skills.created.skill.SkillId

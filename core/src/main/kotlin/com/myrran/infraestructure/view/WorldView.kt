@@ -6,13 +6,13 @@ import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer
 import com.badlogic.gdx.scenes.scene2d.Actor
 import com.badlogic.gdx.scenes.scene2d.Stage
 import com.badlogic.gdx.utils.Disposable
+import com.myrran.domain.entities.common.EntityId
+import com.myrran.domain.entities.mob.spells.spell.SpellBolt
 import com.myrran.domain.events.Event
 import com.myrran.domain.events.MobCreatedEvent
 import com.myrran.domain.events.MobRemovedEvent
 import com.myrran.domain.events.SpellCreatedEvent
 import com.myrran.domain.misc.metrics.PositionPixels
-import com.myrran.domain.mobs.common.MobId
-import com.myrran.domain.mobs.spells.spell.SpellBolt
 import com.myrran.domain.world.World
 import com.myrran.infraestructure.eventbus.EventDispatcher
 import com.myrran.infraestructure.eventbus.EventListener
@@ -34,7 +34,7 @@ class WorldView(
 ): EventSender by eventDispatcher, EventListener, Disposable
 {
     private val playerView: PlayerView = mobViewFactory.createPlayer(model.player)
-    private val spellViews: MutableMap<MobId, MobView> = mutableMapOf()
+    private val spellViews: MutableMap<EntityId, MobView> = mutableMapOf()
     private val box2dDebug: Box2DDebugRenderer = Box2DDebugRenderer()
     //private val cameraTarget: Location<Vector2> = playerView
 

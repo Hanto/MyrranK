@@ -1,6 +1,6 @@
 package com.myrran.domain.skills.created.effect
 
-import com.myrran.domain.mobs.spells.effect.EffectType
+import com.myrran.domain.entities.mob.spells.effect.EffectType
 import com.myrran.domain.skills.created.stat.Stats
 import com.myrran.domain.skills.created.stat.StatsI
 import com.myrran.domain.skills.lock.LockType

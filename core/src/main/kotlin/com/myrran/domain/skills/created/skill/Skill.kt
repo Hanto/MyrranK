@@ -1,5 +1,6 @@
 package com.myrran.domain.skills.created.skill
 
+import com.myrran.domain.entities.mob.spells.spell.SkillType
 import com.myrran.domain.events.EffectSkillChangedEvent
 import com.myrran.domain.events.EffectSkillRemovedEvent
 import com.myrran.domain.events.EffectSkillStatUpgradedEvent
@@ -14,7 +15,6 @@ import com.myrran.domain.misc.constants.SpellConstants.Companion.COOLDOWN
 import com.myrran.domain.misc.metrics.Second
 import com.myrran.domain.misc.observer.JavaObservable
 import com.myrran.domain.misc.observer.Observable
-import com.myrran.domain.mobs.spells.spell.SkillType
 import com.myrran.domain.skills.created.effect.EffectSkill
 import com.myrran.domain.skills.created.effect.EffectSkillSlotId
 import com.myrran.domain.skills.created.form.FormSkill

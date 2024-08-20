@@ -1,6 +1,6 @@
 package com.myrran.domain.skills.created.form
 
-import com.myrran.domain.mobs.spells.form.FormSkillType
+import com.myrran.domain.entities.mob.spells.form.FormSkillType
 import com.myrran.domain.skills.created.effect.EffectSkill
 import com.myrran.domain.skills.created.effect.EffectSkillSlot
 import com.myrran.domain.skills.created.effect.EffectSkillSlotId

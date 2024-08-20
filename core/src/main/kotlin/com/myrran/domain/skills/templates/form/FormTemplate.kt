@@ -1,6 +1,6 @@
 package com.myrran.domain.skills.templates.form
 
-import com.myrran.domain.mobs.spells.form.FormSkillType
+import com.myrran.domain.entities.mob.spells.form.FormSkillType
 import com.myrran.domain.skills.created.effect.EffectSkillSlots
 import com.myrran.domain.skills.created.form.CollisionType
 import com.myrran.domain.skills.created.form.FormSkill

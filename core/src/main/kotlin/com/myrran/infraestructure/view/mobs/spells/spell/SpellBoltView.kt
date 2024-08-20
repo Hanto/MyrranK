@@ -7,13 +7,13 @@ import com.badlogic.gdx.math.Interpolation
 import com.badlogic.gdx.scenes.scene2d.actions.Actions
 import com.badlogic.gdx.utils.Align
 import com.badlogic.gdx.utils.Disposable
+import com.myrran.domain.entities.common.EntityId
+import com.myrran.domain.entities.mob.spells.spell.SpellBolt
 import com.myrran.domain.misc.Identifiable
 import com.myrran.domain.misc.constants.SpellConstants.Companion.EXPIRATION
 import com.myrran.domain.misc.constants.SpellConstants.Companion.SIZE
 import com.myrran.domain.misc.metrics.Pixel
 import com.myrran.domain.misc.metrics.PositionMeters
-import com.myrran.domain.mobs.common.MobId
-import com.myrran.domain.mobs.spells.spell.SpellBolt
 import com.myrran.infraestructure.view.mobs.common.MobView
 import com.myrran.infraestructure.view.mobs.common.SpriteAnimated
 import ktx.actors.alpha
@@ -24,9 +24,9 @@ class SpellBoltView(
     private val light: PointLight,
     animations: Map<SpellAnimation, Animation<TextureRegion>>,
 
-): SpriteAnimated<SpellAnimation>(animations, SpellAnimation.GLOW), MobView, Identifiable<MobId>, Disposable
+): SpriteAnimated<SpellAnimation>(animations, SpellAnimation.GLOW), MobView, Identifiable<EntityId>, Disposable
 {
-    override val id: MobId = model.id
+    override val id: EntityId = model.id
 
     // INIT:
     //--------------------------------------------------------------------------------------------------------
