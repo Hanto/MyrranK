@@ -69,7 +69,7 @@ class ColissionListener: ContactListener {
             .andB { this.hasLineOfSightWith(it) }.then { a, b -> FormWithMob(a, b) } ?:
 
         this.are(Enemy::class, Mob::class)
-            .and { it.filterData.categoryBits ==  ENEMY_SENSOR }.then { a, b -> EnemySensorToSteerable(a, b) } ?:
+            .and { it.filterData.categoryBits == ENEMY_SENSOR }.then { a, b -> EnemySensorToSteerable(a, b) } ?:
 
         Unknown
 
