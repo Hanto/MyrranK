@@ -13,7 +13,7 @@ class SpellConstants {
         val SIZE = StatId("SIZE")
         val EXPIRATION = StatId("EXPIRATION")
         val PENETRATION = StatId("PENETRATION")
-
+        val DIRECT_DAMAGE = StatId("DIRECT_DAMAGE")
 
         val IMPACT_SLOT = FormSkillSlotId("IMPACT:1")
     }

@@ -151,12 +151,17 @@
         "name": "Damage",
         "stats": [
             {
-                "id": "DAMAGE",
-                "name": "damage",
+                "id": "DIRECT_DAMAGE",
+                "name": "direct damage",
                 "baseBonus": 10.0,
                 "maximum": 50,
                 "upgradeCost": 4.0,
                 "bonusPerUpgrade": 5.0
+            },
+            {
+                "id": "STAGGER",
+                "name": "stagger",
+                "baseBonus": 1
             }
         ],
         "keys": [

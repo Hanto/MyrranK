@@ -102,7 +102,7 @@ class WorldSkillBookIT {
 
         val fire = EffectTemplate(
             id = EffectTemplateId("FIRE_1"),
-            type = EffectType.FIRE,
+            type = EffectType.BOMB,
             name = EffectSkillName("Fire"),
             stats = listOf(
                 StatUpgradeableTemplate(

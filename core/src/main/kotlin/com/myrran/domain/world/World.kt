@@ -18,6 +18,7 @@ import com.myrran.domain.misc.constants.WorldBox2D
 import com.myrran.domain.misc.metrics.PositionMeters
 import com.myrran.domain.skills.created.form.FormSkill
 import com.myrran.domain.skills.created.skill.SkillId
+import com.myrran.domain.world.damagesystem.DamageSystem
 import com.myrran.infraestructure.eventbus.EventDispatcher
 import com.myrran.infraestructure.eventbus.EventListener
 import com.myrran.infraestructure.eventbus.EventSender
@@ -28,6 +29,7 @@ class World(
     val spellBook: SpellBook,
     val worldBox2D: WorldBox2D,
     val mobFactory: MobFactory,
+    val damageSystem: DamageSystem,
     val eventDispatcher: EventDispatcher,
     worldBox2dContactListener: ContactListener,
 
@@ -40,6 +42,8 @@ class World(
     init {
 
         worldBox2D.setContactListener(worldBox2dContactListener)
+        mobs[player.id] = player
+
         addListener(this, PlayerSpellCastedEvent::class, FormSpellCastedEvent::class,
             MobCreatedEvent::class, MobRemovedEvent::class)
     }
@@ -55,6 +59,9 @@ class World(
         // mob IA
         player.act(timesStep)
         mobs.values.forEach { it.act(timesStep) }
+
+        // damageSystem
+        mobs.values.forEach { damageSystem.applyDamage(it) }
 
         // new-removed mobs
         removeMobs()

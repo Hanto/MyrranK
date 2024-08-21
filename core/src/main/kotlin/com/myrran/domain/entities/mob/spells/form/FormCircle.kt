@@ -6,18 +6,28 @@ import com.myrran.domain.entities.common.EntityId
 import com.myrran.domain.entities.common.Mob
 import com.myrran.domain.entities.common.collisionable.Collisioner
 import com.myrran.domain.entities.common.collisionable.CollisionerComponent
+import com.myrran.domain.entities.common.collisionable.CollisionerComponent.Collision
 import com.myrran.domain.entities.common.consumable.Consumable
 import com.myrran.domain.entities.common.consumable.ConsumableComponent
 import com.myrran.domain.entities.common.corporeal.Movable
 import com.myrran.domain.entities.common.corporeal.Spatial
+import com.myrran.domain.entities.common.effectable.Effectable
 import com.myrran.domain.entities.common.steerable.Steerable
 import com.myrran.domain.entities.common.steerable.SteerableComponent
+import com.myrran.domain.entities.common.vulnerable.Damage
+import com.myrran.domain.entities.common.vulnerable.DamageLocation
+import com.myrran.domain.entities.common.vulnerable.DamageType
+import com.myrran.domain.entities.common.vulnerable.HP
+import com.myrran.domain.entities.common.vulnerable.Vulnerable
 import com.myrran.domain.events.MobRemovedEvent
+import com.myrran.domain.misc.constants.SpellConstants
 import com.myrran.domain.misc.constants.SpellConstants.Companion.EXPIRATION
 import com.myrran.domain.misc.metrics.PositionMeters
 import com.myrran.domain.misc.metrics.Second
+import com.myrran.domain.skills.created.effect.EffectSkill
 import com.myrran.domain.skills.created.form.FormSkill
 import com.myrran.infraestructure.eventbus.EventDispatcher
+import ktx.math.minus
 
 class FormCircle(
 
@@ -27,8 +37,8 @@ class FormCircle(
 
     private val consumable: ConsumableComponent,
     private val collisioner: CollisionerComponent,
-    val formSkill: FormSkill,
-    origin: PositionMeters,
+    private val formSkill: FormSkill,
+    private val origin: PositionMeters,
     direction: Vector2,
 
 ): Mob, Steerable by steerable, Spatial, Movable, Disposable,
@@ -58,7 +68,7 @@ class FormCircle(
 
         if (collisioner.hasCollisions()) {
 
-            collisioner.retrieveCollisions().size.also { println(it) }
+            collisioner.retrieveCollisions().forEach { applyEffects(it) }
             collisioner.removeCollisions()
         }
     }
@@ -66,4 +76,42 @@ class FormCircle(
     override fun dispose() =
 
         steerable.dispose()
+
+    private fun applyEffects(collision: Collision) {
+
+        formSkill.getEffectSkills().forEach { effectSkill ->
+
+            applyDirectDamage(effectSkill, collision)
+            applyEffect(effectSkill, collision)
+        }
+    }
+
+    private fun applyEffect(effectSkill: EffectSkill, collision: Collision) {
+
+        val target = collision.corporeal
+
+        if (target is Effectable) {
+
+            val effect = effectSkill.type.build(effectSkill)
+            target.addEffect(effect)
+        }
+    }
+
+    private fun applyDirectDamage(effectSkill: EffectSkill, collision: Collision) {
+
+        val target = collision.corporeal
+
+        if (target is Vulnerable) {
+
+            effectSkill.getStat(SpellConstants.DIRECT_DAMAGE)?.let {
+
+                val amount = HP (it.totalBonus().value)
+                val direction = collision.corporeal.position.minus(origin.toBox2dUnits()).nor()
+                val location = DamageLocation(collision.pointOfCollision, direction)
+                val damage = Damage(amount, DamageType.FIRE, location)
+
+                target.receiveDamage(damage)
+            }
+        }
+    }
 }

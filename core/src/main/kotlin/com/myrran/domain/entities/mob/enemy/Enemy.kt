@@ -8,6 +8,7 @@ import com.myrran.domain.entities.common.proximityaware.ProximityAware
 import com.myrran.domain.entities.common.proximityaware.ProximityAwareComponent
 import com.myrran.domain.entities.common.steerable.Steerable
 import com.myrran.domain.entities.common.steerable.SteerableComponent
+import com.myrran.domain.entities.common.vulnerable.Vulnerable
 import com.myrran.infraestructure.eventbus.EventDispatcher
 
 data class Enemy(
@@ -16,10 +17,11 @@ data class Enemy(
     override val steerable: SteerableComponent,
     val eventDispatcher: EventDispatcher,
 
+    private val vulnerable: Vulnerable,
     private val proximity: ProximityAwareComponent
 
 ): Mob, Steerable by steerable, Corporeal, Disposable,
-    ProximityAware by proximity
+    Vulnerable by vulnerable, ProximityAware by proximity
 {
     // MAIN:
     //--------------------------------------------------------------------------------------------------------

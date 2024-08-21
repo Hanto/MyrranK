@@ -51,8 +51,7 @@ class MobFactory(
         val body = bodyFactory.createPlayerBody(worldBox2D, Pixel(16))
         val limiter = MovementLimiter(
             maxLinearSpeed = Speed(Meter(4f)),
-            maxLinearAcceleration = Acceleration(Meter(500f))
-        )
+            maxLinearAcceleration = Acceleration(Meter(500f)))
         val corporeal = CorporealComponent(
             body = body,
             limiter = limiter,
@@ -80,8 +79,7 @@ class MobFactory(
             maxLinearSpeed = Speed(Meter(2f)),
             maxLinearAcceleration = Acceleration(Meter(500f)),
             maxAngularSpeed = AngularVelocity(Radian(6f)),
-            maxAngularAcceleration = AngularAcceleration(Radian(12f))
-        )
+            maxAngularAcceleration = AngularAcceleration(Radian(12f)))
         val corporeal = CorporealComponent(
             body = body,
             limiter = limiter,
@@ -94,6 +92,7 @@ class MobFactory(
             id = EntityId(),
             steerable = steerable,
             eventDispatcher = eventDispatcher,
+            vulnerable = VulnerableComponent(300, 300),
             proximity = proximity)
 
         body.userData = enemy
@@ -112,8 +111,7 @@ class MobFactory(
         val radius = Pixel(16) * sizeMultiplier
         val body = bodyFactory.createSpellBoltBody(worldBox2D, radius)
         val limiter = MovementLimiter(
-            maxLinearSpeed = Speed(Meter(100f))
-        )
+            maxLinearSpeed = Speed(Meter(100f)))
         val corporeal = CorporealComponent(
             body = body,
             limiter = limiter,
@@ -128,8 +126,7 @@ class MobFactory(
             steerable = steerable,
             eventDispatcher = eventDispatcher,
             consumable = ConsumableComponent(),
-            collisioner = CollisionerComponent()
-        )
+            collisioner = CollisionerComponent())
 
         body.userData = spell
         return spell
@@ -147,8 +144,7 @@ class MobFactory(
         val radius = Pixel(2)
         val body = bodyFactory.createCircleForm(worldBox2D, radius)
         val limiter = MovementLimiter(
-            maxLinearSpeed = Speed(Meter(0f))
-        )
+            maxLinearSpeed = Speed(Meter(0f)))
         val corporeal = CorporealComponent(
             body = body,
             limiter = limiter,
@@ -176,8 +172,7 @@ class MobFactory(
         val radius = Pixel(64) * sizeMultiplier
         val body = bodyFactory.createCircleForm(worldBox2D, radius)
         val limiter = MovementLimiter(
-            maxLinearSpeed = Speed(Meter(0f))
-        )
+            maxLinearSpeed = Speed(Meter(0f)))
         val corporeal = CorporealComponent(
             body = body,
             limiter = limiter,

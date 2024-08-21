@@ -50,7 +50,7 @@
     "name" : "Impact",
     "lock" : [ "A", "B", "C", "D" ],
     "content" : {
-      "id" : "6cad4f3e-e8e5-4a49-a964-2b3fb216b8c9",
+      "id" : "6df26619-843c-4b54-831b-84c4de17f5d9",
       "templateId" : "CIRCLE_1",
       "type" : "CIRCLE",
       "name" : "Circle",
@@ -59,7 +59,7 @@
         "id" : "RADIUS",
         "name" : "radius",
         "baseBonus" : 100.0,
-        "actual" : 14,
+        "actual" : 28,
         "maximum" : 50,
         "upgradeCost" : 1.0,
         "bonusPerUpgrade" : 4.0
@@ -67,7 +67,7 @@
         "id" : "EXPIRATION",
         "name" : "expiration",
         "baseBonus" : 0.0,
-        "actual" : 1,
+        "actual" : 2,
         "maximum" : 50,
         "upgradeCost" : 1.0,
         "bonusPerUpgrade" : 0.3
@@ -76,7 +76,30 @@
         "id" : "DEBUFF_1",
         "name" : "Debuff 1",
         "lock" : [ "c", "d" ],
-        "content" : null
+        "content" : {
+          "id" : "422c7871-762f-4496-b2d1-6729eef97536",
+          "templateId" : "DAMAGE_1",
+          "type" : "DAMAGE",
+          "name" : "Damage",
+          "stats" : [ {
+            "id" : "DIRECT_DAMAGE",
+            "name" : "direct damage",
+            "baseBonus" : 10.0,
+            "actual" : 0,
+            "maximum" : 50,
+            "upgradeCost" : 4.0,
+            "bonusPerUpgrade" : 5.0
+          }, {
+            "id" : "STAGGER",
+            "name" : "stagger",
+            "baseBonus" : 1.0,
+            "actual" : null,
+            "maximum" : null,
+            "upgradeCost" : null,
+            "bonusPerUpgrade" : null
+          } ],
+          "keys" : [ "a", "b", "c", "d", "e" ]
+        }
       } ],
       "keys" : [ "A", "B", "C", "D" ]
     }

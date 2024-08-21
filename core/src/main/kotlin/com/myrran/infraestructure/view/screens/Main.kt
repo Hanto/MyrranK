@@ -25,6 +25,7 @@ import com.myrran.domain.world.LearnedTemplates
 import com.myrran.domain.world.SpellBook
 import com.myrran.domain.world.World
 import com.myrran.domain.world.collisionsystem.ColissionListener
+import com.myrran.domain.world.damagesystem.DamageSystem
 import com.myrran.infraestructure.assets.AssetStorage
 import com.myrran.infraestructure.controller.player.PlayerController
 import com.myrran.infraestructure.controller.player.PlayerInputs
@@ -110,6 +111,7 @@ class Main : KtxGame<KtxScreen>() {
             spellBook = spellBook,
             worldBox2D = worldBox2D,
             mobFactory = mobFactory,
+            damageSystem = DamageSystem(),
             eventDispatcher = eventDispatcher,
             worldBox2dContactListener = ColissionListener()
         )
