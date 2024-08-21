@@ -95,7 +95,7 @@ class MobViewFactory(
             .also { it.categoryBits = LIGHT_PLAYER }
             .also { it.maskBits = PLAYER or ENEMY or WALLS}
 
-        val light = ConeLight(rayHandler, 300, Color(0.75f, 0.75f, 0.5f, 0.40f), 10f, 0f, 0f, 0f, 22.5f)
+        val light = ConeLight(rayHandler, 300, Color(0.75f, 0.75f, 0.5f, 0.20f), 10f, 0f, 0f, 0f, 22.5f)
             .also { it.setContactFilter(filter) }
             .also { it.isSoft = true }
             .also { it.setSoftnessLength(10f) }
