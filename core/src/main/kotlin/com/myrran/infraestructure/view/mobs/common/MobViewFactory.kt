@@ -10,11 +10,15 @@ import com.myrran.domain.entities.common.corporeal.Box2dFilters.Companion.LIGHT_
 import com.myrran.domain.entities.common.corporeal.Box2dFilters.Companion.LIGHT_SPELLS
 import com.myrran.domain.entities.common.corporeal.Box2dFilters.Companion.PLAYER
 import com.myrran.domain.entities.common.corporeal.Box2dFilters.Companion.WALLS
+import com.myrran.domain.entities.mob.enemy.Enemy
 import com.myrran.domain.entities.mob.player.Player
 import com.myrran.domain.entities.mob.spells.spell.Spell
 import com.myrran.domain.entities.mob.spells.spell.SpellBolt
 import com.myrran.domain.misc.metrics.Pixel
 import com.myrran.domain.misc.metrics.SizePixels
+import com.myrran.infraestructure.view.mobs.enemy.EnemyView
+import com.myrran.infraestructure.view.mobs.enemy.EnemyViewAssets
+import com.myrran.infraestructure.view.mobs.player.EnemyAnimation
 import com.myrran.infraestructure.view.mobs.player.PlayerAnimation
 import com.myrran.infraestructure.view.mobs.player.PlayerView
 import com.myrran.infraestructure.view.mobs.player.PlayerViewAssets
@@ -27,6 +31,7 @@ import kotlin.experimental.or
 class MobViewFactory(
 
     private val playerAssets: PlayerViewAssets,
+    private val enemyAssets: EnemyViewAssets,
     private val spellAssets: SpellViewAssets,
     private val rayHandler: RayHandler
 )
@@ -68,6 +73,24 @@ class MobViewFactory(
         val castingBar = CastingBar(model, playerAssets.nameplateForeground, playerAssets.nameplateBackground)
 
         return PlayerView(model, characterSprite, shadow, castingBar, light)
+    }
+
+    // ENEMY:
+    //--------------------------------------------------------------------------------------------------------
+
+    fun createEnemy(model: Enemy): EnemyView {
+
+        val frames = enemyAssets.enemy.split(size.width.value(), size.height.value())
+        val enemyAnimations = mapOf(
+            EnemyAnimation.WALK_SOUTH to Animation(0.2f, arrayOf(frames[0][0], frames[0][1], frames[0][2]).toGdxArray()),
+            EnemyAnimation.WALK_WEST to Animation(0.2f, arrayOf(frames[1][0], frames[1][1], frames[1][2]).toGdxArray()),
+            EnemyAnimation.WALK_EAST to Animation(0.2f, arrayOf(frames[2][0], frames[2][1], frames[2][2]).toGdxArray()),
+            EnemyAnimation.WALK_NORTH to Animation(0.2f, arrayOf(frames[3][0], frames[3][1], frames[3][2]).toGdxArray()),)
+        val enemySprite = SpriteAnimated(enemyAnimations, EnemyAnimation.WALK_EAST)
+
+        val shadow = SpriteStatic(enemyAssets.shadow)
+
+        return EnemyView(model, enemySprite, shadow)
     }
 
     // SPELLS:

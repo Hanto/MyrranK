@@ -69,7 +69,7 @@ class PlayerView(
 
         light.remove()
 
-    // WALKING ANIMATION:
+    // ANIMATION:
     //--------------------------------------------------------------------------------------------------------
 
     private var oldDirection: Direction = Direction.STOP

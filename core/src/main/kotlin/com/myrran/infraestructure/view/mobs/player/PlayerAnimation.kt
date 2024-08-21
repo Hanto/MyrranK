@@ -8,3 +8,10 @@ enum class PlayerAnimation {
     IDDLE,
     CASTING
 }
+
+enum class EnemyAnimation {
+    WALK_NORTH,
+    WALK_SOUTH,
+    WALK_EAST,
+    WALK_WEST
+}

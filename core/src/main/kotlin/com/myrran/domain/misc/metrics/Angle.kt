@@ -2,15 +2,19 @@ package com.myrran.domain.misc.metrics
 
 interface Angle
 
-data class Degree(
+class Degree(
 
-    private val value: Float
+    value:Float
 
 ): Angle
 {
+    private val value: Float =
+
+        ( value + 360 ) % 360
+
     fun toFloat(): Float =
 
-        value % 360
+        value
 
     fun toRadians(): Radian =
 
@@ -31,6 +35,10 @@ data class Degree(
     operator fun minus(other: Degree) =
 
         Degree(value - other.value)
+
+    operator fun compareTo(other: Degree) =
+
+        value.compareTo(other.value)
 }
 
 data class Radian(

@@ -14,6 +14,7 @@ import com.badlogic.gdx.math.Vector2
 import com.badlogic.gdx.scenes.scene2d.Stage
 import com.myrran.badlogic.DaD
 import com.myrran.domain.entities.common.corporeal.BodyFactory
+import com.myrran.domain.entities.common.steerable.SteeringBehaviorsFactory
 import com.myrran.domain.entities.mob.common.MobFactory
 import com.myrran.domain.events.MobCreatedEvent
 import com.myrran.domain.misc.DeSerializer
@@ -43,6 +44,7 @@ import com.myrran.infraestructure.view.View
 import com.myrran.infraestructure.view.WorldView
 import com.myrran.infraestructure.view.common.Camera
 import com.myrran.infraestructure.view.mobs.common.MobViewFactory
+import com.myrran.infraestructure.view.mobs.enemy.EnemyViewAssets
 import com.myrran.infraestructure.view.mobs.player.PlayerViewAssets
 import com.myrran.infraestructure.view.mobs.spells.SpellViewAssets
 import com.myrran.infraestructure.view.skills.SkillViewAssets
@@ -159,10 +161,14 @@ class Main : KtxGame<KtxScreen>() {
             shadow = assetStorage.getTextureRegion("Atlas.atlas", "BAK/Player Sprites/Sombra"),
             nameplateBackground = assetStorage.getTextureRegion("Atlas.atlas", "TexturasMisc/Nameplate"),
             nameplateForeground = assetStorage.getTextureRegion("Atlas.atlas", "TexturasMisc/NameplateFondo"))
+        val enemyAssets = EnemyViewAssets(
+            enemy = assetStorage.getTextureRegion("Atlas.atlas", "PixieMobs/GrimReaper"),
+            shadow = assetStorage.getTextureRegion("Atlas.atlas", "BAK/Player Sprites/Sombra"))
         val spellAssets = SpellViewAssets(
             spellBolt = assetStorage.getTextureRegion("Atlas.atlas", "AnimacionesSpells/SpellBalls_01n"))
         val mobViewFactory = MobViewFactory(
             playerAssets = playerAssets,
+            enemyAssets = enemyAssets,
             spellAssets = spellAssets,
             rayHandler = rayHandler)
         val worldCamera = OrthographicCamera(
@@ -203,7 +209,7 @@ class Main : KtxGame<KtxScreen>() {
         val enemy01 = mobFactory.createEnemy()
         enemy01.position = PositionPixels(-200, -200).toMeters().toBox2dUnits()
         eventDispatcher.sendEvent(MobCreatedEvent(enemy01))
-        //enemy01.steerable.steeringBehavior = SteeringBehaviorsFactory().pursueAndEvadeEnemies(enemy01, player)
+        enemy01.steerable.steeringBehavior = SteeringBehaviorsFactory().pursueAndEvadeEnemies(enemy01, player)
 
         val enemy02 = mobFactory.createEnemy()
         enemy02.position = PositionPixels(200, -200).toMeters().toBox2dUnits()

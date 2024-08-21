@@ -20,6 +20,7 @@ import com.myrran.infraestructure.eventbus.EventSender
 import com.myrran.infraestructure.view.common.Camera
 import com.myrran.infraestructure.view.mobs.common.MobView
 import com.myrran.infraestructure.view.mobs.common.MobViewFactory
+import com.myrran.infraestructure.view.mobs.enemy.EnemyView
 import com.myrran.infraestructure.view.mobs.player.PlayerView
 
 class WorldView(
@@ -35,6 +36,7 @@ class WorldView(
 {
     private val playerView: PlayerView = mobViewFactory.createPlayer(model.player)
     private val spellViews: MutableMap<EntityId, MobView> = mutableMapOf()
+    private val enemyViews: MutableMap<EntityId, EnemyView> = mutableMapOf()
     private val box2dDebug: Box2DDebugRenderer = Box2DDebugRenderer()
     //private val cameraTarget: Location<Vector2> = playerView
 
@@ -44,9 +46,10 @@ class WorldView(
         rayHandler.setAmbientLight(0.8f)
         stage.addActor(playerView)
 
-        //camera.zoom(0.25f)
+        //camera.zoom(0.5f)
         camera.assignCameraToStage(stage)
-        addListener(this, SpellCreatedEvent::class, MobRemovedEvent::class)
+        addListener(this, SpellCreatedEvent::class, MobRemovedEvent::class,
+            MobCreatedEvent::class)
     }
 
     fun render(deltaTime: Float, fractionOfTimestep: Float) {
@@ -72,6 +75,7 @@ class WorldView(
     override fun dispose() {
 
         spellViews.values.forEach { it.dispose() }
+        enemyViews.values.forEach { it.dispose() }
         playerView.dispose()
         stage.dispose()
         box2dDebug.dispose()
@@ -82,7 +86,7 @@ class WorldView(
     override fun handleEvent(event: Event) {
 
         when (event) {
-            is MobCreatedEvent -> Unit
+            is MobCreatedEvent -> createEnemy(event)
             is MobRemovedEvent -> removeMob(event)
             is SpellCreatedEvent -> createSpell(event)
             else -> Unit
@@ -96,6 +100,7 @@ class WorldView(
 
         playerView.updatePosition(fractionOfTimestep)
         spellViews.values.forEach { it.updatePosition(fractionOfTimestep) }
+        enemyViews.values.forEach { it.updatePosition(fractionOfTimestep) }
     }
 
     private fun updatePlayerWithTheirTargets() =
@@ -107,6 +112,12 @@ class WorldView(
 
         mobViewFactory.createSpell(event.spell)
             .also { spellViews[it.id] = it }
+            .also { stage.addActor(it as Actor) }
+
+    private fun createEnemy(event: MobCreatedEvent) =
+
+        mobViewFactory.createEnemy(event.mob)
+            .also { enemyViews[it.id] = it }
             .also { stage.addActor(it as Actor) }
 
     private fun removeMob(event: MobRemovedEvent) {
