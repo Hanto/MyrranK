@@ -1,5 +1,6 @@
 package com.myrran.infraestructure.view.mobs.enemy
 
+import box2dLight.ConeLight
 import com.badlogic.gdx.scenes.scene2d.Group
 import com.badlogic.gdx.utils.Align
 import com.badlogic.gdx.utils.Disposable
@@ -18,7 +19,8 @@ class EnemyView(
 
     private val model: Enemy,
     private val character: SpriteAnimated<EnemyAnimation>,
-    private val shadow: SpriteStatic
+    private val shadow: SpriteStatic,
+    private val light: ConeLight
 
 ): Group(), MobView, Identifiable<EntityId>, Disposable
 {
@@ -48,19 +50,25 @@ class EnemyView(
 
     override fun act(deltaTime: Float) {
 
-        character.setAnimation(getEnemyAnimation())
+        setWalkingAnimation()
+
+        light.direction = model.orientation
+
         super.act(deltaTime)
     }
 
-    override fun dispose() {}
+    override fun dispose() {
+
+        light.remove()
+    }
 
     // ANIMATION:
     //--------------------------------------------------------------------------------------------------------
 
-    private fun getEnemyAnimation(): EnemyAnimation {
+    private fun setWalkingAnimation() {
 
         val orientation = Radian(model.orientation).toDegrees()
-        return when {
+        val animation = when {
 
             Degree(225f) < orientation && orientation < Degree(315f) -> EnemyAnimation.WALK_SOUTH
             Degree(135f) < orientation && orientation < Degree(225f) -> EnemyAnimation.WALK_WEST
@@ -69,5 +77,7 @@ class EnemyView(
             Degree(45f) < orientation && orientation < Degree(135f) -> EnemyAnimation.WALK_NORTH
             else -> EnemyAnimation.WALK_EAST
         }
+
+        character.setAnimation(animation)
     }
 }

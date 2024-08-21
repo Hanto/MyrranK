@@ -1,6 +1,6 @@
 package com.myrran.domain.entities.common.steerable
 
-import box2dLight.PointLight
+import box2dLight.Light
 import com.badlogic.gdx.ai.steer.SteeringAcceleration
 import com.badlogic.gdx.ai.steer.SteeringBehavior
 import com.badlogic.gdx.math.Vector2
@@ -36,7 +36,7 @@ class SteerableComponent(
         isTagged = tagged
     }
 
-    fun attachLight(light: PointLight) =
+    fun attachLight(light: Light) =
 
         light.attachToBody(corporeal.body)
 

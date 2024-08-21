@@ -1,5 +1,6 @@
 package com.myrran.infraestructure.view.mobs.common
 
+import box2dLight.ConeLight
 import box2dLight.PointLight
 import box2dLight.RayHandler
 import com.badlogic.gdx.graphics.Color
@@ -90,7 +91,19 @@ class MobViewFactory(
 
         val shadow = SpriteStatic(enemyAssets.shadow)
 
-        return EnemyView(model, enemySprite, shadow)
+        val filter = Filter()
+            .also { it.categoryBits = LIGHT_PLAYER }
+            .also { it.maskBits = PLAYER or ENEMY or WALLS}
+
+        val light = ConeLight(rayHandler, 300, Color(0.75f, 0.75f, 0.5f, 0.40f), 10f, 0f, 0f, 0f, 22.5f)
+            .also { it.setContactFilter(filter) }
+            .also { it.isSoft = true }
+            .also { it.setSoftnessLength(10f) }
+            .also { it.ignoreAttachedBody }
+
+        model.steerable.attachLight(light)
+
+        return EnemyView(model, enemySprite, shadow, light)
     }
 
     // SPELLS:
