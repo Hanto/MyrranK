@@ -3,11 +3,12 @@ package com.myrran.domain.entities.mob.common
 import com.badlogic.gdx.math.Vector2
 import com.myrran.domain.entities.common.EntityId
 import com.myrran.domain.entities.common.caster.CasterComponent
-import com.myrran.domain.entities.common.collisionable.CollisionerComponent
+import com.myrran.domain.entities.common.collisioner.CollisionerComponent
 import com.myrran.domain.entities.common.consumable.ConsumableComponent
 import com.myrran.domain.entities.common.corporeal.BodyFactory
 import com.myrran.domain.entities.common.corporeal.CorporealComponent
 import com.myrran.domain.entities.common.corporeal.MovementLimiter
+import com.myrran.domain.entities.common.effectapplier.EffectApplierComponent
 import com.myrran.domain.entities.common.proximityaware.ProximityAwareComponent
 import com.myrran.domain.entities.common.steerable.SteerableComponent
 import com.myrran.domain.entities.common.vulnerable.VulnerableComponent
@@ -159,7 +160,8 @@ class MobFactory(
             steerable = steerable,
             eventDispatcher = eventDispatcher,
             consumable = ConsumableComponent(),
-            collisioner = CollisionerComponent()
+            collisioner = CollisionerComponent(),
+            effectApplier = EffectApplierComponent()
         )
 
         body.userData = form
@@ -187,7 +189,8 @@ class MobFactory(
             steerable = steerable,
             eventDispatcher = eventDispatcher,
             consumable = ConsumableComponent(),
-            collisioner = CollisionerComponent()
+            collisioner = CollisionerComponent(),
+            effectApplier = EffectApplierComponent()
         )
 
         body.userData = form

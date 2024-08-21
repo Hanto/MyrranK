@@ -16,32 +16,39 @@ class EventDispatcher(
 
     override fun sendEvent(event: Event) {
 
-        val msgCode = eventToMsgMap[event::class]!!
+        val msgCode = retrieveMsgCode(event::class)
         messageDispatcher.dispatchMessage(0f, msgCode , event)
     }
 
     override fun sendEvent(event: Event, target: EventListener) {
 
-        val msgCode = eventToMsgMap[event::class]!!
+        val msgCode = retrieveMsgCode(event::class)
         messageDispatcher.dispatchMessage(0f, target, msgCode, event)
     }
 
     override fun addListener(listener: EventListener, vararg events: KClass<out Event>) {
 
-        val msgCodes = events.map { eventToMsgMap.computeIfAbsent(it) { nextMsgCode() } }.toIntArray()
+        val msgCodes = events.map { retrieveMsgCode(it) }.toIntArray()
 
         messageDispatcher.addListeners(listener, *msgCodes )
     }
 
     override fun removeListener(listener: EventListener) {
 
-        val msgCodes =eventToMsgMap.values.toIntArray()
+        val msgCodes = eventToMsgMap.values.toIntArray()
         messageDispatcher.removeListener(listener, *msgCodes)
     }
 
     override fun update() =
 
         messageDispatcher.update()
+
+    // MSG CODE CREATION:
+    //--------------------------------------------------------------------------------------------------------
+
+    private fun retrieveMsgCode(event: KClass<out Event>): Int =
+
+        eventToMsgMap.computeIfAbsent(event) { nextMsgCode() }
 
     private fun nextMsgCode() =
 

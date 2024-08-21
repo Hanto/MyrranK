@@ -3,8 +3,8 @@ package com.myrran.domain.entities.mob.spells.spell
 import com.badlogic.gdx.utils.Disposable
 import com.myrran.domain.entities.common.EntityId
 import com.myrran.domain.entities.common.Mob
-import com.myrran.domain.entities.common.collisionable.Collisioner
-import com.myrran.domain.entities.common.collisionable.CollisionerComponent
+import com.myrran.domain.entities.common.collisioner.Collisioner
+import com.myrran.domain.entities.common.collisioner.CollisionerComponent
 import com.myrran.domain.entities.common.consumable.Consumable
 import com.myrran.domain.entities.common.consumable.ConsumableComponent
 import com.myrran.domain.entities.common.corporeal.Movable

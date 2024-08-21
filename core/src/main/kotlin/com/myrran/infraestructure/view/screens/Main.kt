@@ -104,6 +104,8 @@ class Main : KtxGame<KtxScreen>() {
             eventDispatcher = eventDispatcher,
             worldBox2D = worldBox2D,
             playerInputs = playerInputs)
+        val damageSystem = DamageSystem(
+            eventDispatcher = eventDispatcher)
         val player = mobFactory.createPlayer()
         player.changeSelecctedSkillTo(spellBook.findAllPlayerSkills().first())
         val world = World(
@@ -111,7 +113,7 @@ class Main : KtxGame<KtxScreen>() {
             spellBook = spellBook,
             worldBox2D = worldBox2D,
             mobFactory = mobFactory,
-            damageSystem = DamageSystem(),
+            damageSystem = damageSystem,
             eventDispatcher = eventDispatcher,
             worldBox2dContactListener = ColissionListener()
         )

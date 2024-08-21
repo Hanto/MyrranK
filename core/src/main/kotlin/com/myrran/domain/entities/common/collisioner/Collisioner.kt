@@ -1,6 +1,6 @@
-package com.myrran.domain.entities.common.collisionable
+package com.myrran.domain.entities.common.collisioner
 
-import com.myrran.domain.entities.common.collisionable.CollisionerComponent.Collision
+import com.myrran.domain.entities.common.collisioner.CollisionerComponent.Collision
 import com.myrran.domain.entities.common.corporeal.Corporeal
 import com.myrran.domain.misc.metrics.PositionMeters
 

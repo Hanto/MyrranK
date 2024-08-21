@@ -2,15 +2,25 @@ package com.myrran.domain.world.damagesystem
 
 import com.myrran.domain.entities.common.Entity
 import com.myrran.domain.entities.common.vulnerable.Vulnerable
+import com.myrran.domain.events.EntityHPsReducedEvent
+import com.myrran.infraestructure.eventbus.EventDispatcher
 
-class DamageSystem {
+class DamageSystem(
+
+    private val eventDispatcher: EventDispatcher
+)
+{
 
     fun applyDamage(entity: Entity) {
 
         if (entity is Vulnerable) {
 
             val damage = entity.retrieveDamage()
-            damage.forEach { entity.reduceHps( it.amount ); println("${entity::class} receives: ${it.amount}")  }
+            damage.forEach {
+
+                entity.reduceHps( it.amount )
+                eventDispatcher.sendEvent(EntityHPsReducedEvent(entity.id, it.amount))
+            }
             entity.clearAllDamage()
         }
     }

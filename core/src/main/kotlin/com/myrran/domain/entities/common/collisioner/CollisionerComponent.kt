@@ -1,4 +1,4 @@
-package com.myrran.domain.entities.common.collisionable
+package com.myrran.domain.entities.common.collisioner
 
 import com.myrran.domain.entities.common.corporeal.Corporeal
 import com.myrran.domain.entities.statics.Wall
