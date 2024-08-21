@@ -5,6 +5,8 @@ import com.badlogic.gdx.math.Interpolation
 import com.badlogic.gdx.scenes.scene2d.Group
 import com.badlogic.gdx.scenes.scene2d.actions.Actions
 import com.myrran.domain.entities.common.vulnerable.HP
+import com.myrran.infraestructure.view.mobs.enemy.EnemyView
+import com.myrran.infraestructure.view.mobs.player.PlayerView
 import com.myrran.infraestructure.view.ui.TextView
 
 class ScrollingCombatText(
@@ -14,11 +16,11 @@ class ScrollingCombatText(
 {
     fun addSCT(actor: Group, damage: HP) {
 
-        val text = TextView(damage, assets.font, Color.ORANGE, 2f) { it.value.toInt().toString() }
-        actor.addActor(text)
-
         val randomX = Math.random() * 30 - 15
-        text.setPosition(actor.originX + randomX.toFloat() - text.width/2, actor.height)
+
+        val text = TextView(damage, assets.font, actor.colorByType(), 2f) { it.value.toInt().toString() }
+            .also { actor.addActor(it) }
+            .also { it.setPosition(actor.originX + randomX.toFloat() - it.width/2, actor.height) }
 
         text.addAction(Actions.sequence(
             Actions.delay(2f),
@@ -28,4 +30,13 @@ class ScrollingCombatText(
             Actions.moveBy(0f, 40f, 2.5f, Interpolation.sine),
             Actions.removeActor()) )
     }
+
+    private fun Group.colorByType(): Color =
+
+        when (this) {
+
+            is PlayerView -> Color.RED
+            is EnemyView -> Color.ORANGE
+            else -> Color.ORANGE
+        }
 }

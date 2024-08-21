@@ -23,8 +23,8 @@ import com.myrran.infraestructure.view.common.Camera
 import com.myrran.infraestructure.view.common.ScrollingCombatText
 import com.myrran.infraestructure.view.mobs.common.MobView
 import com.myrran.infraestructure.view.mobs.common.MobViewFactory
-import com.myrran.infraestructure.view.mobs.enemy.EnemyView
 import com.myrran.infraestructure.view.mobs.player.PlayerView
+import ktx.collections.sortByDescending
 
 class WorldView(
 
@@ -39,8 +39,8 @@ class WorldView(
 ): EventSender by eventDispatcher, EventListener, Disposable
 {
     private val playerView: PlayerView = mobViewFactory.createPlayer(model.player)
+    private val enemyViews: MutableMap<EntityId, MobView> = mutableMapOf(playerView.id to playerView)
     private val spellViews: MutableMap<EntityId, MobView> = mutableMapOf()
-    private val enemyViews: MutableMap<EntityId, EnemyView> = mutableMapOf()
     private val box2dDebug: Box2DDebugRenderer = Box2DDebugRenderer()
     //private val cameraTarget: Location<Vector2> = playerView
 
@@ -50,13 +50,15 @@ class WorldView(
         rayHandler.setAmbientLight(0.8f)
         stage.addActor(playerView)
 
-        camera.zoom(0.5f)
+        //amera.zoom(0.5f)
         camera.assignCameraToStage(stage)
         addListener(this, SpellCreatedEvent::class, MobRemovedEvent::class,
             MobCreatedEvent::class, EntityHPsReducedEvent::class)
     }
 
     fun render(deltaTime: Float, fractionOfTimestep: Float) {
+
+        stage.actors.sortByDescending { it.y }
 
         //box2dDebug.render(model.worldBox2D, camera.cameraBox2D.combined)
 

@@ -20,7 +20,7 @@ class EnemyView(
     private val model: Enemy,
     private val character: SpriteAnimated<EnemyAnimation>,
     private val shadow: SpriteStatic,
-    private val light: ConeLight
+    private val lineOfSightLight: ConeLight,
 
 ): Group(), MobView, Identifiable<EntityId>, Disposable
 {
@@ -52,14 +52,14 @@ class EnemyView(
 
         setWalkingAnimation()
 
-        light.direction = model.orientation
+        lineOfSightLight.direction = model.orientation
 
         super.act(deltaTime)
     }
 
     override fun dispose() {
 
-        light.remove()
+        lineOfSightLight.remove()
     }
 
     // ANIMATION:
