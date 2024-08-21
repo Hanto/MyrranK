@@ -37,7 +37,7 @@ class SteeringBehaviorsFactory
     fun pursueAndEvadeEnemies(seeker: Steerable<Vector2>, target: Steerable<Vector2>): SteeringBehavior<Vector2> {
 
         val formation = CollisionAvoidance(seeker, seeker as Proximity<Vector2>)
-        val seek = pursue(seeker, target)
+        val seek = seek(seeker, target)
 
         val prioritySteering = PrioritySteering(seeker, 0.0001f)
         prioritySteering.add(formation)

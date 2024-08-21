@@ -43,6 +43,8 @@ import com.myrran.infraestructure.view.UIView
 import com.myrran.infraestructure.view.View
 import com.myrran.infraestructure.view.WorldView
 import com.myrran.infraestructure.view.common.Camera
+import com.myrran.infraestructure.view.common.ScrollingCombatText
+import com.myrran.infraestructure.view.common.ScrollingCombatTextAssets
 import com.myrran.infraestructure.view.mobs.common.MobViewFactory
 import com.myrran.infraestructure.view.mobs.enemy.EnemyViewAssets
 import com.myrran.infraestructure.view.mobs.player.PlayerViewAssets
@@ -166,6 +168,7 @@ class Main : KtxGame<KtxScreen>() {
             shadow = assetStorage.getTextureRegion("Atlas.atlas", "BAK/Player Sprites/Sombra"))
         val spellAssets = SpellViewAssets(
             spellBolt = assetStorage.getTextureRegion("Atlas.atlas", "AnimacionesSpells/SpellBalls_01n"))
+        val sctAssets = ScrollingCombatTextAssets(assetStorage.getFont("20.fnt"))
         val mobViewFactory = MobViewFactory(
             playerAssets = playerAssets,
             enemyAssets = enemyAssets,
@@ -184,6 +187,7 @@ class Main : KtxGame<KtxScreen>() {
             model = world,
             stage = worldStage,
             camera = camera,
+            scrollingCombatText = ScrollingCombatText(sctAssets),
             mobViewFactory = mobViewFactory,
             rayHandler = rayHandler,
             eventDispatcher = eventDispatcher)

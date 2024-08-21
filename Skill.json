@@ -8,7 +8,7 @@
     "id" : "SPEED",
     "name" : "speed",
     "baseBonus" : 6.0,
-    "actual" : 50,
+    "actual" : 24,
     "maximum" : 50,
     "upgradeCost" : 2.0,
     "bonusPerUpgrade" : 1.0
@@ -24,7 +24,7 @@
     "id" : "SIZE",
     "name" : "size",
     "baseBonus" : 100.0,
-    "actual" : 24,
+    "actual" : 50,
     "maximum" : 50,
     "upgradeCost" : 1.0,
     "bonusPerUpgrade" : 4.0
@@ -32,7 +32,7 @@
     "id" : "COOLDOWN",
     "name" : "cooldown",
     "baseBonus" : 100.0,
-    "actual" : 32,
+    "actual" : 39,
     "maximum" : 50,
     "upgradeCost" : 2.0,
     "bonusPerUpgrade" : -1.5
@@ -40,7 +40,7 @@
     "id" : "EXPIRATION",
     "name" : "expiration",
     "baseBonus" : 2.0,
-    "actual" : 25,
+    "actual" : 0,
     "maximum" : 25,
     "upgradeCost" : 0.1,
     "bonusPerUpgrade" : 0.1
@@ -50,7 +50,7 @@
     "name" : "Impact",
     "lock" : [ "A", "B", "C", "D" ],
     "content" : {
-      "id" : "6df26619-843c-4b54-831b-84c4de17f5d9",
+      "id" : "0ef41b81-b210-43ce-b1c3-da5d973152de",
       "templateId" : "CIRCLE_1",
       "type" : "CIRCLE",
       "name" : "Circle",
@@ -59,7 +59,7 @@
         "id" : "RADIUS",
         "name" : "radius",
         "baseBonus" : 100.0,
-        "actual" : 50,
+        "actual" : 0,
         "maximum" : 50,
         "upgradeCost" : 1.0,
         "bonusPerUpgrade" : 4.0
@@ -77,7 +77,7 @@
         "name" : "Debuff 1",
         "lock" : [ "c", "d" ],
         "content" : {
-          "id" : "422c7871-762f-4496-b2d1-6729eef97536",
+          "id" : "69c9b522-350a-489e-841e-2aa10acc64ef",
           "templateId" : "DAMAGE_1",
           "type" : "DAMAGE",
           "name" : "Damage",
@@ -85,7 +85,7 @@
             "id" : "DIRECT_DAMAGE",
             "name" : "direct damage",
             "baseBonus" : 10.0,
-            "actual" : 0,
+            "actual" : 8,
             "maximum" : 50,
             "upgradeCost" : 4.0,
             "bonusPerUpgrade" : 5.0

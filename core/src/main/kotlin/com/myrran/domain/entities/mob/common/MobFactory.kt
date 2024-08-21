@@ -14,7 +14,7 @@ import com.myrran.domain.entities.common.steerable.SteerableComponent
 import com.myrran.domain.entities.common.vulnerable.VulnerableComponent
 import com.myrran.domain.entities.mob.enemy.Enemy
 import com.myrran.domain.entities.mob.player.Player
-import com.myrran.domain.entities.mob.player.StateActionIddle
+import com.myrran.domain.entities.mob.player.StateTacticalIddle
 import com.myrran.domain.entities.mob.spells.form.Form
 import com.myrran.domain.entities.mob.spells.form.FormCircle
 import com.myrran.domain.entities.mob.spells.form.FormPoint
@@ -63,7 +63,7 @@ class MobFactory(
         val player = Player(
             id = EntityId(),
             steerable = steerable,
-            state = StateActionIddle,
+            state = StateTacticalIddle,
             eventDispatcher = eventDispatcher,
             inputs = playerInputs,
             vulnerable = VulnerableComponent(200, 200),
@@ -77,7 +77,7 @@ class MobFactory(
 
         val body = bodyFactory.createEnemyBody(worldBox2D, Pixel(16))
         val limiter = MovementLimiter(
-            maxLinearSpeed = Speed(Meter(2f)),
+            maxLinearSpeed = Speed(Meter(1.5f)),
             maxLinearAcceleration = Acceleration(Meter(500f)),
             maxAngularSpeed = AngularVelocity(Radian(6f)),
             maxAngularAcceleration = AngularAcceleration(Radian(12f)))

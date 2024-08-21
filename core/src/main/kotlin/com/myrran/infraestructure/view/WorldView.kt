@@ -4,10 +4,12 @@ import box2dLight.RayHandler
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer
 import com.badlogic.gdx.scenes.scene2d.Actor
+import com.badlogic.gdx.scenes.scene2d.Group
 import com.badlogic.gdx.scenes.scene2d.Stage
 import com.badlogic.gdx.utils.Disposable
 import com.myrran.domain.entities.common.EntityId
 import com.myrran.domain.entities.mob.spells.spell.SpellBolt
+import com.myrran.domain.events.EntityHPsReducedEvent
 import com.myrran.domain.events.Event
 import com.myrran.domain.events.MobCreatedEvent
 import com.myrran.domain.events.MobRemovedEvent
@@ -18,6 +20,7 @@ import com.myrran.infraestructure.eventbus.EventDispatcher
 import com.myrran.infraestructure.eventbus.EventListener
 import com.myrran.infraestructure.eventbus.EventSender
 import com.myrran.infraestructure.view.common.Camera
+import com.myrran.infraestructure.view.common.ScrollingCombatText
 import com.myrran.infraestructure.view.mobs.common.MobView
 import com.myrran.infraestructure.view.mobs.common.MobViewFactory
 import com.myrran.infraestructure.view.mobs.enemy.EnemyView
@@ -29,6 +32,7 @@ class WorldView(
     private val stage: Stage,
     private val camera: Camera,
     private val mobViewFactory: MobViewFactory,
+    private val scrollingCombatText: ScrollingCombatText,
     private val rayHandler: RayHandler,
     private val eventDispatcher: EventDispatcher,
 
@@ -46,10 +50,10 @@ class WorldView(
         rayHandler.setAmbientLight(0.8f)
         stage.addActor(playerView)
 
-        //camera.zoom(0.5f)
+        camera.zoom(0.5f)
         camera.assignCameraToStage(stage)
         addListener(this, SpellCreatedEvent::class, MobRemovedEvent::class,
-            MobCreatedEvent::class)
+            MobCreatedEvent::class, EntityHPsReducedEvent::class)
     }
 
     fun render(deltaTime: Float, fractionOfTimestep: Float) {
@@ -89,6 +93,7 @@ class WorldView(
             is MobCreatedEvent -> createEnemy(event)
             is MobRemovedEvent -> removeMob(event)
             is SpellCreatedEvent -> createSpell(event)
+            is EntityHPsReducedEvent -> addSCT(event)
             else -> Unit
         }
     }
@@ -107,6 +112,14 @@ class WorldView(
 
         camera.toWorldCoordinates(PositionPixels(Gdx.input.x, Gdx.input.y))
             .also { model.player.updateTarget(it) }
+
+    private fun addSCT(event: EntityHPsReducedEvent) {
+
+        enemyViews[event.entityId]?.let {
+
+            scrollingCombatText.addSCT(it as Group, event.reducedHP)
+        }
+    }
 
     private fun createSpell(event: SpellCreatedEvent) =
 
