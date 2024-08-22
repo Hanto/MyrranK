@@ -217,20 +217,20 @@ class Main : KtxGame<KtxScreen>() {
         eventDispatcher.sendEvent(MobCreatedEvent(enemy01))
         enemy01.steerable.steeringBehavior = SteeringBehaviorsFactory().pursueAndEvadeEnemies(enemy01, player)
 
-        val enemy02 = mobFactory.createEnemy()
-        enemy02.position = PositionPixels(200, -200).toMeters().toBox2dUnits()
-        eventDispatcher.sendEvent(MobCreatedEvent(enemy02))
+        //val enemy02 = mobFactory.createEnemy()
+        //enemy02.position = PositionPixels(200, -200).toMeters().toBox2dUnits()
+        //eventDispatcher.sendEvent(MobCreatedEvent(enemy02))
         //enemy02.steerable.steeringBehavior = SteeringBehaviorsFactory().pursueAndEvadeEnemies(enemy02, player)
 
-        val enemy03 = mobFactory.createEnemy()
-        enemy03.position = PositionPixels(170, 200).toMeters().toBox2dUnits()
-        eventDispatcher.sendEvent(MobCreatedEvent(enemy03))
+        //val enemy03 = mobFactory.createEnemy()
+        //enemy03.position = PositionPixels(170, 200).toMeters().toBox2dUnits()
+        //eventDispatcher.sendEvent(MobCreatedEvent(enemy03))
         //enemy03.steerable.steeringBehavior = SteeringBehaviorsFactory().pursueAndEvadeEnemies(enemy03, player)
 
         val enemy04 = mobFactory.createEnemy()
         enemy04.position = PositionPixels(200, 300).toMeters().toBox2dUnits()
         eventDispatcher.sendEvent(MobCreatedEvent(enemy04))
-        //enemy04.steerable.steeringBehavior = SteeringBehaviorsFactory().pursueAndEvadeEnemies(enemy04, player)
+        enemy04.steerable.steeringBehavior = SteeringBehaviorsFactory().pursueAndEvadeEnemies(enemy04, player)
 
         val wall = mobFactory.createWall(SizeMeters(20f, 1f))
         wall.position = PositionPixels(512, 250).toBox2dUnits()

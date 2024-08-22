@@ -12,9 +12,12 @@ class Degree(
 
         value
 
-    fun normalize(): Degree =
+    fun normalize(): Degree  =
 
-        Degree( (value + 360) % 360 )
+        if (value >= 0)
+            Degree(value % 360)
+        else
+            Degree( (360 - ((-value) % 360)) % 360 )
 
     fun toRadians(): Radian =
 

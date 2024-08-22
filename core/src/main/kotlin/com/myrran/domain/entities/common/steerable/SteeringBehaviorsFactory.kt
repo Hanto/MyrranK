@@ -8,7 +8,6 @@ import com.badlogic.gdx.ai.steer.behaviors.BlendedSteering
 import com.badlogic.gdx.ai.steer.behaviors.CollisionAvoidance
 import com.badlogic.gdx.ai.steer.behaviors.Face
 import com.badlogic.gdx.ai.steer.behaviors.Flee
-import com.badlogic.gdx.ai.steer.behaviors.PrioritySteering
 import com.badlogic.gdx.ai.steer.behaviors.Pursue
 import com.badlogic.gdx.ai.steer.behaviors.Seek
 import com.badlogic.gdx.ai.steer.behaviors.Wander
@@ -44,16 +43,17 @@ class SteeringBehaviorsFactory
         face.setTimeToTarget(0.1f)
 
         val blendedSteering = BlendedSteering(seeker)
-        blendedSteering.add(seek, 0.5f)
         blendedSteering.add(face, 0.5f)
+        blendedSteering.add(seek, 0.5f)
+        blendedSteering.add(formation, 1.5f)
 
-        val prioritySteering = PrioritySteering(seeker, 0.0001f)
-        prioritySteering.add(formation)
-        prioritySteering.add(blendedSteering)
+        //val prioritySteering = PrioritySteering(seeker, 0.0001f)
+        //prioritySteering.add(blendedSteering)
+        //prioritySteering.add(formation)
         //prioritySteering.add(seek)
         //prioritySteering.add(Face(seeker, target))
 
-        return prioritySteering
+        return blendedSteering
     }
 
     fun flee(runner: Steerable<Vector2>, fleeingFrom: Steerable<Vector2>): SteeringBehavior<Vector2> {
