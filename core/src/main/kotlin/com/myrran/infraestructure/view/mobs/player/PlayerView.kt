@@ -19,7 +19,7 @@ import com.myrran.infraestructure.view.mobs.common.SpriteStatic
 class PlayerView(
 
     private val model: Player,
-    private val character: SpriteAnimated<PlayerAnimation>,
+    private val sprite: SpriteAnimated<PlayerAnimation>,
     private val shadow: SpriteStatic,
     private val castingBar: CastingBar,
     private val light: PointLight,
@@ -34,10 +34,10 @@ class PlayerView(
     init {
 
         addActor(shadow)
-        addActor(character)
+        addActor(sprite)
         addActor(castingBar)
-        setSize(character.width, character.height)
-        setOrigin(character.width/2, character.height/2)
+        setSize(sprite.width, sprite.height)
+        setOrigin(sprite.width/2, sprite.height/2)
         shadow.moveBy(0f, -5f)
         castingBar.moveBy(-2f, 36f)
     }
@@ -56,8 +56,8 @@ class PlayerView(
 
         when (model.state) {
 
-            is StateIddle -> character.setAnimation(PlayerAnimation.IDDLE)
-            is StateTacticalCasting -> character.setAnimation(PlayerAnimation.CASTING)
+            is StateIddle -> sprite.setAnimation(PlayerAnimation.IDDLE)
+            is StateTacticalCasting -> sprite.setAnimation(PlayerAnimation.CASTING)
             is StateMoving -> setWalkingAnimation()
         }
 
@@ -104,7 +104,7 @@ class PlayerView(
             }
         }
 
-        character.setAnimation(newDirection.animation)
+        sprite.setAnimation(newDirection.animation)
         oldDirection = newDirection
     }
 

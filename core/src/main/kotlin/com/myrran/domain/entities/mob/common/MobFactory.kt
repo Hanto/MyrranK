@@ -14,7 +14,7 @@ import com.myrran.domain.entities.common.steerable.SteerableComponent
 import com.myrran.domain.entities.common.vulnerable.VulnerableComponent
 import com.myrran.domain.entities.mob.enemy.Enemy
 import com.myrran.domain.entities.mob.player.Player
-import com.myrran.domain.entities.mob.player.StateTacticalIddle
+import com.myrran.domain.entities.mob.player.StateActionIddle
 import com.myrran.domain.entities.mob.spells.form.Form
 import com.myrran.domain.entities.mob.spells.form.FormCircle
 import com.myrran.domain.entities.mob.spells.form.FormPoint
@@ -47,6 +47,9 @@ class MobFactory(
     private val playerInputs: PlayerInputs,
 )
 {
+    // PLAYER:
+    //--------------------------------------------------------------------------------------------------------
+
     fun createPlayer(): Player {
 
         val body = bodyFactory.createPlayerBody(worldBox2D, Pixel(16))
@@ -63,7 +66,7 @@ class MobFactory(
         val player = Player(
             id = EntityId(),
             steerable = steerable,
-            state = StateTacticalIddle,
+            state = StateActionIddle,
             eventDispatcher = eventDispatcher,
             inputs = playerInputs,
             vulnerable = VulnerableComponent(200, 200),
@@ -72,6 +75,9 @@ class MobFactory(
         body.userData = player
         return player
     }
+
+    // ENEMY:
+    //--------------------------------------------------------------------------------------------------------
 
     fun createEnemy(): Enemy {
 
@@ -99,6 +105,9 @@ class MobFactory(
         body.userData = enemy
         return enemy
     }
+
+    // SPELLS:
+    //--------------------------------------------------------------------------------------------------------
 
     fun createSpell(skill: Skill, origin: PositionMeters, target: PositionMeters) =
 
@@ -132,6 +141,9 @@ class MobFactory(
         body.userData = spell
         return spell
     }
+
+    // FORMS:
+    //--------------------------------------------------------------------------------------------------------
 
     fun createFormSpell(formSkill: FormSkill, origin: PositionMeters, direction: Vector2): Form =
 
@@ -171,7 +183,7 @@ class MobFactory(
     private fun createFormCircle(formSkill: FormSkill, origin: PositionMeters, direction: Vector2): Form {
 
         val sizeMultiplier = formSkill.getStat(StatId("RADIUS"))!!.totalBonus().value / 100
-        val radius = Pixel(64) * sizeMultiplier
+        val radius = Pixel(32) * sizeMultiplier
         val body = bodyFactory.createCircleForm(worldBox2D, radius)
         val limiter = MovementLimiter(
             maxLinearSpeed = Speed(Meter(0f)))
@@ -184,6 +196,7 @@ class MobFactory(
         val form = FormCircle(
             id = EntityId(),
             formSkill = formSkill.copy(),
+            radius = radius.toMeters(),
             origin = origin,
             direction = direction,
             steerable = steerable,
@@ -196,6 +209,9 @@ class MobFactory(
         body.userData = form
         return form
     }
+
+    // WALL:
+    //--------------------------------------------------------------------------------------------------------
 
     fun createWall(size: Size<*>): Wall {
 

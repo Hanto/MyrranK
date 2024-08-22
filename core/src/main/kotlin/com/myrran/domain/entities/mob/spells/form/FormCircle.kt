@@ -17,6 +17,7 @@ import com.myrran.domain.entities.common.steerable.SteerableComponent
 import com.myrran.domain.entities.common.vulnerable.DamageLocation
 import com.myrran.domain.events.MobRemovedEvent
 import com.myrran.domain.misc.constants.SpellConstants.Companion.EXPIRATION
+import com.myrran.domain.misc.metrics.Meter
 import com.myrran.domain.misc.metrics.PositionMeters
 import com.myrran.domain.misc.metrics.Second
 import com.myrran.domain.skills.created.form.FormSkill
@@ -29,10 +30,11 @@ class FormCircle(
     override val steerable: SteerableComponent,
     private val eventDispatcher: EventDispatcher,
 
-    private val consumable: ConsumableComponent,
+    val consumable: ConsumableComponent,
     private val collisioner: CollisionerComponent,
     private val effectApplier: EffectApplierComponent,
     private val formSkill: FormSkill,
+    val radius: Meter,
     private val origin: PositionMeters,
     direction: Vector2,
 

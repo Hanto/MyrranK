@@ -8,7 +8,7 @@
     "id" : "SPEED",
     "name" : "speed",
     "baseBonus" : 6.0,
-    "actual" : 10,
+    "actual" : 30,
     "maximum" : 50,
     "upgradeCost" : 2.0,
     "bonusPerUpgrade" : 1.0
@@ -24,7 +24,7 @@
     "id" : "SIZE",
     "name" : "size",
     "baseBonus" : 100.0,
-    "actual" : 20,
+    "actual" : 0,
     "maximum" : 50,
     "upgradeCost" : 1.0,
     "bonusPerUpgrade" : 4.0
@@ -32,7 +32,7 @@
     "id" : "COOLDOWN",
     "name" : "cooldown",
     "baseBonus" : 100.0,
-    "actual" : 13,
+    "actual" : 50,
     "maximum" : 50,
     "upgradeCost" : 2.0,
     "bonusPerUpgrade" : -1.5
@@ -50,34 +50,34 @@
     "name" : "Impact",
     "lock" : [ "A", "B", "C", "D" ],
     "content" : {
-      "id" : "8be38528-f6a9-4c1d-9220-332de6067a09",
-      "templateId" : "CIRCLE_1",
-      "type" : "CIRCLE",
-      "name" : "Circle",
-      "collisionType" : "ON_SINGLE_COLLISION_POINT",
+      "id" : "269bd398-dc51-457c-af83-4098715e0d98",
+      "templateId" : "POINT_1",
+      "type" : "POINT",
+      "name" : "Point",
+      "collisionType" : "ON_EVERY_COLLISION_POINT",
       "stats" : [ {
         "id" : "RADIUS",
         "name" : "radius",
-        "baseBonus" : 100.0,
-        "actual" : 22,
-        "maximum" : 50,
-        "upgradeCost" : 1.0,
-        "bonusPerUpgrade" : 4.0
+        "baseBonus" : 1.0,
+        "actual" : null,
+        "maximum" : null,
+        "upgradeCost" : null,
+        "bonusPerUpgrade" : null
       }, {
         "id" : "EXPIRATION",
         "name" : "expiration",
         "baseBonus" : 0.0,
-        "actual" : 0,
-        "maximum" : 50,
-        "upgradeCost" : 1.0,
-        "bonusPerUpgrade" : 0.3
+        "actual" : null,
+        "maximum" : null,
+        "upgradeCost" : null,
+        "bonusPerUpgrade" : null
       } ],
       "slots" : [ {
         "id" : "DEBUFF_1",
         "name" : "Debuff 1",
-        "lock" : [ "c", "d" ],
+        "lock" : [ "a", "b" ],
         "content" : {
-          "id" : "87029822-070d-4cfc-b0cf-25f1b15d0935",
+          "id" : "e73a9fb9-49f0-42c0-a1b7-b3892803a557",
           "templateId" : "DAMAGE_1",
           "type" : "DAMAGE",
           "name" : "Damage",

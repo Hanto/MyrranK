@@ -9,6 +9,7 @@ import com.myrran.domain.entities.common.caster.Caster
 import com.myrran.domain.entities.mob.common.MobFactory
 import com.myrran.domain.entities.mob.player.Player
 import com.myrran.domain.events.Event
+import com.myrran.domain.events.FormCreatedEvent
 import com.myrran.domain.events.FormSpellCastedEvent
 import com.myrran.domain.events.MobCreatedEvent
 import com.myrran.domain.events.MobRemovedEvent
@@ -107,6 +108,7 @@ class World(
 
         mobFactory.createFormSpell(skill, origin, direction)
             .also { toBeAdded.add(it) }
+            .also { sendEvent(FormCreatedEvent(it)) }
 
     private fun pickPlayerSpell(skillId: SkillId) =
 

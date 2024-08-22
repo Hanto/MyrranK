@@ -8,5 +8,5 @@ import com.myrran.domain.entities.common.corporeal.Movable
 import com.myrran.domain.entities.common.corporeal.Spatial
 import com.myrran.domain.entities.common.steerable.Steerable
 
-interface Form : Mob, Steerable, Spatial, Movable, Disposable,
+sealed interface Form : Mob, Steerable, Spatial, Movable, Disposable,
     Consumable, Collisioner

@@ -4,6 +4,7 @@ import com.badlogic.gdx.math.Vector2
 import com.myrran.domain.entities.common.Mob
 import com.myrran.domain.entities.common.caster.Caster
 import com.myrran.domain.entities.mob.enemy.Enemy
+import com.myrran.domain.entities.mob.spells.form.Form
 import com.myrran.domain.entities.mob.spells.spell.Spell
 import com.myrran.domain.misc.metrics.PositionMeters
 import com.myrran.domain.skills.created.form.FormSkill
@@ -28,6 +29,12 @@ data class FormSpellCastedEvent(
 data class SpellCreatedEvent(
 
     val spell: Spell
+
+): WorldEvent
+
+data class FormCreatedEvent(
+
+    val form: Form
 
 ): WorldEvent
 

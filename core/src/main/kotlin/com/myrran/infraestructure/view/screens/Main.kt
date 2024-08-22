@@ -167,7 +167,9 @@ class Main : KtxGame<KtxScreen>() {
             enemy = assetStorage.getTextureRegion("Atlas.atlas", "PixieMobs/GrimReaper"),
             shadow = assetStorage.getTextureRegion("Atlas.atlas", "BAK/Player Sprites/Sombra"))
         val spellAssets = SpellViewAssets(
-            spellBolt = assetStorage.getTextureRegion("Atlas.atlas", "AnimacionesSpells/SpellBalls_01n"))
+            spellBolt = assetStorage.getTextureRegion("Atlas.atlas", "AnimacionesSpells/SpellBalls_01n"),
+            formCircle = assetStorage.getTextureRegion("Atlas.atlas", "AnimacionesSpells/SpellBalls_01n"),
+            formPoint = assetStorage.getTextureRegion("Atlas.atlas", "AnimacionesSpells/SpellBalls_01n"))
         val sctAssets = ScrollingCombatTextAssets(assetStorage.getFont("20.fnt"))
         val mobViewFactory = MobViewFactory(
             playerAssets = playerAssets,

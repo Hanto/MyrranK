@@ -13,6 +13,9 @@ import com.myrran.domain.entities.common.corporeal.Box2dFilters.Companion.PLAYER
 import com.myrran.domain.entities.common.corporeal.Box2dFilters.Companion.WALLS
 import com.myrran.domain.entities.mob.enemy.Enemy
 import com.myrran.domain.entities.mob.player.Player
+import com.myrran.domain.entities.mob.spells.form.Form
+import com.myrran.domain.entities.mob.spells.form.FormCircle
+import com.myrran.domain.entities.mob.spells.form.FormPoint
 import com.myrran.domain.entities.mob.spells.spell.Spell
 import com.myrran.domain.entities.mob.spells.spell.SpellBolt
 import com.myrran.domain.misc.metrics.Pixel
@@ -24,6 +27,8 @@ import com.myrran.infraestructure.view.mobs.player.PlayerAnimation
 import com.myrran.infraestructure.view.mobs.player.PlayerView
 import com.myrran.infraestructure.view.mobs.player.PlayerViewAssets
 import com.myrran.infraestructure.view.mobs.spells.SpellViewAssets
+import com.myrran.infraestructure.view.mobs.spells.form.FormCircleView
+import com.myrran.infraestructure.view.mobs.spells.form.FormPointView
 import com.myrran.infraestructure.view.mobs.spells.spell.SpellAnimation
 import com.myrran.infraestructure.view.mobs.spells.spell.SpellBoltView
 import ktx.collections.toGdxArray
@@ -115,9 +120,6 @@ class MobViewFactory(
             is SpellBolt -> createSpellBolt(spell)
         }
 
-    // SPELL BOLT:
-    //--------------------------------------------------------------------------------------------------------
-
     private fun createSpellBolt(model: SpellBolt): SpellBoltView {
 
         val frames = spellAssets.spellBolt.split(size.width.value(), size.height.value())
@@ -139,5 +141,34 @@ class MobViewFactory(
         model.steerable.attachLight(light)
 
         return SpellBoltView(model, light, animations)
+    }
+
+    // FORMS:
+    //--------------------------------------------------------------------------------------------------------
+
+    fun createForm(form: Form): MobView =
+        when (form) {
+            is FormCircle -> createFormCircle(form)
+            is FormPoint -> createFormPoint(form)
+        }
+
+    private fun createFormCircle(model: FormCircle): FormCircleView {
+
+        val frames = spellAssets.formCircle.split(size.width.value(), size.height.value())
+        val animations = mapOf(
+            SpellAnimation.GLOW to Animation(0.1f,  arrayOf(frames[0][3], frames[0][4], frames[0][5], frames[0][4]).toGdxArray()))
+        val formSprite = SpriteAnimated(animations, SpellAnimation.GLOW)
+
+        return FormCircleView(model, formSprite)
+    }
+
+    private fun createFormPoint(model: FormPoint): FormPointView {
+
+        val frames = spellAssets.formPoint.split(size.width.value(), size.height.value())
+        val animations = mapOf(
+            SpellAnimation.GLOW to Animation(0.1f,  arrayOf(frames[0][3], frames[0][4], frames[0][5], frames[0][4]).toGdxArray()))
+        val formSprite = SpriteAnimated(animations, SpellAnimation.GLOW)
+
+        return FormPointView(model, formSprite)
     }
 }

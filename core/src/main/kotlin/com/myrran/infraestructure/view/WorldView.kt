@@ -11,6 +11,7 @@ import com.myrran.domain.entities.common.EntityId
 import com.myrran.domain.entities.mob.spells.spell.SpellBolt
 import com.myrran.domain.events.EntityHPsReducedEvent
 import com.myrran.domain.events.Event
+import com.myrran.domain.events.FormCreatedEvent
 import com.myrran.domain.events.MobCreatedEvent
 import com.myrran.domain.events.MobRemovedEvent
 import com.myrran.domain.events.SpellCreatedEvent
@@ -23,7 +24,9 @@ import com.myrran.infraestructure.view.common.Camera
 import com.myrran.infraestructure.view.common.ScrollingCombatText
 import com.myrran.infraestructure.view.mobs.common.MobView
 import com.myrran.infraestructure.view.mobs.common.MobViewFactory
+import com.myrran.infraestructure.view.mobs.common.SpellView
 import com.myrran.infraestructure.view.mobs.player.PlayerView
+import ktx.collections.filter
 import ktx.collections.sortByDescending
 
 class WorldView(
@@ -50,15 +53,15 @@ class WorldView(
         rayHandler.setAmbientLight(0.8f)
         stage.addActor(playerView)
 
-        //amera.zoom(0.5f)
+        camera.zoom(0.5f)
         camera.assignCameraToStage(stage)
-        addListener(this, SpellCreatedEvent::class, MobRemovedEvent::class,
-            MobCreatedEvent::class, EntityHPsReducedEvent::class)
+        addListener(this, SpellCreatedEvent::class, FormCreatedEvent::class,
+            MobCreatedEvent::class, MobRemovedEvent::class, EntityHPsReducedEvent::class)
     }
 
     fun render(deltaTime: Float, fractionOfTimestep: Float) {
 
-        stage.actors.sortByDescending { it.y }
+        stage.actors.filter { it !is SpellView }.sortByDescending { it.y }
 
         //box2dDebug.render(model.worldBox2D, camera.cameraBox2D.combined)
 
@@ -94,6 +97,7 @@ class WorldView(
             is MobCreatedEvent -> createEnemy(event)
             is MobRemovedEvent -> removeMob(event)
             is SpellCreatedEvent -> createSpell(event)
+            is FormCreatedEvent -> createForm(event)
             is EntityHPsReducedEvent -> addSCT(event)
             else -> Unit
         }
@@ -121,16 +125,22 @@ class WorldView(
         }
     }
 
+    private fun createEnemy(event: MobCreatedEvent) =
+
+        mobViewFactory.createEnemy(event.mob)
+            .also { enemyViews[it.id] = it }
+            .also { stage.addActor(it as Actor) }
+
+
     private fun createSpell(event: SpellCreatedEvent) =
 
         mobViewFactory.createSpell(event.spell)
             .also { spellViews[it.id] = it }
             .also { stage.addActor(it as Actor) }
 
-    private fun createEnemy(event: MobCreatedEvent) =
+    private fun createForm(event: FormCreatedEvent) =
 
-        mobViewFactory.createEnemy(event.mob)
-            .also { enemyViews[it.id] = it }
+        mobViewFactory.createForm(event.form)
             .also { stage.addActor(it as Actor) }
 
     private fun removeMob(event: MobRemovedEvent) {

@@ -1,9 +1,9 @@
 [ {
   "id" : "CIRCLE_1",
-  "avaiable" : 4,
+  "avaiable" : 5,
   "total" : 5
 }, {
   "id" : "POINT_1",
-  "avaiable" : 5,
+  "avaiable" : 4,
   "total" : 5
 } ]
