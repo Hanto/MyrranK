@@ -23,11 +23,11 @@ class ScrollingCombatText(
             .also { it.setPosition(actor.originX + randomX.toFloat() - it.width/2, actor.height) }
 
         text.addAction(Actions.sequence(
-            Actions.delay(2f),
+            Actions.delay(1.5f),
             Actions.fadeOut(0.5f, Interpolation.sine)) )
 
         text.addAction(Actions.sequence(
-            Actions.moveBy(0f, 45f, 2.5f, Interpolation.sine),
+            Actions.moveBy(0f, 45f, 2.0f, Interpolation.sine),
             Actions.removeActor()) )
     }
 
