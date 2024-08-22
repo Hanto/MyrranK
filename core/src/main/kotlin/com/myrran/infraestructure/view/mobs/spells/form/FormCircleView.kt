@@ -9,6 +9,7 @@ import com.myrran.domain.entities.common.EntityId
 import com.myrran.domain.entities.mob.spells.form.FormCircle
 import com.myrran.domain.misc.Identifiable
 import com.myrran.domain.misc.metrics.PositionMeters
+import com.myrran.domain.misc.metrics.Second
 import com.myrran.infraestructure.view.mobs.common.MobView
 import com.myrran.infraestructure.view.mobs.common.SpellView
 import com.myrran.infraestructure.view.mobs.common.SpriteAnimated
@@ -29,20 +30,24 @@ class FormCircleView(
 
     init {
 
+        // radius:
         val radius = model.radius.toPixel().value()
         sprite.setSize((radius * 2 * 1.6).toFloat(), (radius * 2 * 1.6).toFloat())
+        sprite.alpha = 0.6f
 
         addActor(sprite)
         setSize(sprite.width, sprite.height)
         setOrigin(sprite.width/2, sprite.height/2)
 
+        // position:
         model.position
             .let { PositionMeters(it.x, it.y).toPixels() }
             .also { setPosition(it.x.toFloat(), it.y.toFloat(), Align.center) }
 
-        sprite.alpha = 0.6f
+        // duration:
+        val duration = model.remainingDuration()
         addAction(Actions.sequence(
-            Actions.delay(0.1f),
+            Actions.delay( duration.minus(Second(0.1f)).toBox2DUnits() ),
             Actions.fadeOut(0.1f, Interpolation.circleOut),
             Actions.removeActor()))
     }

@@ -29,18 +29,21 @@ class FormPointView(
 
     init {
 
+        // radius:
         val radius = Pixel(10)
         sprite.setSize((radius * 2 * 1.6).toFloat(), (radius * 2 * 1.6).toFloat())
+        sprite.alpha = 0.6f
 
         addActor(sprite)
         setSize(sprite.width, sprite.height)
         setOrigin(sprite.width/2, sprite.height/2)
 
+        // position:
         model.position
             .let { PositionMeters(it.x, it.y).toPixels() }
             .also { setPosition(it.x.toFloat(), it.y.toFloat(), Align.center) }
 
-        sprite.alpha = 0.6f
+        // duration:
         addAction(
             Actions.sequence(
             Actions.delay(0.1f),
