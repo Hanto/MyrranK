@@ -4,7 +4,9 @@ import com.badlogic.gdx.ai.steer.Proximity
 import com.badlogic.gdx.ai.steer.Steerable
 import com.badlogic.gdx.ai.steer.SteeringBehavior
 import com.badlogic.gdx.ai.steer.behaviors.Arrive
+import com.badlogic.gdx.ai.steer.behaviors.BlendedSteering
 import com.badlogic.gdx.ai.steer.behaviors.CollisionAvoidance
+import com.badlogic.gdx.ai.steer.behaviors.Face
 import com.badlogic.gdx.ai.steer.behaviors.Flee
 import com.badlogic.gdx.ai.steer.behaviors.PrioritySteering
 import com.badlogic.gdx.ai.steer.behaviors.Pursue
@@ -38,13 +40,20 @@ class SteeringBehaviorsFactory
 
         val formation = CollisionAvoidance(seeker, seeker as Proximity<Vector2>)
         val seek = seek(seeker, target)
+        val face = Face(seeker, target)
+        face.setTimeToTarget(0.1f)
+
+        val blendedSteering = BlendedSteering(seeker)
+        blendedSteering.add(seek, 0.5f)
+        blendedSteering.add(face, 0.5f)
 
         val prioritySteering = PrioritySteering(seeker, 0.0001f)
         prioritySteering.add(formation)
-        prioritySteering.add(seek)
+        prioritySteering.add(blendedSteering)
+        //prioritySteering.add(seek)
+        //prioritySteering.add(Face(seeker, target))
 
         return prioritySteering
-
     }
 
     fun flee(runner: Steerable<Vector2>, fleeingFrom: Steerable<Vector2>): SteeringBehavior<Vector2> {

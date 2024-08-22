@@ -27,7 +27,7 @@ class ScrollingCombatText(
             Actions.fadeOut(0.5f, Interpolation.sine)) )
 
         text.addAction(Actions.sequence(
-            Actions.moveBy(0f, 45f, 2.0f, Interpolation.sine),
+            Actions.moveBy(0f, 45f, 2.5f, Interpolation.sine),
             Actions.removeActor()) )
     }
 

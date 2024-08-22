@@ -68,13 +68,13 @@ data class CorporealComponent(
 
         body.applyLinearImpulse(direction.nor().scl(value), position, true)
         body.linearVelocity = body.linearVelocity.limit(limiter.maxLinearSpeed)
-        orientation = direction.angleRad()
+        //orientation = direction.angleRad()
     }
 
     override fun setLinearVelocity(direction: Vector2, value: Float) {
 
         body.linearVelocity = direction.nor().scl(value).limit(limiter.maxLinearSpeed)
-        orientation = direction.angleRad()
+        //orientation = direction.angleRad()
     }
 
     override fun getLinearVelocity(): Vector2 =

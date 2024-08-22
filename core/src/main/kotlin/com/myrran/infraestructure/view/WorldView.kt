@@ -24,9 +24,7 @@ import com.myrran.infraestructure.view.common.Camera
 import com.myrran.infraestructure.view.common.ScrollingCombatText
 import com.myrran.infraestructure.view.mobs.common.MobView
 import com.myrran.infraestructure.view.mobs.common.MobViewFactory
-import com.myrran.infraestructure.view.mobs.common.SpellView
 import com.myrran.infraestructure.view.mobs.player.PlayerView
-import ktx.collections.filter
 import ktx.collections.sortByDescending
 
 class WorldView(
@@ -53,7 +51,7 @@ class WorldView(
         rayHandler.setAmbientLight(0.8f)
         stage.addActor(playerView)
 
-        //camera.zoom(0.5f)
+        camera.zoom(0.5f)
         camera.assignCameraToStage(stage)
         addListener(this, SpellCreatedEvent::class, FormCreatedEvent::class,
             MobCreatedEvent::class, MobRemovedEvent::class, EntityHPsReducedEvent::class)
@@ -61,9 +59,8 @@ class WorldView(
 
     fun render(deltaTime: Float, fractionOfTimestep: Float) {
 
-        stage.actors.filter { it !is SpellView }.sortByDescending { it.y }
-
         //box2dDebug.render(model.worldBox2D, camera.cameraBox2D.combined)
+        stage.actors.sortByDescending { it.y }
 
         updatePositionUsingInterpolation(fractionOfTimestep)
         updatePlayerWithTheirTargets()

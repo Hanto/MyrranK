@@ -27,6 +27,7 @@ import com.myrran.domain.misc.constants.WorldBox2D
 import com.myrran.domain.misc.metrics.Acceleration
 import com.myrran.domain.misc.metrics.AngularAcceleration
 import com.myrran.domain.misc.metrics.AngularVelocity
+import com.myrran.domain.misc.metrics.Degree
 import com.myrran.domain.misc.metrics.Meter
 import com.myrran.domain.misc.metrics.Pixel
 import com.myrran.domain.misc.metrics.PositionMeters
@@ -85,13 +86,14 @@ class MobFactory(
         val limiter = MovementLimiter(
             maxLinearSpeed = Speed(Meter(1.5f)),
             maxLinearAcceleration = Acceleration(Meter(500f)),
-            maxAngularSpeed = AngularVelocity(Radian(6f)),
-            maxAngularAcceleration = AngularAcceleration(Radian(12f)))
+            maxAngularSpeed = AngularVelocity(Degree(90f).toRadians()),
+            maxAngularAcceleration = AngularAcceleration(Radian(100f)))
         val corporeal = CorporealComponent(
             body = body,
             limiter = limiter,
             destroyFunction = { worldBox2D.destroyBody(body) })
         val steerable = SteerableComponent(
+            isFacingBasedOnSteering = true,
             corporeal = corporeal)
         val proximity = ProximityAwareComponent(
             owner = steerable)

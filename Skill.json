@@ -24,7 +24,7 @@
     "id" : "SIZE",
     "name" : "size",
     "baseBonus" : 100.0,
-    "actual" : 0,
+    "actual" : 12,
     "maximum" : 50,
     "upgradeCost" : 1.0,
     "bonusPerUpgrade" : 4.0
@@ -32,7 +32,7 @@
     "id" : "COOLDOWN",
     "name" : "cooldown",
     "baseBonus" : 100.0,
-    "actual" : 10,
+    "actual" : 22,
     "maximum" : 50,
     "upgradeCost" : 2.0,
     "bonusPerUpgrade" : -1.5
@@ -50,34 +50,34 @@
     "name" : "Impact",
     "lock" : [ "A", "B", "C", "D" ],
     "content" : {
-      "id" : "ed02f988-6276-4d6a-9d02-0542726b1e26",
-      "templateId" : "CIRCLE_1",
-      "type" : "CIRCLE",
-      "name" : "Circle",
-      "collisionType" : "ON_SINGLE_COLLISION_POINT",
+      "id" : "20b7c5a8-9b22-4686-8ce2-6e2f1cab6e84",
+      "templateId" : "POINT_1",
+      "type" : "POINT",
+      "name" : "Point",
+      "collisionType" : "ON_EVERY_COLLISION_POINT",
       "stats" : [ {
         "id" : "RADIUS",
         "name" : "radius",
-        "baseBonus" : 100.0,
-        "actual" : 0,
-        "maximum" : 50,
-        "upgradeCost" : 1.0,
-        "bonusPerUpgrade" : 4.0
+        "baseBonus" : 1.0,
+        "actual" : null,
+        "maximum" : null,
+        "upgradeCost" : null,
+        "bonusPerUpgrade" : null
       }, {
         "id" : "EXPIRATION",
         "name" : "expiration",
         "baseBonus" : 0.0,
-        "actual" : 0,
-        "maximum" : 50,
-        "upgradeCost" : 1.0,
-        "bonusPerUpgrade" : 0.3
+        "actual" : null,
+        "maximum" : null,
+        "upgradeCost" : null,
+        "bonusPerUpgrade" : null
       } ],
       "slots" : [ {
         "id" : "DEBUFF_1",
         "name" : "Debuff 1",
-        "lock" : [ "c", "d" ],
+        "lock" : [ "a", "b" ],
         "content" : {
-          "id" : "3fabdf5f-ef1a-433c-94a8-b1ca04df5876",
+          "id" : "810849af-3d27-4931-bffc-2420dd96b421",
           "templateId" : "DAMAGE_1",
           "type" : "DAMAGE",
           "name" : "Damage",

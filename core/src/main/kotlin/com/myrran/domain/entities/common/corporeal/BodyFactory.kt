@@ -59,7 +59,7 @@ class BodyFactory
                 userData = FixtureInfo(BODY)
                 filter.categoryBits = ENEMY
                 filter.maskBits = PLAYER or ENEMY or SPELL or LIGHT_PLAYER or ENEMY_SENSOR or WALLS
-                density = 100f
+                density = 20f
             }
             circle {
 
