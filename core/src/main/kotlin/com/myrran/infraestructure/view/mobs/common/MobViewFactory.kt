@@ -70,8 +70,8 @@ class MobViewFactory(
 
         val light = PointLight(rayHandler, 300)
             .also { it.setContactFilter(filter) }
-            .also { it.isSoft = false }
-            .also { it.setSoftnessLength(30f) }
+            .also { it.isSoft = true }
+            .also { it.setSoftnessLength(10f) }
             .also { it.ignoreAttachedBody }
 
         model.steerable.attachLight(light)
