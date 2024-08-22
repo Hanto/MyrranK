@@ -38,10 +38,10 @@ class UIView(
         stage.addActor(createdSkills)
         stage.addActor(fps).also { fps.setPosition(10f ,2f) }
 
-        effectTemplates.setPosition(533f, 154f)
-        formTemplates.setPosition(268f, 154f)
-        skillTemplates.setPosition(3f, 154f)
-        createdSkills.setPosition(860f, 154f)
+        skillTemplates.setPosition(3f, 454f)
+        formTemplates.setPosition(3f, 282f)
+        effectTemplates.setPosition(3f, 49f)
+        createdSkills.setPosition(2000f, 0f)
     }
 
     fun render(deltaTime: Float) {
