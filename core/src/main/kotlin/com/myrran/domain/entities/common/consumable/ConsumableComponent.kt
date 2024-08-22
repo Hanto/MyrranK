@@ -22,4 +22,8 @@ class ConsumableComponent(
         currentDuration += Second.fromBox2DUnits(deltaTime)
         return IsConsumed(currentDuration >= maximumDuration)
     }
+
+    override fun remainingDuration(): Second =
+
+        maximumDuration - currentDuration
 }
