@@ -28,6 +28,10 @@ data class Second(
 
         Second(value + other.value)
 
+    operator fun minus(other: Second): Second =
+
+        Second(value - other.value)
+
     operator fun div(other: Second): Float =
 
         value / other.value
