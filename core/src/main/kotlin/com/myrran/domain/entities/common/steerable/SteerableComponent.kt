@@ -12,7 +12,7 @@ import com.myrran.domain.misc.metrics.Pixel
 class SteerableComponent(
 
     private val corporeal: CorporealComponent,
-    private var isFacingAutomatic: Boolean = false
+    private var isFacingBasedOnSteering: Boolean = false
 
 ): Steerable, Corporeal by corporeal, Disposable
 {
@@ -63,7 +63,7 @@ class SteerableComponent(
             corporeal.applyForceToCenter(steering.linear) // Box2D internally scales the force by deltaTime
         }
 
-        when (isFacingAutomatic) {
+        when (isFacingBasedOnSteering) {
 
             true -> orientationBasedOnSteering(steering)
             false -> orientationBasedOnCurrentDirection()
