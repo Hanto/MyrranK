@@ -67,14 +67,14 @@ class EnemyView(
 
     private fun setWalkingAnimation() {
 
-        val orientation = Radian(model.orientation).toDegrees()
+        val orientation = Radian(model.orientation).toDegrees().normalize()
         val animation = when {
 
+            Degree(45f) < orientation && orientation < Degree(135f) -> EnemyAnimation.WALK_NORTH
             Degree(225f) < orientation && orientation < Degree(315f) -> EnemyAnimation.WALK_SOUTH
             Degree(135f) < orientation && orientation < Degree(225f) -> EnemyAnimation.WALK_WEST
             Degree(0f) <= orientation && orientation < Degree(45f)  ||
-                Degree(0f) < orientation && orientation >= Degree(-45f) -> EnemyAnimation.WALK_EAST
-            Degree(45f) < orientation && orientation < Degree(135f) -> EnemyAnimation.WALK_NORTH
+                Degree(0f) > orientation && orientation >= Degree(-45f) -> EnemyAnimation.WALK_EAST
             else -> EnemyAnimation.WALK_EAST
         }
 

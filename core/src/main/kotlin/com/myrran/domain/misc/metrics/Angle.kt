@@ -4,17 +4,17 @@ interface Angle
 
 class Degree(
 
-    value:Float
+    val value: Float
 
 ): Angle
 {
-    private val value: Float =
-
-        ( value + 360 ) % 360
-
     fun toFloat(): Float =
 
         value
+
+    fun normalize(): Degree =
+
+        Degree( (value + 360) % 360 )
 
     fun toRadians(): Radian =
 
@@ -49,7 +49,11 @@ data class Radian(
 {
     fun toFloat(): Float =
 
-        value % 6.283185f
+        value
+
+    fun normalize(): Radian =
+
+        Radian( value % 6.283185f)
 
     fun toDegrees(): Degree =
 
