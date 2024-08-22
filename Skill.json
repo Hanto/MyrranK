@@ -32,7 +32,7 @@
     "id" : "COOLDOWN",
     "name" : "cooldown",
     "baseBonus" : 100.0,
-    "actual" : 22,
+    "actual" : 0,
     "maximum" : 50,
     "upgradeCost" : 2.0,
     "bonusPerUpgrade" : -1.5
@@ -50,7 +50,7 @@
     "name" : "Impact",
     "lock" : [ "A", "B", "C", "D" ],
     "content" : {
-      "id" : "e1b75521-3694-4076-859d-beebbe4fa7e8",
+      "id" : "c56f6de4-5320-44b5-8ef9-32600d364831",
       "templateId" : "CIRCLE_1",
       "type" : "CIRCLE",
       "name" : "Circle",
@@ -67,7 +67,7 @@
         "id" : "EXPIRATION",
         "name" : "expiration",
         "baseBonus" : 0.0,
-        "actual" : 1,
+        "actual" : 0,
         "maximum" : 50,
         "upgradeCost" : 1.0,
         "bonusPerUpgrade" : 0.3
@@ -77,7 +77,7 @@
         "name" : "Debuff 1",
         "lock" : [ "c", "d" ],
         "content" : {
-          "id" : "2bef3dd5-969a-458b-859a-61ecc568f833",
+          "id" : "cdb54d22-aeae-44f7-a16e-2e22712450b2",
           "templateId" : "DAMAGE_1",
           "type" : "DAMAGE",
           "name" : "Damage",

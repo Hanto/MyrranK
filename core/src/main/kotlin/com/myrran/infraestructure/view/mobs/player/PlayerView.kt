@@ -12,6 +12,7 @@ import com.myrran.domain.entities.mob.player.StateTacticalCasting
 import com.myrran.domain.misc.Identifiable
 import com.myrran.domain.misc.metrics.PositionMeters
 import com.myrran.infraestructure.view.mobs.common.CastingBar
+import com.myrran.infraestructure.view.mobs.common.HealthBar
 import com.myrran.infraestructure.view.mobs.common.MobView
 import com.myrran.infraestructure.view.mobs.common.SpriteAnimated
 import com.myrran.infraestructure.view.mobs.common.SpriteStatic
@@ -22,6 +23,7 @@ class PlayerView(
     private val sprite: SpriteAnimated<PlayerAnimation>,
     private val shadow: SpriteStatic,
     private val castingBar: CastingBar,
+    private val healthBar: HealthBar,
     private val light: PointLight,
 
 ): Group(), MobView, Identifiable<EntityId>, Disposable
@@ -36,10 +38,12 @@ class PlayerView(
         addActor(shadow)
         addActor(sprite)
         addActor(castingBar)
+        addActor(healthBar)
         setSize(sprite.width, sprite.height)
         setOrigin(sprite.width/2, sprite.height/2)
         shadow.moveBy(0f, -5f)
         castingBar.moveBy(-2f, 36f)
+        healthBar.moveBy(-2f, 40f)
     }
 
     // MAIN:
@@ -62,6 +66,7 @@ class PlayerView(
         }
 
         castingBar.update()
+        healthBar.update()
         super.act(deltaTime)
     }
 

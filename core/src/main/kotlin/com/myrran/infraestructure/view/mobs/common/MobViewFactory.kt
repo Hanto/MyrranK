@@ -5,6 +5,7 @@ import box2dLight.PointLight
 import box2dLight.RayHandler
 import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.graphics.g2d.Animation
+import com.badlogic.gdx.graphics.g2d.Sprite
 import com.badlogic.gdx.physics.box2d.Filter
 import com.myrran.domain.entities.common.corporeal.Box2dFilters.Companion.ENEMY
 import com.myrran.domain.entities.common.corporeal.Box2dFilters.Companion.LIGHT_PLAYER
@@ -77,8 +78,9 @@ class MobViewFactory(
         model.steerable.attachLight(light)
 
         val castingBar = CastingBar(model, playerAssets.nameplateForeground, playerAssets.nameplateBackground)
+        val healthBar = HealthBar(model, Sprite(playerAssets.nameplateForeground), playerAssets.nameplateBackground)
 
-        return PlayerView(model, characterSprite, shadow, castingBar, light)
+        return PlayerView(model, characterSprite, shadow, castingBar, healthBar, light)
     }
 
     // ENEMY:
@@ -100,7 +102,7 @@ class MobViewFactory(
             .also { it.categoryBits = LIGHT_PLAYER }
             .also { it.maskBits = WALLS}
 
-        val lineOfSightLight = ConeLight(rayHandler, 300, Color(0.75f, 0.75f, 0.5f, 0.15f), 10f, 0f, 0f, 0f, 22.5f)
+        val lineOfSightLight = ConeLight(rayHandler, 300, Color(0.75f, 0.75f, 0.5f, 0.1f), 10f, 0f, 0f, 0f, 22.5f)
             .also { it.setContactFilter(filter) }
             //.also { it.isSoft = true }
             //.also { it.setSoftnessLength(10f) }

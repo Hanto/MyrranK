@@ -11,6 +11,9 @@ data class HP(
     operator fun minus(other: HP) =
         HP(value - other.value)
 
+    operator fun div(other: HP): Float =
+        value / other.value
+
     fun atMin(min: HP) =
         HP(value.coerceAtLeast(min.value))
 
