@@ -29,6 +29,9 @@ class CastingBar(
         alpha = 0f
     }
 
+    // MAIN:
+    //--------------------------------------------------------------------------------------------------------
+
     private var state = State.NOT_CASTING
     private var margin = 0
     private var blackBarMaxSize = width - margin*2
@@ -45,9 +48,7 @@ class CastingBar(
                 addAction(Actions.fadeIn(0.3f, Interpolation.circleOut))
                 state = State.CASTING
             }
-
-            blackBarSize = blackBarMaxSize * (1 - caster.getCastingInfo().percentage)
-            blackBarX = blackBarMaxSize - blackBarSize
+            updateBar()
         }
         else
         {
@@ -57,11 +58,19 @@ class CastingBar(
                 addAction(Actions.fadeOut(1f, Interpolation.circleOut))
                 state = State.NOT_CASTING
 
-                blackBarSize = blackBarMaxSize
-                blackBarX = blackBarMaxSize - blackBarSize
+                updateBar()
             }
         }
     }
+
+    private fun updateBar() {
+
+        blackBarSize = blackBarMaxSize * (1 - caster.getCastingInfo().percentage)
+        blackBarX = blackBarMaxSize - blackBarSize
+    }
+
+    // DRAW:
+    //--------------------------------------------------------------------------------------------------------
 
     override fun draw(batch: Batch, parentAlpha: Float) {
 

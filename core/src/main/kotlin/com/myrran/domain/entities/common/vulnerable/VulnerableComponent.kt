@@ -1,5 +1,7 @@
 package com.myrran.domain.entities.common.vulnerable
 
+import kotlin.math.max
+
 data class VulnerableComponent(
 
     private var actualHPs: HP,
@@ -12,16 +14,23 @@ data class VulnerableComponent(
     private var damageReceived: MutableList<Damage> = mutableListOf()
 
     override fun getHPs(): HP =
+
         actualHPs
 
     override fun getMaxHps(): HP =
+
         maxHPs
+
+    override fun isDamaged(): Boolean =
+
+        actualHPs < maxHPs
 
     override fun reduceHps(hps: HP) {
 
         actualHPs = (actualHPs - hps).atMin(HP(0f)) }
 
     override fun increaseHps(hps: HP) {
+
         actualHPs = (actualHPs + hps).atMax(maxHPs) }
 
     // RAW DAMAGE:

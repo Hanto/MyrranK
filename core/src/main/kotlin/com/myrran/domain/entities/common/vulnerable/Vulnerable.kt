@@ -4,6 +4,7 @@ interface Vulnerable {
 
     fun getHPs(): HP
     fun getMaxHps(): HP
+    fun isDamaged(): Boolean
 
     fun increaseHps(hps: HP)
     fun reduceHps(hps: HP)
