@@ -85,7 +85,7 @@
             "id" : "DIRECT_DAMAGE",
             "name" : "direct damage",
             "baseBonus" : 10.0,
-            "actual" : 0,
+            "actual" : 6,
             "maximum" : 50,
             "upgradeCost" : 4.0,
             "bonusPerUpgrade" : 5.0

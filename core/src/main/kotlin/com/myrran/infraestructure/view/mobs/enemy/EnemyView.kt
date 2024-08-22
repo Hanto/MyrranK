@@ -10,6 +10,7 @@ import com.myrran.domain.misc.Identifiable
 import com.myrran.domain.misc.metrics.Degree
 import com.myrran.domain.misc.metrics.PositionMeters
 import com.myrran.domain.misc.metrics.Radian
+import com.myrran.infraestructure.view.mobs.common.HealthBar
 import com.myrran.infraestructure.view.mobs.common.MobView
 import com.myrran.infraestructure.view.mobs.common.SpriteAnimated
 import com.myrran.infraestructure.view.mobs.common.SpriteStatic
@@ -20,6 +21,7 @@ class EnemyView(
     private val model: Enemy,
     private val character: SpriteAnimated<EnemyAnimation>,
     private val shadow: SpriteStatic,
+    private val healthBar: HealthBar,
     private val lineOfSightLight: ConeLight,
 
 ): Group(), MobView, Identifiable<EntityId>, Disposable
@@ -33,9 +35,11 @@ class EnemyView(
 
         addActor(shadow)
         addActor(character)
+        addActor(healthBar)
         setSize(character.width, character.height)
         setOrigin(character.width/2, character.height/2)
         shadow.moveBy(0f, -5f)
+        healthBar.moveBy(-2f, 40f)
     }
 
     // MAIN:
@@ -53,6 +57,7 @@ class EnemyView(
         setWalkingAnimation()
 
         lineOfSightLight.direction = model.orientation
+        healthBar.update()
 
         super.act(deltaTime)
     }

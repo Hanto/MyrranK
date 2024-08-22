@@ -2,7 +2,6 @@ package com.myrran.infraestructure.view.mobs.common
 
 import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.graphics.g2d.Batch
-import com.badlogic.gdx.graphics.g2d.Sprite
 import com.badlogic.gdx.graphics.g2d.TextureRegion
 import com.badlogic.gdx.scenes.scene2d.Actor
 import com.myrran.domain.entities.common.vulnerable.Vulnerable
@@ -12,7 +11,7 @@ import ktx.actors.alpha
 class HealthBar(
 
     private val vulnerable: Vulnerable,
-    private val foreground: Sprite,
+    private val foreground: TextureRegion,
     private val background: TextureRegion,
 
 ): Actor()
@@ -39,7 +38,6 @@ class HealthBar(
         val percentage = vulnerable.getHPs() / vulnerable.getMaxHps()
         blackBarSize = blackBarMaxSize * (1 - percentage )
         blackBarX = blackBarMaxSize - blackBarSize
-
     }
 
     override fun draw(batch: Batch, parentAlpha: Float) {

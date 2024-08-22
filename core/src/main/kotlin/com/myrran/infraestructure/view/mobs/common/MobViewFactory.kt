@@ -5,7 +5,6 @@ import box2dLight.PointLight
 import box2dLight.RayHandler
 import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.graphics.g2d.Animation
-import com.badlogic.gdx.graphics.g2d.Sprite
 import com.badlogic.gdx.physics.box2d.Filter
 import com.myrran.domain.entities.common.corporeal.Box2dFilters.Companion.ENEMY
 import com.myrran.domain.entities.common.corporeal.Box2dFilters.Companion.LIGHT_PLAYER
@@ -78,7 +77,7 @@ class MobViewFactory(
         model.steerable.attachLight(light)
 
         val castingBar = CastingBar(model, playerAssets.nameplateForeground, playerAssets.nameplateBackground)
-        val healthBar = HealthBar(model, Sprite(playerAssets.nameplateForeground), playerAssets.nameplateBackground)
+        val healthBar = HealthBar(model, playerAssets.nameplateForeground, playerAssets.nameplateBackground)
 
         return PlayerView(model, characterSprite, shadow, castingBar, healthBar, light)
     }
@@ -110,7 +109,9 @@ class MobViewFactory(
 
         model.steerable.attachLight(lineOfSightLight)
 
-        return EnemyView(model, enemySprite, shadow, lineOfSightLight)
+        val healthBar = HealthBar(model, playerAssets.nameplateForeground, playerAssets.nameplateBackground)
+
+        return EnemyView(model, enemySprite, shadow, healthBar, lineOfSightLight)
     }
 
     // SPELLS:
