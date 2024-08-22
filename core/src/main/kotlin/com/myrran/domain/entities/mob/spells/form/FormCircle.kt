@@ -77,7 +77,7 @@ class FormCircle(
         formSkill.getEffectSkills().forEach { effectSkill ->
 
             val direction = collision.corporeal.position.minus(origin.toBox2dUnits()).nor()
-            val location = DamageLocation(collision.pointOfCollision, direction)
+            val location = DamageLocation.Location(collision.pointOfCollision, direction)
             effectApplier.applyEffects(effectSkill, collision.corporeal, location)
         }
     }

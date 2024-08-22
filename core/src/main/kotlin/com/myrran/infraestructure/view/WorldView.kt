@@ -82,7 +82,6 @@ class WorldView(
 
         spellViews.values.forEach { it.dispose() }
         enemyViews.values.forEach { it.dispose() }
-        playerView.dispose()
         stage.dispose()
         box2dDebug.dispose()
         rayHandler.dispose()
@@ -105,7 +104,6 @@ class WorldView(
 
     private fun updatePositionUsingInterpolation(fractionOfTimestep: Float) {
 
-        playerView.updatePosition(fractionOfTimestep)
         spellViews.values.forEach { it.updatePosition(fractionOfTimestep) }
         enemyViews.values.forEach { it.updatePosition(fractionOfTimestep) }
     }

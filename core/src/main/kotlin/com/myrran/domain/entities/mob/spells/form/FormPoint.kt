@@ -75,7 +75,7 @@ class FormPoint(
 
         formSkill.getEffectSkills().forEach { effectSkill ->
 
-            val location = DamageLocation(collision.pointOfCollision, direction)
+            val location = DamageLocation.Location(collision.pointOfCollision, direction)
             effectApplier.applyEffects(effectSkill, collision.corporeal, location)
         }
     }
