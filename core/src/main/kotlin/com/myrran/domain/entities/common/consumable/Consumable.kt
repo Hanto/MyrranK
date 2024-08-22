@@ -4,6 +4,7 @@ import com.myrran.domain.misc.metrics.Second
 
 interface Consumable {
 
+    fun remainingDuration(): Second
     fun updateDuration(deltaTime: Float): IsConsumed
     fun willExpireIn(seconds: Second)
 
