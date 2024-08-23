@@ -1,9 +1,8 @@
 package com.myrran.domain.entities.common.effectapplier
 
-import com.myrran.domain.entities.common.corporeal.Corporeal
+import com.myrran.domain.entities.common.collisioner.Collision
 import com.myrran.domain.entities.common.effectable.Effectable
 import com.myrran.domain.entities.common.vulnerable.Damage
-import com.myrran.domain.entities.common.vulnerable.DamageLocation
 import com.myrran.domain.entities.common.vulnerable.DamageType
 import com.myrran.domain.entities.common.vulnerable.HP
 import com.myrran.domain.entities.common.vulnerable.Vulnerable
@@ -15,32 +14,32 @@ class EffectApplierComponent: EffectApplier {
     // EFFECT APPLYING
     //--------------------------------------------------------------------------------------------------------
 
-    override fun applyEffects(effectSkill: EffectSkill, target: Corporeal, location: DamageLocation) {
+    override fun applyEffects(effectSkill: EffectSkill, collision: Collision) {
 
-        applyDirectDamage(effectSkill, target, location)
-        applyEffect(effectSkill, target)
+        applyDirectDamage(effectSkill, collision)
+        applyEffect(effectSkill, collision)
     }
 
-    private fun applyEffect(effectSkill: EffectSkill, target: Corporeal) {
+    private fun applyDirectDamage(effectSkill: EffectSkill, collision: Collision) {
 
-        if (target is Effectable) {
-
-            val effect = effectSkill.type.build(effectSkill)
-            target.addEffect(effect)
-        }
-    }
-
-    private fun applyDirectDamage(effectSkill: EffectSkill, target: Corporeal, location: DamageLocation) {
-
-        if (target is Vulnerable) {
+        if (collision.corporeal is Vulnerable) {
 
             effectSkill.getStat(DIRECT_DAMAGE)?.let {
 
                 val amount = HP (it.totalBonus().value)
-                val damage = Damage(amount, DamageType.FIRE, location)
+                val damage = Damage(amount, DamageType.FIRE, collision)
 
-                target.receiveDamage(damage)
+                collision.corporeal.receiveDamage(damage)
             }
+        }
+    }
+
+    private fun applyEffect(effectSkill: EffectSkill, collision: Collision) {
+
+        if (collision.corporeal is Effectable) {
+
+            val effect = effectSkill.type.build(effectSkill)
+            collision.corporeal.addEffect(effect)
         }
     }
 }

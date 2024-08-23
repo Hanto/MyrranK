@@ -28,13 +28,4 @@ class CollisionerComponent: Collisioner
     override fun hasCollidedAWall(): Boolean =
 
         collidedWith.any { it.corporeal is Wall }
-
-    // COLLISION:
-    //--------------------------------------------------------------------------------------------------------
-
-    data class Collision(
-        val corporeal: Corporeal,
-        val pointOfCollision: PositionMeters,
-        val direction: Vector2
-    )
 }

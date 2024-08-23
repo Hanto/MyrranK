@@ -80,7 +80,7 @@ class SpellBolt(
 
             // impact slot:
             skill.getFormSkill(IMPACT_SLOT)
-                ?.also { formCreator.createForm(it, this, steerable.linearVelocity.cpy()) }
+                ?.also { formCreator.createForm(it, this) }
 
             penetration--
             collisioner.removeCollisions()

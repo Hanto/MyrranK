@@ -6,7 +6,7 @@ import com.myrran.domain.entities.common.EntityId
 import com.myrran.domain.entities.common.Mob
 import com.myrran.domain.entities.common.collisioner.Collisioner
 import com.myrran.domain.entities.common.collisioner.CollisionerComponent
-import com.myrran.domain.entities.common.collisioner.CollisionerComponent.Collision
+import com.myrran.domain.entities.common.collisioner.Collision
 import com.myrran.domain.entities.common.consumable.Consumable
 import com.myrran.domain.entities.common.consumable.ConsumableComponent
 import com.myrran.domain.entities.common.corporeal.Corporeal
@@ -15,7 +15,6 @@ import com.myrran.domain.entities.common.corporeal.Spatial
 import com.myrran.domain.entities.common.effectapplier.EffectApplierComponent
 import com.myrran.domain.entities.common.steerable.Steerable
 import com.myrran.domain.entities.common.steerable.SteerableComponent
-import com.myrran.domain.entities.common.vulnerable.DamageLocation
 import com.myrran.domain.events.MobRemovedEvent
 import com.myrran.domain.misc.constants.SpellConstants.Companion.EXPIRATION
 import com.myrran.domain.misc.metrics.PositionMeters
@@ -74,7 +73,6 @@ class FormPoint(
 
     override fun addCollision(collisioned: Corporeal, pointOfCollision: PositionMeters) {
 
-        val direction = steerable.linearVelocity.cpy()
         collisioner.addCollision(collisioned, pointOfCollision, direction)
     }
 
@@ -82,8 +80,7 @@ class FormPoint(
 
         formSkill.getEffectSkills().forEach { effectSkill ->
 
-            val location = DamageLocation.Location(collision.pointOfCollision, direction)
-            effectApplier.applyEffects(effectSkill, collision.corporeal, location)
+            effectApplier.applyEffects(effectSkill, collision)
         }
     }
 }

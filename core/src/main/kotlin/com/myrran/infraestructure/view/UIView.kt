@@ -41,7 +41,7 @@ class UIView(
         skillTemplates.setPosition(3f, 454f)
         formTemplates.setPosition(3f, 282f)
         effectTemplates.setPosition(3f, 49f)
-        createdSkills.setPosition(2000f, 0f)
+        createdSkills.setPosition(1500f, 0f)
     }
 
     fun render(deltaTime: Float) {
