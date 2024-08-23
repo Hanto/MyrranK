@@ -1,18 +1,9 @@
 package com.myrran.domain.entities.common.formcreator
 
-import com.badlogic.gdx.math.Vector2
-import com.myrran.domain.entities.common.collisioner.Collisionable
+import com.myrran.domain.entities.common.collisioner.Collisioner
 import com.myrran.domain.entities.common.corporeal.Corporeal
-import com.myrran.domain.entities.common.effectable.Effectable
-import com.myrran.domain.entities.common.vulnerable.Damage
-import com.myrran.domain.entities.common.vulnerable.DamageType
-import com.myrran.domain.entities.common.vulnerable.HP
-import com.myrran.domain.entities.common.vulnerable.Vulnerable
 import com.myrran.domain.events.FormSpellCastedEvent
-import com.myrran.domain.misc.constants.SpellConstants.Companion.DIRECT_DAMAGE
 import com.myrran.domain.misc.metrics.PositionMeters
-import com.myrran.domain.skills.created.effect.EffectSkill
-import com.myrran.domain.skills.created.form.CollisionType
 import com.myrran.domain.skills.created.form.CollisionType.*
 import com.myrran.domain.skills.created.form.FormSkill
 import com.myrran.infraestructure.eventbus.EventDispatcher
@@ -26,18 +17,18 @@ class FormCreatorComponent(
     // FORM CREATION:
     //--------------------------------------------------------------------------------------------------------
 
-    override fun createForm(skillForm: FormSkill, collisionable: Collisionable) {
+    override fun <T> createForm(skillForm: FormSkill, spell: T) where T: Corporeal, T: Collisioner {
 
         when (skillForm.collisionType) {
 
-            ON_EVERY_COLLISION_POINT -> createFormForEveryCollison(skillForm, collisionable)
-            ON_SINGLE_COLLISION_POINT -> createFormAtTheCenter(skillForm, collisionable)
+            ON_EVERY_COLLISION_POINT -> createFormForEveryCollison(skillForm, spell)
+            ON_SINGLE_COLLISION_POINT -> createFormAtTheCenter(skillForm, spell)
         }
     }
 
-    private fun createFormForEveryCollison(skillForm: FormSkill, collisionable: Collisionable) {
+    private fun createFormForEveryCollison(skillForm: FormSkill, spell: Collisioner) {
 
-        collisionable.retrieveCollisions().forEach {
+        spell.retrieveCollisions().forEach {
 
             eventDispatcher.sendEvent(
                 FormSpellCastedEvent(
@@ -48,13 +39,13 @@ class FormCreatorComponent(
         }
     }
 
-    private fun createFormAtTheCenter(skillForm: FormSkill, collisionable: Collisionable) {
+    private fun createFormAtTheCenter(skillForm: FormSkill, spell: Corporeal) {
 
         eventDispatcher.sendEvent(
             FormSpellCastedEvent(
             formSkill = skillForm,
-            origin = PositionMeters(collisionable.position.x, collisionable.position.y),
-            direction = collisionable.getLinearVelocity() )
+            origin = PositionMeters(spell.position.x, spell.position.y),
+            direction = spell.getLinearVelocity() )
         )
     }
 }

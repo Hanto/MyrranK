@@ -3,7 +3,6 @@ package com.myrran.domain.entities.mob.spells.spell
 import com.badlogic.gdx.utils.Disposable
 import com.myrran.domain.entities.common.EntityId
 import com.myrran.domain.entities.common.Mob
-import com.myrran.domain.entities.common.collisioner.Collisionable
 import com.myrran.domain.entities.common.collisioner.Collisioner
 import com.myrran.domain.entities.common.collisioner.CollisionerComponent
 import com.myrran.domain.entities.common.consumable.Consumable
@@ -39,7 +38,7 @@ class SpellBolt(
     target: PositionMeters,
 
 ): Mob, Steerable by steerable, Spatial, Movable, Disposable,
-    Spell, Consumable by consumable, Collisioner by collisioner, Collisionable
+    Spell, Consumable by consumable, Collisioner by collisioner
 {
     private var penetration = 1
 
