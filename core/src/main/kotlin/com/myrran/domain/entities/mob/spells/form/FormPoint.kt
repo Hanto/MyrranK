@@ -9,6 +9,7 @@ import com.myrran.domain.entities.common.collisioner.CollisionerComponent
 import com.myrran.domain.entities.common.collisioner.CollisionerComponent.Collision
 import com.myrran.domain.entities.common.consumable.Consumable
 import com.myrran.domain.entities.common.consumable.ConsumableComponent
+import com.myrran.domain.entities.common.corporeal.Corporeal
 import com.myrran.domain.entities.common.corporeal.Movable
 import com.myrran.domain.entities.common.corporeal.Spatial
 import com.myrran.domain.entities.common.effectapplier.EffectApplierComponent
@@ -70,6 +71,12 @@ class FormPoint(
     override fun dispose() =
 
         steerable.dispose()
+
+    override fun addCollision(collisioned: Corporeal, pointOfCollision: PositionMeters) {
+
+        val direction = steerable.linearVelocity.cpy()
+        collisioner.addCollision(collisioned, pointOfCollision, direction)
+    }
 
     private fun applyEffects(collision: Collision) {
 

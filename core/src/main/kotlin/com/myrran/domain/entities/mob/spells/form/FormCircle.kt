@@ -9,6 +9,7 @@ import com.myrran.domain.entities.common.collisioner.CollisionerComponent
 import com.myrran.domain.entities.common.collisioner.CollisionerComponent.Collision
 import com.myrran.domain.entities.common.consumable.Consumable
 import com.myrran.domain.entities.common.consumable.ConsumableComponent
+import com.myrran.domain.entities.common.corporeal.Corporeal
 import com.myrran.domain.entities.common.corporeal.Movable
 import com.myrran.domain.entities.common.corporeal.Spatial
 import com.myrran.domain.entities.common.effectapplier.EffectApplierComponent
@@ -74,12 +75,17 @@ class FormCircle(
 
         steerable.dispose()
 
+    override fun addCollision(collisioned: Corporeal, pointOfCollision: PositionMeters)
+    {
+        val direction = collisioned.position.minus(origin.toBox2dUnits()).nor()
+        collisioner.addCollision(collisioned, pointOfCollision, direction)
+    }
+
     private fun applyEffects(collision: Collision) {
 
         formSkill.getEffectSkills().forEach { effectSkill ->
 
-            val direction = collision.corporeal.position.minus(origin.toBox2dUnits()).nor()
-            val location = DamageLocation.Location(collision.pointOfCollision, direction)
+            val location = DamageLocation.Location(collision.pointOfCollision, collision.direction)
             effectApplier.applyEffects(effectSkill, collision.corporeal, location)
         }
     }

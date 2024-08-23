@@ -3,15 +3,17 @@ package com.myrran.domain.entities.mob.spells.spell
 import com.badlogic.gdx.utils.Disposable
 import com.myrran.domain.entities.common.EntityId
 import com.myrran.domain.entities.common.Mob
+import com.myrran.domain.entities.common.collisioner.Collisionable
 import com.myrran.domain.entities.common.collisioner.Collisioner
 import com.myrran.domain.entities.common.collisioner.CollisionerComponent
 import com.myrran.domain.entities.common.consumable.Consumable
 import com.myrran.domain.entities.common.consumable.ConsumableComponent
+import com.myrran.domain.entities.common.corporeal.Corporeal
 import com.myrran.domain.entities.common.corporeal.Movable
 import com.myrran.domain.entities.common.corporeal.Spatial
+import com.myrran.domain.entities.common.formcreator.FormCreatorComponent
 import com.myrran.domain.entities.common.steerable.Steerable
 import com.myrran.domain.entities.common.steerable.SteerableComponent
-import com.myrran.domain.events.FormSpellCastedEvent
 import com.myrran.domain.events.MobRemovedEvent
 import com.myrran.domain.misc.constants.SpellConstants.Companion.EXPIRATION
 import com.myrran.domain.misc.constants.SpellConstants.Companion.IMPACT_SLOT
@@ -19,8 +21,6 @@ import com.myrran.domain.misc.constants.SpellConstants.Companion.PENETRATION
 import com.myrran.domain.misc.constants.SpellConstants.Companion.SPEED
 import com.myrran.domain.misc.metrics.PositionMeters
 import com.myrran.domain.misc.metrics.Second
-import com.myrran.domain.skills.created.form.CollisionType
-import com.myrran.domain.skills.created.form.FormSkill
 import com.myrran.domain.skills.created.skill.Skill
 import com.myrran.infraestructure.eventbus.EventDispatcher
 import ktx.math.minus
@@ -33,12 +33,13 @@ class SpellBolt(
 
     private val consumable: ConsumableComponent,
     private val collisioner: CollisionerComponent,
+    private val formCreator: FormCreatorComponent,
     val skill: Skill,
     origin: PositionMeters,
     target: PositionMeters,
 
 ): Mob, Steerable by steerable, Spatial, Movable, Disposable,
-    Spell, Consumable by consumable, Collisioner by collisioner
+    Spell, Consumable by consumable, Collisioner by collisioner, Collisionable
 {
     private var penetration = 1
 
@@ -78,7 +79,8 @@ class SpellBolt(
         if (penetration > 0 && collisioner.hasCollisions()) {
 
             // impact slot:
-            skill.getFormSkill(IMPACT_SLOT)?.also { createForm(it) }
+            skill.getFormSkill(IMPACT_SLOT)
+                ?.also { formCreator.createForm(it, this, steerable.linearVelocity.cpy()) }
 
             penetration--
             collisioner.removeCollisions()
@@ -89,34 +91,9 @@ class SpellBolt(
 
         steerable.dispose()
 
-    // FORM CREATION:
-    //--------------------------------------------------------------------------------------------------------
-
-    private fun createForm(skillForm: FormSkill) {
-
-        when (skillForm.collisionType) {
-
-            CollisionType.ON_EVERY_COLLISION_POINT -> createFormForEveryCollison(skillForm)
-            CollisionType.ON_SINGLE_COLLISION_POINT -> createFormAtTheCenter(skillForm)
-        }
-    }
-
-    private fun createFormForEveryCollison(skillForm: FormSkill) {
-
-        collisioner.retrieveCollisions().forEach {
-
-            eventDispatcher.sendEvent(FormSpellCastedEvent(
-                formSkill = skillForm,
-                origin = PositionMeters(it.pointOfCollision.x, it.pointOfCollision.y),
-                direction = steerable.linearVelocity.cpy().nor() ))
-        }
-    }
-
-    private fun createFormAtTheCenter(skillForm: FormSkill) {
-
-        eventDispatcher.sendEvent(FormSpellCastedEvent(
-            formSkill = skillForm,
-            origin = PositionMeters(position.x, position.y),
-            direction = steerable.linearVelocity.cpy().nor() ))
+    override fun addCollision(collisioned: Corporeal, pointOfCollision: PositionMeters)
+    {
+        val direction = steerable.linearVelocity.cpy()
+        collisioner.addCollision(collisioned, pointOfCollision, direction)
     }
 }

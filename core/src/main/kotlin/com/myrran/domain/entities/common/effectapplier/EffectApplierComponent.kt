@@ -10,8 +10,11 @@ import com.myrran.domain.entities.common.vulnerable.Vulnerable
 import com.myrran.domain.misc.constants.SpellConstants.Companion.DIRECT_DAMAGE
 import com.myrran.domain.skills.created.effect.EffectSkill
 
-class EffectApplierComponent: EffectApplier
-{
+class EffectApplierComponent: EffectApplier {
+
+    // EFFECT APPLYING
+    //--------------------------------------------------------------------------------------------------------
+
     override fun applyEffects(effectSkill: EffectSkill, target: Corporeal, location: DamageLocation) {
 
         applyDirectDamage(effectSkill, target, location)
