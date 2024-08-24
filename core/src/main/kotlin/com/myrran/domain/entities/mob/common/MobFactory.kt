@@ -8,8 +8,8 @@ import com.myrran.domain.entities.common.consumable.ConsumableComponent
 import com.myrran.domain.entities.common.corporeal.BodyFactory
 import com.myrran.domain.entities.common.corporeal.CorporealComponent
 import com.myrran.domain.entities.common.corporeal.MovementLimiter
-import com.myrran.domain.entities.common.effectapplier.EffectApplierComponent
-import com.myrran.domain.entities.common.formcreator.FormCreatorComponent
+import com.myrran.domain.entities.mob.spells.form.effectapplier.EffectApplierComponent
+import com.myrran.domain.entities.mob.spells.spell.formcreator.FormCreatorComponent
 import com.myrran.domain.entities.common.proximityaware.ProximityAwareComponent
 import com.myrran.domain.entities.common.steerable.SteerableComponent
 import com.myrran.domain.entities.common.vulnerable.VulnerableComponent

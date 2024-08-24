@@ -1,5 +1,6 @@
 package com.myrran.domain.entities.common.effectable
 
+import com.myrran.domain.entities.common.tickable.Tick
 import com.myrran.domain.misc.metrics.Second
 import org.junit.jupiter.api.Test
 

@@ -12,7 +12,7 @@ import com.myrran.domain.entities.common.consumable.ConsumableComponent
 import com.myrran.domain.entities.common.corporeal.Corporeal
 import com.myrran.domain.entities.common.corporeal.Movable
 import com.myrran.domain.entities.common.corporeal.Spatial
-import com.myrran.domain.entities.common.effectapplier.EffectApplierComponent
+import com.myrran.domain.entities.mob.spells.form.effectapplier.EffectApplierComponent
 import com.myrran.domain.entities.common.steerable.Steerable
 import com.myrran.domain.entities.common.steerable.SteerableComponent
 import com.myrran.domain.events.MobRemovedEvent

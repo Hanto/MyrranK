@@ -1,4 +1,4 @@
-package com.myrran.domain.entities.common.effectapplier
+package com.myrran.domain.entities.mob.spells.form.effectapplier
 
 import com.myrran.domain.entities.common.collisioner.Collision
 import com.myrran.domain.skills.created.effect.EffectSkill

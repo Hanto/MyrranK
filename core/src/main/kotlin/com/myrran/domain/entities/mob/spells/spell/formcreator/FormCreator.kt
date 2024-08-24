@@ -1,4 +1,4 @@
-package com.myrran.domain.entities.common.formcreator
+package com.myrran.domain.entities.mob.spells.spell.formcreator
 
 import com.myrran.domain.entities.common.collisioner.Collisioner
 import com.myrran.domain.entities.common.corporeal.Corporeal

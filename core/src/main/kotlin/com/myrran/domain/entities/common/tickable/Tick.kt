@@ -1,4 +1,4 @@
-package com.myrran.domain.entities.common.effectable
+package com.myrran.domain.entities.common.tickable
 
 import com.myrran.domain.misc.metrics.Second
 

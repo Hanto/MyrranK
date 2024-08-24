@@ -10,7 +10,7 @@ import com.myrran.domain.entities.common.consumable.ConsumableComponent
 import com.myrran.domain.entities.common.corporeal.Corporeal
 import com.myrran.domain.entities.common.corporeal.Movable
 import com.myrran.domain.entities.common.corporeal.Spatial
-import com.myrran.domain.entities.common.formcreator.FormCreatorComponent
+import com.myrran.domain.entities.mob.spells.spell.formcreator.FormCreatorComponent
 import com.myrran.domain.entities.common.steerable.Steerable
 import com.myrran.domain.entities.common.steerable.SteerableComponent
 import com.myrran.domain.events.MobRemovedEvent
