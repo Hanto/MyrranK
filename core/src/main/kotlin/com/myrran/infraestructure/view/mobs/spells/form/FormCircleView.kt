@@ -9,7 +9,7 @@ import com.myrran.domain.entities.common.EntityId
 import com.myrran.domain.entities.mob.spells.form.FormCircle
 import com.myrran.domain.misc.Identifiable
 import com.myrran.domain.misc.metrics.PositionMeters
-import com.myrran.domain.misc.metrics.Second
+import com.myrran.domain.misc.metrics.time.Second
 import com.myrran.infraestructure.view.mobs.common.MobView
 import com.myrran.infraestructure.view.mobs.common.SpellView
 import com.myrran.infraestructure.view.mobs.common.SpriteAnimated

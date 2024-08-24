@@ -19,7 +19,7 @@ import com.myrran.domain.events.MobRemovedEvent
 import com.myrran.domain.misc.constants.SpellConstants.Companion.EXPIRATION
 import com.myrran.domain.misc.metrics.Meter
 import com.myrran.domain.misc.metrics.PositionMeters
-import com.myrran.domain.misc.metrics.Second
+import com.myrran.domain.misc.metrics.time.Second
 import com.myrran.domain.skills.created.form.FormSkill
 import com.myrran.infraestructure.eventbus.EventDispatcher
 import ktx.math.minus
@@ -60,7 +60,7 @@ class FormCircle(
 
     override fun act(deltaTime: Float) {
 
-        if (consumable.updateDuration(deltaTime).isConsumed)
+        if (consumable.updateDuration(Second.fromBox2DUnits(deltaTime)).isConsumed)
             eventDispatcher.sendEvent(MobRemovedEvent(this))
 
         if (collisioner.hasCollisions()) {

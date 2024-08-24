@@ -1,7 +1,7 @@
 package com.myrran.domain.entities.common.caster
 
 import com.myrran.domain.misc.metrics.PositionMeters
-import com.myrran.domain.misc.metrics.Second
+import com.myrran.domain.misc.metrics.time.Second
 import com.myrran.domain.skills.created.skill.Skill
 
 class CasterComponent(

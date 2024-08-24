@@ -1,8 +1,7 @@
 package com.myrran.domain.entities.common.effectable
 
-import com.myrran.domain.misc.metrics.Second
-import com.myrran.domain.misc.metrics.Tick
-import org.assertj.core.api.Assertions
+import com.myrran.domain.misc.metrics.time.Second
+import com.myrran.domain.misc.metrics.time.Tick
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 

@@ -24,7 +24,7 @@
     "id" : "SIZE",
     "name" : "size",
     "baseBonus" : 100.0,
-    "actual" : 27,
+    "actual" : 12,
     "maximum" : 50,
     "upgradeCost" : 1.0,
     "bonusPerUpgrade" : 4.0
@@ -59,7 +59,7 @@
         "id" : "RADIUS",
         "name" : "radius",
         "baseBonus" : 100.0,
-        "actual" : 50,
+        "actual" : 8,
         "maximum" : 50,
         "upgradeCost" : 1.0,
         "bonusPerUpgrade" : 4.0
@@ -67,7 +67,7 @@
         "id" : "EXPIRATION",
         "name" : "expiration",
         "baseBonus" : 0.0,
-        "actual" : 1,
+        "actual" : 2,
         "maximum" : 50,
         "upgradeCost" : 1.0,
         "bonusPerUpgrade" : 0.3

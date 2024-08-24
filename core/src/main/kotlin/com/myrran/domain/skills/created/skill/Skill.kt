@@ -12,7 +12,7 @@ import com.myrran.domain.events.SkillRemovedEvent
 import com.myrran.domain.events.SkillStatUpgradedEvent
 import com.myrran.domain.misc.Identifiable
 import com.myrran.domain.misc.constants.SpellConstants.Companion.COOLDOWN
-import com.myrran.domain.misc.metrics.Second
+import com.myrran.domain.misc.metrics.time.Second
 import com.myrran.domain.misc.observer.JavaObservable
 import com.myrran.domain.misc.observer.Observable
 import com.myrran.domain.skills.created.effect.EffectSkill

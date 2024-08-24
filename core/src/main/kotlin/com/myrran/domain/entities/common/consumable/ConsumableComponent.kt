@@ -1,29 +1,33 @@
 package com.myrran.domain.entities.common.consumable
 
 import com.myrran.domain.entities.common.consumable.Consumable.IsConsumed
-import com.myrran.domain.misc.metrics.Second
+import com.myrran.domain.misc.metrics.time.Second
+import com.myrran.domain.misc.metrics.time.Time
 
 class ConsumableComponent(
 
-    private var maximumDuration: Second = Second(1)
+    private var currentDuration: Time = Second(0),
+    private var maximumDuration: Time = Second(0)
 
 ): Consumable
 {
-    private var currentDuration: Second = Second(0f)
+    override fun willExpireIn(time: Time) {
 
-    override fun willExpireIn(seconds: Second) {
-
-        currentDuration = Second(0)
-        maximumDuration = seconds
+        currentDuration = currentDuration.toZero()
+        maximumDuration = time
     }
 
-    override fun updateDuration(deltaTime: Float): IsConsumed {
+    override fun updateDuration(time: Time): IsConsumed {
 
-        currentDuration += Second.fromBox2DUnits(deltaTime)
+        currentDuration += time
         return IsConsumed(currentDuration >= maximumDuration)
     }
 
-    override fun remainingDuration(): Second =
+    override fun currentDuration(): Time =
+
+        currentDuration
+
+    override fun remainingDuration(): Time =
 
         maximumDuration - currentDuration
 }

@@ -19,7 +19,7 @@ import com.myrran.domain.misc.constants.SpellConstants.Companion.IMPACT_SLOT
 import com.myrran.domain.misc.constants.SpellConstants.Companion.PENETRATION
 import com.myrran.domain.misc.constants.SpellConstants.Companion.SPEED
 import com.myrran.domain.misc.metrics.PositionMeters
-import com.myrran.domain.misc.metrics.Second
+import com.myrran.domain.misc.metrics.time.Second
 import com.myrran.domain.skills.created.skill.Skill
 import com.myrran.infraestructure.eventbus.EventDispatcher
 import ktx.math.minus
@@ -69,7 +69,7 @@ class SpellBolt(
 
     override fun act(deltaTime: Float) {
 
-        if (consumable.updateDuration(deltaTime).isConsumed)
+        if (consumable.updateDuration(Second.fromBox2DUnits(deltaTime)).isConsumed)
             eventDispatcher.sendEvent(MobRemovedEvent(this))
 
         if (penetration <= 0 || collisioner.hasCollidedAWall())
