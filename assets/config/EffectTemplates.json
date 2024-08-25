@@ -5,7 +5,7 @@
         "name": "Dot",
         "stats": [
             {
-                "id": "DAMAGE",
+                "id": "DAMAGE_PER_TICK",
                 "name": "damage per tick",
                 "baseBonus": 10.0,
                 "maximum": 50,
@@ -13,8 +13,8 @@
                 "bonusPerUpgrade": 1.0
             },
             {
-                "id": "DURATION",
-                "name": "duration",
+                "id": "EXPIRATION",
+                "name": "expiration",
                 "baseBonus": 10.0,
                 "maximum": 50,
                 "upgradeCost": 2.0,
