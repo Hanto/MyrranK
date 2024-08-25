@@ -2,6 +2,7 @@ package com.myrran.domain.entities.mob.spells.form
 
 import com.badlogic.gdx.math.Vector2
 import com.badlogic.gdx.utils.Disposable
+import com.myrran.domain.entities.common.Entity
 import com.myrran.domain.entities.common.EntityId
 import com.myrran.domain.entities.common.Mob
 import com.myrran.domain.entities.common.collisioner.Collisioner
@@ -25,6 +26,7 @@ import com.myrran.infraestructure.eventbus.EventDispatcher
 class FormPoint(
 
     override val id: EntityId,
+    override val caster: Entity,
     override val steerable: SteerableComponent,
     private val eventDispatcher: EventDispatcher,
 
@@ -35,8 +37,8 @@ class FormPoint(
     private val origin: PositionMeters,
     private val direction: Vector2,
 
-    ): Mob, Steerable by steerable, Spatial, Movable, Disposable,
-        Form, Consumable by consumable, Collisioner by collisioner
+): Mob, Steerable by steerable, Spatial, Movable, Disposable,
+    Form, Consumable by consumable, Collisioner by collisioner
 {
     // INIT:
     //--------------------------------------------------------------------------------------------------------
@@ -80,7 +82,7 @@ class FormPoint(
 
         formSkill.getEffectSkills().forEach { effectSkill ->
 
-            effectApplier.applyEffects(id, effectSkill, collision)
+            effectApplier.applyEffects(caster, effectSkill, collision)
         }
     }
 }
