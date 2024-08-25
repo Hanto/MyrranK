@@ -69,4 +69,16 @@ data class Tick(
     fun compareTo(other: Tick): Int =
 
         value.compareTo(other.value)
+
+    override fun isZero(): Boolean =
+
+        value == 0f
+
+    override fun min(other: Time): Time =
+
+        Tick( value.coerceAtLeast(other.toTicks().value) )
+
+    override fun max(other: Time): Time =
+
+        Tick( value.coerceAtMost(other.toTicks().value) )
 }

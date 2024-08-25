@@ -65,7 +65,15 @@ data class Second(
 
         value / other.value
 
-    fun isZero(): Boolean =
+    override fun isZero(): Boolean =
 
         value == 0f
+
+    override fun min(other: Time): Time =
+
+        Second( value.coerceAtLeast(other.toSeconds().value) )
+
+    override fun max(other: Time): Time =
+
+        Second( value.coerceAtMost(other.toSeconds().value) )
 }
