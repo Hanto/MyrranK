@@ -173,7 +173,9 @@ class Main : KtxGame<KtxScreen>() {
             spellBolt = assetStorage.getTextureRegion("Atlas.atlas", "AnimacionesSpells/SpellBalls_01n"),
             formCircle = assetStorage.getTextureRegion("Atlas.atlas", "AnimacionesSpells/SpellBalls_01n"),
             formPoint = assetStorage.getTextureRegion("Atlas.atlas", "AnimacionesSpells/SpellBalls_01n"))
-        val sctAssets = ScrollingCombatTextAssets(assetStorage.getFont("20.fnt"))
+        val sctAssets = ScrollingCombatTextAssets(
+            fontDirectDamage = assetStorage.getFont("20.fnt"),
+            fontEffectDamage = assetStorage.getFont("14.fnt"))
         val mobViewFactory = MobViewFactory(
             playerAssets = playerAssets,
             enemyAssets = enemyAssets,
