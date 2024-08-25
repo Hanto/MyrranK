@@ -9,6 +9,7 @@ interface Consumable {
     fun remainingDuration(): Time
     fun updateDuration(time: Time): IsConsumed
     fun willExpireIn(time: Time)
+    fun hasStarted(): Boolean
     fun hasExpired(): Boolean
 
     data class IsConsumed(val isConsumed: Boolean)
