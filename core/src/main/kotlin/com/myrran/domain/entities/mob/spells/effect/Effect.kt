@@ -1,9 +1,11 @@
 package com.myrran.domain.entities.mob.spells.effect
 
 import com.myrran.domain.entities.common.Entity
+import com.myrran.domain.entities.common.EntityId
 
 interface Effect {
 
-    fun tickEffect(entity: Entity, deltaTime: Float)
+    val casterId: EntityId
+    fun tickEffect(entity: Entity)
 
 }

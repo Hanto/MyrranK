@@ -1,23 +1,29 @@
 package com.myrran.domain.entities.mob.spells.form.effectapplier
 
+import com.myrran.domain.entities.common.EntityId
 import com.myrran.domain.entities.common.collisioner.Collision
 import com.myrran.domain.entities.common.effectable.Effectable
 import com.myrran.domain.entities.common.vulnerable.Damage
 import com.myrran.domain.entities.common.vulnerable.DamageType
 import com.myrran.domain.entities.common.vulnerable.HP
 import com.myrran.domain.entities.common.vulnerable.Vulnerable
+import com.myrran.domain.entities.mob.spells.effect.EffectFactory
 import com.myrran.domain.misc.constants.SpellConstants.Companion.DIRECT_DAMAGE
 import com.myrran.domain.skills.created.effect.EffectSkill
 
-class EffectApplierComponent: EffectApplier {
+class EffectApplierComponent(
+
+    private val effectFactory: EffectFactory
+
+): EffectApplier {
 
     // EFFECT APPLYING
     //--------------------------------------------------------------------------------------------------------
 
-    override fun applyEffects(effectSkill: EffectSkill, collision: Collision) {
+    override fun applyEffects(casterId: EntityId, effectSkill: EffectSkill, collision: Collision) {
 
         applyDirectDamage(effectSkill, collision)
-        applyEffect(effectSkill, collision)
+        applyEffect(casterId, effectSkill, collision)
     }
 
     private fun applyDirectDamage(effectSkill: EffectSkill, collision: Collision) {
@@ -34,11 +40,11 @@ class EffectApplierComponent: EffectApplier {
         }
     }
 
-    private fun applyEffect(effectSkill: EffectSkill, collision: Collision) {
+    private fun applyEffect(casterId: EntityId, effectSkill: EffectSkill, collision: Collision) {
 
         if (collision.corporeal is Effectable) {
 
-            val effect = effectSkill.type.build(effectSkill)
+            val effect = effectFactory.createEffect(casterId, effectSkill)
             collision.corporeal.addEffect(effect)
         }
     }

@@ -84,7 +84,7 @@ class FormCircle(
 
         formSkill.getEffectSkills().forEach { effectSkill ->
 
-            effectApplier.applyEffects(effectSkill, collision)
+            effectApplier.applyEffects(id, effectSkill, collision)
         }
     }
 }

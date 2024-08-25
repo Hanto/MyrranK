@@ -16,6 +16,7 @@ import com.myrran.domain.entities.common.vulnerable.VulnerableComponent
 import com.myrran.domain.entities.mob.enemy.Enemy
 import com.myrran.domain.entities.mob.player.Player
 import com.myrran.domain.entities.mob.player.StateActionIddle
+import com.myrran.domain.entities.mob.spells.effect.EffectFactory
 import com.myrran.domain.entities.mob.spells.form.Form
 import com.myrran.domain.entities.mob.spells.form.FormCircle
 import com.myrran.domain.entities.mob.spells.form.FormPoint
@@ -45,6 +46,7 @@ class MobFactory(
 
     private val worldBox2D: WorldBox2D,
     private val bodyFactory: BodyFactory,
+    private val effectFactory: EffectFactory,
     private val eventDispatcher: EventDispatcher,
     private val playerInputs: PlayerInputs,
 )
@@ -178,7 +180,7 @@ class MobFactory(
             eventDispatcher = eventDispatcher,
             consumable = ConsumableComponent(),
             collisioner = CollisionerComponent(),
-            effectApplier = EffectApplierComponent()
+            effectApplier = EffectApplierComponent(effectFactory)
         )
 
         body.userData = form
@@ -208,7 +210,7 @@ class MobFactory(
             eventDispatcher = eventDispatcher,
             consumable = ConsumableComponent(),
             collisioner = CollisionerComponent(),
-            effectApplier = EffectApplierComponent()
+            effectApplier = EffectApplierComponent(effectFactory)
         )
 
         body.userData = form

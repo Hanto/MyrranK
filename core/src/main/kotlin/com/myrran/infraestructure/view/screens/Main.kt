@@ -16,6 +16,7 @@ import com.myrran.badlogic.DaD
 import com.myrran.domain.entities.common.corporeal.BodyFactory
 import com.myrran.domain.entities.common.steerable.SteeringBehaviorsFactory
 import com.myrran.domain.entities.mob.common.MobFactory
+import com.myrran.domain.entities.mob.spells.effect.EffectFactory
 import com.myrran.domain.events.MobCreatedEvent
 import com.myrran.domain.misc.DeSerializer
 import com.myrran.domain.misc.constants.WorldBox2D
@@ -103,7 +104,9 @@ class Main : KtxGame<KtxScreen>() {
             learned = learnedTemplates)
         val playerInputs = PlayerInputs()
         val bodyFactory = BodyFactory()
+        val effectFactory = EffectFactory()
         val mobFactory = MobFactory(
+            effectFactory = effectFactory,
             bodyFactory = bodyFactory,
             eventDispatcher = eventDispatcher,
             worldBox2D = worldBox2D,

@@ -8,4 +8,8 @@ data class Collision(
     val corporeal: Corporeal,
     val pointOfCollision: PositionMeters,
     val direction: Vector2
-)
+
+): Location
+
+sealed interface Location
+data object NoLocation: Location

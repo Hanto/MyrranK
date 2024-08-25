@@ -1,6 +1,7 @@
 package com.myrran.domain.world.damagesystem
 
 import com.myrran.domain.entities.common.Entity
+import com.myrran.domain.entities.common.collisioner.Collision
 import com.myrran.domain.entities.common.steerable.Steerable
 import com.myrran.domain.entities.common.vulnerable.Vulnerable
 import com.myrran.domain.entities.mob.player.Player
@@ -23,11 +24,10 @@ class DamageSystem(
                 entity.reduceHps( it.amount )
                 eventDispatcher.sendEvent(EntityHPsReducedEvent(entity.id, it.amount))
 
-                if (entity is Steerable && entity !is Player) {
+                if (entity is Steerable && entity !is Player && it.location is Collision) {
 
                     entity.applyImpulse(it.location.direction, 400f)
                 }
-
             }
             entity.clearAllDamage()
         }
