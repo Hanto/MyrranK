@@ -9,6 +9,8 @@ import com.myrran.domain.entities.common.vulnerable.Damage
 import com.myrran.domain.entities.common.vulnerable.DamageType
 import com.myrran.domain.entities.common.vulnerable.HP
 import com.myrran.domain.entities.common.vulnerable.Vulnerable
+import com.myrran.domain.entities.mob.spells.effect.stackable.Stackable
+import com.myrran.domain.entities.mob.spells.effect.stackable.StackableComponent
 import com.myrran.domain.misc.constants.SpellConstants
 import com.myrran.domain.misc.constants.SpellConstants.Companion.DAMAGE_PER_TICK
 import com.myrran.domain.misc.constants.SpellConstants.Companion.EXPIRATION
@@ -22,20 +24,11 @@ class DotEffect(
 
     override val casterId: EntityId,
     private val effectSkill: EffectSkill,
-    private val consumable: ConsumableComponent
+    private val consumable: ConsumableComponent,
+    private val stackable: StackableComponent
 
-): Effect, Consumable by consumable
+): Effect, Consumable by consumable, Stackable by stackable
 {
-    private var currentStacks: Int = 1;
-
-    fun currentStacks(): Int =
-
-        currentStacks
-
-    fun maxStacks(): Int =
-
-        effectSkill.getStat(MAX_STACKS)!!.totalBonus().value.toInt()
-
     override fun tickEffect(entity: Entity) {
 
         if (entity is Vulnerable) {
