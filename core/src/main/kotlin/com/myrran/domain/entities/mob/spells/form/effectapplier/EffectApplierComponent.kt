@@ -1,5 +1,6 @@
 package com.myrran.domain.entities.mob.spells.form.effectapplier
 
+import com.myrran.domain.entities.common.Entity
 import com.myrran.domain.entities.common.EntityId
 import com.myrran.domain.entities.common.collisioner.Collision
 import com.myrran.domain.entities.common.effectable.Effectable
@@ -20,10 +21,10 @@ class EffectApplierComponent(
     // EFFECT APPLYING
     //--------------------------------------------------------------------------------------------------------
 
-    override fun applyEffects(casterId: EntityId, effectSkill: EffectSkill, collision: Collision) {
+    override fun applyEffects(caster: Entity, effectSkill: EffectSkill, collision: Collision) {
 
         applyDirectDamage(effectSkill, collision)
-        applyEffect(casterId, effectSkill, collision)
+        applyEffect(caster, effectSkill, collision)
     }
 
     private fun applyDirectDamage(effectSkill: EffectSkill, collision: Collision) {
@@ -40,11 +41,11 @@ class EffectApplierComponent(
         }
     }
 
-    private fun applyEffect(casterId: EntityId, effectSkill: EffectSkill, collision: Collision) {
+    private fun applyEffect(caster: Entity, effectSkill: EffectSkill, collision: Collision) {
 
         if (collision.corporeal is Effectable) {
 
-            val effect = effectFactory.createEffect(casterId, effectSkill)
+            val effect = effectFactory.createEffect(caster, effectSkill)
             collision.corporeal.addEffect(effect)
         }
     }
