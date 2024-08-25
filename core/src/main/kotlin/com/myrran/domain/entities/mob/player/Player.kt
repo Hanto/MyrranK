@@ -49,5 +49,10 @@ data class Player(
 
     fun castSpell() =
 
-        eventDispatcher.sendEvent(PlayerSpellCastedEvent(this, PositionMeters(position.x, position.y)))
+        eventDispatcher.sendEvent(PlayerSpellCastedEvent(
+            caster = this,
+            skill = caster.getSelectedSkill()!!,
+            origin = PositionMeters(position.x, position.y),
+            target = caster.pointingAt))
 }
+

@@ -1,6 +1,7 @@
 package com.myrran.domain.entities.mob.common
 
 import com.badlogic.gdx.math.Vector2
+import com.myrran.domain.entities.common.Entity
 import com.myrran.domain.entities.common.EntityId
 import com.myrran.domain.entities.common.caster.CasterComponent
 import com.myrran.domain.entities.common.collisioner.CollisionerComponent
@@ -8,6 +9,7 @@ import com.myrran.domain.entities.common.consumable.ConsumableComponent
 import com.myrran.domain.entities.common.corporeal.BodyFactory
 import com.myrran.domain.entities.common.corporeal.CorporealComponent
 import com.myrran.domain.entities.common.corporeal.MovementLimiter
+import com.myrran.domain.entities.common.effectable.EffectableComponent
 import com.myrran.domain.entities.mob.spells.form.effectapplier.EffectApplierComponent
 import com.myrran.domain.entities.mob.spells.spell.formcreator.FormCreatorComponent
 import com.myrran.domain.entities.common.proximityaware.ProximityAwareComponent
@@ -105,6 +107,7 @@ class MobFactory(
             steerable = steerable,
             eventDispatcher = eventDispatcher,
             vulnerable = VulnerableComponent(300, 300),
+            effectable = EffectableComponent(),
             proximity = proximity)
 
         body.userData = enemy
@@ -114,13 +117,13 @@ class MobFactory(
     // SPELLS:
     //--------------------------------------------------------------------------------------------------------
 
-    fun createSpell(skill: Skill, origin: PositionMeters, target: PositionMeters) =
+    fun createSpell(skill: Skill, caster: Entity, origin: PositionMeters, target: PositionMeters) =
 
         when (skill.type) {
-            SkillType.BOLT -> createSpellBolt(skill, origin, target)
+            SkillType.BOLT -> createSpellBolt(skill, caster, origin, target)
         }
 
-    private fun createSpellBolt(skill: Skill, origin: PositionMeters, target: PositionMeters): SpellBolt {
+    private fun createSpellBolt(skill: Skill, caster: Entity, origin: PositionMeters, target: PositionMeters): SpellBolt {
 
         val sizeMultiplier = skill.getStat(SIZE)!!.totalBonus().value / 100
         val radius = Pixel(16) * sizeMultiplier
@@ -135,6 +138,7 @@ class MobFactory(
             corporeal = corporeal)
         val spell = SpellBolt(
             id = EntityId(),
+            caster = caster,
             skill = skill.copy(),
             origin = origin,
             target = target,
@@ -152,14 +156,14 @@ class MobFactory(
     // FORMS:
     //--------------------------------------------------------------------------------------------------------
 
-    fun createFormSpell(formSkill: FormSkill, origin: PositionMeters, direction: Vector2): Form =
+    fun createFormSpell(formSkill: FormSkill, caster: Entity, origin: PositionMeters, direction: Vector2): Form =
 
         when (formSkill.type) {
-            FormSkillType.CIRCLE -> createFormCircle(formSkill, origin, direction)
-            FormSkillType.POINT -> createFormPoint(formSkill, origin, direction)
+            FormSkillType.CIRCLE -> createFormCircle(formSkill, caster, origin, direction)
+            FormSkillType.POINT -> createFormPoint(formSkill, caster, origin, direction)
         }
 
-    private fun createFormPoint(formSkill: FormSkill, origin: PositionMeters, direction: Vector2): Form {
+    private fun createFormPoint(formSkill: FormSkill, caster: Entity, origin: PositionMeters, direction: Vector2): Form {
 
         val radius = Pixel(2)
         val body = bodyFactory.createCircleForm(worldBox2D, radius)
@@ -173,6 +177,7 @@ class MobFactory(
             corporeal = corporeal)
         val form = FormPoint(
             id = EntityId(),
+            caster = caster,
             formSkill = formSkill.copy(),
             origin = origin,
             direction = direction,
@@ -187,7 +192,7 @@ class MobFactory(
         return form
     }
 
-    private fun createFormCircle(formSkill: FormSkill, origin: PositionMeters, direction: Vector2): Form {
+    private fun createFormCircle(formSkill: FormSkill, caster: Entity, origin: PositionMeters, direction: Vector2): Form {
 
         val sizeMultiplier = formSkill.getStat(StatId("RADIUS"))!!.totalBonus().value / 100
         val radius = Pixel(32) * sizeMultiplier
@@ -202,6 +207,7 @@ class MobFactory(
             corporeal = corporeal)
         val form = FormCircle(
             id = EntityId(),
+            caster = caster,
             formSkill = formSkill.copy(),
             radius = radius.toMeters(),
             origin = origin,
