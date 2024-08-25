@@ -1,6 +1,7 @@
 package com.myrran.domain.entities.mob.spells.spell
 
 import com.badlogic.gdx.utils.Disposable
+import com.myrran.domain.entities.common.Entity
 import com.myrran.domain.entities.common.EntityId
 import com.myrran.domain.entities.common.Mob
 import com.myrran.domain.entities.common.collisioner.Collisioner
@@ -27,6 +28,7 @@ import ktx.math.minus
 class SpellBolt(
 
     override val id: EntityId,
+    override val caster: Entity,
     override val steerable: SteerableComponent,
     private val eventDispatcher: EventDispatcher,
 
@@ -79,7 +81,7 @@ class SpellBolt(
 
             // impact slot:
             skill.getFormSkill(IMPACT_SLOT)
-                ?.also { formCreator.createForm(it, this) }
+                ?.also { formCreator.createForm(caster, this, it) }
 
             penetration--
             collisioner.removeCollisions()
