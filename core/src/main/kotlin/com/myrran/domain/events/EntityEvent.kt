@@ -1,6 +1,7 @@
 package com.myrran.domain.events
 
 import com.myrran.domain.entities.common.EntityId
+import com.myrran.domain.entities.common.vulnerable.Damage
 import com.myrran.domain.entities.common.vulnerable.HP
 
 sealed interface EntityEvent: Event {
@@ -11,6 +12,6 @@ sealed interface EntityEvent: Event {
 data class EntityHPsReducedEvent(
 
     override val entityId: EntityId,
-    val reducedHP: HP,
+    val damage: Damage,
 
 ): EntityEvent
