@@ -11,15 +11,16 @@ import com.myrran.domain.skills.created.effect.EffectSkill
 
 class DamageEffect(
 
-    override val casterId: EntityId,
+    override val caster: Entity,
     private val effectSkill: EffectSkill,
     private val consumable: ConsumableComponent,
     private val stackable: StackableComponent
 
 ): Effect, Consumable by consumable, Stackable by stackable
 {
-
-    override fun tickEffect(entity: Entity) {
-
-    }
+    override val effectType = effectSkill.type
+    override fun effectStarted(entity: Entity) {}
+    override fun effectTicked(entity: Entity) {}
+    override fun effectEnded(entity: Entity) {}
+    override fun update(deltaTime: Second) {}
 }

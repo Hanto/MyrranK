@@ -22,7 +22,7 @@ class DamageSystem(
             damage.forEach {
 
                 entity.reduceHps( it.amount )
-                eventDispatcher.sendEvent(EntityHPsReducedEvent(entity.id, it.amount))
+                eventDispatcher.sendEvent(EntityHPsReducedEvent(entity.id, it))
 
                 if (entity is Steerable && entity !is Player && it.location is Collision) {
 
