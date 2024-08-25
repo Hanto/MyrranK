@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont
 
 class ScrollingCombatTextAssets(
 
-    val font: BitmapFont
+    val fontDirectDamage: BitmapFont,
+    val fontEffectDamage: BitmapFont
 
 )
