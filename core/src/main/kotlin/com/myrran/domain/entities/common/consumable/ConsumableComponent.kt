@@ -34,4 +34,8 @@ class ConsumableComponent(
     override fun remainingDuration(): Time =
 
         maximumDuration - currentDuration
+
+    override fun hasExpired(): Boolean =
+
+        maximumDuration - currentDuration <= currentDuration.toZero()
 }
