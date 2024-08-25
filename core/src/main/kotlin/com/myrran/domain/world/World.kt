@@ -3,9 +3,9 @@ package com.myrran.domain.world
 import com.badlogic.gdx.math.Vector2
 import com.badlogic.gdx.physics.box2d.ContactListener
 import com.badlogic.gdx.utils.Disposable
+import com.myrran.domain.entities.common.Entity
 import com.myrran.domain.entities.common.EntityId
 import com.myrran.domain.entities.common.Mob
-import com.myrran.domain.entities.common.caster.Caster
 import com.myrran.domain.entities.mob.common.MobFactory
 import com.myrran.domain.entities.mob.player.Player
 import com.myrran.domain.events.Event
@@ -18,6 +18,7 @@ import com.myrran.domain.events.SpellCreatedEvent
 import com.myrran.domain.misc.constants.WorldBox2D
 import com.myrran.domain.misc.metrics.PositionMeters
 import com.myrran.domain.skills.created.form.FormSkill
+import com.myrran.domain.skills.created.skill.Skill
 import com.myrran.domain.skills.created.skill.SkillId
 import com.myrran.domain.world.damagesystem.DamageSystem
 import com.myrran.infraestructure.eventbus.EventDispatcher
@@ -89,8 +90,8 @@ class World(
         when (event) {
             is MobCreatedEvent -> toBeAdded.add(event.mob)
             is MobRemovedEvent -> toBeRemoved.add(event.mob.id)
-            is PlayerSpellCastedEvent -> castPlayerSpell(event.caster, event.origin)
-            is FormSpellCastedEvent -> createFormSpell(event.formSkill, event.origin, event.direction)
+            is PlayerSpellCastedEvent -> castPlayerSpell(event.skill, event.caster, event.origin, event.target)
+            is FormSpellCastedEvent -> createFormSpell(event.formSkill, event.caster, event.origin, event.direction)
             else -> Unit
         }
     }
@@ -98,15 +99,16 @@ class World(
     // PLAYER ACTIONS:
     //--------------------------------------------------------------------------------------------------------
 
-    private fun castPlayerSpell(caster: Caster, origin: PositionMeters) =
+    private fun castPlayerSpell(skill: Skill, caster: Entity, origin: PositionMeters, target: PositionMeters) =
 
-        mobFactory.createSpell(caster.getSelectedSkill()!!, origin, caster.pointingAt)
+        mobFactory.createSpell(skill, caster, origin, target)
             .also { toBeAdded.add(it) }
             .also { sendEvent(SpellCreatedEvent(it)) }
 
-    private fun createFormSpell(skill: FormSkill, origin: PositionMeters, direction: Vector2) =
+    private fun createFormSpell(skill: FormSkill, caster: Entity, origin: PositionMeters, direction: Vector2) =
 
-        mobFactory.createFormSpell(skill, origin, direction)
+        mobFactory.createFormSpell(skill, caster, origin, direction)
+
             .also { toBeAdded.add(it) }
             .also { sendEvent(FormCreatedEvent(it)) }
 

@@ -118,7 +118,7 @@ class WorldView(
 
         enemyViews[event.entityId]?.let {
 
-            scrollingCombatText.addSCT(it as Group, event.reducedHP)
+            scrollingCombatText.addSCT(it as Group, event.damage)
         }
     }
 
