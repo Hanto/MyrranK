@@ -41,7 +41,7 @@ class TextView<T>(
 
         if (shadowTickness != 0f) {
 
-            color = Color.BLACK
+            color = Color(0f, 0f, 0f, originalColor.a)
             moveBy(shadowTickness, -shadowTickness)
             super.draw(batch, alpha)
         }
