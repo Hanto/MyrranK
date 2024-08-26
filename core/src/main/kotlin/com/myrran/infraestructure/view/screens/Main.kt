@@ -172,7 +172,8 @@ class Main : KtxGame<KtxScreen>() {
         val spellAssets = SpellViewAssets(
             spellBolt = assetStorage.getTextureRegion("Atlas.atlas", "AnimacionesSpells/SpellBalls_01n"),
             formCircle = assetStorage.getTextureRegion("Atlas.atlas", "AnimacionesSpells/SpellBalls_01n"),
-            formPoint = assetStorage.getTextureRegion("Atlas.atlas", "AnimacionesSpells/SpellBalls_01n"))
+            formPoint = assetStorage.getTextureRegion("Atlas.atlas", "AnimacionesSpells/SpellBalls_01n"),
+            effectFont = assetStorage.getFont("Arial10.fnt") )
         val sctAssets = ScrollingCombatTextAssets(
             fontDirectDamage = assetStorage.getFont("20.fnt"),
             fontEffectDamage = assetStorage.getFont("14.fnt"))
@@ -180,7 +181,8 @@ class Main : KtxGame<KtxScreen>() {
             playerAssets = playerAssets,
             enemyAssets = enemyAssets,
             spellAssets = spellAssets,
-            rayHandler = rayHandler)
+            rayHandler = rayHandler,
+            eventDispatcher = eventDispatcher)
         val worldCamera = OrthographicCamera(
             Pixel(Gdx.graphics.width).toFloat(),
             Pixel(Gdx.graphics.height).toFloat())

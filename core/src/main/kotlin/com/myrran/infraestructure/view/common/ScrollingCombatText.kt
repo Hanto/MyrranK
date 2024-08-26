@@ -8,7 +8,6 @@ import com.badlogic.gdx.scenes.scene2d.actions.Actions
 import com.myrran.domain.entities.common.collisioner.Collision
 import com.myrran.domain.entities.common.collisioner.NoLocation
 import com.myrran.domain.entities.common.vulnerable.Damage
-import com.myrran.domain.entities.common.vulnerable.HP
 import com.myrran.infraestructure.view.mobs.enemy.EnemyView
 import com.myrran.infraestructure.view.mobs.player.PlayerView
 import com.myrran.infraestructure.view.ui.TextView
@@ -24,7 +23,7 @@ class ScrollingCombatText(
 
         val text = TextView(damage, damage.getFont(), actor.colorByType(), 2f) { it.amount.value.toInt().toString() }
             .also { actor.addActor(it) }
-            .also { it.setPosition(actor.originX + randomX.toFloat() - it.width/2, actor.height) }
+            .also { it.setPosition(actor.originX + randomX.toFloat() - it.width/2, actor.height + 12) }
 
         text.addAction(Actions.sequence(
             Actions.delay(1.5f),
@@ -34,6 +33,9 @@ class ScrollingCombatText(
             Actions.moveBy(0f, 45f, 2.0f, Interpolation.sine),
             Actions.removeActor()) )
     }
+
+    // HELPER:
+    //--------------------------------------------------------------------------------------------------------
 
     private fun Damage.getFont(): BitmapFont =
 

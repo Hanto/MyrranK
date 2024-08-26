@@ -1,9 +1,9 @@
 package com.myrran.domain.entities.common.corporeal
 
-import com.badlogic.gdx.ai.steer.Limiter
 import com.badlogic.gdx.math.Vector2
+import com.myrran.domain.entities.common.movementlimiter.MovementLimiter
 
-interface Movable: Spatial, Limiter {
+interface Movable: Spatial, MovementLimiter {
 
     fun setLinearVelocity(direction: Vector2, value: Float)
     fun getLinearVelocity(): Vector2

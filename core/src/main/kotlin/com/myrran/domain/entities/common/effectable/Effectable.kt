@@ -6,6 +6,7 @@ import com.myrran.domain.misc.metrics.time.Second
 
 interface Effectable {
 
+    fun retrieveEffects(): List<Effect>
     fun addEffect(effect: Effect)
-    fun updateEffects(entity: Entity, deltaTime: Second)
+    fun updateEffects(effectable: Entity, deltaTime: Second)
 }

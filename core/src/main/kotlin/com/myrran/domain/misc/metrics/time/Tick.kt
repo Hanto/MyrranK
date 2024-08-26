@@ -1,6 +1,7 @@
 package com.myrran.domain.misc.metrics.time
 
-data class Tick(
+data class
+Tick(
 
     private val value: Float
 
@@ -40,8 +41,7 @@ data class Tick(
 
     fun toTickNumber(): Int =
 
-        if (value == 0f) 0
-        else (value / Time.SECONDS_FOR_A_TICK + 1 ).toInt()
+        (value / Time.SECONDS_FOR_A_TICK + 1 ).toInt()
 
     // OPERATIONS:
     //--------------------------------------------------------------------------------------------------------

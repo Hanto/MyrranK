@@ -8,10 +8,8 @@ import com.myrran.domain.entities.common.collisioner.CollisionerComponent
 import com.myrran.domain.entities.common.consumable.ConsumableComponent
 import com.myrran.domain.entities.common.corporeal.BodyFactory
 import com.myrran.domain.entities.common.corporeal.CorporealComponent
-import com.myrran.domain.entities.common.corporeal.MovementLimiter
 import com.myrran.domain.entities.common.effectable.EffectableComponent
-import com.myrran.domain.entities.mob.spells.form.effectapplier.EffectApplierComponent
-import com.myrran.domain.entities.mob.spells.spell.formcreator.FormCreatorComponent
+import com.myrran.domain.entities.common.movementlimiter.MovementLimiterComponent
 import com.myrran.domain.entities.common.proximityaware.ProximityAwareComponent
 import com.myrran.domain.entities.common.steerable.SteerableComponent
 import com.myrran.domain.entities.common.vulnerable.VulnerableComponent
@@ -23,8 +21,10 @@ import com.myrran.domain.entities.mob.spells.form.Form
 import com.myrran.domain.entities.mob.spells.form.FormCircle
 import com.myrran.domain.entities.mob.spells.form.FormPoint
 import com.myrran.domain.entities.mob.spells.form.FormSkillType
+import com.myrran.domain.entities.mob.spells.form.effectapplier.EffectApplierComponent
 import com.myrran.domain.entities.mob.spells.spell.SkillType
 import com.myrran.domain.entities.mob.spells.spell.SpellBolt
+import com.myrran.domain.entities.mob.spells.spell.formcreator.FormCreatorComponent
 import com.myrran.domain.entities.statics.Wall
 import com.myrran.domain.misc.constants.SpellConstants.Companion.SIZE
 import com.myrran.domain.misc.constants.WorldBox2D
@@ -59,7 +59,7 @@ class MobFactory(
     fun createPlayer(): Player {
 
         val body = bodyFactory.createPlayerBody(worldBox2D, Pixel(16))
-        val limiter = MovementLimiter(
+        val limiter = MovementLimiterComponent(
             maxLinearSpeed = Speed(Meter(4f)),
             maxLinearAcceleration = Acceleration(Meter(500f)))
         val corporeal = CorporealComponent(
@@ -75,7 +75,7 @@ class MobFactory(
             state = StateActionIddle,
             eventDispatcher = eventDispatcher,
             inputs = playerInputs,
-            vulnerable = VulnerableComponent(200, 200),
+            vulnerable = VulnerableComponent(actualHPs = 200, maxHps = 200),
             caster = caster)
 
         body.userData = player
@@ -88,7 +88,7 @@ class MobFactory(
     fun createEnemy(): Enemy {
 
         val body = bodyFactory.createEnemyBody(worldBox2D, Pixel(16))
-        val limiter = MovementLimiter(
+        val limiter = MovementLimiterComponent(
             maxLinearSpeed = Speed(Meter(1f)),
             maxLinearAcceleration = Acceleration(Meter(50f)),
             maxAngularSpeed = AngularVelocity(Degree(90f).toRadians()),
@@ -106,8 +106,8 @@ class MobFactory(
             id = EntityId(),
             steerable = steerable,
             eventDispatcher = eventDispatcher,
-            vulnerable = VulnerableComponent(300, 300),
-            effectable = EffectableComponent(),
+            vulnerable = VulnerableComponent(actualHPs = 300, maxHps = 300),
+            effectable = EffectableComponent(eventDispatcher),
             proximity = proximity)
 
         body.userData = enemy
@@ -128,7 +128,7 @@ class MobFactory(
         val sizeMultiplier = skill.getStat(SIZE)!!.totalBonus().value / 100
         val radius = Pixel(16) * sizeMultiplier
         val body = bodyFactory.createSpellBoltBody(worldBox2D, radius)
-        val limiter = MovementLimiter(
+        val limiter = MovementLimiterComponent(
             maxLinearSpeed = Speed(Meter(100f)))
         val corporeal = CorporealComponent(
             body = body,
@@ -167,7 +167,7 @@ class MobFactory(
 
         val radius = Pixel(2)
         val body = bodyFactory.createCircleForm(worldBox2D, radius)
-        val limiter = MovementLimiter(
+        val limiter = MovementLimiterComponent(
             maxLinearSpeed = Speed(Meter(0f)))
         val corporeal = CorporealComponent(
             body = body,
@@ -197,7 +197,7 @@ class MobFactory(
         val sizeMultiplier = formSkill.getStat(StatId("RADIUS"))!!.totalBonus().value / 100
         val radius = Pixel(32) * sizeMultiplier
         val body = bodyFactory.createCircleForm(worldBox2D, radius)
-        val limiter = MovementLimiter(
+        val limiter = MovementLimiterComponent(
             maxLinearSpeed = Speed(Meter(0f)))
         val corporeal = CorporealComponent(
             body = body,
@@ -234,7 +234,7 @@ class MobFactory(
             steerable = SteerableComponent(
                 corporeal = CorporealComponent(
                     body = body,
-                    limiter = MovementLimiter(),
+                    limiter = MovementLimiterComponent(),
                     destroyFunction = { worldBox2D.destroyBody(body) }
                 )
             )

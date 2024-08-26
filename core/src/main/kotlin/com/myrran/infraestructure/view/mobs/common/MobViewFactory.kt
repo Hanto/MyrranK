@@ -20,6 +20,7 @@ import com.myrran.domain.entities.mob.spells.spell.Spell
 import com.myrran.domain.entities.mob.spells.spell.SpellBolt
 import com.myrran.domain.misc.metrics.Pixel
 import com.myrran.domain.misc.metrics.SizePixels
+import com.myrran.infraestructure.eventbus.EventDispatcher
 import com.myrran.infraestructure.view.mobs.enemy.EnemyView
 import com.myrran.infraestructure.view.mobs.enemy.EnemyViewAssets
 import com.myrran.infraestructure.view.mobs.player.EnemyAnimation
@@ -39,7 +40,8 @@ class MobViewFactory(
     private val playerAssets: PlayerViewAssets,
     private val enemyAssets: EnemyViewAssets,
     private val spellAssets: SpellViewAssets,
-    private val rayHandler: RayHandler
+    private val rayHandler: RayHandler,
+    private val eventDispatcher: EventDispatcher
 )
 {
     companion object {
@@ -110,8 +112,9 @@ class MobViewFactory(
         model.steerable.attachLight(lineOfSightLight)
 
         val healthBar = HealthBar(model, playerAssets.nameplateForeground, playerAssets.nameplateBackground)
+        val effectsView = EffectsView(model, spellAssets)
 
-        return EnemyView(model, enemySprite, shadow, healthBar, lineOfSightLight)
+        return EnemyView(model, enemySprite, shadow, healthBar, effectsView, lineOfSightLight, eventDispatcher)
     }
 
     // SPELLS:

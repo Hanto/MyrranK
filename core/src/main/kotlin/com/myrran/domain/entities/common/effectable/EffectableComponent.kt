@@ -2,11 +2,23 @@ package com.myrran.domain.entities.common.effectable
 
 import com.myrran.domain.entities.common.Entity
 import com.myrran.domain.entities.mob.spells.effect.Effect
+import com.myrran.domain.events.EffectAddedEvent
+import com.myrran.domain.events.EffectRemovedEvent
+import com.myrran.domain.events.EffectTickedEvent
 import com.myrran.domain.misc.metrics.time.Second
+import com.myrran.infraestructure.eventbus.EventDispatcher
 
-class EffectableComponent: Effectable {
+class EffectableComponent(
+
+    private val eventDispatcher: EventDispatcher
+
+): Effectable {
 
     private var effects: MutableList<Effect> = mutableListOf()
+
+    override fun retrieveEffects(): List<Effect> =
+
+        effects
 
     override fun addEffect(effect: Effect) {
 
@@ -22,32 +34,64 @@ class EffectableComponent: Effectable {
         }
         else {
 
-            existingEffect.resetDuration()
+            existingEffect.resetDurationTo(Second(0.0f))
             existingEffect.increaseStack()
         }
     }
 
-    override fun updateEffects(entity: Entity, deltaTime: Second) {
+    // UPDATE:
+    //--------------------------------------------------------------------------------------------------------
 
-        effects.forEach { updateEffect(it, entity, deltaTime)}
+    override fun updateEffects(effectable: Entity, deltaTime: Second) {
 
-        effects.removeIf { it.hasExpired() }
+        effects.forEach { effect ->
+
+            if (effect.hasStarted())
+                effectStarted(effectable, effect)
+
+            updateEffect(effectable, effect, deltaTime)
+        }
+
+        removeExpired(effectable)
     }
 
-    private fun updateEffect(effect: Effect, entity: Entity, deltaTime: Second) {
+    // STEPS:
+    //--------------------------------------------------------------------------------------------------------
 
-        if (effect.hasStarted())
-            effect.effectStarted(entity)
+    private fun effectStarted(entity: Entity, effect: Effect) {
+
+        effect.effectStarted(entity)
+        eventDispatcher.sendEvent(EffectAddedEvent(entity.id, effect.id))
+    }
+
+    private fun updateEffect(entity: Entity, effect: Effect, deltaTime: Second) {
 
         val oldTick = effect.currentDuration().toTicks().toTickNumber()
 
-        effect.update(deltaTime)
+        effect.updateDuration(deltaTime)
 
         val newTick = effect.currentDuration().toTicks().toTickNumber()
 
-        repeat( newTick - oldTick ) { effect.effectTicked(entity) }
+        repeat( newTick - oldTick ) {
 
-        if (effect.hasExpired())
-            effect.effectEnded(entity)
+            effect.effectTicked(entity)
+            eventDispatcher.sendEvent(EffectTickedEvent(entity.id, effect.id))
+        }
+    }
+
+    private fun removeExpired(entity: Entity) {
+
+        val toBeRemoved = effects.filter { it.hasExpired() }
+
+        if  (toBeRemoved.isNotEmpty()) {
+
+            effects.removeIf { it.hasExpired() }
+
+            toBeRemoved.forEach { effect ->
+
+                effect.effectEnded(entity)
+                eventDispatcher.sendEvent(EffectRemovedEvent(entity.id, effect.id))
+            }
+        }
     }
 }

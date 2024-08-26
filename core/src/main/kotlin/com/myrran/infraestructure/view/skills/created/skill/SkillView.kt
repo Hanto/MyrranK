@@ -54,7 +54,7 @@ class SkillView(
         addListener(UIClickListener { toFront() } )
 
         touchable = Touchable.enabled
-        skillStatsTable.setBackground(assets.tableBackground)
+        skillStatsTable.background = assets.tableBackground
         rebuildTable()
 
         actor = rootTable

@@ -4,10 +4,10 @@ import com.myrran.domain.misc.metrics.time.Time
 
 interface Consumable {
 
-    fun resetDuration()
+    fun resetDurationTo(time: Time)
     fun currentDuration(): Time
     fun remainingDuration(): Time
-    fun updateDuration(time: Time): IsConsumed
+    fun updateDuration(elapsedTime: Time): IsConsumed
     fun willExpireIn(time: Time)
     fun hasStarted(): Boolean
     fun hasExpired(): Boolean

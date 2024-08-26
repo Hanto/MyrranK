@@ -6,10 +6,17 @@ import com.badlogic.gdx.utils.Align
 import com.badlogic.gdx.utils.Disposable
 import com.myrran.domain.entities.common.EntityId
 import com.myrran.domain.entities.mob.enemy.Enemy
+import com.myrran.domain.events.EffectAddedEvent
+import com.myrran.domain.events.EffectRemovedEvent
+import com.myrran.domain.events.EffectTickedEvent
+import com.myrran.domain.events.Event
 import com.myrran.domain.misc.Identifiable
 import com.myrran.domain.misc.metrics.Degree
 import com.myrran.domain.misc.metrics.PositionMeters
 import com.myrran.domain.misc.metrics.Radian
+import com.myrran.infraestructure.eventbus.EventDispatcher
+import com.myrran.infraestructure.eventbus.EventListener
+import com.myrran.infraestructure.view.mobs.common.EffectsView
 import com.myrran.infraestructure.view.mobs.common.HealthBar
 import com.myrran.infraestructure.view.mobs.common.MobView
 import com.myrran.infraestructure.view.mobs.common.SpriteAnimated
@@ -22,9 +29,12 @@ class EnemyView(
     private val character: SpriteAnimated<EnemyAnimation>,
     private val shadow: SpriteStatic,
     private val healthBar: HealthBar,
+    private val effectsView: EffectsView,
     private val lineOfSightLight: ConeLight,
 
-): Group(), MobView, Identifiable<EntityId>, Disposable
+    private val eventDispatcher: EventDispatcher
+
+): Group(), MobView, Identifiable<EntityId>, Disposable, EventListener
 {
     override val id: EntityId = model.id
 
@@ -36,10 +46,14 @@ class EnemyView(
         addActor(shadow)
         addActor(character)
         addActor(healthBar)
+        addActor(effectsView)
         setSize(character.width, character.height)
         setOrigin(character.width/2, character.height/2)
         shadow.moveBy(0f, -5f)
         healthBar.moveBy(-2f, 40f)
+        effectsView.moveBy(character.width +8, character.height)
+
+        eventDispatcher.addListener(this, EffectTickedEvent::class, EffectAddedEvent::class, EffectRemovedEvent::class)
     }
 
     // MAIN:
@@ -65,7 +79,17 @@ class EnemyView(
     override fun dispose() {
 
         lineOfSightLight.remove()
+        eventDispatcher.removeListener(this)
     }
+
+    override fun handleEvent(event: Event) =
+
+        when (event) {
+            is EffectAddedEvent -> if (event.effectableId == model.id) effectsView.update() else Unit
+            is EffectRemovedEvent -> if (event.effectableId == model.id) effectsView.update() else Unit
+            is EffectTickedEvent -> if (event.effectableId == model.id) effectsView.update(event.effectId) else Unit
+            else -> Unit
+        }
 
     // ANIMATION:
     //--------------------------------------------------------------------------------------------------------

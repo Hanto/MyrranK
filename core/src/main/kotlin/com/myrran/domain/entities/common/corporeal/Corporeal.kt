@@ -1,5 +1,5 @@
 package com.myrran.domain.entities.common.corporeal
 
-import com.badlogic.gdx.ai.steer.Limiter
+import com.myrran.domain.entities.common.movementlimiter.MovementLimiter
 
-interface Corporeal: Spatial, Movable, Limiter
+interface Corporeal: Spatial, Movable, MovementLimiter

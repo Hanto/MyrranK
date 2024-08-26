@@ -1,19 +1,19 @@
 package com.myrran.domain.entities.common.corporeal
 
-import com.badlogic.gdx.ai.steer.Limiter
 import com.badlogic.gdx.ai.utils.Location
 import com.badlogic.gdx.math.Vector2
 import com.badlogic.gdx.physics.box2d.Body
 import com.badlogic.gdx.utils.Disposable
+import com.myrran.domain.entities.common.movementlimiter.MovementLimiter
 import ktx.math.minus
 
 data class CorporealComponent(
 
     val body: Body,
-    private val limiter: Limiter,
+    private val limiter: MovementLimiter,
     private val destroyFunction: () -> Unit
 
-): Corporeal, Spatial, Movable, Limiter by limiter, Disposable
+): Corporeal, Spatial, Movable, MovementLimiter by limiter, Disposable
 {
     private var lastPosition: Vector2 = Vector2(0f, 0f)
 

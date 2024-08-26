@@ -16,6 +16,7 @@ class SpellConstants {
         val DIRECT_DAMAGE = StatId("DIRECT_DAMAGE")
         val MAX_STACKS = StatId("MAX_STACKS")
         val DAMAGE_PER_TICK = StatId("DAMAGE_PER_TICK")
+        val MAGNITUDE = StatId("MAGNITUDE")
 
         val IMPACT_SLOT = FormSkillSlotId("IMPACT:1")
     }

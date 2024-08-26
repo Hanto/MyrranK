@@ -1,6 +1,6 @@
-package com.myrran.domain.entities.common.corporeal
+package com.myrran.domain.entities.common.movementlimiter
 
-import com.badlogic.gdx.ai.steer.Limiter
+import com.myrran.domain.entities.common.EntityId
 import com.myrran.domain.misc.metrics.Acceleration
 import com.myrran.domain.misc.metrics.AngularAcceleration
 import com.myrran.domain.misc.metrics.AngularVelocity
@@ -8,7 +8,7 @@ import com.myrran.domain.misc.metrics.Meter
 import com.myrran.domain.misc.metrics.Radian
 import com.myrran.domain.misc.metrics.Speed
 
-class MovementLimiter(
+class MovementLimiterComponent(
 
     private var zeroLinearSpeedTreshold: Speed<Meter> = Speed(Meter(0.001f)),
     private var maxLinearSpeed: Speed<Meter> = Speed(Meter(4f)),
@@ -16,8 +16,23 @@ class MovementLimiter(
     private var maxAngularSpeed: AngularVelocity<Radian> = AngularVelocity(Radian(6f)),
     private var maxAngularAcceleration: AngularAcceleration<Radian> = AngularAcceleration(Radian(12f))
 
-): Limiter
+): MovementLimiter
 {
+    private val slowModifiers: MutableMap<EntityId, Float> = mutableMapOf()
+    private var lowestSlowModifier: Float = 1f
+
+    override fun addSlowModifier(effectId: EntityId, float: Float) {
+
+        slowModifiers[effectId] = float.coerceAtLeast(0f)
+        lowestSlowModifier = slowModifiers.values.minOrNull() ?: 1f
+    }
+
+    override fun removeSlowModifier(effectId: EntityId) {
+
+        slowModifiers.remove(effectId)
+        lowestSlowModifier = slowModifiers.values.minOrNull() ?: 1f
+    }
+
     override fun getZeroLinearSpeedThreshold(): Float =
 
         zeroLinearSpeedTreshold.value.toFloat()
@@ -28,7 +43,7 @@ class MovementLimiter(
 
     override fun getMaxLinearSpeed(): Float =
 
-        maxLinearSpeed.value.toFloat()
+        maxLinearSpeed.value.toFloat() * lowestSlowModifier
 
     override fun setMaxLinearSpeed(maxSpeedInMeters: Float) {
 

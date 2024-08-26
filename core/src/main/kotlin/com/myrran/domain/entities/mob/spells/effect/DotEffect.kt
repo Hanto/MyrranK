@@ -12,11 +12,12 @@ import com.myrran.domain.entities.common.vulnerable.Vulnerable
 import com.myrran.domain.entities.mob.spells.effect.stackable.Stackable
 import com.myrran.domain.entities.mob.spells.effect.stackable.StackableComponent
 import com.myrran.domain.misc.constants.SpellConstants.Companion.DAMAGE_PER_TICK
-import com.myrran.domain.misc.metrics.time.Second
 import com.myrran.domain.skills.created.effect.EffectSkill
+import com.myrran.domain.skills.created.effect.EffectSkillName
 
 data class DotEffect(
 
+    override val id: EntityId,
     override val caster: Entity,
     private val effectSkill: EffectSkill,
     private val consumable: ConsumableComponent,
@@ -25,6 +26,8 @@ data class DotEffect(
 ): Effect, Consumable by consumable, Stackable by stackable
 {
     override val effectType = effectSkill.type
+
+    override fun effectName(): EffectSkillName = effectSkill.name
 
     override fun effectStarted(entity: Entity) {}
 
@@ -42,9 +45,4 @@ data class DotEffect(
     }
 
     override fun effectEnded(entity: Entity) {}
-
-    override fun update(deltaTime: Second) {
-
-        consumable.updateDuration(deltaTime)
-    }
 }

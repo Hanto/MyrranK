@@ -77,34 +77,26 @@
         "name" : "Debuff 1",
         "lock" : [ "c", "d" ],
         "content" : {
-          "id" : "3807b642-1df6-4ddf-be79-d861344f09c2",
-          "templateId" : "DOT_1",
-          "type" : "DOT",
-          "name" : "Dot",
+          "id" : "ae79eb8e-d75a-4566-8a5a-5fefa65abe4e",
+          "templateId" : "DAMAGE_1",
+          "type" : "DAMAGE",
+          "name" : "Damage",
           "stats" : [ {
-            "id" : "DAMAGE_PER_TICK",
-            "name" : "damage per tick",
+            "id" : "DIRECT_DAMAGE",
+            "name" : "direct damage",
             "baseBonus" : 10.0,
             "actual" : 0,
             "maximum" : 50,
-            "upgradeCost" : 2.0,
-            "bonusPerUpgrade" : 1.0
+            "upgradeCost" : 4.0,
+            "bonusPerUpgrade" : 5.0
           }, {
-            "id" : "EXPIRATION",
-            "name" : "expiration",
-            "baseBonus" : 10.0,
-            "actual" : 0,
-            "maximum" : 50,
-            "upgradeCost" : 2.0,
-            "bonusPerUpgrade" : 1.0
-          }, {
-            "id" : "MAX_STACKS",
-            "name" : "max stacks",
+            "id" : "STAGGER",
+            "name" : "stagger",
             "baseBonus" : 1.0,
-            "actual" : 0,
-            "maximum" : 3,
-            "upgradeCost" : 40.0,
-            "bonusPerUpgrade" : 1.0
+            "actual" : null,
+            "maximum" : null,
+            "upgradeCost" : null,
+            "bonusPerUpgrade" : null
           } ],
           "keys" : [ "a", "b", "c", "d", "e" ]
         }
