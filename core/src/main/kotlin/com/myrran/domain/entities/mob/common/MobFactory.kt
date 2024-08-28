@@ -111,7 +111,6 @@ class MobFactory(
             id = EntityId(),
             steerable = steerable,
             eventDispatcher = eventDispatcher,
-            statuses = statuses,
             vulnerable = VulnerableComponent(actualHPs = 300, maxHps = 300),
             effectable = effectable,
             proximity = proximity)

@@ -2,6 +2,7 @@ package com.myrran.domain.entities.common.effectable
 
 import com.myrran.domain.entities.common.Entity
 import com.myrran.domain.entities.common.movementlimiter.MovementLimiter
+import com.myrran.domain.entities.common.statuses.Statuses
 import com.myrran.domain.entities.common.statuses.StatusesComponent
 import com.myrran.domain.entities.common.vulnerable.Vulnerable
 import com.myrran.domain.entities.mob.spells.effect.Effect
@@ -16,7 +17,7 @@ class EffectableComponent(
     private val statuses: StatusesComponent,
     private val eventDispatcher: EventDispatcher,
 
-): Effectable {
+): Effectable, Statuses by statuses {
 
     override fun retrieveEffects(): List<Effect> =
 
@@ -99,7 +100,7 @@ class EffectableComponent(
         }
     }
 
-    // STEPS:
+    // APPLY ALL:
     //--------------------------------------------------------------------------------------------------------
 
     private fun applyAll(entity: Entity) {

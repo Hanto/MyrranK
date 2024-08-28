@@ -18,13 +18,12 @@ import com.myrran.infraestructure.eventbus.EventDispatcher
 data class Player(
 
     override val id: EntityId,
-    override val steerable: SteerableComponent,
-    val eventDispatcher: EventDispatcher,
-
     var inputs: PlayerInputs,
+    var state: State,
+    override val steerable: SteerableComponent,
     private val vulnerable: VulnerableComponent,
     private val caster: CasterComponent,
-    var state: State,
+    private val eventDispatcher: EventDispatcher,
 
 ): Mob, Steerable by steerable, Corporeal, Disposable,
     Vulnerable by vulnerable, Caster by caster

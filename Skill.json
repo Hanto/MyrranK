@@ -113,7 +113,7 @@
         "name" : "Debuff 2",
         "lock" : [ "a", "b" ],
         "content" : {
-          "id" : "ec9787ee-cbaa-48ff-81ae-078fc61b5a76",
+          "id" : "5fb86844-e90a-48c8-898e-b9f2c4a99444",
           "templateId" : "DAMAGE_1",
           "type" : "DAMAGE",
           "name" : "Damage",
