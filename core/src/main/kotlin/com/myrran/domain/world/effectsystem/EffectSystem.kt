@@ -1,4 +1,12 @@
 package com.myrran.domain.world.effectsystem
 
-class EffectSystem {
+import com.myrran.infraestructure.eventbus.EventDispatcher
+
+class EffectSystem (
+
+    private val eventDispatcher: EventDispatcher
+)
+{
+
+
 }

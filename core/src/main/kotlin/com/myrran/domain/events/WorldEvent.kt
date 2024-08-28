@@ -1,10 +1,8 @@
 package com.myrran.domain.events
 
-import com.badlogic.gdx.math.Vector2
 import com.myrran.domain.entities.common.Entity
-import com.myrran.domain.entities.common.EntityId
 import com.myrran.domain.entities.common.Mob
-import com.myrran.domain.entities.common.caster.Caster
+import com.myrran.domain.entities.common.collisioner.ExactLocation
 import com.myrran.domain.entities.mob.enemy.Enemy
 import com.myrran.domain.entities.mob.spells.form.Form
 import com.myrran.domain.entities.mob.spells.spell.Spell
@@ -27,10 +25,9 @@ data class FormSpellCastedEvent(
 
     val formSkill: FormSkill,
     val caster: Entity,
-    val origin: PositionMeters,
-    val direction: Vector2,
+    val location: ExactLocation
 
-    ): WorldEvent
+): WorldEvent
 
 data class SpellCreatedEvent(
 

@@ -2,10 +2,12 @@ package com.myrran.domain.entities.mob.spells.spell.formcreator
 
 import com.myrran.domain.entities.common.Entity
 import com.myrran.domain.entities.common.collisioner.Collisioner
+import com.myrran.domain.entities.common.collisioner.ExactLocation
 import com.myrran.domain.entities.common.corporeal.Corporeal
 import com.myrran.domain.events.FormSpellCastedEvent
 import com.myrran.domain.misc.metrics.PositionMeters
-import com.myrran.domain.skills.created.form.CollisionType.*
+import com.myrran.domain.skills.created.form.CollisionType.ON_EVERY_COLLISION_POINT
+import com.myrran.domain.skills.created.form.CollisionType.ON_SINGLE_COLLISION_POINT
 import com.myrran.domain.skills.created.form.FormSkill
 import com.myrran.infraestructure.eventbus.EventDispatcher
 
@@ -35,8 +37,7 @@ class FormCreatorComponent(
                 FormSpellCastedEvent(
                 caster = caster,
                 formSkill = skillForm,
-                origin = it.pointOfCollision,
-                direction = it.direction )
+                location = it.location)
             )
         }
     }
@@ -47,8 +48,9 @@ class FormCreatorComponent(
             FormSpellCastedEvent(
             caster = caster,
             formSkill = skillForm,
-            origin = PositionMeters(spell.position.x, spell.position.y),
-            direction = spell.getLinearVelocity() )
+            location = ExactLocation(
+                origin = PositionMeters(spell.position.x, spell.position.y),
+                direction = spell.getLinearVelocity()))
         )
     }
 }

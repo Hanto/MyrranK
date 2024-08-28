@@ -17,9 +17,9 @@ class ConsumableComponent(
         maximumDuration = time
     }
 
-    override fun resetDurationTo(time: Time) {
+    override fun resetDuration() {
 
-        currentDuration = time }
+        currentDuration = currentDuration.toZero() }
 
     override fun updateDuration(elapsedTime: Time): IsConsumed {
 

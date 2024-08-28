@@ -1,21 +1,21 @@
 package com.myrran.domain.entities.mob.spells.form
 
-import com.badlogic.gdx.math.Vector2
 import com.badlogic.gdx.utils.Disposable
 import com.myrran.domain.entities.common.Entity
 import com.myrran.domain.entities.common.EntityId
 import com.myrran.domain.entities.common.Mob
+import com.myrran.domain.entities.common.collisioner.Collision
 import com.myrran.domain.entities.common.collisioner.Collisioner
 import com.myrran.domain.entities.common.collisioner.CollisionerComponent
-import com.myrran.domain.entities.common.collisioner.Collision
+import com.myrran.domain.entities.common.collisioner.ExactLocation
 import com.myrran.domain.entities.common.consumable.Consumable
 import com.myrran.domain.entities.common.consumable.ConsumableComponent
 import com.myrran.domain.entities.common.corporeal.Corporeal
 import com.myrran.domain.entities.common.corporeal.Movable
 import com.myrran.domain.entities.common.corporeal.Spatial
-import com.myrran.domain.entities.mob.spells.form.effectapplier.EffectApplierComponent
 import com.myrran.domain.entities.common.steerable.Steerable
 import com.myrran.domain.entities.common.steerable.SteerableComponent
+import com.myrran.domain.entities.mob.spells.form.effectapplier.EffectApplierComponent
 import com.myrran.domain.events.MobRemovedEvent
 import com.myrran.domain.misc.constants.SpellConstants.Companion.EXPIRATION
 import com.myrran.domain.misc.metrics.Meter
@@ -32,13 +32,12 @@ class FormCircle(
     override val steerable: SteerableComponent,
     private val eventDispatcher: EventDispatcher,
 
-    val consumable: ConsumableComponent,
+    private val consumable: ConsumableComponent,
     private val collisioner: CollisionerComponent,
     private val effectApplier: EffectApplierComponent,
     private val formSkill: FormSkill,
     val radius: Meter,
-    private val origin: PositionMeters,
-    direction: Vector2
+    private val location: ExactLocation
 
 ): Mob, Steerable by steerable, Spatial, Movable, Disposable,
     Form, Consumable by consumable, Collisioner by collisioner
@@ -49,7 +48,7 @@ class FormCircle(
     init {
 
         // initial position:
-        steerable.position = origin.toBox2dUnits()
+        steerable.position = location.origin.toBox2dUnits()
         steerable.saveLastPosition()
 
         // expiration time:
@@ -78,7 +77,7 @@ class FormCircle(
 
     override fun addCollision(collisioned: Corporeal, pointOfCollision: PositionMeters)
     {
-        val direction = collisioned.position.minus(origin.toBox2dUnits()).nor()
+        val direction = collisioned.position.minus(location.origin.toBox2dUnits()).nor()
         collisioner.addCollision(collisioned, pointOfCollision, direction)
     }
 

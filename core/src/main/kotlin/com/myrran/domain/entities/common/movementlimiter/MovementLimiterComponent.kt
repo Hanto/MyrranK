@@ -1,6 +1,5 @@
 package com.myrran.domain.entities.common.movementlimiter
 
-import com.myrran.domain.entities.common.EntityId
 import com.myrran.domain.misc.metrics.Acceleration
 import com.myrran.domain.misc.metrics.AngularAcceleration
 import com.myrran.domain.misc.metrics.AngularVelocity
@@ -18,20 +17,7 @@ class MovementLimiterComponent(
 
 ): MovementLimiter
 {
-    private val slowModifiers: MutableMap<EntityId, Float> = mutableMapOf()
-    private var lowestSlowModifier: Float = 1f
-
-    override fun addSlowModifier(effectId: EntityId, float: Float) {
-
-        slowModifiers[effectId] = float.coerceAtLeast(0f)
-        lowestSlowModifier = slowModifiers.values.minOrNull() ?: 1f
-    }
-
-    override fun removeSlowModifier(effectId: EntityId) {
-
-        slowModifiers.remove(effectId)
-        lowestSlowModifier = slowModifiers.values.minOrNull() ?: 1f
-    }
+    override var slowModifier: Float = 1f
 
     override fun getZeroLinearSpeedThreshold(): Float =
 
@@ -43,7 +29,7 @@ class MovementLimiterComponent(
 
     override fun getMaxLinearSpeed(): Float =
 
-        maxLinearSpeed.value.toFloat() * lowestSlowModifier
+        maxLinearSpeed.value.toFloat() * slowModifier
 
     override fun setMaxLinearSpeed(maxSpeedInMeters: Float) {
 

@@ -11,7 +11,8 @@ class CollisionerComponent: Collisioner
 
     override fun addCollision(corporeal: Corporeal, pointOfCollision: PositionMeters, direction: Vector2) {
 
-        collidedWith.add(Collision(corporeal, pointOfCollision, direction)) }
+        val location = ExactLocation(pointOfCollision, direction)
+        collidedWith.add(Collision(corporeal, location)) }
 
     override fun removeCollisions() {
 

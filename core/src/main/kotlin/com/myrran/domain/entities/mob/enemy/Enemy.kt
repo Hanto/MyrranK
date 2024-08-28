@@ -8,6 +8,8 @@ import com.myrran.domain.entities.common.effectable.Effectable
 import com.myrran.domain.entities.common.effectable.EffectableComponent
 import com.myrran.domain.entities.common.proximityaware.ProximityAware
 import com.myrran.domain.entities.common.proximityaware.ProximityAwareComponent
+import com.myrran.domain.entities.common.statuses.Statuses
+import com.myrran.domain.entities.common.statuses.StatusesComponent
 import com.myrran.domain.entities.common.steerable.Steerable
 import com.myrran.domain.entities.common.steerable.SteerableComponent
 import com.myrran.domain.entities.common.vulnerable.Vulnerable
@@ -21,12 +23,13 @@ data class Enemy(
     override val steerable: SteerableComponent,
     val eventDispatcher: EventDispatcher,
 
+    private val statuses: StatusesComponent,
     private val vulnerable: VulnerableComponent,
     private val effectable: EffectableComponent,
     private val proximity: ProximityAwareComponent
 
 ): Mob, Steerable by steerable, Corporeal, Disposable,
-    Vulnerable by vulnerable, Effectable by effectable, ProximityAware by proximity
+    Vulnerable by vulnerable, Effectable by effectable, ProximityAware by proximity, Statuses by statuses
 {
     // MAIN:
     //--------------------------------------------------------------------------------------------------------

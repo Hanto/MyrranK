@@ -2,9 +2,14 @@ package com.myrran.domain.entities.mob.spells.effect
 
 import com.myrran.domain.entities.common.Entity
 import com.myrran.domain.entities.common.EntityId
+import com.myrran.domain.entities.common.collisioner.Location
 import com.myrran.domain.entities.common.consumable.Consumable
 import com.myrran.domain.entities.common.consumable.ConsumableComponent
-import com.myrran.domain.entities.common.movementlimiter.MovementLimiter
+import com.myrran.domain.entities.common.statuses.Status
+import com.myrran.domain.entities.common.statuses.Status.Chilled
+import com.myrran.domain.entities.common.statuses.Status.Slowed
+import com.myrran.domain.entities.common.statuses.StatusesComponent
+import com.myrran.domain.entities.common.vulnerable.Damage
 import com.myrran.domain.entities.mob.spells.effect.stackable.Stackable
 import com.myrran.domain.entities.mob.spells.effect.stackable.StackableComponent
 import com.myrran.domain.misc.constants.SpellConstants.Companion.MAGNITUDE
@@ -17,33 +22,29 @@ data class SlowEffect(
     override val caster: Entity,
     private val effectSkill: EffectSkill,
     private val consumable: ConsumableComponent,
-    private val stackable: StackableComponent
+    private val stackable: StackableComponent,
+    private val location: Location
 
 ): Effect, Consumable by consumable, Stackable by stackable
 {
     override val effectType = effectSkill.type
+    override val effectSkillId = effectSkill.id
+    override val allowToStack = true
+    override val statusEffects: MutableList<Status> = mutableListOf()
+    override val damages: MutableList<Damage> = mutableListOf()
 
     override fun effectName(): EffectSkillName = effectSkill.name
 
-    override fun effectStarted(entity: Entity) {
+    override fun onEffectStarted(statuses: StatusesComponent) {
 
-        if (entity is MovementLimiter) {
+        val slowPerStack = effectSkill.getStat(MAGNITUDE)!!.totalBonus().value / 100
+        val slowPercentage = 1 - (slowPerStack * stackable.numberOfStacks())
 
-            val slowPerStack = effectSkill.getStat(MAGNITUDE)!!.totalBonus().value / 100
-            val slowPercentage = 1 - (slowPerStack * stackable.numberOfStacks())
-
-            entity.addSlowModifier(id, slowPercentage)
-        }
+        statusEffects.add(Chilled(100))
+        statusEffects.add(Slowed(slowPercentage))
     }
 
-    override fun effectTicked(entity: Entity) {}
+    override fun ofEffectTicked(statuses: StatusesComponent) {}
 
-    override fun effectEnded(entity: Entity) {
-
-        if (entity is MovementLimiter) {
-
-            entity.removeSlowModifier(id)
-        }
-    }
+    override fun onEffectEnded(statuses: StatusesComponent) {}
 }
-

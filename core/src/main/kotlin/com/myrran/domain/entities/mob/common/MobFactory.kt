@@ -1,16 +1,17 @@
 package com.myrran.domain.entities.mob.common
 
-import com.badlogic.gdx.math.Vector2
 import com.myrran.domain.entities.common.Entity
 import com.myrran.domain.entities.common.EntityId
 import com.myrran.domain.entities.common.caster.CasterComponent
 import com.myrran.domain.entities.common.collisioner.CollisionerComponent
+import com.myrran.domain.entities.common.collisioner.ExactLocation
 import com.myrran.domain.entities.common.consumable.ConsumableComponent
 import com.myrran.domain.entities.common.corporeal.BodyFactory
 import com.myrran.domain.entities.common.corporeal.CorporealComponent
 import com.myrran.domain.entities.common.effectable.EffectableComponent
 import com.myrran.domain.entities.common.movementlimiter.MovementLimiterComponent
 import com.myrran.domain.entities.common.proximityaware.ProximityAwareComponent
+import com.myrran.domain.entities.common.statuses.StatusesComponent
 import com.myrran.domain.entities.common.steerable.SteerableComponent
 import com.myrran.domain.entities.common.vulnerable.VulnerableComponent
 import com.myrran.domain.entities.mob.enemy.Enemy
@@ -102,12 +103,17 @@ class MobFactory(
             corporeal = corporeal)
         val proximity = ProximityAwareComponent(
             owner = steerable)
+        val statuses = StatusesComponent()
+        val effectable = EffectableComponent(
+            statuses = statuses,
+            eventDispatcher = eventDispatcher)
         val enemy = Enemy(
             id = EntityId(),
             steerable = steerable,
             eventDispatcher = eventDispatcher,
+            statuses = statuses,
             vulnerable = VulnerableComponent(actualHPs = 300, maxHps = 300),
-            effectable = EffectableComponent(eventDispatcher),
+            effectable = effectable,
             proximity = proximity)
 
         body.userData = enemy
@@ -156,14 +162,14 @@ class MobFactory(
     // FORMS:
     //--------------------------------------------------------------------------------------------------------
 
-    fun createFormSpell(formSkill: FormSkill, caster: Entity, origin: PositionMeters, direction: Vector2): Form =
+    fun createFormSpell(formSkill: FormSkill, caster: Entity, location: ExactLocation): Form =
 
         when (formSkill.type) {
-            FormSkillType.CIRCLE -> createFormCircle(formSkill, caster, origin, direction)
-            FormSkillType.POINT -> createFormPoint(formSkill, caster, origin, direction)
+            FormSkillType.CIRCLE -> createFormCircle(formSkill, caster, location)
+            FormSkillType.POINT -> createFormPoint(formSkill, caster, location)
         }
 
-    private fun createFormPoint(formSkill: FormSkill, caster: Entity, origin: PositionMeters, direction: Vector2): Form {
+    private fun createFormPoint(formSkill: FormSkill, caster: Entity, location: ExactLocation): Form {
 
         val radius = Pixel(2)
         val body = bodyFactory.createCircleForm(worldBox2D, radius)
@@ -179,8 +185,7 @@ class MobFactory(
             id = EntityId(),
             caster = caster,
             formSkill = formSkill.copy(),
-            origin = origin,
-            direction = direction,
+            location = location,
             steerable = steerable,
             eventDispatcher = eventDispatcher,
             consumable = ConsumableComponent(),
@@ -192,7 +197,7 @@ class MobFactory(
         return form
     }
 
-    private fun createFormCircle(formSkill: FormSkill, caster: Entity, origin: PositionMeters, direction: Vector2): Form {
+    private fun createFormCircle(formSkill: FormSkill, caster: Entity, location: ExactLocation): Form {
 
         val sizeMultiplier = formSkill.getStat(StatId("RADIUS"))!!.totalBonus().value / 100
         val radius = Pixel(32) * sizeMultiplier
@@ -210,8 +215,7 @@ class MobFactory(
             caster = caster,
             formSkill = formSkill.copy(),
             radius = radius.toMeters(),
-            origin = origin,
-            direction = direction,
+            location = location,
             steerable = steerable,
             eventDispatcher = eventDispatcher,
             consumable = ConsumableComponent(),

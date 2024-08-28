@@ -5,7 +5,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont
 import com.badlogic.gdx.math.Interpolation
 import com.badlogic.gdx.scenes.scene2d.Group
 import com.badlogic.gdx.scenes.scene2d.actions.Actions
-import com.myrran.domain.entities.common.collisioner.Collision
+import com.myrran.domain.entities.common.collisioner.ExactLocation
 import com.myrran.domain.entities.common.collisioner.NoLocation
 import com.myrran.domain.entities.common.vulnerable.Damage
 import com.myrran.infraestructure.view.mobs.enemy.EnemyView
@@ -40,7 +40,7 @@ class ScrollingCombatText(
     private fun Damage.getFont(): BitmapFont =
 
         when (this.location) {
-            is Collision -> assets.fontDirectDamage
+            is ExactLocation -> assets.fontDirectDamage
             NoLocation -> assets.fontEffectDamage
         }
 

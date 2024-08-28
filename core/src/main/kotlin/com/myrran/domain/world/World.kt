@@ -1,11 +1,11 @@
 package com.myrran.domain.world
 
-import com.badlogic.gdx.math.Vector2
 import com.badlogic.gdx.physics.box2d.ContactListener
 import com.badlogic.gdx.utils.Disposable
 import com.myrran.domain.entities.common.Entity
 import com.myrran.domain.entities.common.EntityId
 import com.myrran.domain.entities.common.Mob
+import com.myrran.domain.entities.common.collisioner.ExactLocation
 import com.myrran.domain.entities.mob.common.MobFactory
 import com.myrran.domain.entities.mob.player.Player
 import com.myrran.domain.events.Event
@@ -63,7 +63,7 @@ class World(
         mobs.values.forEach { it.act(timesStep) }
 
         // damageSystem
-        mobs.values.forEach { damageSystem.applyDamage(it) }
+        mobs.values.forEach { damageSystem.applyDamages(it) }
 
         // new-removed mobs
         removeMobs()
@@ -91,7 +91,7 @@ class World(
             is MobCreatedEvent -> toBeAdded.add(event.mob)
             is MobRemovedEvent -> toBeRemoved.add(event.mob.id)
             is PlayerSpellCastedEvent -> castPlayerSpell(event.skill, event.caster, event.origin, event.target)
-            is FormSpellCastedEvent -> createFormSpell(event.formSkill, event.caster, event.origin, event.direction)
+            is FormSpellCastedEvent -> createFormSpell(event.formSkill, event.caster, event.location)
             else -> Unit
         }
     }
@@ -105,9 +105,9 @@ class World(
             .also { toBeAdded.add(it) }
             .also { sendEvent(SpellCreatedEvent(it)) }
 
-    private fun createFormSpell(skill: FormSkill, caster: Entity, origin: PositionMeters, direction: Vector2) =
+    private fun createFormSpell(skill: FormSkill, caster: Entity, location: ExactLocation) =
 
-        mobFactory.createFormSpell(skill, caster, origin, direction)
+        mobFactory.createFormSpell(skill, caster, location)
 
             .also { toBeAdded.add(it) }
             .also { sendEvent(FormCreatedEvent(it)) }

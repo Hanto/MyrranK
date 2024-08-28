@@ -1,6 +1,9 @@
 package com.myrran.domain.entities.common.effectable
 
 import com.myrran.domain.entities.common.Entity
+import com.myrran.domain.entities.common.movementlimiter.MovementLimiter
+import com.myrran.domain.entities.common.statuses.StatusesComponent
+import com.myrran.domain.entities.common.vulnerable.Vulnerable
 import com.myrran.domain.entities.mob.spells.effect.Effect
 import com.myrran.domain.events.EffectAddedEvent
 import com.myrran.domain.events.EffectRemovedEvent
@@ -10,32 +13,32 @@ import com.myrran.infraestructure.eventbus.EventDispatcher
 
 class EffectableComponent(
 
-    private val eventDispatcher: EventDispatcher
+    private val statuses: StatusesComponent,
+    private val eventDispatcher: EventDispatcher,
 
 ): Effectable {
 
-    private var effects: MutableList<Effect> = mutableListOf()
-
     override fun retrieveEffects(): List<Effect> =
 
-        effects
+        statuses.findAll()
 
     override fun addEffect(effect: Effect) {
 
-        val existingEffect = effects.firstOrNull {
 
-            it.caster.id == effect.caster.id &&
-            it.effectType == effect.effectType
-        }
+        val existingEffect = statuses.findByCasterAndType(effect.caster.id, effect.effectType)
 
         if (existingEffect == null) {
 
-            effects.add(effect)
+            statuses.addEffect(effect)
         }
-        else {
+        else if (existingEffect.effectSkillId == effect.effectSkillId) {
 
-            existingEffect.resetDurationTo(Second(0.0f))
+            existingEffect.resetDuration()
             existingEffect.increaseStack()
+        }
+        else if (effect.allowToStack) {
+
+            statuses.addEffect(effect)
         }
     }
 
@@ -44,7 +47,7 @@ class EffectableComponent(
 
     override fun updateEffects(effectable: Entity, deltaTime: Second) {
 
-        effects.forEach { effect ->
+        statuses.findAll().forEach { effect ->
 
             if (effect.hasStarted())
                 effectStarted(effectable, effect)
@@ -53,6 +56,8 @@ class EffectableComponent(
         }
 
         removeExpired(effectable)
+
+        applyAll(effectable)
     }
 
     // STEPS:
@@ -60,7 +65,7 @@ class EffectableComponent(
 
     private fun effectStarted(entity: Entity, effect: Effect) {
 
-        effect.effectStarted(entity)
+        effect.onEffectStarted(statuses)
         eventDispatcher.sendEvent(EffectAddedEvent(entity.id, effect.id))
     }
 
@@ -74,24 +79,42 @@ class EffectableComponent(
 
         repeat( newTick - oldTick ) {
 
-            effect.effectTicked(entity)
+            effect.ofEffectTicked(statuses)
             eventDispatcher.sendEvent(EffectTickedEvent(entity.id, effect.id))
         }
     }
 
     private fun removeExpired(entity: Entity) {
 
-        val toBeRemoved = effects.filter { it.hasExpired() }
+        val toBeRemoved = statuses.findExpired()
 
         if  (toBeRemoved.isNotEmpty()) {
 
-            effects.removeIf { it.hasExpired() }
+            statuses.removeExpired()
 
             toBeRemoved.forEach { effect ->
 
-                effect.effectEnded(entity)
+                effect.onEffectEnded(statuses)
                 eventDispatcher.sendEvent(EffectRemovedEvent(entity.id, effect.id))
             }
+        }
+    }
+
+    // STEPS:
+    //--------------------------------------------------------------------------------------------------------
+
+    private fun applyAll(entity: Entity) {
+
+        statuses.recalc()
+
+        if (entity is Vulnerable) {
+
+            statuses.damage().forEach { entity.receiveDamage(it) }
+        }
+
+        if (entity is MovementLimiter) {
+
+            entity.slowModifier = statuses.slowMagnitude()
         }
     }
 }

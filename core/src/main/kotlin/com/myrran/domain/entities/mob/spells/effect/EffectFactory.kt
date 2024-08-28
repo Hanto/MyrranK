@@ -2,6 +2,7 @@ package com.myrran.domain.entities.mob.spells.effect
 
 import com.myrran.domain.entities.common.Entity
 import com.myrran.domain.entities.common.EntityId
+import com.myrran.domain.entities.common.collisioner.Location
 import com.myrran.domain.entities.common.consumable.ConsumableComponent
 import com.myrran.domain.entities.mob.spells.effect.stackable.StackableComponent
 import com.myrran.domain.misc.constants.SpellConstants.Companion.EXPIRATION
@@ -12,17 +13,17 @@ import com.myrran.domain.skills.created.effect.EffectSkill
 
 class EffectFactory
 {
-    fun createEffect(caster: Entity, effectSkill: EffectSkill): Effect =
+    fun createEffect(effectSkill: EffectSkill, caster: Entity, location: Location): Effect =
 
         when(effectSkill.type) {
 
-            EffectType.DAMAGE -> createDamageEffect(caster, effectSkill)
-            EffectType.DOT -> createDotEffect(caster, effectSkill)
+            EffectType.DAMAGE -> createDamageEffect(effectSkill, caster, location)
+            EffectType.DOT -> createDotEffect(effectSkill, caster, location)
             EffectType.BOMB -> TODO()
-            EffectType.SLOW -> createSlowEffect(caster, effectSkill)
+            EffectType.SLOW -> createSlowEffect(effectSkill, caster, location)
         }
 
-    private fun createDamageEffect(caster: Entity, effectSkill: EffectSkill): DamageEffect =
+    private fun createDamageEffect(effectSkill: EffectSkill, caster: Entity, location: Location): DamageEffect =
 
         DamageEffect(
             id = EntityId(),
@@ -34,10 +35,11 @@ class EffectFactory
             stackable = StackableComponent(
                 currentStack = 1,
                 maxStacks = effectSkill.getStat(MAX_STACKS)?.totalBonus()?.value?.toInt() ?: 1
-            )
+            ),
+            location = location
         )
 
-    private fun createDotEffect(caster: Entity, effectSkill: EffectSkill): DotEffect =
+    private fun createDotEffect(effectSkill: EffectSkill, caster: Entity, location: Location): DotEffect =
 
         DotEffect(
             id = EntityId(),
@@ -49,11 +51,12 @@ class EffectFactory
             stackable = StackableComponent(
                 currentStack = 1,
                 maxStacks = effectSkill.getStat(MAX_STACKS)!!.totalBonus().value.toInt()
-            )
+            ),
+            location = location
         )
 
 
-    private fun createSlowEffect(caster: Entity, effectSkill: EffectSkill): SlowEffect =
+    private fun createSlowEffect(effectSkill: EffectSkill, caster: Entity, location: Location): SlowEffect =
 
         SlowEffect(
             id = EntityId(),
@@ -65,6 +68,7 @@ class EffectFactory
             stackable = StackableComponent(
                 currentStack = 1,
                 maxStacks = effectSkill.getStat(MAX_STACKS)!!.totalBonus().value.toInt()
-            )
+            ),
+            location = location
         )
 }
