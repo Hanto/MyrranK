@@ -4,7 +4,6 @@ import com.myrran.domain.entities.common.Entity
 import com.myrran.domain.entities.common.EntityId
 import com.myrran.domain.entities.common.consumable.Consumable
 import com.myrran.domain.entities.common.statuses.Status
-import com.myrran.domain.entities.common.statuses.StatusesComponent
 import com.myrran.domain.entities.common.vulnerable.Damage
 import com.myrran.domain.entities.mob.spells.effect.stackable.Stackable
 import com.myrran.domain.misc.Identifiable
@@ -20,7 +19,7 @@ interface Effect: Identifiable<EntityId>, Consumable, Stackable {
     val statusEffects: List<Status>
     val damages: MutableList<Damage>
     fun effectName(): EffectSkillName
-    fun onEffectStarted(statuses: StatusesComponent)
-    fun ofEffectTicked(statuses: StatusesComponent)
-    fun onEffectEnded(statuses: StatusesComponent)
+    fun onEffectStarted(target: Entity)
+    fun ofEffectTicked(target: Entity)
+    fun onEffectEnded(target: Entity)
 }

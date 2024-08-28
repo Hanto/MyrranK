@@ -8,7 +8,6 @@ import com.myrran.domain.entities.common.consumable.ConsumableComponent
 import com.myrran.domain.entities.common.statuses.Status
 import com.myrran.domain.entities.common.statuses.Status.Chilled
 import com.myrran.domain.entities.common.statuses.Status.Slowed
-import com.myrran.domain.entities.common.statuses.StatusesComponent
 import com.myrran.domain.entities.common.vulnerable.Damage
 import com.myrran.domain.entities.mob.spells.effect.stackable.Stackable
 import com.myrran.domain.entities.mob.spells.effect.stackable.StackableComponent
@@ -35,7 +34,7 @@ data class SlowEffect(
 
     override fun effectName(): EffectSkillName = effectSkill.name
 
-    override fun onEffectStarted(statuses: StatusesComponent) {
+    override fun onEffectStarted(target: Entity) {
 
         val slowPerStack = effectSkill.getStat(MAGNITUDE)!!.totalBonus().value / 100
         val slowPercentage = 1 - (slowPerStack * stackable.numberOfStacks())
@@ -44,7 +43,7 @@ data class SlowEffect(
         statusEffects.add(Slowed(slowPercentage))
     }
 
-    override fun ofEffectTicked(statuses: StatusesComponent) {}
+    override fun ofEffectTicked(target: Entity) {}
 
-    override fun onEffectEnded(statuses: StatusesComponent) {}
+    override fun onEffectEnded(target: Entity) {}
 }

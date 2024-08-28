@@ -14,7 +14,6 @@ class DamageSystem(
     private val eventDispatcher: EventDispatcher
 )
 {
-
     fun applyDamages(entity: Entity) {
 
         if (entity is Vulnerable) {

@@ -6,7 +6,6 @@ import com.myrran.domain.entities.common.collisioner.Location
 import com.myrran.domain.entities.common.consumable.Consumable
 import com.myrran.domain.entities.common.consumable.ConsumableComponent
 import com.myrran.domain.entities.common.statuses.Status
-import com.myrran.domain.entities.common.statuses.StatusesComponent
 import com.myrran.domain.entities.common.vulnerable.Damage
 import com.myrran.domain.entities.common.vulnerable.DamageType
 import com.myrran.domain.entities.common.vulnerable.HP
@@ -35,7 +34,7 @@ class DamageEffect(
 
     override fun effectName(): EffectSkillName = effectSkill.name
 
-    override fun onEffectStarted(statuses: StatusesComponent) {
+    override fun onEffectStarted(target: Entity) {
 
         val amount = effectSkill.getStat(DIRECT_DAMAGE)!!.totalBonus().value.let { HP(it) }
         val damage = Damage(caster, amount, DamageType.COLD, location)
@@ -43,7 +42,7 @@ class DamageEffect(
         damages.add(damage)
     }
 
-    override fun ofEffectTicked(statuses: StatusesComponent) {}
+    override fun ofEffectTicked(target: Entity) {}
 
-    override fun onEffectEnded(statuses: StatusesComponent) {}
+    override fun onEffectEnded(target: Entity) {}
 }

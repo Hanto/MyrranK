@@ -24,7 +24,6 @@ class EffectableComponent(
 
     override fun addEffect(effect: Effect) {
 
-
         val existingEffect = statuses.findByCasterAndType(effect.caster.id, effect.effectType)
 
         if (existingEffect == null) {
@@ -65,7 +64,7 @@ class EffectableComponent(
 
     private fun effectStarted(entity: Entity, effect: Effect) {
 
-        effect.onEffectStarted(statuses)
+        effect.onEffectStarted(entity)
         eventDispatcher.sendEvent(EffectAddedEvent(entity.id, effect.id))
     }
 
@@ -79,7 +78,7 @@ class EffectableComponent(
 
         repeat( newTick - oldTick ) {
 
-            effect.ofEffectTicked(statuses)
+            effect.ofEffectTicked(entity)
             eventDispatcher.sendEvent(EffectTickedEvent(entity.id, effect.id))
         }
     }
@@ -94,7 +93,7 @@ class EffectableComponent(
 
             toBeRemoved.forEach { effect ->
 
-                effect.onEffectEnded(statuses)
+                effect.onEffectEnded(entity)
                 eventDispatcher.sendEvent(EffectRemovedEvent(entity.id, effect.id))
             }
         }

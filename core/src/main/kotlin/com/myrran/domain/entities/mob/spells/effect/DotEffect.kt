@@ -7,7 +7,6 @@ import com.myrran.domain.entities.common.collisioner.NoLocation
 import com.myrran.domain.entities.common.consumable.Consumable
 import com.myrran.domain.entities.common.consumable.ConsumableComponent
 import com.myrran.domain.entities.common.statuses.Status
-import com.myrran.domain.entities.common.statuses.StatusesComponent
 import com.myrran.domain.entities.common.vulnerable.Damage
 import com.myrran.domain.entities.common.vulnerable.DamageType
 import com.myrran.domain.entities.common.vulnerable.HP
@@ -36,9 +35,9 @@ data class DotEffect(
 
     override fun effectName(): EffectSkillName = effectSkill.name
 
-    override fun onEffectStarted(statuses: StatusesComponent) {}
+    override fun onEffectStarted(target: Entity) {}
 
-    override fun ofEffectTicked(statuses: StatusesComponent) {
+    override fun ofEffectTicked(target: Entity) {
 
         val amount = effectSkill.getStat(DAMAGE_PER_TICK)!!.totalBonus().value
             .let { HP(it * numberOfStacks()) }
@@ -48,5 +47,5 @@ data class DotEffect(
         damages.add(damage)
     }
 
-    override fun onEffectEnded(statuses: StatusesComponent) {}
+    override fun onEffectEnded(target: Entity) {}
 }
