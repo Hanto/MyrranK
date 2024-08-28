@@ -20,7 +20,7 @@ class FormCreatorComponent(
     // FORM CREATION:
     //--------------------------------------------------------------------------------------------------------
 
-    override fun <T> createForm(caster: Entity, spell: T, skillForm: FormSkill) where T: Corporeal, T: Collisioner {
+    override fun <CorporealCollisioner> createForm(caster: Entity, spell: CorporealCollisioner, skillForm: FormSkill) where CorporealCollisioner: Corporeal, CorporealCollisioner: Collisioner {
 
         when (skillForm.collisionType) {
 

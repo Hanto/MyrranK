@@ -7,5 +7,5 @@ import com.myrran.domain.skills.created.form.FormSkill
 
 interface FormCreator {
 
-    fun<T> createForm(caster: Entity, spell: T, skillForm: FormSkill) where T: Corporeal, T: Collisioner
+    fun<CorporealCollisioner> createForm(caster: Entity, spell: CorporealCollisioner, skillForm: FormSkill) where CorporealCollisioner: Corporeal, CorporealCollisioner: Collisioner
 }
